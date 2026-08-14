@@ -1,0 +1,1272 @@
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import {
+  Menu, BookOpen, Printer, Star, Volume2, VolumeX,
+  Shuffle, RotateCcw, ChevronLeft, ChevronRight, Copy, Check,
+  Compass, ArrowLeft, Sparkles, Award, Swords, Bot, CheckCircle2,
+  AlertTriangle, Undo2, Plus, Database, UploadCloud, Cpu, Zap, Flame, Settings2,
+  FolderTree, Maximize2, Minimize2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen,
+  PanelTopClose, PanelTopOpen, ChevronDown, ChevronUp
+} from 'lucide-react';
+
+import XiangqiBoard from './components/XiangqiBoard';
+import Sidebar from './components/Sidebar';
+import StudyPanel from './components/StudyPanel';
+import PlayAIPanel from './components/PlayAIPanel';
+import PdfExportModal from './components/PdfExportModal';
+import AiTutorModal from './components/AiTutorModal';
+import BoardEditorModal from './components/BoardEditorModal';
+import DatabaseImportModal from './components/DatabaseImportModal';
+import EngineSettingsModal from './components/EngineSettingsModal';
+
+import {
+  parseFen, getLegalMoves, makeMove, isInCheck, PIECE_NAMES,
+  moveToVietnameseFull, moveToVietnamese, moveToChinese, parseChineseMove, isRed
+} from './components/XiangqiLogic';
+import { getBestMove as getWasmBestMove, evaluateBoard, solvePuzzleSequence, isStandardOpening, GRANDMASTER_OPENING_MOVES } from './components/XiangqiAI';
+import { engineManager } from './components/EngineManager';
+import { sound } from './components/AudioEngine';
+import { storageGet, storageSet } from './lib/safeStorage.js';
+import { safeFetchJson } from './lib/dataLoader.js';
+
+export default function App() {
+  // App Mode: 'study' (Nghiên cứu kỳ phổ 4.230 bài) | 'play_ai' (Đấu cờ với AI)
+  const [appMode, setAppMode] = useState('study');
+
+  // Engine Manager State
+  const [engineState, setEngineState] = useState(engineManager.getState());
+  const [isEngineModalOpen, setIsEngineModalOpen] = useState(false);
+
+  useEffect(() => {
+    return engineManager.subscribe(setEngineState);
+  }, []);
+
+  // Catalog & Lesson States
+  const [catalog, setCatalog] = useState(null);
+  const [chunksManifest, setChunksManifest] = useState({});
+  const [loadedChunks, setLoadedChunks] = useState({});
+  const [currentLessonId, setCurrentLessonId] = useState(null);
+  const [currentLesson, setCurrentLesson] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Custom User Lessons & Imported Database
+  const [customLessons, setCustomLessons] = useState(() => {
+    try {
+      return JSON.parse(storageGet('xiangqi_custom_lessons', '[]'));
+    } catch {
+      return [];
+    }
+  });
+
+  // Modals & Triple-Collapse Studio UI (Top, Left, Right)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isTopHeaderCollapsed, setIsTopHeaderCollapsed] = useState(false);
+  const [isLeftSidebarCollapsed, setIsLeftSidebarCollapsed] = useState(false);
+  const [isRightPanelCollapsed, setIsRightPanelCollapsed] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [isAiTutorOpen, setIsAiTutorOpen] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
+  // Board View Controls (Con cờ giữ chữ Hán truyền thống theo yêu cầu)
+  const [flipped, setFlipped] = useState(false);
+  const [pieceLanguage, setPieceLanguage] = useState('cn'); // 'cn' (default) | 'vi'
+  const [isMuted, setIsMuted] = useState(false);
+  const [showEvalBar, setShowEvalBar] = useState(true);
+  const [isEngineAssistantEnabled, setIsEngineAssistantEnabled] = useState(true);
+
+  // Study Navigation
+  const [currentMoveIndex, setCurrentMoveIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playSpeed, setPlaySpeed] = useState(1500);
+
+  // Board Interactivity & Trial Moves in Study Mode
+  const [selectedSquare, setSelectedSquare] = useState(null);
+  const [legalDestinations, setLegalDestinations] = useState([]);
+  const [lastMove, setLastMove] = useState(null);
+  const [trialBoard, setTrialBoard] = useState(null);
+  const [trialTurn, setTrialTurn] = useState('red');
+
+  // Interactive Practice Mode vs AI & Real-time Coach Feedback in Study Mode
+  const [isPracticeMode, setIsPracticeMode] = useState(false);
+  const [practiceSuccess, setPracticeSuccess] = useState(false);
+  const [coachFeedback, setCoachFeedback] = useState(null);
+
+  // Play vs AI Mode States
+  const [playAiBoard, setPlayAiBoard] = useState(() => parseFen().board);
+  const [playAiTurn, setPlayAiTurn] = useState('red');
+  const [playAiPlayerColor, setPlayAiPlayerColor] = useState('red');
+  const [playAiDifficulty, setPlayAiDifficulty] = useState(14);
+  const [playAiThinking, setPlayAiThinking] = useState(false);
+  const [playAiHistory, setPlayAiHistory] = useState([]);
+  const [playAiSelectedSquare, setPlayAiSelectedSquare] = useState(null);
+  const [playAiLegalDests, setPlayAiLegalDests] = useState([]);
+  const [playAiLastMove, setPlayAiLastMove] = useState(null);
+
+  // Favorites & Completed Lessons in localStorage
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      return JSON.parse(storageGet('xiangqi_favorites', '[]'));
+    } catch {
+      return [];
+    }
+  });
+
+  const [completedLessons, setCompletedLessons] = useState(() => {
+    try {
+      return JSON.parse(storageGet('xiangqi_completed_lessons', '[]'));
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    storageSet('xiangqi_favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  useEffect(() => {
+    storageSet('xiangqi_completed_lessons', JSON.stringify(completedLessons));
+  }, [completedLessons]);
+
+  // Load Catalog & Manifest + Pre-cache initial chunks
+  useEffect(() => {
+    const initData = async () => {
+      try {
+        setLoading(true);
+        const [catData, manData] = await Promise.all([
+          safeFetchJson('data/catalog.json'),
+          safeFetchJson('data/chunks_manifest.json')
+        ]);
+
+        // Merge custom imported lessons into catalog items
+        const combinedItems = [...customLessons, ...(catData?.items || [])];
+        setCatalog({
+          ...catData,
+          items: combinedItems
+        });
+        setChunksManifest(manData || {});
+
+        if (combinedItems.length > 0) {
+          const lastId = storageGet('xiangqi_last_lesson_id');
+          const targetId = (lastId && combinedItems.some(i => i.id === lastId))
+            ? lastId
+            : combinedItems[0].id;
+          setCurrentLessonId(targetId);
+        }
+
+        // Defer preloading remaining chunks in background when idle
+        if (manData) {
+          setTimeout(() => {
+            const uniqueChunkFiles = Array.from(new Set(Object.values(manData))).slice(0, 8);
+            uniqueChunkFiles.forEach(async (chunkFile) => {
+              try {
+                const data = await safeFetchJson(`data/${chunkFile}`);
+                setLoadedChunks(prev => ({ ...prev, [chunkFile]: data }));
+              } catch (e) { }
+            });
+          }, 1500);
+        }
+      } catch (err) {
+        console.error('Failed to load catalog:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    initData();
+  }, [customLessons]);
+
+  // Fetch full lesson data instantaneously from memory cache or custom lessons
+  useEffect(() => {
+    if (!currentLessonId) return;
+
+    // Check if it's a custom created/imported lesson
+    const customMatch = customLessons.find(l => l.id === currentLessonId);
+    if (customMatch) {
+      setCurrentLesson(customMatch);
+      storageSet('xiangqi_last_lesson_id', currentLessonId);
+      setCurrentMoveIndex(0);
+      setIsPlaying(false);
+      setSelectedSquare(null);
+      setLegalDestinations([]);
+      setLastMove(null);
+      setTrialBoard(null);
+      setIsPracticeMode(false);
+      setPracticeSuccess(false);
+      setCoachFeedback(null);
+      return;
+    }
+
+    if (!chunksManifest[currentLessonId]) return;
+
+    const loadLessonDetails = async () => {
+      const chunkFile = chunksManifest[currentLessonId];
+      let chunkData = loadedChunks[chunkFile];
+
+      if (!chunkData) {
+        try {
+          chunkData = await safeFetchJson(`data/${chunkFile}`);
+          setLoadedChunks(prev => ({ ...prev, [chunkFile]: chunkData }));
+        } catch (e) {
+          console.error('Failed loading chunk', chunkFile, e);
+          return;
+        }
+      }
+
+      const lesson = chunkData?.find?.(l => l.id === currentLessonId);
+      if (lesson) {
+        setCurrentLesson(lesson);
+        storageSet('xiangqi_last_lesson_id', currentLessonId);
+        setCurrentMoveIndex(0);
+        setIsPlaying(false);
+        setSelectedSquare(null);
+        setLegalDestinations([]);
+        setLastMove(null);
+        setTrialBoard(null);
+        setIsPracticeMode(false);
+        setPracticeSuccess(false);
+        setCoachFeedback(null);
+      }
+    };
+
+    loadLessonDetails();
+  }, [currentLessonId, chunksManifest, loadedChunks, customLessons]);
+
+  // Compute Current Board based on game record moves (or AI solution moves)
+  const { currentStudyBoard, totalHalfMoves } = useMemo(() => {
+    if (!currentLesson) {
+      const { board } = parseFen();
+      return { currentStudyBoard: board, totalHalfMoves: 0 };
+    }
+
+    const { board: initialBoard } = parseFen(currentLesson.fen);
+    let board = initialBoard;
+    const moves = currentLesson.moves || [];
+
+    let totalMoves = 0;
+    for (let m of moves) {
+      if (m.red || m.customMoveRed) totalMoves++;
+      if (m.black || m.customMoveBlack) totalMoves++;
+    }
+
+    let count = 0;
+    for (let i = 0; i < moves.length; i++) {
+      const m = moves[i];
+      if ((m.red || m.customMoveRed) && count < currentMoveIndex) {
+        const parsedMove = m.customMoveRed || parseChineseMove(board, m.red, 'red');
+        if (parsedMove) {
+          board = makeMove(board, parsedMove);
+        }
+        count++;
+      }
+      if ((m.black || m.customMoveBlack) && count < currentMoveIndex) {
+        const parsedMove = m.customMoveBlack || parseChineseMove(board, m.black, 'black');
+        if (parsedMove) {
+          board = makeMove(board, parsedMove);
+        }
+        count++;
+      }
+      if (count >= currentMoveIndex) break;
+    }
+
+    return { currentStudyBoard: board, totalHalfMoves: totalMoves };
+  }, [currentLesson, currentMoveIndex]);
+
+  // Active board is either trial board or study board (or play AI board)
+  const isStudy = appMode === 'study';
+  const activeBoard = isStudy ? (trialBoard || currentStudyBoard) : playAiBoard;
+  const isTrialMode = isStudy && (trialBoard !== null);
+  const activeTurn = isStudy
+    ? (isTrialMode ? trialTurn : ((currentMoveIndex % 2 === 0) ? 'red' : 'black'))
+    : playAiTurn;
+
+  // Fast O(1) synchronous Material & Positional Eval score (Instant 0.01ms evaluation)
+  const currentEvalScore = useMemo(() => {
+    if (!activeBoard || !isEngineAssistantEnabled) return 0;
+    try {
+      return evaluateBoard(activeBoard);
+    } catch {
+      return 0;
+    }
+  }, [activeBoard, isEngineAssistantEnabled]);
+
+  // Non-blocking Debounced Engine Best Move Suggestion (Runs smoothly in background without freezing UI)
+  const [bestMoveSuggestion, setBestMoveSuggestion] = useState(null);
+  useEffect(() => {
+    if (!activeBoard || !isEngineAssistantEnabled) {
+      setBestMoveSuggestion(null);
+      return;
+    }
+    const timer = setTimeout(() => {
+      try {
+        const best = getWasmBestMove(activeBoard, activeTurn, 3);
+        setBestMoveSuggestion(best);
+      } catch (e) {
+        setBestMoveSuggestion(null);
+      }
+    }, 70);
+    return () => clearTimeout(timer);
+  }, [activeBoard, activeTurn, isEngineAssistantEnabled]);
+
+  // Fast Instant Next & Previous Lesson Handlers
+  const handleNextLesson = useCallback(() => {
+    if (!catalog?.items || !currentLessonId) return;
+    const currentIndex = catalog.items.findIndex(it => it.id === currentLessonId);
+    if (currentIndex !== -1 && currentIndex < catalog.items.length - 1) {
+      sound.playMove();
+      setCurrentLessonId(catalog.items[currentIndex + 1].id);
+    }
+  }, [catalog, currentLessonId]);
+
+  const handlePrevLesson = useCallback(() => {
+    if (!catalog?.items || !currentLessonId) return;
+    const currentIndex = catalog.items.findIndex(it => it.id === currentLessonId);
+    if (currentIndex > 0) {
+      sound.playMove();
+      setCurrentLessonId(catalog.items[currentIndex - 1].id);
+    }
+  }, [catalog, currentLessonId]);
+
+  // Toggle mark completed
+  const handleToggleComplete = useCallback((lessonId) => {
+    setCompletedLessons(prev => {
+      const exists = prev.includes(lessonId);
+      if (exists) {
+        return prev.filter(id => id !== lessonId);
+      } else {
+        sound.playCheck();
+        return [...prev, lessonId];
+      }
+    });
+  }, []);
+
+  // Study Navigation Handlers
+  const handleGoToMove = (index) => {
+    const nextIdx = Math.max(0, Math.min(totalHalfMoves, index));
+    if (nextIdx > currentMoveIndex) {
+      sound.playMove();
+    }
+    setCurrentMoveIndex(nextIdx);
+    setTrialBoard(null);
+    setSelectedSquare(null);
+    setLegalDestinations([]);
+    setLastMove(null);
+    setCoachFeedback(null);
+
+    // Auto mark completed when user finishes studying all moves
+    if (nextIdx === totalHalfMoves && currentLesson?.id) {
+      if (!completedLessons.includes(currentLesson.id)) {
+        setCompletedLessons(prev => [...prev, currentLesson.id]);
+      }
+    }
+  };
+
+  const handleFirstMove = () => handleGoToMove(0);
+  const handlePrevMove = () => handleGoToMove(currentMoveIndex - 1);
+  const handleNextMove = () => handleGoToMove(currentMoveIndex + 1);
+  const handleLastMove = () => handleGoToMove(totalHalfMoves);
+
+  const handleTogglePlay = () => {
+    setIsPlaying(prev => !prev);
+  };
+
+  const handleApplyAiSolution = (solutionMoves) => {
+    setCurrentLesson(prev => ({
+      ...prev,
+      moves: solutionMoves
+    }));
+    setCurrentMoveIndex(0);
+    setTrialBoard(null);
+    setSelectedSquare(null);
+    setLegalDestinations([]);
+    setIsPlaying(true);
+  };
+
+  const handleStartPracticeMode = () => {
+    setIsPracticeMode(prev => !prev);
+    setTrialBoard(null);
+    setPracticeSuccess(false);
+    setCoachFeedback(null);
+    setSelectedSquare(null);
+    setLegalDestinations([]);
+    setLastMove(null);
+    setCurrentMoveIndex(0);
+    setIsPlaying(false);
+  };
+
+  // Load Custom Puzzle from Editor
+  const handleLoadCustomPuzzle = (newCustomLesson) => {
+    setCustomLessons(prev => [newCustomLesson, ...prev]);
+    const existing = JSON.parse(storageGet('xiangqi_custom_lessons', '[]'));
+    storageSet('xiangqi_custom_lessons', JSON.stringify([newCustomLesson, ...existing]));
+    setCurrentLessonId(newCustomLesson.id);
+  };
+
+  // Handle Imported DB lessons
+  const handleImportDbSuccess = (importedLessons) => {
+    setCustomLessons(prev => [...importedLessons, ...prev]);
+    if (importedLessons.length > 0) {
+      setCurrentLessonId(importedLessons[0].id);
+    }
+  };
+
+  // Auto-play interval in Study mode
+  useEffect(() => {
+    let timer;
+    if (isPlaying && isStudy) {
+      timer = setInterval(() => {
+        setCurrentMoveIndex(prev => {
+          if (prev >= totalHalfMoves) {
+            setIsPlaying(false);
+            if (currentLesson?.id && !completedLessons.includes(currentLesson.id)) {
+              setCompletedLessons(p => [...p, currentLesson.id]);
+            }
+            return prev;
+          }
+          sound.playMove();
+          return prev + 1;
+        });
+      }, playSpeed);
+    }
+    return () => clearInterval(timer);
+  }, [isPlaying, totalHalfMoves, playSpeed, currentLesson, completedLessons, isStudy]);
+
+  // Global Keyboard Shortcuts for High Speed Navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+      if (isPdfModalOpen || isAiTutorOpen || isEditorOpen || isImportModalOpen || isEngineModalOpen) return;
+
+      if (e.key === 'ArrowLeft' || e.key === '[') {
+        e.preventDefault();
+        handlePrevMove();
+      } else if (e.key === 'ArrowRight' || e.key === ']') {
+        e.preventDefault();
+        handleNextMove();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        handleFirstMove();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        handleLastMove();
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        handleTogglePlay();
+      } else if (e.key.toLowerCase() === 'f') {
+        e.preventDefault();
+        setFlipped(prev => !prev);
+      } else if (e.key.toLowerCase() === 'm') {
+        e.preventDefault();
+        const muted = sound.toggleMute();
+        setIsMuted(muted);
+      } else if (e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        const isAllCollapsed = isTopHeaderCollapsed && isLeftSidebarCollapsed && isRightPanelCollapsed;
+        setIsTopHeaderCollapsed(!isAllCollapsed);
+        setIsLeftSidebarCollapsed(!isAllCollapsed);
+        setIsRightPanelCollapsed(!isAllCollapsed);
+      } else if (e.key.toLowerCase() === 'h') {
+        e.preventDefault();
+        setIsTopHeaderCollapsed(prev => !prev);
+      } else if (e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+        setIsEngineAssistantEnabled(prev => !prev);
+      } else if (e.key.toLowerCase() === 'n') {
+        e.preventDefault();
+        handleNextLesson();
+      } else if (e.key.toLowerCase() === 'p') {
+        e.preventDefault();
+        handlePrevLesson();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    currentMoveIndex, totalHalfMoves, isPlaying, isTopHeaderCollapsed, isLeftSidebarCollapsed, isRightPanelCollapsed,
+    isPdfModalOpen, isAiTutorOpen, isEditorOpen, isImportModalOpen, isEngineModalOpen,
+    handleNextLesson, handlePrevLesson
+  ]);
+
+  // AI Response Trigger in Play AI Mode
+  useEffect(() => {
+    if (appMode !== 'play_ai') return;
+    const aiColor = playAiPlayerColor === 'red' ? 'black' : 'red';
+
+    if (playAiTurn === aiColor && !playAiThinking) {
+      const legalMoves = getLegalMoves(playAiBoard, aiColor);
+      if (legalMoves.length === 0) {
+        sound.playCheck();
+        return;
+      }
+
+      setPlayAiThinking(true);
+
+      const computeAiMove = async () => {
+        try {
+          const aiRes = await engineManager.getBestMove(playAiBoard, aiColor, playAiDifficulty);
+          if (aiRes) {
+            const nextB = makeMove(playAiBoard, aiRes);
+            setPlayAiBoard(nextB);
+            setPlayAiTurn(playAiPlayerColor);
+            setPlayAiLastMove(aiRes);
+
+            if (aiRes.captured) sound.playCapture();
+            else sound.playMove();
+
+            if (isInCheck(nextB, playAiPlayerColor)) {
+              sound.playCheck();
+            }
+
+            const notationVi = moveToVietnameseFull(playAiBoard, aiRes, aiColor);
+            const notationCn = moveToChinese(playAiBoard, aiRes, aiColor);
+
+            setPlayAiHistory(prev => [
+              ...prev,
+              {
+                turn: aiColor,
+                move: aiRes,
+                notationVi,
+                notationCn,
+                captured: aiRes.captured,
+                uci: aiRes.uci || ''
+              }
+            ]);
+          }
+        } catch (e) {
+          console.error('AI move error:', e);
+        } finally {
+          setPlayAiThinking(false);
+        }
+      };
+
+      // Slight natural thinking delay
+      const timer = setTimeout(computeAiMove, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [appMode, playAiTurn, playAiPlayerColor, playAiBoard, playAiDifficulty, playAiThinking]);
+
+  // Interactive Moves on Board (Study Mode & Play AI Mode)
+  const handleSquareClick = async (r, c) => {
+    if (appMode === 'play_ai') {
+      if (playAiThinking || playAiTurn !== playAiPlayerColor) return;
+
+      const clickedPiece = playAiBoard[r][c];
+
+      // If destination selected
+      if (playAiSelectedSquare) {
+        const isDest = playAiLegalDests.some(d => d.toR === r && d.toC === c);
+        if (isDest) {
+          const move = {
+            fromR: playAiSelectedSquare.r,
+            fromC: playAiSelectedSquare.c,
+            toR: r,
+            toC: c,
+            captured: clickedPiece
+          };
+
+          if (clickedPiece) sound.playCapture();
+          else sound.playMove();
+
+          const nextBoard = makeMove(playAiBoard, move);
+          setPlayAiBoard(nextBoard);
+          setPlayAiLastMove(move);
+          setPlayAiSelectedSquare(null);
+          setPlayAiLegalDests([]);
+
+          const notationVi = moveToVietnameseFull(playAiBoard, move, playAiPlayerColor);
+          const notationCn = moveToChinese(playAiBoard, move, playAiPlayerColor);
+
+          setPlayAiHistory(prev => [
+            ...prev,
+            {
+              turn: playAiPlayerColor,
+              move,
+              notationVi,
+              notationCn,
+              captured: clickedPiece
+            }
+          ]);
+
+          const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
+          setPlayAiTurn(nextTurn);
+          return;
+        }
+      }
+
+      // Select piece
+      if (clickedPiece) {
+        const pieceIsRed = isRed(clickedPiece);
+        const isMyPiece = (playAiPlayerColor === 'red' && pieceIsRed) || (playAiPlayerColor === 'black' && !pieceIsRed);
+        if (isMyPiece) {
+          setPlayAiSelectedSquare({ r, c });
+          const allLegal = getLegalMoves(playAiBoard, playAiPlayerColor);
+          const pieceLegal = allLegal.filter(m => m.fromR === r && m.fromC === c);
+          setPlayAiLegalDests(pieceLegal);
+          sound.playSelect();
+          return;
+        }
+      }
+
+      setPlayAiSelectedSquare(null);
+      setPlayAiLegalDests([]);
+      return;
+    }
+
+    // STUDY MODE HANDLING
+    const clickedPiece = activeBoard[r][c];
+
+    // If destination selected
+    if (selectedSquare) {
+      const isDestination = legalDestinations.some(d => d.toR === r && d.toC === c);
+      if (isDestination) {
+        const move = {
+          fromR: selectedSquare.r,
+          fromC: selectedSquare.c,
+          toR: r,
+          toC: c,
+          captured: clickedPiece
+        };
+
+        if (clickedPiece) sound.playCapture();
+        else sound.playMove();
+
+        // If in Practice Mode vs AI: Check if move is optimal or blunder
+        if (isPracticeMode) {
+          const isOpening = isStandardOpening(activeBoard);
+          let isOptimal = false;
+          let bestMove = null;
+
+          if (isOpening) {
+            isOptimal = GRANDMASTER_OPENING_MOVES.some(m => 
+              m.fromR === selectedSquare.r && m.fromC === selectedSquare.c && m.toR === r && m.toC === c
+            );
+            bestMove = GRANDMASTER_OPENING_MOVES[0];
+          } else if (currentLesson?.moves && currentLesson.moves.length > 0) {
+            // Check against recorded lesson solution
+            const expectedChinese = currentLesson.moves[0];
+            if (expectedChinese) {
+              const expectedObj = parseChineseMove(expectedChinese, activeBoard, 'red');
+              if (expectedObj && expectedObj.fromR === selectedSquare.r && expectedObj.fromC === selectedSquare.c && expectedObj.toR === r && expectedObj.toC === c) {
+                isOptimal = true;
+              }
+            }
+            if (!isOptimal) {
+              bestMove = getWasmBestMove(activeBoard, 'red', 4);
+              if (bestMove && bestMove.fromR === selectedSquare.r && bestMove.fromC === selectedSquare.c && bestMove.toR === r && bestMove.toC === c) {
+                isOptimal = true;
+              }
+            }
+          } else {
+            bestMove = getWasmBestMove(activeBoard, 'red', 4);
+            isOptimal = bestMove && (bestMove.fromR === selectedSquare.r && bestMove.fromC === selectedSquare.c && bestMove.toR === r && bestMove.toC === c);
+          }
+
+          const viPlayer = moveToVietnameseFull(activeBoard, move, 'red');
+
+          if (!isOptimal && bestMove) {
+            const viBest = moveToVietnameseFull(activeBoard, bestMove, 'red');
+            setCoachFeedback({
+              type: 'mistake',
+              message: `⚠️ Nước ${viPlayer} chưa tối ưu! Nước cao hơn nên là ${viBest}.`,
+              sub: 'Đen có thể chống cự. Bạn có thể bấm [Thử lại nước này] hoặc tiếp tục.'
+            });
+          } else {
+            setCoachFeedback({
+              type: 'success',
+              message: `✓ Nước cờ ${viPlayer} chuẩn xác! Khóa chặt thế trận.`,
+              sub: ''
+            });
+          }
+
+          const nextBoard = makeMove(activeBoard, move);
+          setTrialBoard(nextBoard);
+          setLastMove(move);
+          setSelectedSquare(null);
+          setLegalDestinations([]);
+          setTrialTurn('black');
+
+          // Check if Red just checkmated Black
+          const blackLegal = getLegalMoves(nextBoard, 'black');
+          if (blackLegal.length === 0) {
+            setPracticeSuccess(true);
+            sound.playCheck();
+            if (currentLesson?.id && !completedLessons.includes(currentLesson.id)) {
+              setCompletedLessons(p => [...p, currentLesson.id]);
+            }
+            return;
+          }
+
+          // AI computes Black defense after 350ms
+          setTimeout(async () => {
+            const aiResponse = await engineManager.getBestMove(nextBoard, 'black', 12);
+            if (aiResponse) {
+              const boardAfterAi = makeMove(nextBoard, aiResponse);
+              setTrialBoard(boardAfterAi);
+              setTrialTurn('red');
+              setLastMove(aiResponse);
+              if (aiResponse.captured) sound.playCapture();
+              else sound.playMove();
+
+              if (isInCheck(boardAfterAi, 'red')) {
+                sound.playCheck();
+              }
+            }
+          }, 350);
+          return;
+        }
+
+        // Normal Free Trial Mode
+        const nextBoard = makeMove(activeBoard, move);
+        setTrialBoard(nextBoard);
+        setLastMove(move);
+        setSelectedSquare(null);
+        setLegalDestinations([]);
+        setTrialTurn(activeTurn === 'red' ? 'black' : 'red');
+        return;
+      }
+    }
+
+    // Select piece
+    if (clickedPiece) {
+      const pieceIsRed = isRed(clickedPiece);
+      if ((activeTurn === 'red' && pieceIsRed) || (activeTurn === 'black' && !pieceIsRed)) {
+        setSelectedSquare({ r, c });
+        const allLegal = getLegalMoves(activeBoard, activeTurn);
+        const pieceLegal = allLegal.filter(m => m.fromR === r && m.fromC === c);
+        setLegalDestinations(pieceLegal);
+        sound.playSelect();
+        return;
+      }
+    }
+
+    setSelectedSquare(null);
+    setLegalDestinations([]);
+  };
+
+  const handleResetTrial = () => {
+    setTrialBoard(null);
+    setSelectedSquare(null);
+    setLegalDestinations([]);
+    setLastMove(null);
+    setPracticeSuccess(false);
+    setCoachFeedback(null);
+  };
+
+  // Play AI handlers
+  const handlePlayAiUndo = () => {
+    if (playAiHistory.length < 2) {
+      handlePlayAiReset();
+      return;
+    }
+    // Remove last 2 moves (AI move + Player move)
+    const newHistory = playAiHistory.slice(0, -2);
+    let b = parseFen().board;
+    for (let h of newHistory) {
+      b = makeMove(b, h.move);
+    }
+    setPlayAiBoard(b);
+    setPlayAiHistory(newHistory);
+    setPlayAiTurn(playAiPlayerColor);
+    setPlayAiSelectedSquare(null);
+    setPlayAiLegalDests([]);
+    setPlayAiLastMove(newHistory.length > 0 ? newHistory[newHistory.length - 1].move : null);
+    sound.playMove();
+  };
+
+  const handlePlayAiReset = () => {
+    const fresh = parseFen().board;
+    setPlayAiBoard(fresh);
+    setPlayAiTurn('red');
+    setPlayAiHistory([]);
+    setPlayAiSelectedSquare(null);
+    setPlayAiLegalDests([]);
+    setPlayAiLastMove(null);
+    sound.playSelect();
+  };
+
+  const handlePlayAiSwitchSides = () => {
+    const nextColor = playAiPlayerColor === 'red' ? 'black' : 'red';
+    setPlayAiPlayerColor(nextColor);
+    setFlipped(nextColor === 'black');
+    handlePlayAiReset();
+  };
+
+  const handleToggleFavorite = (lessonId) => {
+    setFavorites(prev =>
+      prev.includes(lessonId)
+        ? prev.filter(id => id !== lessonId)
+        : [...prev, lessonId]
+    );
+  };
+
+  // Active board interactive props
+  const currentSelectedSquare = isStudy ? selectedSquare : playAiSelectedSquare;
+  const currentLegalDestinations = isStudy ? legalDestinations : playAiLegalDests;
+  const currentLastMove = isStudy ? lastMove : playAiLastMove;
+
+  return (
+    <div className="flex flex-col h-screen bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
+      {/* Top Imperial App Header Bar (Clean, Minimalist Luxury) */}
+      <header className={`px-4 md:px-6 bg-[#0c0f17]/95 backdrop-blur-xl border-b border-[#202636] flex items-center justify-between shadow-2xl z-30 no-print transition-all duration-300 ease-in-out ${
+        isTopHeaderCollapsed ? '-translate-y-full h-0 p-0 overflow-hidden opacity-0 pointer-events-none' : 'h-14 opacity-100'
+      }`}>
+        {/* Left: Royal Brand */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="md:hidden p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10"
+          >
+            <Menu className="w-4 h-4" />
+          </button>
+
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center font-black text-white shadow-md text-base border border-amber-300/30">
+              👑
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-black text-white tracking-wide">Kỳ Đài Conic</span>
+                <span className="text-[10px] px-2 py-0.2 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold font-mono">
+                  {catalog?.items?.length || 4230} Bài
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Center: Clean Segmented Mode Selector */}
+        <div className="hidden md:flex items-center p-1 rounded-xl bg-[#141824] border border-[#232a3d] shadow-inner">
+          <button
+            onClick={() => setAppMode('study')}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+              appMode === 'study'
+                ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 shadow-sm'
+                : 'text-gray-400 hover:text-gray-200'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Nghiên Cứu Kỳ Phổ</span>
+          </button>
+
+          <button
+            onClick={() => setAppMode('play_ai')}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+              appMode === 'play_ai'
+                ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-sm'
+                : 'text-gray-400 hover:text-gray-200'
+            }`}
+          >
+            <Swords className="w-3.5 h-3.5" />
+            <span>Đấu Cờ Với AI</span>
+          </button>
+        </div>
+
+        {/* Right: Unified Luxury Action Cluster */}
+        <div className="flex items-center gap-2">
+          {/* Engine Status Pill */}
+          <button
+            onClick={() => setIsEngineModalOpen(true)}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold bg-[#141824] hover:bg-[#1c2233] border border-[#262e42] text-amber-300 transition-all active:scale-95 shadow-sm"
+            title="Động cơ phân tích Pikafish / WASM"
+          >
+            <Flame className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden lg:inline">{engineState.isNativeActive ? engineManager.getNativeLabel() : 'WASM Engine'}</span>
+            <Settings2 className="w-3 h-3 opacity-60" />
+          </button>
+
+          {/* Quick Tools Icons Group (Joined Pill) */}
+          <div className="flex items-center bg-[#141824] border border-[#262e42] rounded-xl p-0.5">
+            <button
+              onClick={() => setIsEditorOpen(true)}
+              className="p-1.5 px-2 text-gray-400 hover:text-amber-300 hover:bg-white/5 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
+              title="Tự xếp thế cờ mới"
+            >
+              <Plus className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden xl:inline">Xếp Cờ</span>
+            </button>
+
+            <button
+              onClick={() => setIsImportModalOpen(true)}
+              className="p-1.5 px-2 text-gray-400 hover:text-cyan-300 hover:bg-white/5 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
+              title="Nạp thêm CSDL cờ"
+            >
+              <Database className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="hidden xl:inline">Nạp CSDL</span>
+            </button>
+
+            <button
+              onClick={() => setIsPdfModalOpen(true)}
+              className="p-1.5 px-2 text-gray-400 hover:text-amber-300 hover:bg-white/5 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
+              title="Xuất sách PDF in ấn"
+            >
+              <Printer className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden xl:inline">Xuất PDF</span>
+            </button>
+
+            <button
+              onClick={() => setIsAiTutorOpen(true)}
+              className="p-1.5 px-2.5 bg-gradient-to-r from-amber-500/20 to-red-500/20 text-amber-300 hover:from-amber-500/30 hover:to-red-500/30 rounded-lg transition-all text-xs font-bold flex items-center gap-1 border border-amber-500/30"
+              title="Sư Phụ AI Khẩu Quyết"
+            >
+              <Bot className="w-3.5 h-3.5 text-amber-400" />
+              <span className="hidden sm:inline">Sư Phụ AI</span>
+            </button>
+          </div>
+
+          {/* View Panels Layout Toggles (Clean Joined Pill) */}
+          <div className="hidden md:flex items-center bg-[#141824] border border-[#262e42] rounded-xl p-0.5">
+            <button
+              onClick={() => setIsLeftSidebarCollapsed(p => !p)}
+              className={`p-1.5 px-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                !isLeftSidebarCollapsed ? 'bg-amber-500/20 text-amber-300' : 'text-gray-400 hover:text-white'
+              }`}
+              title={isLeftSidebarCollapsed ? 'Mở danh mục (4.230 bài)' : 'Thu gọn danh mục'}
+            >
+              <PanelLeftClose className="w-3.5 h-3.5" />
+              <span className="hidden 2xl:inline">Danh Mục</span>
+            </button>
+
+            <button
+              onClick={() => setIsRightPanelCollapsed(p => !p)}
+              className={`p-1.5 px-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                !isRightPanelCollapsed ? 'bg-cyan-500/20 text-cyan-300' : 'text-gray-400 hover:text-white'
+              }`}
+              title={isRightPanelCollapsed ? 'Mở bảng nước đi' : 'Thu gọn bảng nước đi'}
+            >
+              <PanelRightClose className="w-3.5 h-3.5" />
+              <span className="hidden 2xl:inline">Nước Đi</span>
+            </button>
+
+            <button
+              onClick={() => {
+                const all = isTopHeaderCollapsed && isLeftSidebarCollapsed && isRightPanelCollapsed;
+                setIsTopHeaderCollapsed(!all);
+                setIsLeftSidebarCollapsed(!all);
+                setIsRightPanelCollapsed(!all);
+              }}
+              className={`p-1.5 px-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
+                isTopHeaderCollapsed && isLeftSidebarCollapsed && isRightPanelCollapsed
+                  ? 'bg-amber-500 text-gray-950'
+                  : 'text-gray-400 hover:text-amber-300'
+              }`}
+              title="Chế độ toàn màn hình Zen Mode (Phím tắt: Z)"
+            >
+              <Maximize2 className="w-3.5 h-3.5" />
+              <span className="hidden 2xl:inline">Zen [Z]</span>
+            </button>
+
+            <button
+              onClick={() => setIsTopHeaderCollapsed(true)}
+              className="p-1.5 text-gray-400 hover:text-white rounded-lg transition-all"
+              title="Thu gọn menu trên (Phím tắt: H)"
+            >
+              <PanelTopClose className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Research Workspace */}
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Floating Top Control Pill when Top Header is Collapsed */}
+        {isTopHeaderCollapsed && (
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 bg-[#121520]/95 backdrop-blur-md rounded-2xl border border-amber-500/40 shadow-2xl animate-fadeIn">
+            <div className="flex items-center gap-1.5 text-xs font-black text-amber-300 mr-1">
+              <span>👑 Kỳ Đài Conic</span>
+            </div>
+
+            <button
+              onClick={() => setIsTopHeaderCollapsed(false)}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-[11px] font-bold border border-amber-500/40 transition-all active:scale-95 shadow-sm"
+              title="Hiện thanh công cụ trên (Phím tắt: H)"
+            >
+              <PanelTopOpen className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Hiện Menu</span> <span className="text-[9px] opacity-70 font-mono">[H]</span>
+            </button>
+
+            <button
+              onClick={() => setIsLeftSidebarCollapsed(p => !p)}
+              className={`p-1.5 rounded-xl border transition-all ${!isLeftSidebarCollapsed ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-[#1c202a] text-gray-400 border-gray-700'}`}
+              title="Bật/Tắt danh mục bài cờ (4.230 bài)"
+            >
+              <FolderTree className="w-3.5 h-3.5" />
+            </button>
+
+            <button
+              onClick={() => setIsRightPanelCollapsed(p => !p)}
+              className={`p-1.5 rounded-xl border transition-all ${!isRightPanelCollapsed ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40' : 'bg-[#1c202a] text-gray-400 border-gray-700'}`}
+              title="Bật/Tắt bảng nước đi & phân tích"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+            </button>
+
+            <button
+              onClick={() => {
+                setIsTopHeaderCollapsed(false);
+                setIsLeftSidebarCollapsed(false);
+                setIsRightPanelCollapsed(false);
+              }}
+              className="flex items-center gap-1 px-2 py-1 rounded-xl bg-[#1c202a] hover:bg-[#252c3d] text-gray-300 text-[11px] font-bold border border-gray-700 transition-all active:scale-95"
+              title="Thoát chế độ toàn màn hình (Phím tắt: Z)"
+            >
+              <Minimize2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Thoát Zen</span> <span className="text-[9px] opacity-70 font-mono">[Z]</span>
+            </button>
+          </div>
+        )}
+
+        {/* Left Sidebar Library Explorer */}
+        <Sidebar
+          catalog={catalog}
+          currentLessonId={currentLessonId}
+          onSelectLesson={(id) => {
+            setAppMode('study');
+            setCurrentLessonId(id);
+            setIsSidebarOpen(false);
+          }}
+          favorites={favorites}
+          onToggleFavorite={handleToggleFavorite}
+          completedLessons={completedLessons}
+          onToggleComplete={handleToggleComplete}
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
+          isCollapsed={isLeftSidebarCollapsed}
+          onToggleCollapse={() => setIsLeftSidebarCollapsed(prev => !prev)}
+        />
+
+        {/* Floating Quick Tab to Reopen Left Sidebar when Collapsed */}
+        {isLeftSidebarCollapsed && (
+          <button
+            onClick={() => setIsLeftSidebarCollapsed(false)}
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 px-1.5 py-4 rounded-r-2xl bg-gradient-to-r from-[#171b26] to-[#202738] text-amber-300 hover:text-white border-y border-r border-amber-500/40 shadow-2xl transition-all hover:pl-2.5 group flex-col items-center gap-1.5"
+            title="Mở danh mục 4.230 bài cờ"
+          >
+            <ChevronRight className="w-4 h-4 text-amber-400 group-hover:scale-125 transition-transform" />
+            <span className="text-[9px] font-black [writing-mode:vertical-lr] tracking-widest text-amber-200">
+              DANH MỤC 4.230 BÀI
+            </span>
+          </button>
+        )}
+
+        {/* Floating Quick Tab to Reopen Right Panel when Collapsed */}
+        {isRightPanelCollapsed && (
+          <button
+            onClick={() => setIsRightPanelCollapsed(false)}
+            className="hidden lg:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 px-1.5 py-4 rounded-l-2xl bg-gradient-to-l from-[#171b26] to-[#202738] text-cyan-300 hover:text-white border-y border-l border-cyan-500/40 shadow-2xl transition-all hover:pr-2.5 group flex-col items-center gap-1.5"
+            title="Mở bảng nước đi & phân tích AI"
+          >
+            <ChevronLeft className="w-4 h-4 text-cyan-400 group-hover:scale-125 transition-transform" />
+            <span className="text-[9px] font-black [writing-mode:vertical-lr] tracking-widest text-cyan-200">
+              NƯỚC ĐI & PHÂN TÍCH
+            </span>
+          </button>
+        )}
+
+        {/* Center & Right Research Workbench */}
+        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-[#06080e] min-h-0">
+          {/* Center Master Xiangqi Board (Expands dynamically to fill space) */}
+          <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full max-h-full min-h-0 space-y-1.5 transition-all duration-300">
+            {/* Real-time Coach Feedback Banner in Practice Mode */}
+            {isStudy && coachFeedback && (
+              <div className={`w-full max-w-[560px] xl:max-w-[620px] p-2.5 rounded-xl text-xs flex items-center justify-between border shadow-lg animate-fadeIn flex-shrink-0 ${coachFeedback.type === 'mistake'
+                  ? 'bg-red-950/80 border-red-500/60 text-red-200'
+                  : 'bg-emerald-950/80 border-emerald-500/60 text-emerald-200'
+                }`}>
+                <div className="flex items-center gap-2">
+                  {coachFeedback.type === 'mistake' ? (
+                    <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  )}
+                  <div>
+                    <div className="font-bold">{coachFeedback.message}</div>
+                    {coachFeedback.sub && <div className="text-[10px] text-gray-300 opacity-90">{coachFeedback.sub}</div>}
+                  </div>
+                </div>
+
+                {coachFeedback.type === 'mistake' && (
+                  <button
+                    onClick={handleResetTrial}
+                    className="px-2 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] flex items-center gap-1 flex-shrink-0"
+                  >
+                    <Undo2 className="w-3 h-3" /> Thử lại
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Quick Smart Toolbar above Xiangqi Board */}
+            <div className="w-full max-w-[530px] lg:max-w-[570px] xl:max-w-[620px] 2xl:max-w-[670px] flex items-center justify-between px-3 py-1.5 bg-gradient-to-r from-[#141824] via-[#10131d] to-[#141824] rounded-2xl border border-[#2b3447] text-xs shadow-md no-print flex-shrink-0">
+              {/* Left: Engine Toggle & Real-time AI Indicator */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsEngineAssistantEnabled(prev => !prev)}
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-xl font-bold transition-all border ${
+                    isEngineAssistantEnabled
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.4)]'
+                      : 'bg-[#1c2230] text-gray-400 hover:text-gray-200 border-gray-700'
+                  }`}
+                  title="Bật/Tắt Trợ Thủ Engine AI phân tích thế trận trực tiếp"
+                >
+                  <Zap className={`w-3.5 h-3.5 ${isEngineAssistantEnabled ? 'text-amber-300 fill-amber-300' : ''}`} />
+                  <span>{isEngineAssistantEnabled ? 'Trợ Thủ AI: BẬT' : 'Trợ Thủ AI: TẮT'}</span>
+                </button>
+
+                {isEngineAssistantEnabled && bestMoveSuggestion && (
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-cyan-300 bg-cyan-950/70 px-2.5 py-0.5 rounded-xl border border-cyan-500/40 animate-fadeIn">
+                    <span>💡 Gợi ý:</span>
+                    <span className="font-mono text-amber-200">
+                      {PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} 
+                      {' '}➔ Lộ {flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}
+                    </span>
+                  </span>
+                )}
+              </div>
+
+              {/* Right: Piece Language & Flip Board quick toggles */}
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => setPieceLanguage(prev => prev === 'cn' ? 'vi' : 'cn')}
+                  className="px-2.5 py-1 rounded-xl bg-[#1c2230] hover:bg-[#252e40] text-amber-400 font-bold border border-amber-500/30 transition-all text-xs active:scale-95 shadow-sm"
+                  title="Đổi chữ quân cờ sang Chữ Hán / Chữ Việt"
+                >
+                  {pieceLanguage === 'cn' ? '🇨🇳 Chữ Hán' : '🇻🇳 Chữ Việt'}
+                </button>
+
+                <button
+                  onClick={() => setFlipped(prev => !prev)}
+                  className={`p-1.5 rounded-xl border transition-all ${
+                    flipped ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-[#1c2230] border-gray-700 text-gray-300 hover:text-white'
+                  }`}
+                  title="Xoay bàn cờ 180 độ"
+                >
+                  <Shuffle className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            <XiangqiBoard
+              board={activeBoard}
+              turn={activeTurn}
+              flipped={flipped}
+              selectedSquare={currentSelectedSquare}
+              legalDestinations={currentLegalDestinations}
+              lastMove={currentLastMove}
+              bestMoveArrow={bestMoveSuggestion}
+              evalScore={currentEvalScore}
+              showEvalBar={showEvalBar && isEngineAssistantEnabled}
+              onSquareClick={handleSquareClick}
+              pieceLanguage={pieceLanguage}
+              interactive={true}
+              showMoveArrow={true}
+            />
+          </div>
+
+          {/* Right Panel: Either Study Panel or Play AI Panel (Collapsible) */}
+          {!isRightPanelCollapsed && (
+            <div className="w-full lg:w-[420px] xl:w-[460px] 2xl:w-[500px] flex-shrink-0 flex flex-col h-[590px] lg:h-full min-h-0 transition-all duration-300">
+              {isStudy ? (
+                <StudyPanel
+                  lesson={currentLesson}
+                  currentMoveIndex={currentMoveIndex}
+                  totalHalfMoves={totalHalfMoves}
+                  onGoToMove={handleGoToMove}
+                  onFirstMove={handleFirstMove}
+                  onPrevMove={handlePrevMove}
+                  onNextMove={handleNextMove}
+                  onLastMove={handleLastMove}
+                  isPlaying={isPlaying}
+                  onTogglePlay={handleTogglePlay}
+                  playSpeed={playSpeed}
+                  onChangePlaySpeed={setPlaySpeed}
+                  flipped={flipped}
+                  onToggleFlip={() => setFlipped(prev => !prev)}
+                  pieceLanguage={pieceLanguage}
+                  onChangePieceLanguage={setPieceLanguage}
+                  isMuted={isMuted}
+                  onToggleMute={() => {
+                    const m = sound.toggleMute();
+                    setIsMuted(m);
+                  }}
+                  isTrialMode={isTrialMode}
+                  onResetTrial={handleResetTrial}
+                  onApplyAiSolution={handleApplyAiSolution}
+                  onStartPracticeMode={handleStartPracticeMode}
+                  isPracticeMode={isPracticeMode}
+                  practiceSuccess={practiceSuccess}
+                  onOpenAiTutor={() => setIsAiTutorOpen(true)}
+                  onNextLesson={handleNextLesson}
+                  onPrevLesson={handlePrevLesson}
+                  isCompleted={currentLesson ? completedLessons.includes(currentLesson.id) : false}
+                  onToggleComplete={handleToggleComplete}
+                  activeBoard={activeBoard}
+                  activeTurn={activeTurn}
+                />
+              ) : (
+                <PlayAIPanel
+                  board={playAiBoard}
+                  turn={playAiTurn}
+                  playerColor={playAiPlayerColor}
+                  onChangePlayerColor={setPlayAiPlayerColor}
+                  difficulty={playAiDifficulty}
+                  onChangeDifficulty={setPlayAiDifficulty}
+                  isThinking={playAiThinking}
+                  moveHistory={playAiHistory}
+                  onNewGame={handlePlayAiNewGame}
+                  onUndo={handlePlayAiUndo}
+                  onResign={handlePlayAiResign}
+                  pieceLanguage={pieceLanguage}
+                  onChangePieceLanguage={setPieceLanguage}
+                  flipped={flipped}
+                  onToggleFlip={() => setFlipped(prev => !prev)}
+                  isMuted={isMuted}
+                  onToggleMute={() => {
+                    const m = sound.toggleMute();
+                    setIsMuted(m);
+                  }}
+                  engineState={engineState}
+                  onOpenEngineSettings={() => setIsEngineModalOpen(true)}
+                />
+              )}
+            </div>
+          )}
+        </main>
+      </div>
+
+      {/* Dual-Engine Settings Modal */}
+      <EngineSettingsModal
+        isOpen={isEngineModalOpen}
+        onClose={() => setIsEngineModalOpen(false)}
+      />
+
+      {/* AI Grandmaster Socratic Pedagogy Tutor Modal */}
+      <AiTutorModal
+        isOpen={isAiTutorOpen}
+        onClose={() => setIsAiTutorOpen(false)}
+        lesson={currentLesson}
+        solutionMoves={currentLesson?.moves || []}
+      />
+
+      {/* Custom Board Editor & Puzzle Creator Modal */}
+      <BoardEditorModal
+        isOpen={isEditorOpen}
+        onClose={() => setIsEditorOpen(false)}
+        onLoadCustomPuzzle={handleLoadCustomPuzzle}
+      />
+
+      {/* Database & PGN/XQF/FEN Import Modal */}
+      <DatabaseImportModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onImportSuccess={handleImportDbSuccess}
+      />
+
+      {/* PDF Export & Print Engine Modal */}
+      <PdfExportModal
+        isOpen={isPdfModalOpen}
+        onClose={() => setIsPdfModalOpen(false)}
+        currentLesson={currentLesson}
+        catalog={catalog}
+      />
+    </div>
+  );
+}

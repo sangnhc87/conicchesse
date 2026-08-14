@@ -1,0 +1,55 @@
+[Game "Chinese Chess"]
+[Event "Van 3"]
+[Round ""]
+[Date "1976"]
+[Site ""]
+[Red "Li?u ??i Hoa"]
+[RedTeam "H? B?c"]
+[Black "?inh Hi?u Phong"]
+[BlackTeam "An Huy"]
+[Result "0-1"]
+[ECCO ""]
+[FEN "2bakr3/4a4/2n1b1nR1/p3p1p1p/9/6P2/P1c1P3P/B1N1C1N1C/4A4/c2K1AB2 b - - 0 15"]
+{Nh? hình 55 là tình th? th?c chi?n trong gi?i c? toàn Trung Qu?c n?m 1976. H? B?c Li?u ??i Hoa ??i An Huy ?inh Hi?u Phong. Hai bên áp d?ng " Trung Pháo hoành Xe th?t l? M? ??i Bình Phong M?" ?i ??n n??c 15. hai bên quan l?c ngang nhau, ch? ??i 1 Xe 1 t?t. ?? có Xe ph?i t?n nh?p ??nh cung b?t  M? ?en, t??ng xu?t ngoài; ?en có Pháo trái tr?m ?áy cánh trái ?? có th? c?ng. Hi?n ??n ?en ?i, chiêu pháp th?c chi?n nh? sau :}
+ 15.          车６进４
+{?en b? M? lên Xe tranh c?ng, n??c hay!}
+ 16. 车二平三 车６平４
+ 17. 炮五平六 车４平２
+ 18. 马三进四 车２进５
+ 19. 帅六进一 车２退４
+{?en sau khi b? m?, t?p trung Xe M? song Pháo t?n c?ng cánh trái ??. Lúc này ?en t?n Xe chi?u T??ng b?c t??ng ?? lên t?ng 2 l?i th?i Xe b?t m?, chiêu pháp có tr?t t?.}
+ 20. 炮六平二
+{Pháo trái ?? chuy?n ph?i, b? M? ??i c?ng. N?u ??i ?i M4.3 ?en th?ng.}
+ 20.          车２平４
+ 21. 仕五进六 车４平６
+{?en bình Xe chi?u t??ng tr??c, ??i ?? lên S?, r?i m?i bình Xe ?n M? , r?t có th? t?.}
+ 22. 炮二进七 炮３平４
+ 23. 仕六退五
+{N?u ?? ??i ?i T6-5 ?en th?ng.}
+ 23.          炮４退４
+ 24. 炮一进四 马３进４
+ 25. 马七进六 将５平６
+ 26. 车三进二 将６进１
+ 27. 车三退一 将６进１
+ 28. 炮一进一 车６平４
+ 29. 仕五进六 车４进２
+{?en kh?ng chú y ??n Xe, 2 Pháo ?? quy biên tán c?ng, mà bình Xe sát M?, ?n S? chi?u T??ng.}
+ 30. 帅六平五 车４进１
+ 31. 帅五退一 象５进７
+{?en phi T??ng b?t Pháo, hóa gi?i th? c?ng c?a ??. ??n ?ay ?? ?? khó ?ng phó.}
+ 32. 车三退一 将６退１
+ 33. 炮一进一 象３进５
+ 34. 车三进二 将６进１
+ 35. 车三退二 将６退１
+ 36. 车三进一 将６进１
+ 37. 炮二退一 象５退７
+ 38. 车三平四 将６平５
+ 39. 车四退六 马４进２
+ 40. 仕四进五 炮４平３
+ 41. 帅五平四 车４平５
+ 42. 车四平八 炮３进７
+ 43. 车八退二 马２进３
+{??n ?ay ?? nh?n thua. n??c sau n?u Xe ?? 8-9 thì M3/5 r?i M5/7, ?en th?ng.}
+ 44. 车八平九 马３退５
+{?en th?ng.}
+ 0-1

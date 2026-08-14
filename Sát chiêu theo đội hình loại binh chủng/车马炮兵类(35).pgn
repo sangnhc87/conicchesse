@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "车马炮兵类(35)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "3k1aP2/8C/5a3/4R1N2/7n1/9/9/9/3r1p3/4K4 w - - 0 1"]
+  1. 车五进三 将４进１
+  2. 马三进四 士６进５
+  3. 车五退一 士６退５
+  4. 马四退五 将４退１
+  5. 炮一进一 士５退６
+  6. 兵三平四
+{红胜
+}
+ *

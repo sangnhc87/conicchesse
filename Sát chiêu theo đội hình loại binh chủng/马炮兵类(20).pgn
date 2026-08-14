@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "马炮兵类(20)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "3a1k3/9/3N1a1Pb/8C/9/9/2p6/9/4p4/3K2Bn1 w - - 0 1"]
+  1. 炮一平七 马８退７
+  2. 兵二平三 马７退５
+  3. 炮七平四 士６退５
+  4. 兵三平四
+{红胜
+}
+ *

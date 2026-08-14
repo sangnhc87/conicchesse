@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "重炮-2 trùng pháo"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "9/5k3/4ba3/4C4/9/7RC/9/9/4p1p2/5K3 w - - 0 1"]
+{利用双炮重叠叫将，致对方毙命。
+}
+  1. 车二进四 将６退１
+  2. 车二平四 将６进１
+  3. 炮五平四 士６退５
+  4. 炮一平四
+{红胜。
+}
+ 1-0

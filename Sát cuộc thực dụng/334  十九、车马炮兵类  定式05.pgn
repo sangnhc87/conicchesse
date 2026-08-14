@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "334  十九、车马炮兵类  定式05"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "1CbakN3/4aP3/4b4/9/9/9/9/3R1Ap1B/4AK2c/7r1 w - - 0 1"]
+  1. 兵四平五 将５进１
+  2. 车六进六 将５退１
+  3. 车六进一 将５进１
+  4. 车六退一
+{红胜
+}
+ 1-0

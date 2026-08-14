@@ -1,0 +1,30 @@
+[Game "Chinese Chess"]
+[Event "白脸将-1 ??i di?n ti?u"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "1Cbaka3/9/4P1R2/9/9/9/9/9/3p1p3/4K1p2 w - - 0 1"]
+{利用棋规中将帅不能在同一直线直接见面的规定，用车或其他兵力攻击对方将（帅），使其不可避免地与已方帅（将）直接见面而获胜。
+
+??I DI?N TI?U
+*M? t?
+D?a vào ??c ?i?m 2 t??ng kh?ng th? nhìn m?t nhau, dùng binh l?c t?n c?ng ??i ph??ng bu?c vào th? tr?c ti?p ??i di?n ?? chi?n th?ng.
+*Ván 1
+
+
+1.B5.1...b? t?t l? m?t t??ng
+...S6.5
+2.X3.2 th?ng
+}
+  1. 兵五进一 士６进５
+  2. 车三进二
+{红胜。
+    红方中路弃兵将军妙手，由此展露充分发挥帅的威力而获胜。
+}
+ 1-0

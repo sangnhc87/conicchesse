@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "333  十九、车马炮兵类  定式04"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "3a1k3/2P1a4/1R7/6N2/1C7/9/9/2n6/3rA4/c3KA3 w - - 0 1"]
+  1. 车八平四 士５进６
+  2. 炮八进四 士４进５
+  3. 兵七进一 士５退４
+  4. 兵七平六
+{红胜
+}
+ 1-0

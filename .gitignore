@@ -1,0 +1,30 @@
+# Logs & System
+*.log
+.DS_Store
+.vscode/
+.idea/
+*.local
+.wrangler/
+.venv/
+__pycache__/
+*.pyc
+
+# Node & Frontend Build
+node_modules/
+dist/
+dist-ssr/
+
+# Tauri Build Artifacts
+**/src-tauri/target/
+**/src-tauri/gen/
+target/
+
+# Binaries & Large Archives
+Archive.zip
+*.zip
+*.tar.gz
+scripts/engines/
+**/resources/pikafish/
+*.nnue
+*.bin
+*.exe

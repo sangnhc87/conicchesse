@@ -1,0 +1,38 @@
+[Game "Chinese Chess"]
+[Event "Van 6"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "3nkabCn/4a4/4b4/p1N1c2rp/9/2P2R3/P7P/4C3B/4A4/2BAK4 w - - 0 32"]
+{Nh? hình 74 là 1 th?c chi?n trung cu?c. Hai bên áp d?ng " Trung Pháo ??i ph?n cung M?" ?i ??n n??c 31. Quan l?n hai bên t??ng ??ng, S? t??ng toàn. ?? h?n 1 T?t, M? nh?p tuy?n Ch?t, xe s??n tu?n hà b? Xe ?en kh?ng ch?, Pháo ph?i b? Xe ?en b?t, Pháo ?en tr?n trung l?, Xe có th? ?n Pháo, 2 M? kh?ng linh ho?t. Hi?n ??n ?? ?i, chiêu pháp th?c chi?n nh? sau :}
+ 32. 相一退三
+{Pháo ?? b? b?t ch?t, th?i t??ng tránh tr??c 1 b??c, phòng Xe ?en tr?m ?áy, n??c l?o luyên!}
+ 32.          车８退３
+ 33. 马七进九 士５进６
+ 34. 马九进七 将５进１
+ 35. 车四进二
+{?? t?n Xe b?t Pháo, chính xác, có l?c.}
+ 35.          马４进３
+ 36. 兵七进一
+{T?n T?t uy hi?p M?, nwocs hay, có th? l?i ?n 1 quan.}
+ 36.          车８进４
+ 37. 兵七进一 车８平５
+ 38. 兵七进一
+{T?n T?t kh? M? ?n 1 quan, chi?m ?u th?.}
+ 38.          炮５进４
+ 39. 相七进五 车５平３
+ 40. 车四平二 将５平４
+ 41. 兵七平六
+{Xe ?? bình Xe dwdwongf 2 ph?c sát, l?i bình T?t chi?u T??ng, hóa gi?i th? vay b?t quan c?a ?en, áp d?ng khéo léo " Kim thi?n thoát xác".}
+ 41.          将４退１
+ 42. 马七退八 士６退５
+ 43. 兵六平五 象７进５
+ 44. 车二进三
+{?? th?ng.}
+ *

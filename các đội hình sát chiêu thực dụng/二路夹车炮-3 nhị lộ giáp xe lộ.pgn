@@ -1,0 +1,22 @@
+[Game "Chinese Chess"]
+[Event "二路夹车炮-3 nh? l? giáp xe l?"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "2ba1k3/4a4/9/9/2C1C4/9/1r5R1/9/3p1p3/4K4 w - - 0 1"]
+{车与双炮互相配合，交错将军致敌将（帅）毙命。
+
+}
+  1. 车二进六 将６进１
+  2. 炮七进三 士５进４
+  3. 炮五进三 将６进１
+  4. 车二退二
+{红胜。
+}
+ 1-0

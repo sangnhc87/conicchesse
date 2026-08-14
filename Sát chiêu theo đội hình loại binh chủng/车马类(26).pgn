@@ -1,0 +1,20 @@
+[Game "Chinese Chess"]
+[Event "车马类(26)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "6b2/R3ak3/9/5N3/6c2/9/1r7/2p6/4A4/3K1A3 w - - 0 1"]
+  1. 马四进六 将６进１
+  2. 马六退五 将６退１
+  3. 马五进三 将６进１
+  4. 车九退一 象７进５
+  5. 车九平五
+{红胜
+}
+ *

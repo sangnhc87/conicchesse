@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "马兵类(04)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "1n2ka3/4a4/9/2P2N3/9/9/9/9/9/2B1K4 w - - 0 1"]
+  1. 马四进六 将５平４
+  2. 马六进八 将４平５
+  3. 兵七进一 马２进４
+  4. 马八退六 将５平４
+  5. 兵七进一 士５进４
+  6. 兵七进一
+{红胜
+}
+ *

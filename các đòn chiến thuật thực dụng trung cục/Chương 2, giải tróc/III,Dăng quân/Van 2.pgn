@@ -1,0 +1,53 @@
+[Game "Chinese Chess"]
+[Event "Van 2"]
+[Round ""]
+[Date "1977"]
+[Site ""]
+[Red "L?u ?i?n Trung"]
+[RedTeam "Hà B?c"]
+[Black "Ti?n H?ng Phát"]
+[BlackTeam "Cam Túc"]
+[Result "1-0"]
+[ECCO ""]
+[FEN "1rbaka1r1/9/n1ccb1n2/pC2p1pCp/2p6/5NP2/P1P1P3P/2N1B4/9/1RBAKA2R w - - 0 10"]
+{Nh? hình 109 là tình th? th?c chi?n trong gi?i c? toàn Trung Qu?c n?m 1977, L?u ?i?n Trung ( Hà B?c) ??i Ti?n H?ng Phát ( Cam Túc). Hai bên áp d?ng " Phi T??ng cu?c ??i t?n biên M?" ?i ??n nwocs th? 9. Quan l?c 2 bên còn nguyên v?n. ?? có 2 Pháo qua s?ng, M? ph?i bàn hà, Xe ph?i ra ch?m; Xe ph?i ?en b? phong t?a, Xe trái b?t nh? l? Pháo ??. Hi?n ??n ?? ?i, chiêu pháp th?c chi?n nh? sau :}
+ 10. 马四进五
+{M? ?? ?n trung Ch?t b?t Pháo thách ??i, chiêu pháp có l?c. n?u ??i ?i X1-2 gi? Pháo, S4.5, 2 Xe 2 Pháo ?? b? khóa gi?. ?en d? ?i.}
+ 10.          炮３进４
+ 11. 车一平二 士４进５
+ 12. 马五进三
+{??i M? khi?n cho Xe trái thoát "g?c"}
+ 12.          炮４平７
+ 13. 兵五进一
+{T?n trung T?t, th? tr?n nghiêng v? ??.}
+ 13.          卒３进１
+ 14. 马七进五
+{M? ?? b?t Ch?t, chính xác. N?u ??i ?i T5.7 ?en chi?m ?u th? l?n.}
+ 14.          卒３平４
+ 15. 兵五进一 马１退３
+ 16. 炮八进二 卒４平５
+ 17. 马五退三
+{?? th?i m? khi?n cho Xe ph?i " sinh r?", l?o luy?n. N?u ??i ?i M5.7, C5-4 ?n quan chi?m ?u.}
+ 17.          炮３平５
+ 18. 马三进五
+{?? láy m? ??i Pháo, tránh tam l? M? b? th?t l? Pháo uy hi?p.}
+ 18.          卒５进１
+ 19. 兵五进一 车８进２
+ 20. 炮二退一
+{?? th?i Pháo ph?c P2-8 ?ánh Xe,th?c hi?n di?u k? " Kim thi?n thoát xác", giiar thoát th? khóa.}
+ 20.          卒７进１
+ 21. 兵三进一 车８进１
+ 22. 兵三进一
+{?? t?n Ch?t ?ánh Xe, b?t Pháo, khéo léo gi?i thoát.}
+ 22.          车８平７
+ 23. 炮二进四 象５退７
+ 24. 车二进七 炮７平４
+ 25. 炮八平五
+{Pháo ?? ?ánh trung S?, nwocs hay th? th?ng, Sau ?ó n?u ?en ?i X2.9 ?? th?ng}
+ 25.          车２进９
+ 26. 炮五退五 炮４平５
+ 27. 兵五进一 将５平４
+ 28. 兵五进一 车７平４
+ 29. 仕四进五
+{?en kh?ng th? gi?i n?i Xe ?? 2-4 sát cu?c.}
+ 1-0

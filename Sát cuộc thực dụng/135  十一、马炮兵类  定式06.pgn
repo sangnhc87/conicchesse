@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "135  十一、马炮兵类  定式06"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "4kc3/3Pa4/2N2a3/9/9/2B6/9/5r3/9/C3KA3 w - - 0 1"]
+  1. 兵六进一 炮６平４
+  2. 炮九进九 炮４进２
+  3. 马七进八 炮４退２
+  4. 马八退六
+{红胜
+}
+ 1-0

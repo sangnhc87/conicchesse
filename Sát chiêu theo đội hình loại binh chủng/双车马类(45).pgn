@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "双车马类(45)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "3ak4/4a4/4b4/9/6b2/1NB6/9/4B2R1/2r3pn1/3RK4 w - - 0 1"]
+  1. 车二进七 士５退６
+  2. 车六进九 将５平４
+  3. 车二平四 将４进１
+  4. 车四平五 卒７平６
+  5. 马八进七 将４进１
+  6. 车五平六
+{红胜
+}
+ *

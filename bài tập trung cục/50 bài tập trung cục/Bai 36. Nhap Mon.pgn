@@ -1,0 +1,20 @@
+[Game "Chinese Chess"]
+[Event "Bai 36. Nhap Mon"]
+[Round "9.破坏战术"]
+[Date "1989-00-00"]
+[Site ""]
+[Red "上海胡荣华"]
+[RedTeam ""]
+[Black "河北刘殿中"]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "C1bakar2/r5c2/2n1N3n/p3p1R1p/6p2/2P6/P5P1P/3R5/4A4/2B1KAB2 w - - 0 1"]
+  1. 马五进六 车１退１
+  2. 马六退七 象３进５
+  3. 车三平五 炮７平５
+  4. 车五平六 炮５平３
+  5. 帅五平六 士６进５
+  6. 前车进二
+{红胜}
+ 1-0

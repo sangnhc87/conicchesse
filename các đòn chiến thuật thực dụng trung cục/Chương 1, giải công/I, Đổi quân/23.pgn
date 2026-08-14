@@ -1,0 +1,24 @@
+[Game "Chinese Chess"]
+[Event "23"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "0-1"]
+[ECCO ""]
+[FEN "4kCR2/5R3/4b4/p6np/2p6/4P4/P1n4rP/2N3N2/1c1r5/2BAKAB2 b - - 0 1"]
+{Nh? trong hình 23 là m?t tình th? trung cu?c trong th?c chi?n. hai bên quan l?c ngang nhau, ??i c?ng kh?c li?t, tình th? c?ng th?ng. ?? có song xe, Pháo vay ?ánh t??ng ph? ?en ch? còn 1 T??ng, tình hình r?t nguy ng?p. ?en có song Xe, M?, Pháo t?n nh?p vào tr?n ??a ??, tri?n khai th? c?ng, ?? n??c Xe kh?ng c?u ???c ???c l?a g?n. ?en th?a c? ?i Tiên, khéo léo ?n quan, ??i Xe gi?i vay, giành th?ng cu?c, chiêu pháp th?c chi?n là :}
+  1.          马３进１
+{M? ?en vào góc biên, nh?y ng?a tào ph?c sát, hay!}
+  2. 马三进五
+{?? t?n M? cán Xe, b?t Xe. N?u ??i ?i n??c khác thì X4.1 ?en th?ng.}
+  2.          车４退１
+  3. 仕四进五 马１进３
+  4. 帅五平四 车８平５
+{?en bình Xe ?n trung m?, ph?c X4.2 ?n S?, S5/6, X5.3, ?en th?ng.}
+  5. 相三进五 车４退６
+{?en th?i Xe ??i Xe, hóa gi?i th? c?ng c?a ??, ?en nhi?u quan th?ng.}
+ 0-1

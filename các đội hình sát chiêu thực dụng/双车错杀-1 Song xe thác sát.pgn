@@ -1,0 +1,23 @@
+[Game "Chinese Chess"]
+[Event "双车错杀-1 Song xe thác sát"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "4kab2/4a4/4b3c/9/9/4p4/1R4r2/5R3/2n1AK3/3A5 w - - 0 1"]
+{运用双车交错进行将军获胜。
+V?n d?ng s? giao thoa c?a ??i xe ti?n hành sát t??ng.
+}
+  1. 车八进六 象５退３
+  2. 车八平七 士５退４
+  3. 车四进七 将５进１
+  4. 车七退一 将５进１
+  5. 车四退二
+{红胜。
+}
+ 1-0

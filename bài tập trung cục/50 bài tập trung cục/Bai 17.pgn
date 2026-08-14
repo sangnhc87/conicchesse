@@ -1,0 +1,20 @@
+[Game "Chinese Chess"]
+[Event "Bai 17"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "4kabr1/4a4/n3b2c1/C1p5p/6p2/7R1/P3P1n1P/2C1B1N2/9/3AKAB2 w - - 0 1"]
+  1. 相五进三 卒３进１
+  2. 炮七进一 卒７进１
+  3. 车二平三 炮８进６
+  4. 炮七平三 车８进３
+  5. 炮九退二 车８平３
+  6. 相三进五 车３平６
+  7. 炮三平二
+ *

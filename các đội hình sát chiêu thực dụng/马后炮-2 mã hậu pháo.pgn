@@ -1,0 +1,22 @@
+[Game "Chinese Chess"]
+[Event "马后炮-2 m? h?u pháo"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "4kabC1/4aR3/4b2R1/7N1/9/9/9/2p1r4/3K2c1r/4p2c1 w - - 0 1"]
+{马已限制了敌方将（帅）左右活动的自由，然后用炮在马后将军，致敌毙命。
+
+}
+  1. 车四进一 士５退６
+  2. 车二平五 车５退５
+  3. 马二进三 将５进１
+  4. 炮二退一
+{红胜。
+}
+ 1-0

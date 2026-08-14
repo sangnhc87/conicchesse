@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "其它的杀着(47)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "2r3b2/5k3/4N4/4p3C/9/6RC1/9/9/1n1KAr3/5A3 w - - 0 1"]
+  1. 车三进四 将６进１
+  2. 车三平四 将６退１
+  3. 马五退三 将６平５
+  4. 炮二平五
+{红胜
+}
+ *

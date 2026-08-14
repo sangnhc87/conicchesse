@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "双炮类(03)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "3a1a3/3k1C3/8b/9/6b2/7C1/9/9/9/4K4 w - - 0 1"]
+  1. 炮二进四 将４进１
+  2. 炮四退二 将４退１
+  3. 帅五进一 将４进１
+  4. 炮二退六 将４退１
+  5. 炮二平六 士４进５
+  6. 炮四平六
+{红胜
+}
+ *

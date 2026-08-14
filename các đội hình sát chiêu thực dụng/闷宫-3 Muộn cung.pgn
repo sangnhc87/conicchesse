@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "闷宫-3 Mu?n cung"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "3k5/R1P1a4/bn1a5/4C4/9/9/9/9/2r2p3/4K4 w - - 0 1"]
+{利用对方棋子作炮架，仅单炮将死对方。
+}
+  1. 车九进一 象１退３
+  2. 车九平七 马２退３
+  3. 兵七进一 将４进１
+  4. 炮五平六
+{红胜。
+}
+ 1-0

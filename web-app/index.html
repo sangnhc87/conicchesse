@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kỳ Đài Conic - Học Khai, Trung, Tàn & Sát Chiêu Toàn Tập</title>
+  <meta name="description"
+    content="Kỳ Đài Conic: Kho tàng 4.230 thế cờ tướng kinh điển Khai cuộc, Trung cuộc, Tàn cuộc căn bản, Sát chiêu thực dụng kèm tính năng giải thế AI và xuất sách PDF." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Serif+TC:wght@600;700;900&display=swap"
+    rel="stylesheet">
+  <script>
+    window.addEventListener('error', function (e) {
+      console.error('App Error:', e.error || e.message);
+      var errEl = document.getElementById('init-error');
+      if (!errEl) {
+        errEl = document.createElement('div');
+        errEl.id = 'init-error';
+        errEl.style.cssText = 'position:fixed;bottom:20px;left:20px;right:20px;background:#7f1d1d;color:#fee2e2;padding:14px;border-radius:12px;font-family:monospace;font-size:12px;z-index:999999;border:1px solid #ef4444;box-shadow:0 10px 25px rgba(0,0,0,0.8);white-space:pre-wrap;';
+        document.body.appendChild(errEl);
+      }
+      errEl.textContent = '❌ Lỗi: ' + (e.error ? (e.error.stack || e.error.message) : e.message);
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      console.error('App Promise Rejection:', e.reason);
+      var errEl = document.getElementById('init-error');
+      if (!errEl) {
+        errEl = document.createElement('div');
+        errEl.id = 'init-error';
+        errEl.style.cssText = 'position:fixed;bottom:20px;left:20px;right:20px;background:#7f1d1d;color:#fee2e2;padding:14px;border-radius:12px;font-family:monospace;font-size:12px;z-index:999999;border:1px solid #ef4444;box-shadow:0 10px 25px rgba(0,0,0,0.8);white-space:pre-wrap;';
+        document.body.appendChild(errEl);
+      }
+      errEl.textContent = '❌ Lỗi: ' + (e.reason ? (e.reason.stack || e.reason.message || String(e.reason)) : String(e));
+    });
+  </script>
+</head>
+
+<body class="bg-[#0f1115] text-[#e6edf3]">
+  <div id="root">
+    <!-- Initial Imperial Splash Screen while React mounts -->
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0b0d11;color:#f3f4f6;font-family:system-ui,-apple-system,sans-serif;user-select:none;">
+      <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,#f59e0b,#b91c1c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:36px;font-weight:900;box-shadow:0 8px 30px rgba(217,119,6,0.4);border:2px solid rgba(251,191,36,0.6);margin-bottom:20px;">
+        👑
+      </div>
+      <h1 style="font-size:22px;font-weight:800;color:#fef3c7;margin:0 0 8px 0;letter-spacing:1px;">
+        Kỳ Đài Conic
+      </h1>
+      <p style="font-size:13px;color:#9ca3af;margin:0 0 24px 0;">
+        Đang khởi động 4.230 thế cờ kinh điển & AI...
+      </p>
+      <div style="width:160px;height:4px;background:#1f2937;border-radius:9999px;overflow:hidden;">
+        <div style="width:100%;height:100%;background:linear-gradient(90deg,#d97706,#f59e0b);animation:pulse 1.2s ease-in-out infinite;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+[Game "Chinese Chess"]
+[Event "271  十八、车马炮类  定式20"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "4ka3/1N2a4/9/9/4p4/2R6/9/3C5/4r1p2/5K3 w - - 0 1"]
+  1. 车七进五 士５退４
+  2. 马八退六 将５进１
+  3. 马六退四 将５退１
+  4. 车七平六 将５平４
+  5. 马四进六
+{红胜
+}
+ 1-0

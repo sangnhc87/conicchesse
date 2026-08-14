@@ -1,0 +1,20 @@
+[Game "Chinese Chess"]
+[Event "525  二十六、双车马炮类  定式05"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "4ka3/4a4/b1N1b4/3R5/9/2C6/2p6/4B4/4rr3/1R1K1ABc1 w - - 0 1"]
+  1. 车八进九 象１退３
+  2. 车八平七 象５退３
+  3. 车六进三 士５退４
+  4. 炮七进五 士４进５
+  5. 马七进六
+{红胜
+}
+ 1-0

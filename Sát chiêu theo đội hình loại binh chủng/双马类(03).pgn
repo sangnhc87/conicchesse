@@ -1,0 +1,22 @@
+[Game "Chinese Chess"]
+[Event "双马类(03)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "5ab2/3ka4/N3b3n/9/N8/9/9/9/3p1p3/4K4 w - - 0 1"]
+  1. 后马进七 将４退１
+  2. 马七进八 将４平５
+  3. 马九进七 将５平４
+  4. 马七退五 将４平５
+  5. 马五进七 将５平４
+  6. 马七退六 将４平５
+  7. 马六进四
+{红胜
+}
+ *

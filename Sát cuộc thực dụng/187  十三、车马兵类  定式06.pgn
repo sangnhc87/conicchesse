@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "187  十三、车马兵类  定式06"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "2b6/3ka4/2Pa5/3N5/9/3R5/9/9/5pr2/3AK4 w - - 0 1"]
+  1. 兵七平六 将４退１
+  2. 兵六进一 将４平５
+  3. 兵六平五 将５平４
+  4. 马六进七
+{红胜
+}
+ 1-0

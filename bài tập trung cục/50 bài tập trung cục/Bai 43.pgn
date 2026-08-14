@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "Bai 43"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "4k4/2Cna4/3ab4/5R3/6b2/1R4PN1/4r4/2n1B4/4A2r1/c1BAKC3 w - - 0 1"]
+  1. 车四进三 将５平６
+  2. 车八进五 将６进１
+  3. 马二进三 将６进１
+  4. 仕五进四 车５平６
+  5. 车八平四 士５退６
+  6. 马三退五
+ *

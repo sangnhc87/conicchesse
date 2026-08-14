@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "189  十三、车马兵类  定式08"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "1-0"]
+[ECCO ""]
+[FEN "2b1k4/4aP3/4b4/7N1/9/5R3/9/9/2r1p4/5K3 w - - 0 1"]
+  1. 兵四进一 士５退６
+  2. 马二进三 将５进１
+  3. 车四进四 将５退１
+  4. 车四平六
+{红胜
+}
+ 1-0

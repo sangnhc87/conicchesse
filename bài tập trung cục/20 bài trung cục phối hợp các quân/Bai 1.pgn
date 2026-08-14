@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "Bai 1"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "2bak1br1/4a4/c1n3n1c/p1p3R1p/6p2/3rp4/P1P3P1P/2N1C1N2/4C4/1RBAKAB2 w - - 0 1"]
+{2bak1br1/4a4/c1n3n1c/p1p3R1p/6p2/3rp4/P1P3P1P/2N1C1N2/4C4/1RBAKAB2 w - - 0 0}
+  1. 兵七进一 车４平３
+  2. 车八进二 车３退１
+  3. 炮五进三 马７进５
+  4. 后炮进四 炮９平５
+  5. 炮五退二 马３进５
+  6. 车三平五 炮５进５
+  7. 相三进五
+ *

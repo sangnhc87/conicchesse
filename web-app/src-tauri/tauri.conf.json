@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.tauri.app/config/2",
+    "productName": "KyDaiConic",
+    "version": "1.0.0",
+    "identifier": "com.ky-dai-conic.desktop",
+    "build": {
+        "beforeDevCommand": "npm run dev",
+        "devUrl": "http://localhost:5173",
+        "beforeBuildCommand": "npm run build",
+        "frontendDist": "../dist"
+    },
+    "app": {
+        "windows": [
+            {
+                "title": "Kỳ Đài Conic — Học Khai · Trung · Tàn & Sát Chiêu",
+                "width": 1360,
+                "height": 860,
+                "minWidth": 1024,
+                "minHeight": 700,
+                "resizable": true,
+                "fullscreen": false,
+                "center": true,
+                "devtools": true
+            }
+        ],
+        "security": {
+            "csp": null
+        }
+    },
+    "bundle": {
+        "active": true,
+        "targets": [
+            "app"
+        ],
+        "icon": [
+            "icons/32x32.png",
+            "icons/128x128.png",
+            "icons/128x128@2x.png",
+            "icons/icon.icns",
+            "icons/icon.ico"
+        ],
+        "resources": [
+            "resources/pikafish"
+        ],
+        "category": "Education",
+        "shortDescription": "Học cờ tướng khai - trung - tàn & sát chiêu với Pikafish Native",
+        "longDescription": "Ứng dụng học cờ tướng với 4.230 thế trận kinh điển và động cơ AI Pikafish native (WASM + Native)."
+    }
+}

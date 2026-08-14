@@ -1,0 +1,19 @@
+[Game "Chinese Chess"]
+[Event "单马类(05)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "9/9/3kbN3/9/9/9/9/9/9/4K4 w - - 0 1"]
+  1. 马四退五 将４退１
+  2. 马五进七 将４平５
+  3. 马七进五
+{
+红胜
+}
+ *

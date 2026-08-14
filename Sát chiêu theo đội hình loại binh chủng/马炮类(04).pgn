@@ -1,0 +1,21 @@
+[Game "Chinese Chess"]
+[Event "马炮类(04)"]
+[Round ""]
+[Date ""]
+[Site ""]
+[Red ""]
+[RedTeam ""]
+[Black ""]
+[BlackTeam ""]
+[Result "*"]
+[ECCO ""]
+[FEN "3ak4/4a4/9/p4N3/5r3/9/9/5C3/4A4/2B1K4 w - - 0 1"]
+  1. 马四进三 车６退３
+  2. 仕五退四 车６平７
+  3. 炮四平八 将５平６
+  4. 炮八进七 将６进１
+  5. 炮八退一 将６退１
+  6. 炮八平三
+{ 红方胜定
+}
+ *
