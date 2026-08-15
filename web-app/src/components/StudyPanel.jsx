@@ -41,6 +41,8 @@ export default function StudyPanel({
   onOpenAiTutor,
   onNextLesson,
   onPrevLesson,
+  isCompleted = false,
+  onToggleComplete,
   activeBoard,
   activeTurn,
   onOpenAnalysisWithPosition
