@@ -10,7 +10,7 @@ import {
 import { sound } from './AudioEngine';
 import { solvePuzzleSequence, getBestMove, evaluateBoard, analyzeStrategicOptions } from './XiangqiAI';
 import { engineManager } from './EngineManager';
-import { analyzePositionProsCons } from './XiangqiLogic';
+import { analyzePositionProsCons, detectEndgamePattern } from './XiangqiLogic';
 import { storageGet, storageSet } from '../lib/safeStorage.js';
 
 export default function StudyPanel({
@@ -694,6 +694,28 @@ export default function StudyPanel({
                         <span className="text-amber-400 font-bold">!</span> {c}
                       </div>
                     ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Master Endgame Secret & Guideline Card */}
+            {(() => {
+              const ep = detectEndgamePattern(activeBoard);
+              if (!ep) return null;
+              return (
+                <div className="p-3 rounded-2xl bg-gradient-to-br from-[#1b1c26] to-[#141620] border border-amber-500/30 shadow-lg text-[11px] space-y-2">
+                  <div className="flex items-center gap-2 text-amber-300 font-black text-xs border-b border-amber-500/20 pb-1.5">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <span>{ep.title}</span>
+                  </div>
+                  <div className="text-gray-300 leading-relaxed">
+                    <span className="text-amber-400 font-bold">📜 Khẩu Quyết: </span>
+                    {ep.rule}
+                  </div>
+                  <div className="text-cyan-300/90 leading-relaxed bg-[#0c0e14] p-2 rounded-xl border border-[#222838]">
+                    <span className="text-cyan-400 font-bold">💡 Nước Cờ Then Chốt: </span>
+                    {ep.keyMoveHint}
                   </div>
                 </div>
               );

@@ -11,7 +11,9 @@ import {
   formatPvLine,
   boardToFen,
   calculateGameAccuracy,
-  MOVE_GRADES
+  MOVE_GRADES,
+  detectEndgamePattern,
+  classifyEndgameCandidate
 } from './XiangqiLogic';
 
 export default function AnalysisPanel({
@@ -54,6 +56,7 @@ export default function AnalysisPanel({
 }) {
   const [activeTab, setActiveTab] = useState('candidates'); // 'candidates' | 'proscons' | 'history'
   const [copiedFen, setCopiedFen] = useState(false);
+  const [onlyShowWinningMoves, setOnlyShowWinningMoves] = useState(false);
   const [engineState, setEngineState] = useState(engineManager.getState());
 
   useEffect(() => {
@@ -65,6 +68,23 @@ export default function AnalysisPanel({
 
   // Deep Strategic Analysis of Pros & Cons for current board
   const prosConsData = analyzePositionProsCons(board, turn, evalScore);
+  const endgamePattern = detectEndgamePattern(board);
+
+  // Evaluated Endgame Candidates with Forced Win Detection
+  const evaluatedCandidates = useMemo(() => {
+    return (candidates || []).map(cand => {
+      const classification = classifyEndgameCandidate(cand, turn);
+      return {
+        ...cand,
+        ...classification
+      };
+    });
+  }, [candidates, turn]);
+
+  const forcedWinCount = evaluatedCandidates.filter(c => c.isForcedWin).length;
+  const displayedCandidates = onlyShowWinningMoves
+    ? (forcedWinCount > 0 ? evaluatedCandidates.filter(c => c.isForcedWin) : evaluatedCandidates)
+    : evaluatedCandidates;
 
   // Eval Bar percentage (0..100)
   const scoreNum = typeof evalScore === 'number' ? evalScore : parseInt(evalScore, 10) || 0;
@@ -337,6 +357,56 @@ export default function AnalysisPanel({
               </div>
             </div>
 
+            {/* Endgame Winning Paths Overview Banner */}
+            <div className={`p-3 rounded-2xl border transition-all ${
+              forcedWinCount > 0
+                ? 'bg-gradient-to-r from-amber-950/60 via-[#1e1c15] to-amber-950/60 border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                : 'bg-[#141824] border-[#232a3d]'
+            }`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`p-1.5 rounded-xl ${
+                    forcedWinCount > 0
+                      ? 'bg-amber-500 text-gray-950 shadow-md font-black animate-pulse'
+                      : 'bg-gray-800 text-gray-400'
+                  }`}>
+                    <Award className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-black text-white flex items-center gap-1.5">
+                      <span>
+                        {forcedWinCount === 1
+                          ? '🏆 DUY NHẤT 1 NƯỚC ĐI TẤT THẮNG'
+                          : forcedWinCount > 1
+                            ? `🏆 PHÁT HIỆN ${forcedWinCount} CON ĐƯỜNG TẤT THẮNG 100%`
+                            : '⚖️ CỤC DIỆN CÂN BẰNG / CHƯA CÓ ĐƯỜNG THẮNG'}
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-gray-400">
+                      {forcedWinCount > 0
+                        ? 'Các nước đi khác sẽ làm mất ưu thế và bị cầm hòa (Thất bại trong cờ tàn).'
+                        : 'Cần tích lũy thêm ưu thế hoặc kiên nhẫn tìm sơ hở của đối phương.'}
+                    </div>
+                  </div>
+                </div>
+
+                {forcedWinCount > 0 && (
+                  <button
+                    onClick={() => setOnlyShowWinningMoves(prev => !prev)}
+                    className={`px-2.5 py-1 rounded-xl text-[10.5px] font-black border transition-all flex items-center gap-1 ${
+                      onlyShowWinningMoves
+                        ? 'bg-amber-500 border-amber-400 text-gray-950 shadow-md'
+                        : 'bg-[#1e2538] border-gray-700 text-amber-300 hover:border-amber-500/50'
+                    }`}
+                    title="Lọc chỉ hiển thị các nước đi dẫn đến thắng 100%"
+                  >
+                    <Target className="w-3 h-3" />
+                    <span>{onlyShowWinningMoves ? 'Đang Lọc Tất Thắng' : 'Chỉ Nước Tất Thắng'}</span>
+                  </button>
+                )}
+              </div>
+            </div>
+
             {/* Candidates List */}
             {isAnalyzing && candidates.length === 0 ? (
               <div className="py-12 text-center text-xs text-amber-400/80 space-y-2">
@@ -344,20 +414,20 @@ export default function AnalysisPanel({
                 <div className="font-bold">Pikafish đang tính toán đa phương án sâu...</div>
                 <div className="text-[10px] text-gray-500">Đang quét hàng triệu nút tính toán mỗi giây</div>
               </div>
-            ) : candidates.length === 0 ? (
+            ) : displayedCandidates.length === 0 ? (
               <div className="py-10 text-center text-xs text-gray-500 space-y-3">
                 <Target className="w-8 h-8 mx-auto text-gray-600 opacity-40" />
-                <div>Chưa có dữ liệu phân tích cho thế trận này.</div>
+                <div>Không tìm thấy phương án thỏa mãn bộ lọc hiện tại.</div>
                 <button
-                  onClick={onTriggerAnalysis}
-                  className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-gray-950 font-bold text-xs inline-flex items-center gap-1.5 shadow-md"
+                  onClick={() => setOnlyShowWinningMoves(false)}
+                  className="px-3 py-1.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-bold text-xs inline-flex items-center gap-1.5 shadow-md"
                 >
-                  <Zap className="w-3.5 h-3.5" />
-                  <span>Phân Tích Ngay</span>
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Xem Tất Cả Biến</span>
                 </button>
               </div>
             ) : (
-              candidates.map((cand, idx) => {
+              displayedCandidates.map((cand, idx) => {
                 const isSelected = previewedMove && cand.move && (
                   previewedMove.fromR === cand.move.fromR &&
                   previewedMove.fromC === cand.move.fromC &&
@@ -382,9 +452,11 @@ export default function AnalysisPanel({
                       if (onHoverCandidate) onHoverCandidate(null);
                     }}
                     className={`p-3 rounded-2xl border transition-all duration-200 ${
-                      isSelected || isHovered
-                        ? 'bg-gradient-to-r from-[#1e2538] to-[#252f47] border-amber-500/80 shadow-[0_0_15px_rgba(245,158,11,0.25)] ring-1 ring-amber-500/50'
-                        : 'bg-[#151924] hover:bg-[#1a202e] border-[#252c3d]'
+                      cand.isForcedWin
+                        ? 'border-amber-500/60 bg-gradient-to-br from-[#1a1f2e] via-[#171b26] to-[#1a1f2e] shadow-[0_0_12px_rgba(245,158,11,0.15)]'
+                        : isSelected || isHovered
+                          ? 'bg-gradient-to-r from-[#1e2538] to-[#252f47] border-amber-500/80 shadow-[0_0_15px_rgba(245,158,11,0.25)] ring-1 ring-amber-500/50'
+                          : 'bg-[#151924] hover:bg-[#1a202e] border-[#252c3d]'
                     }`}
                   >
                     {/* Candidate Header */}
@@ -414,6 +486,21 @@ export default function AnalysisPanel({
                         }`}>
                           {(cand.score || 0) > 0 ? `+${((cand.score || 0)/100).toFixed(1)}` : `${((cand.score || 0)/100).toFixed(1)}`}
                         </span>
+                      </div>
+                    </div>
+
+                    {/* Endgame Outcome Status Badge */}
+                    <div className="mb-2">
+                      <div className={`px-2.5 py-1 rounded-xl border text-[11px] font-black flex items-center justify-between ${cand.badgeColor}`}>
+                        <span className="flex items-center gap-1">
+                          <span>{cand.outcomeLabel}</span>
+                        </span>
+                        <span className="text-[10px] font-mono opacity-90">
+                          {cand.isForcedWin ? 'Ép Thắng 100%' : 'Mất Thế Thắng'}
+                        </span>
+                      </div>
+                      <div className="text-[10.5px] text-gray-400 mt-1 italic pl-1 leading-snug">
+                        {cand.outcomeDesc}
                       </div>
                     </div>
 
@@ -461,6 +548,24 @@ export default function AnalysisPanel({
                   </div>
                 );
               })
+            )}
+
+            {/* Master Endgame Secret & Guideline Card */}
+            {endgamePattern && (
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-[#1b1c26] to-[#141620] border border-amber-500/30 shadow-lg text-[11px] space-y-2 mt-3">
+                <div className="flex items-center gap-2 text-amber-300 font-black text-xs border-b border-amber-500/20 pb-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <span>{endgamePattern.title}</span>
+                </div>
+                <div className="text-gray-300 leading-relaxed">
+                  <span className="text-amber-400 font-bold">📜 Khẩu Quyết: </span>
+                  {endgamePattern.rule}
+                </div>
+                <div className="text-cyan-300/90 leading-relaxed bg-[#0c0e14] p-2 rounded-xl border border-[#222838]">
+                  <span className="text-cyan-400 font-bold">💡 Nước Cờ Then Chốt: </span>
+                  {endgamePattern.keyMoveHint}
+                </div>
+              </div>
             )}
           </div>
         )}

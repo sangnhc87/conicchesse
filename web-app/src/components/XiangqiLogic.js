@@ -1037,3 +1037,177 @@ export function calculateGameAccuracy(gradedMoves = []) {
   };
 }
 
+/**
+ * Detect Classical Endgame Archetypes and return Master Principles & Rules
+ */
+export function detectEndgamePattern(board) {
+  if (!board || !Array.isArray(board) || board.length !== 10) return null;
+
+  let rR = 0, rC = 0, rN = 0, rP = 0, rA = 0, rB = 0;
+  let bR = 0, bC = 0, bN = 0, bP = 0, bA = 0, bB = 0;
+  let totalPieces = 0;
+
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 9; c++) {
+      const p = board[r][c];
+      if (!p) continue;
+      totalPieces++;
+      if (p === 'R') rR++;
+      else if (p === 'C') rC++;
+      else if (p === 'N') rN++;
+      else if (p === 'P') rP++;
+      else if (p === 'A') rA++;
+      else if (p === 'B') rB++;
+      else if (p === 'r') bR++;
+      else if (p === 'c') bC++;
+      else if (p === 'n') bN++;
+      else if (p === 'p') bP++;
+      else if (p === 'a') bA++;
+      else if (p === 'b') bB++;
+    }
+  }
+
+  // 1. Đơn Xe đối Pháo Song Sĩ / Pháo Sĩ Tượng
+  if (rR === 1 && rC === 0 && rN === 0 && bR === 0 && bC === 1 && bN === 0) {
+    return {
+      title: '🏆 Đơn Xe Thắng Pháo Song Sĩ (Cờ Tàn Định Thức)',
+      isForcedWinTemplate: true,
+      rule: 'Dùng Xe chiếm trung lộ hoặc tuyến đáy, ép Pháo rời vị trí che chắn cho Sĩ, sau đó chia cắt và bắt từng Sĩ.',
+      keyMoveHint: 'Chiếm trục lộ 5, dồn Pháo vào góc chết, dùng mặt Tướng trợ công bắt Sĩ.'
+    };
+  }
+
+  // 2. Đơn Xe đối Mã Song Tượng
+  if (rR === 1 && rC === 0 && rN === 0 && bR === 0 && bC === 0 && bN === 1) {
+    return {
+      title: '🏆 Đơn Xe Thắng Mã Song Tượng (Cờ Tàn Định Thức)',
+      isForcedWinTemplate: true,
+      rule: 'Dùng Xe khóa Mã ở góc biên, buộc đôi Tượng phải bay rời nhau, kết hợp mặt Tướng để bắt sống Tượng.',
+      keyMoveHint: 'Không cho Mã đối phương nhảy lên trung tâm, ép Tượng bay biên rồi dùng Xe xỏ xâu.'
+    };
+  }
+
+  // 3. Pháo Chốt đối Sĩ Tượng
+  if (rR === 0 && rC >= 1 && rP >= 1 && bR === 0 && bC === 0 && bN === 0) {
+    if (bA < 2 || bB < 2) {
+      return {
+        title: '🏆 Pháo Chốt Thắng Khuyết Sĩ Tượng (Cờ Tàn Sát Cục)',
+        isForcedWinTemplate: true,
+        rule: 'Pháo chiếm trung lộ hoặc đáy, Chốt áp sát cung cấm khống chế mắt Tượng và ép Tướng vào thế tuyệt sát.',
+        keyMoveHint: 'Đưa Chốt nhập cung sát Tướng, dùng Pháo đáy hoặc Trung Pháo làm ngòi chiếu bí.'
+      };
+    } else {
+      return {
+        title: '⚖️ Pháo Đơn Chốt đối Sĩ Tượng Toàn (Dễ Hòa Nếu Chậm Nhịp)',
+        isForcedWinTemplate: false,
+        rule: 'Pháo Chốt muốn thắng Sĩ Tượng Toàn thì Chốt phải nhập cung cao trước khi Đen khép chặt vòng vây.',
+        keyMoveHint: 'Tận dụng từng nước cờ tiên phong, không để Đen liên kết Sĩ Tượng kiên cố.'
+      };
+    }
+  }
+
+  // 4. Mã Chốt đối Sĩ Tượng
+  if (rR === 0 && rC === 0 && rN >= 1 && rP >= 1 && bR === 0 && bC === 0 && bN === 0) {
+    return {
+      title: '🏆 Mã Chốt Thắng Sĩ Tượng (Cờ Tàn Nghệ Thuật)',
+      isForcedWinTemplate: true,
+      rule: 'Mã chiếm hoa tâm hoặc góc 4/6, Chốt áp sát cung cấm bịt cửa thoát, ép Tướng đối phương lên lầu 3.',
+      keyMoveHint: 'Mã Ngoạ Tào kết hợp Chốt áp cung, Tướng trợ chiến làm tê liệt toàn bộ lực lượng Đen.'
+    };
+  }
+
+  // 5. Song Mã bắt Tướng
+  if (rN >= 2 && bR === 0 && bC === 0 && bN === 0) {
+    return {
+      title: '🏆 Song Mã Bắt Tướng (Song Mã Ẩm Tuyền / Ngoạ Tào)',
+      isForcedWinTemplate: true,
+      rule: 'Hai Mã liên hoàn vừa nhảy vừa chiếu rút, khống chế hai sườn, đối phương không thể xoay xở.',
+      keyMoveHint: 'Nhảy Mã ngọa tào chiếu ép Tướng lệch cung, Mã thứ hai nhập tâm khóa chặt đường thoát.'
+    };
+  }
+
+  // 6. Xe Pháo phối hợp
+  if (rR >= 1 && rC >= 1) {
+    return {
+      title: '🎯 Xe Pháo Sát Cục (Sát Pháp Thực Dụng)',
+      isForcedWinTemplate: true,
+      rule: 'Xe chiếm lộ thông thoáng, Pháo gối đầu hoặc thọc đáy tạo thế Xe Pháo Trùng hoặc Thiên Địa Pháo.',
+      keyMoveHint: 'Dùng Xe ép Tướng đối phương vào cùng hàng/cùng cột với Pháo để tung đòn dứt điểm.'
+    };
+  }
+
+  // 7. Xe Mã phối hợp
+  if (rR >= 1 && rN >= 1) {
+    return {
+      title: '🎯 Xe Mã Tấn Công (Đòn Sát Cục Lừng Danh)',
+      isForcedWinTemplate: true,
+      rule: 'Mã ngọa tào / bát diện khóa góc cung, Xe chiếu đuổi Tướng vào chân Mã để tạo thế Mã Hậu Pháo hoặc Trắc Diện Hổ.',
+      keyMoveHint: 'Phối hợp nhịp nhàng giữa Xe và Mã, không cho Tướng đối phương có nước nghỉ.'
+    };
+  }
+
+  // Default endgame guideline
+  if (totalPieces <= 16) {
+    return {
+      title: '🎯 Khẩu Quyết Cờ Tàn Thực Dụng (Endgame Mastery)',
+      isForcedWinTemplate: true,
+      rule: '“Cờ tàn Tướng xuất cung” — Tích cực dùng mặt Tướng trợ công, tính toán chuẩn xác từng nước ép thắng.',
+      keyMoveHint: 'Ưu tiên các nước cờ chiếu liên tục hoặc bắt sống quân chủ lực của đối phương.'
+    };
+  }
+
+  return null;
+}
+
+/**
+ * Classify Endgame Move Candidate: Forced Win (100%) vs Draw (Failed in endgame) vs Losing
+ */
+export function classifyEndgameCandidate(cand, turn = 'red') {
+  if (!cand) {
+    return {
+      isForcedWin: false,
+      outcome: 'draw',
+      outcomeLabel: '⚖️ BỊ CẦM HÒA',
+      outcomeDesc: 'Không tìm thấy nước đi tất thắng',
+      badgeColor: 'border-yellow-600/50 bg-yellow-950/30 text-yellow-400'
+    };
+  }
+
+  const score = typeof cand.score === 'number' ? cand.score : 0;
+  const isRed = turn === 'red';
+  const effectiveScore = isRed ? score : -score;
+
+  // 1. Forced Win: Checkmate or decisive numerical advantage
+  const isDecisive = effectiveScore >= 350 || cand.isCheckmateWin || (typeof cand.scoreText === 'string' && cand.scoreText.includes('M'));
+  
+  if (isDecisive) {
+    return {
+      isForcedWin: true,
+      outcome: 'forced_win',
+      outcomeLabel: '🏆 TẤT THẮNG 100%',
+      outcomeDesc: 'Nước cờ chuẩn xác dẫn đến chiến thắng tuyệt đối (Chiếu bí hoặc bắt sạch quân đối phương).',
+      badgeColor: 'border-amber-400 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 text-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.3)]'
+    };
+  }
+
+  // 2. Drawish (Mất ưu thế cờ tàn)
+  if (effectiveScore >= -100 && effectiveScore <= 200) {
+    return {
+      isForcedWin: false,
+      outcome: 'draw',
+      outcomeLabel: '⚠️ BỊ CẦM HÒA (THẤT BẠI CỜ TÀN)',
+      outcomeDesc: 'Nước đi này làm mất thế tất thắng, để đối phương có cơ hội thủ hòa vĩnh viễn.',
+      badgeColor: 'border-yellow-600/50 bg-yellow-950/30 text-yellow-400'
+    };
+  }
+
+  // 3. Losing (Bị phản công)
+  return {
+    isForcedWin: false,
+    outcome: 'losing',
+    outcomeLabel: '❌ BỊ THUA / PHẢN CÔNG',
+    outcomeDesc: 'Nước đi sơ hở dẫn đến thất bại hoặc bị đối phương phản sát.',
+    badgeColor: 'border-red-600/50 bg-red-950/30 text-red-400'
+  };
+}
+
