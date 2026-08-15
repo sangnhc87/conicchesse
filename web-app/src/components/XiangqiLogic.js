@@ -776,3 +776,264 @@ export function analyzePositionProsCons(board, activeTurn = 'red', evalScore = 0
   };
 }
 
+/**
+ * Professional Xiangqi Move Classification Grades (Chuẩn Phần Mềm Chuyên Nghiệp)
+ */
+export const MOVE_GRADES = {
+  brilliant: {
+    id: 'brilliant',
+    label: 'Tuyệt Diệu',
+    symbol: '!!',
+    icon: '💎',
+    color: '#06b6d4',
+    bg: '#083344',
+    border: '#0891b2',
+    textColor: '#22d3ee',
+    badgeText: '#ffffff',
+    desc: 'Nước cờ độc đáo, thí quân hoặc đòn sát cục quyết định'
+  },
+  best: {
+    id: 'best',
+    label: 'Tối Ưu',
+    symbol: '!',
+    icon: '⭐',
+    color: '#eab308',
+    bg: '#422006',
+    border: '#ca8a04',
+    textColor: '#fde047',
+    badgeText: '#000000',
+    desc: 'Nước đi chuẩn xác số 1 của Pikafish Engine'
+  },
+  excellent: {
+    id: 'excellent',
+    label: 'Xuất Sắc',
+    symbol: '',
+    icon: '✨',
+    color: '#10b981',
+    bg: '#064e3b',
+    border: '#059669',
+    textColor: '#6ee7b7',
+    badgeText: '#ffffff',
+    desc: 'Nước đi rất mạnh, gần như ngang ngửa nước tốt nhất'
+  },
+  good: {
+    id: 'good',
+    label: 'Nước Tốt',
+    symbol: '',
+    icon: '✔️',
+    color: '#14b8a6',
+    bg: '#134e4a',
+    border: '#0d9488',
+    textColor: '#5eead4',
+    badgeText: '#ffffff',
+    desc: 'Nước đi an toàn, hợp lý, giữ vững thế trận'
+  },
+  book: {
+    id: 'book',
+    label: 'Lý Thuyết',
+    symbol: '',
+    icon: '📖',
+    color: '#d97706',
+    bg: '#451a03',
+    border: '#b45309',
+    textColor: '#fcd34d',
+    badgeText: '#ffffff',
+    desc: 'Nước đi bài bản theo sách định thức khai cuộc'
+  },
+  inaccuracy: {
+    id: 'inaccuracy',
+    label: 'Thiếu Chuẩn Xác',
+    symbol: '?!',
+    icon: '⚠️',
+    color: '#f59e0b',
+    bg: '#451a03',
+    border: '#d97706',
+    textColor: '#fbbf24',
+    badgeText: '#000000',
+    desc: 'Nước cờ chưa tối ưu, làm giảm bớt ưu thế'
+  },
+  mistake: {
+    id: 'mistake',
+    label: 'Sai Lầm',
+    symbol: '?',
+    icon: '❌',
+    color: '#f97316',
+    bg: '#431407',
+    border: '#ea580c',
+    textColor: '#fdba74',
+    badgeText: '#ffffff',
+    desc: 'Nước cờ sơ hở, làm mất ưu thế đáng kể'
+  },
+  blunder: {
+    id: 'blunder',
+    label: 'Sai Lầm Nghiêm Trọng',
+    symbol: '??',
+    icon: '💥',
+    color: '#ef4444',
+    bg: '#450a0a',
+    border: '#dc2626',
+    textColor: '#fca5a5',
+    badgeText: '#ffffff',
+    desc: 'Nước cờ đại bại làm mất quân lớn hoặc dính sát cục thua ngay'
+  },
+  missed_win: {
+    id: 'missed_win',
+    label: 'Bỏ Lỡ Sát Cục',
+    symbol: '✕',
+    icon: '🎯',
+    color: '#d946ef',
+    bg: '#4a044e',
+    border: '#c026d3',
+    textColor: '#f0abfc',
+    badgeText: '#ffffff',
+    desc: 'Bỏ qua cơ hội chiếu bí thắng ngay hoặc ăn quân lớn'
+  }
+};
+
+/**
+ * Classify a move played in a game against engine evaluation
+ */
+export function classifyMoveQuality(evalBefore, evalAfter, turn = 'red', isEngineBest = false, move = null, boardBefore = null, bestMove = null, isSacrifice = false) {
+  const isRed = turn === 'red';
+  const before = typeof evalBefore === 'number' ? evalBefore : 0;
+  const after = typeof evalAfter === 'number' ? evalAfter : 0;
+
+  // Advantage loss from the moving player's perspective
+  const cpLoss = isRed ? (before - after) : (after - before);
+
+  // Check if player's move matches engine best move exactly
+  const isBest = isEngineBest || (bestMove && move && move.fromR === bestMove.fromR && move.fromC === bestMove.fromC && move.toR === bestMove.toR && move.toC === bestMove.toC);
+
+  // 1. Missed Win: If previous position was winning (+500+ or mate) and cpLoss > 180
+  const hadWinningAdvantage = isRed ? (before >= 500) : (before <= -500);
+  const lostWinningAdvantage = isRed ? (after < 200) : (after > -200);
+  if (hadWinningAdvantage && lostWinningAdvantage && cpLoss > 180) {
+    return {
+      ...MOVE_GRADES.missed_win,
+      cpLoss,
+      evalBefore: before,
+      evalAfter: after
+    };
+  }
+
+  // 2. Brilliant Move: A sacrifice or decisive tactical blow that maintains strong winning eval
+  if (isSacrifice && cpLoss <= 25 && ((isRed && after >= 150) || (!isRed && after <= -150))) {
+    return {
+      ...MOVE_GRADES.brilliant,
+      cpLoss,
+      evalBefore: before,
+      evalAfter: after
+    };
+  }
+
+  // 3. Best Move
+  if (isBest || cpLoss <= 5) {
+    return {
+      ...MOVE_GRADES.best,
+      cpLoss: Math.max(0, cpLoss),
+      evalBefore: before,
+      evalAfter: after
+    };
+  }
+
+  // 4. Excellent Move
+  if (cpLoss <= 25) {
+    return {
+      ...MOVE_GRADES.excellent,
+      cpLoss,
+      evalBefore: before,
+      evalAfter: after
+    };
+  }
+
+  // 5. Good Move
+  if (cpLoss <= 60) {
+    return {
+      ...MOVE_GRADES.good,
+      cpLoss,
+      evalBefore: before,
+      evalAfter: after
+    };
+  }
+
+  // 6. Inaccuracy
+  if (cpLoss <= 140) {
+    return {
+      ...MOVE_GRADES.inaccuracy,
+      cpLoss,
+      evalBefore: before,
+      evalAfter: after
+    };
+  }
+
+  // 7. Mistake
+  if (cpLoss <= 300) {
+    return {
+      ...MOVE_GRADES.mistake,
+      cpLoss,
+      evalBefore: before,
+      evalAfter: after
+    };
+  }
+
+  // 8. Blunder
+  return {
+    ...MOVE_GRADES.blunder,
+    cpLoss,
+    evalBefore: before,
+    evalAfter: after
+  };
+}
+
+/**
+ * Calculate game accuracy score (0 - 100%) for Red and Black
+ */
+export function calculateGameAccuracy(gradedMoves = []) {
+  if (!Array.isArray(gradedMoves) || gradedMoves.length === 0) {
+    return { redAccuracy: 100, blackAccuracy: 100, redCounts: {}, blackCounts: {} };
+  }
+
+  let redLossTotal = 0;
+  let redCount = 0;
+  let blackLossTotal = 0;
+  let blackCount = 0;
+
+  const redCounts = { brilliant: 0, best: 0, excellent: 0, good: 0, inaccuracy: 0, mistake: 0, blunder: 0, missed_win: 0, book: 0 };
+  const blackCounts = { brilliant: 0, best: 0, excellent: 0, good: 0, inaccuracy: 0, mistake: 0, blunder: 0, missed_win: 0, book: 0 };
+
+  gradedMoves.forEach(m => {
+    const isRed = m.turn === 'red';
+    const gradeId = m.grade?.id || 'best';
+    const loss = Math.max(0, m.cpLoss || 0);
+
+    if (isRed) {
+      redLossTotal += loss;
+      redCount++;
+      if (redCounts[gradeId] !== undefined) redCounts[gradeId]++;
+    } else {
+      blackLossTotal += loss;
+      blackCount++;
+      if (blackCounts[gradeId] !== undefined) blackCounts[gradeId]++;
+    }
+  });
+
+  const getAcc = (avgLoss) => {
+    if (avgLoss <= 0) return 99.5;
+    const acc = 100 * Math.exp(-0.008 * avgLoss);
+    return Math.max(20, Math.min(99.8, parseFloat(acc.toFixed(1))));
+  };
+
+  const redAvgLoss = redCount > 0 ? (redLossTotal / redCount) : 0;
+  const blackAvgLoss = blackCount > 0 ? (blackLossTotal / blackCount) : 0;
+
+  return {
+    redAccuracy: getAcc(redAvgLoss),
+    blackAccuracy: getAcc(blackAvgLoss),
+    redAvgLoss: Math.round(redAvgLoss),
+    blackAvgLoss: Math.round(blackAvgLoss),
+    redCounts,
+    blackCounts,
+    totalMoves: gradedMoves.length
+  };
+}
+

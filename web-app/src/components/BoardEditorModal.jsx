@@ -9,7 +9,8 @@ import { solvePuzzleSequence } from './XiangqiAI';
 export default function BoardEditorModal({
   isOpen,
   onClose,
-  onLoadCustomPuzzle
+  onLoadCustomPuzzle,
+  onOpenAnalysisWithPosition
 }) {
   const [board, setBoard] = useState(() => {
     const { board: initial } = parseFen('rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1');
@@ -328,7 +329,7 @@ export default function BoardEditorModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-6 py-4 bg-[#1a1f2e] border-t border-[#3d2f1c] flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#1a1f2e] border-t border-[#3d2f1c] flex flex-wrap items-center justify-between gap-3">
           <button
             onClick={onClose}
             className="px-4 py-2 rounded-xl bg-[#252c3c] text-gray-300 hover:text-white font-medium text-xs"
@@ -336,14 +337,24 @@ export default function BoardEditorModal({
             Hủy Bỏ
           </button>
 
-          <button
-            onClick={handleSolveAndPlay}
-            disabled={isSolving}
-            className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-red-600 hover:from-amber-400 hover:to-red-500 text-white font-black text-xs flex items-center gap-2 shadow-lg transition-all active:scale-95"
-          >
-            <Bot className="w-4 h-4" />
-            <span>{isSolving ? 'AI Đang Tính...' : '🤖 AI Giải Ngay & Chuyển Sang Bàn Nghiên Cứu'}</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleDirectToAnalysis}
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xs flex items-center gap-2 shadow-lg transition-all active:scale-95"
+            >
+              <Sparkles className="w-4 h-4 text-cyan-200" />
+              <span>⚡ Phân Tích Pikafish</span>
+            </button>
+
+            <button
+              onClick={handleSolveAndPlay}
+              disabled={isSolving}
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-red-600 hover:from-amber-400 hover:to-red-500 text-white font-black text-xs flex items-center gap-2 shadow-lg transition-all active:scale-95"
+            >
+              <Bot className="w-4 h-4" />
+              <span>{isSolving ? 'AI Đang Tính...' : '🤖 AI Giải & Chuyển'}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

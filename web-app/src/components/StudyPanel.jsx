@@ -41,10 +41,9 @@ export default function StudyPanel({
   onOpenAiTutor,
   onNextLesson,
   onPrevLesson,
-  isCompleted = false,
-  onToggleComplete,
   activeBoard,
-  activeTurn
+  activeTurn,
+  onOpenAnalysisWithPosition
 }) {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState('moves'); // 'moves', 'strategy', 'commentary', 'notes'
@@ -375,6 +374,17 @@ export default function StudyPanel({
               <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
               <span>Gợi Ý</span>
             </button>
+
+            {onOpenAnalysisWithPosition && (
+              <button
+                onClick={() => onOpenAnalysisWithPosition(activeBoard, activeTurn)}
+                className="px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900/90 text-cyan-300 font-bold border border-cyan-500/40 flex items-center gap-1 transition-all active:scale-95 shadow-sm"
+                title="Chuyển thế trận hiện tại sang Phân Tích Pikafish 2 Bên"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Phân Tích 2 Bên</span>
+              </button>
+            )}
 
             <button
               onClick={toggleVoice}

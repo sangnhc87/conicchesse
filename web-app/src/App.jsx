@@ -21,7 +21,8 @@ import EngineSettingsModal from './components/EngineSettingsModal';
 
 import {
   parseFen, getLegalMoves, makeMove, isInCheck, PIECE_NAMES,
-  moveToVietnameseFull, moveToVietnamese, moveToChinese, parseChineseMove, isRed
+  moveToVietnameseFull, moveToVietnamese, moveToChinese, parseChineseMove, isRed,
+  classifyMoveQuality
 } from './components/XiangqiLogic';
 import { getBestMove as getWasmBestMove, evaluateBoard, solvePuzzleSequence, isStandardOpening, GRANDMASTER_OPENING_MOVES } from './components/XiangqiAI';
 import { engineManager } from './components/EngineManager';
@@ -582,6 +583,23 @@ export default function App() {
       });
   }, [analysisBoard, analysisTurn, analysisDepth, analysisMultiPv]);
 
+  const handleOpenAnalysisWithPosition = useCallback((customBoard, customTurn = 'red') => {
+    if (!customBoard) return;
+    const initialBoard = customBoard.map(r => [...r]);
+    setAnalysisBoard(initialBoard);
+    setAnalysisTurn(customTurn);
+    setAnalysisHistory([]);
+    setAnalysisHistoryIndex(0);
+    setAnalysisLastMove(null);
+    setAnalysisSelectedSquare(null);
+    setAnalysisLegalDests([]);
+    setAnalysisPreviewMove(null);
+    setAnalysisCandidates([]);
+    setAnalysisEvalScore(evaluateBoard(initialBoard));
+    setAppMode('analysis');
+    sound.playSelect();
+  }, []);
+
   const handleAnalysisApplyMove = useCallback((move) => {
     if (!move) return;
     const piece = analysisBoard[move.fromR]?.[move.fromC];
@@ -591,7 +609,19 @@ export default function App() {
     if (captured) sound.playCapture();
     else sound.playMove();
 
+    const evalBefore = analysisEvalScore;
     const nextBoard = makeMove(analysisBoard, move);
+    const evalAfter = evaluateBoard(nextBoard);
+
+    // Is it engine best move?
+    const bestMove = analysisCandidates?.[0]?.move || null;
+    const isEngineBest = bestMove && (bestMove.fromR === move.fromR && bestMove.fromC === move.fromC && bestMove.toR === move.toR && bestMove.toC === move.toC);
+    
+    // Check if move is a piece sacrifice
+    const isSacrifice = !captured && (piece === 'R' || piece === 'r' || piece === 'C' || piece === 'c' || piece === 'N' || piece === 'n');
+
+    const grade = classifyMoveQuality(evalBefore, evalAfter, analysisTurn, isEngineBest, move, analysisBoard, bestMove, isSacrifice);
+
     const notationVi = moveToVietnameseFull(analysisBoard, move, analysisTurn);
     const notationCn = moveToChinese(analysisBoard, move, analysisTurn);
 
@@ -602,7 +632,11 @@ export default function App() {
       notationVi,
       notationCn,
       captured,
-      uci: move.uci || ''
+      uci: move.uci || '',
+      grade,
+      cpLoss: grade.cpLoss,
+      evalBefore,
+      evalAfter
     });
 
     setAnalysisBoard(nextBoard);
@@ -617,7 +651,7 @@ export default function App() {
     if (isInCheck(nextBoard, analysisTurn === 'red' ? 'black' : 'red')) {
       sound.playCheck();
     }
-  }, [analysisBoard, analysisTurn, analysisHistory, analysisHistoryIndex]);
+  }, [analysisBoard, analysisTurn, analysisHistory, analysisHistoryIndex, analysisEvalScore, analysisCandidates]);
 
   const handleAnalysisGoToIndex = useCallback((targetIndex) => {
     if (targetIndex < 0 || targetIndex > analysisHistory.length) return;
@@ -1422,6 +1456,7 @@ export default function App() {
               selectedSquare={currentSelectedSquare}
               legalDestinations={currentLegalDestinations}
               lastMove={currentLastMove}
+              lastMoveGrade={isAnalysis ? (analysisHistory[analysisHistoryIndex - 1]?.grade || null) : null}
               bestMoveArrow={bestMoveSuggestion}
               candidateArrows={isAnalysis ? analysisCandidates : (bestMoveSuggestion ? [bestMoveSuggestion] : [])}
               maxArrows={isAnalysis ? analysisMaxArrows : 1}
@@ -1474,6 +1509,7 @@ export default function App() {
                   onToggleComplete={handleToggleComplete}
                   activeBoard={activeBoard}
                   activeTurn={activeTurn}
+                  onOpenAnalysisWithPosition={handleOpenAnalysisWithPosition}
                 />
               ) : isAnalysis ? (
                 <AnalysisPanel
@@ -1566,6 +1602,7 @@ export default function App() {
         isOpen={isEditorOpen}
         onClose={() => setIsEditorOpen(false)}
         onLoadCustomPuzzle={handleLoadCustomPuzzle}
+        onOpenAnalysisWithPosition={handleOpenAnalysisWithPosition}
       />
 
       {/* Database & PGN/XQF/FEN Import Modal */}

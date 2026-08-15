@@ -15,6 +15,7 @@ export default function XiangqiBoard({
   hoveredCandidateIndex = null,
   evalScore = null,
   showEvalBar = true,
+  lastMoveGrade = null,
   onSquareClick,
   pieceLanguage = 'cn', // 'cn' (default: traditional Chinese calligraphy) or 'vi'
   interactive = true,
@@ -528,6 +529,47 @@ export default function XiangqiBoard({
                       </g>
                     );
                   })
+                )}
+
+                {/* Floating Move Quality Grade Badge (Chess.com / Lichess style) */}
+                {lastMove && lastMoveGrade && (
+                  (() => {
+                    const coord = getSvgCoord(lastMove.toR, lastMove.toC);
+                    const badgeX = coord.x + 14;
+                    const badgeY = coord.y - 14;
+                    return (
+                      <g key="move-grade-badge" className="pointer-events-none transition-all duration-300">
+                        {/* Glow Aura */}
+                        <circle
+                          cx={badgeX}
+                          cy={badgeY}
+                          r="12"
+                          fill={lastMoveGrade.color || '#eab308'}
+                          opacity="0.35"
+                        />
+                        {/* Badge Background Circle */}
+                        <circle
+                          cx={badgeX}
+                          cy={badgeY}
+                          r="9.5"
+                          fill={lastMoveGrade.bg || '#1e293b'}
+                          stroke={lastMoveGrade.border || '#eab308'}
+                          strokeWidth="1.8"
+                        />
+                        {/* Icon */}
+                        <text
+                          x={badgeX}
+                          y={badgeY + 3.2}
+                          fontSize="9"
+                          fontFamily="sans-serif"
+                          fontWeight="900"
+                          textAnchor="middle"
+                        >
+                          {lastMoveGrade.icon}
+                        </text>
+                      </g>
+                    );
+                  })()
                 )}
               </svg>
             </div>

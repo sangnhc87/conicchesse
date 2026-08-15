@@ -6,7 +6,13 @@ import {
   RefreshCw, Bot, FileText, Compass, AlertTriangle
 } from 'lucide-react';
 import { engineManager } from './EngineManager';
-import { analyzePositionProsCons, formatPvLine, boardToFen } from './XiangqiLogic';
+import {
+  analyzePositionProsCons,
+  formatPvLine,
+  boardToFen,
+  calculateGameAccuracy,
+  MOVE_GRADES
+} from './XiangqiLogic';
 
 export default function AnalysisPanel({
   board,
@@ -78,6 +84,8 @@ export default function AnalysisPanel({
       onTriggerAnalysis();
     }
   };
+
+  const gameAccuracyData = calculateGameAccuracy(moveHistory);
 
   return (
     <div className="flex flex-col h-full bg-[#12151d] rounded-2xl border border-[#262c3b] shadow-2xl overflow-hidden select-none">
@@ -169,10 +177,10 @@ export default function AnalysisPanel({
           <button
             onClick={onSwitchTurn}
             className="px-2 py-0.5 rounded-lg bg-[#1c2233] hover:bg-[#273047] text-amber-300 hover:text-amber-200 text-[11px] font-bold border border-amber-500/30 flex items-center gap-1 transition-all"
-            title="Đổi quyền đi cho đối phương mà không di chuyển quân"
+            title="Đổi quyền đi cho đối phương để phân tích nước đi của bên kia"
           >
             <Shuffle className="w-3 h-3 text-amber-400" />
-            <span>Đổi Lượt</span>
+            <span>Đổi Lượt 2 Bên</span>
           </button>
         </div>
 
@@ -185,7 +193,7 @@ export default function AnalysisPanel({
             </span>
             <span className="text-[10px] text-gray-400 font-medium flex items-center gap-1">
               <BarChart3 className="w-3 h-3 text-amber-400" />
-              <span>{isAnalyzing ? 'Đang quét phân tích...' : 'Đánh giá thế trận'}</span>
+              <span>{isAnalyzing ? 'Pikafish đang quét...' : 'Đánh giá thế trận 2 bên'}</span>
             </span>
             <span className="text-blue-300 flex items-center gap-1">
               <span className="font-mono">{scoreNum < 0 ? `${(scoreNum/100).toFixed(1)}` : ''}</span>
@@ -199,67 +207,60 @@ export default function AnalysisPanel({
             />
           </div>
         </div>
-
-        {/* Verdict Badge */}
-        {prosConsData?.verdict && (
-          <div className={`p-2 rounded-xl text-xs font-semibold border transition-all flex items-center justify-between ${
-            prosConsData.verdictType === 'red_huge' || prosConsData.verdictType === 'red_lead'
-              ? 'bg-red-950/40 border-red-500/40 text-red-200'
-              : prosConsData.verdictType === 'black_huge' || prosConsData.verdictType === 'black_lead'
-                ? 'bg-blue-950/40 border-blue-500/40 text-blue-200'
-                : 'bg-[#181d2a] border-[#2c354a] text-amber-200'
-          }`}>
-            <div className="flex items-center gap-1.5 leading-snug">
-              <span>{prosConsData.verdict}</span>
-            </div>
-            <button
-              onClick={handleAskEngineMove}
-              className="px-2 py-0.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-gray-950 text-[10px] font-black tracking-wide flex-shrink-0 flex items-center gap-1 shadow-sm transition-all"
-              title="Nhờ Pikafish thực hiện nước cờ tối ưu nhất ngay lập tức"
-            >
-              <Bot className="w-3 h-3" />
-              <span>Đi Hộ</span>
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Navigation Sub-Tabs */}
-      <div className="flex border-b border-[#262c3b] bg-[#141824] p-1 gap-1">
+      <div className="grid grid-cols-4 border-b border-[#262c3b] bg-[#141824] p-1 gap-1">
         <button
           onClick={() => setActiveTab('candidates')}
-          className={`flex-1 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-1.5 px-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 ${
             activeTab === 'candidates'
               ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 shadow-md'
               : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
           }`}
+          title="Phương án tối ưu của Pikafish"
         >
-          <Target className="w-3.5 h-3.5" />
-          <span>Phương Án ({candidates.length})</span>
+          <Target className="w-3 h-3" />
+          <span className="truncate">Phương Án</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('review')}
+          className={`py-1.5 px-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 ${
+            activeTab === 'review'
+              ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 shadow-md'
+              : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+          }`}
+          title="Đánh giá & phân cấp chất lượng từng nước đi"
+        >
+          <Award className="w-3 h-3" />
+          <span className="truncate">Đánh Giá</span>
         </button>
 
         <button
           onClick={() => setActiveTab('proscons')}
-          className={`flex-1 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-1.5 px-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 ${
             activeTab === 'proscons'
               ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 shadow-md'
               : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
           }`}
+          title="Ưu nhược điểm chiến lược 2 bên"
         >
-          <Layers className="w-3.5 h-3.5" />
-          <span>Ưu & Nhược Điểm</span>
+          <Layers className="w-3 h-3" />
+          <span className="truncate">Cục Diện</span>
         </button>
 
         <button
           onClick={() => setActiveTab('history')}
-          className={`flex-1 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+          className={`py-1.5 px-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 ${
             activeTab === 'history'
               ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 shadow-md'
               : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
           }`}
+          title="Biên bản ván cờ"
         >
-          <FileText className="w-3.5 h-3.5" />
-          <span>Biên Bản ({moveHistory.length})</span>
+          <FileText className="w-3 h-3" />
+          <span className="truncate">Biên Bản</span>
         </button>
       </div>
 
@@ -451,9 +452,10 @@ export default function AnalysisPanel({
 
                       <button
                         onClick={() => cand.move && onApplyMove(cand.move)}
-                        className="px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-950 text-[11px] font-black flex items-center gap-1 shadow-md active:scale-95 transition-all"
+                        className="px-3 py-1 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-950 font-black text-[11px] flex items-center gap-1 shadow-md transition-all active:scale-95"
                       >
-                        <span>👉 Đi Nước Này</span>
+                        <CheckCircle2 className="w-3 h-3" />
+                        <span>Đi Nước Này</span>
                       </button>
                     </div>
                   </div>
@@ -463,27 +465,178 @@ export default function AnalysisPanel({
           </div>
         )}
 
-        {/* ================= TAB 2: PROS & CONS ================= */}
+        {/* ================= TAB 2: GAME REVIEW (ĐÁNH GIÁ & PHÂN CẤP NƯỚC ĐI) ================= */}
+        {activeTab === 'review' && (
+          <div className="space-y-3">
+            {/* Accuracy Comparison Card */}
+            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#161a26] to-[#0f131c] border border-[#2d364d] shadow-lg space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="text-xs font-black text-gray-100 flex items-center gap-1.5 uppercase">
+                  <Award className="w-4 h-4 text-amber-400" />
+                  <span>Độ Chính Xác Ván Đấu (Accuracy)</span>
+                </div>
+                <span className="text-[10px] text-gray-400 font-mono">
+                  Tổng {moveHistory.length} nước
+                </span>
+              </div>
+
+              {/* Accuracy Percentage Bars */}
+              <div className="grid grid-cols-2 gap-3">
+                {/* Red Accuracy */}
+                <div className="p-2.5 rounded-xl bg-red-950/40 border border-red-500/30 text-center space-y-1">
+                  <div className="text-[10px] font-bold text-red-300 uppercase">🔴 Bên Đỏ</div>
+                  <div className="text-xl font-black text-red-400 font-mono">
+                    {gameAccuracyData.redAccuracy}%
+                  </div>
+                  <div className="text-[9px] text-gray-400">
+                    Mất TB: {gameAccuracyData.redAvgLoss} cp
+                  </div>
+                </div>
+
+                {/* Black Accuracy */}
+                <div className="p-2.5 rounded-xl bg-blue-950/40 border border-blue-500/30 text-center space-y-1">
+                  <div className="text-[10px] font-bold text-blue-300 uppercase">⚫ Bên Đen</div>
+                  <div className="text-xl font-black text-blue-400 font-mono">
+                    {gameAccuracyData.blackAccuracy}%
+                  </div>
+                  <div className="text-[9px] text-gray-400">
+                    Mất TB: {gameAccuracyData.blackAvgLoss} cp
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Move Quality Breakdown Table */}
+            <div className="p-3 rounded-2xl bg-[#141824] border border-[#232a3d] space-y-2">
+              <div className="text-[11px] font-bold text-gray-300 uppercase tracking-wider flex items-center gap-1">
+                <BarChart3 className="w-3.5 h-3.5 text-amber-400" />
+                <span>Phân Cấp Chất Lượng Nước Đi</span>
+              </div>
+
+              <div className="space-y-1 text-xs">
+                {Object.values(MOVE_GRADES).map((gr) => {
+                  const rCount = gameAccuracyData.redCounts[gr.id] || 0;
+                  const bCount = gameAccuracyData.blackCounts[gr.id] || 0;
+                  if (rCount === 0 && bCount === 0 && moveHistory.length > 0) return null;
+
+                  return (
+                    <div
+                      key={`gr-row-${gr.id}`}
+                      className="flex items-center justify-between p-2 rounded-xl bg-[#0d1017] border border-[#1d2333]"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">{gr.icon}</span>
+                        <div>
+                          <div className="font-bold text-gray-200 flex items-center gap-1">
+                            <span>{gr.label}</span>
+                            {gr.symbol && <span className="font-mono text-[10px] text-gray-400 font-bold">({gr.symbol})</span>}
+                          </div>
+                          <div className="text-[9.5px] text-gray-500">{gr.desc}</div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 font-mono font-bold text-xs">
+                        <span className="text-red-400">{rCount}</span>
+                        <span className="text-gray-600">/</span>
+                        <span className="text-blue-300">{bCount}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Chronological Move Report */}
+            <div className="space-y-1.5">
+              <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider pb-1 border-b border-gray-800">
+                Chi tiết đánh giá từng nước ({moveHistory.length} nước)
+              </div>
+
+              {moveHistory.length === 0 ? (
+                <div className="text-center py-6 text-xs text-gray-500">
+                  Chưa có nước đi nào để đánh giá. Hãy đi cờ trên bàn!
+                </div>
+              ) : (
+                moveHistory.map((h, idx) => {
+                  const gr = h.grade || MOVE_GRADES.best;
+                  const isCurrent = idx === historyIndex - 1;
+
+                  return (
+                    <button
+                      key={`review-hist-${idx}`}
+                      onClick={() => onGoToHistoryIndex(idx + 1)}
+                      className={`w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition-all text-left border ${
+                        isCurrent
+                          ? 'bg-amber-500/20 border-amber-500 text-amber-200 shadow-md ring-1 ring-amber-500/40'
+                          : 'bg-[#151924] border-[#222838] hover:bg-[#1c2233] text-gray-300'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">{gr.icon}</span>
+                        <div>
+                          <div className="flex items-center gap-1.5 font-bold">
+                            <span className="font-mono text-gray-400 text-[10px]">#{idx + 1}</span>
+                            <span className={h.turn === 'red' ? 'text-red-400' : 'text-blue-300'}>
+                              {h.turn === 'red' ? 'Đỏ' : 'Đen'}: {h.notationVi || h.notationCn}
+                            </span>
+                            <span
+                              className="px-1.5 py-0.2 rounded text-[10px] font-black"
+                              style={{ backgroundColor: gr.bg, color: gr.textColor, border: `1px solid ${gr.border}` }}
+                            >
+                              {gr.label} {gr.symbol}
+                            </span>
+                          </div>
+                          {h.cpLoss > 30 && (
+                            <div className="text-[9.5px] text-gray-400">
+                              Mất ~{((h.cpLoss || 0)/100).toFixed(1)} điểm thế trận
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="text-[11px] font-mono font-bold text-gray-400">
+                        {h.evalAfter !== undefined && `${h.evalAfter > 0 ? '+' : ''}${(h.evalAfter/100).toFixed(1)}`}
+                      </div>
+                    </button>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ================= TAB 3: PROS & CONS ================= */}
         {activeTab === 'proscons' && (
           <div className="space-y-3">
-            {/* Tactical Threats Alert */}
+            {/* General Tactical Verdict */}
+            <div className="p-3 rounded-2xl bg-[#141824] border border-[#232a3d] space-y-1.5">
+              <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                <Compass className="w-3.5 h-3.5" />
+                <span>Nhận Định Toàn Cục Trận Đấu:</span>
+              </div>
+              <div className="text-xs font-bold text-gray-100 leading-relaxed">
+                {prosConsData?.verdict}
+              </div>
+            </div>
+
+            {/* Tactical Threats / Warnings */}
             {prosConsData?.tacticalThreats && prosConsData.tacticalThreats.length > 0 && (
-              <div className="p-2.5 rounded-2xl bg-red-950/60 border border-red-500/50 text-red-200 text-xs shadow-md animate-fadeIn">
-                <div className="font-bold flex items-center gap-1.5 mb-1 text-red-400">
-                  <AlertTriangle className="w-4 h-4" />
-                  <span>Cảnh Báo Đòn Sát Cục & Nguy Hiểm:</span>
+              <div className="p-3 rounded-2xl bg-red-950/40 border border-red-500/40 space-y-1">
+                <div className="text-[10px] font-black text-red-400 uppercase flex items-center gap-1">
+                  <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+                  <span>Cảnh Báo Đòn Đột Kích Trực Tiếp:</span>
                 </div>
-                <ul className="list-disc list-inside space-y-0.5 text-[11px] text-gray-200">
-                  {prosConsData.tacticalThreats.map((threat, idx) => (
-                    <li key={`threat-${idx}`}>{threat}</li>
-                  ))}
-                </ul>
+                {prosConsData.tacticalThreats.map((threat, idx) => (
+                  <div key={`thr-${idx}`} className="text-xs text-red-200 font-medium">
+                    {threat}
+                  </div>
+                ))}
               </div>
             )}
 
             {/* RED SIDE PROS & CONS */}
-            <div className="p-3 rounded-2xl bg-[#161a26] border border-[#2b3447] space-y-2">
-              <div className="flex items-center justify-between pb-1.5 border-b border-[#252c3d]">
+            <div className="p-3 rounded-2xl bg-[#18141e] border border-[#3b2430] space-y-2">
+              <div className="flex items-center justify-between pb-1.5 border-b border-[#2d1f28]">
                 <div className="font-black text-xs text-red-400 flex items-center gap-1.5">
                   <span>🔴 THẾ TRẬN BÊN ĐỎ</span>
                 </div>
@@ -587,7 +740,7 @@ export default function AnalysisPanel({
           </div>
         )}
 
-        {/* ================= TAB 3: MOVE HISTORY ================= */}
+        {/* ================= TAB 4: MOVE HISTORY ================= */}
         {activeTab === 'history' && (
           <div className="space-y-2.5">
             {/* FEN Bar */}
@@ -607,7 +760,7 @@ export default function AnalysisPanel({
               </div>
             </div>
 
-            {/* Move List */}
+            {/* Move List with Badges */}
             <div className="space-y-1">
               <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider pb-1 border-b border-gray-800 flex items-center justify-between">
                 <span>Biên bản ván cờ ({moveHistory.length} nước)</span>
@@ -623,6 +776,8 @@ export default function AnalysisPanel({
                 <div className="space-y-1 mt-1">
                   {moveHistory.map((h, idx) => {
                     const isCurrent = idx === historyIndex - 1;
+                    const gr = h.grade || MOVE_GRADES.best;
+
                     return (
                       <button
                         key={`hist-${idx}`}
@@ -637,8 +792,19 @@ export default function AnalysisPanel({
                           <span className={`font-mono text-[10px] ${isCurrent ? 'text-gray-950 font-black' : 'text-gray-500'}`}>
                             #{idx + 1}
                           </span>
+                          <span className="text-sm">{gr.icon}</span>
                           <span className={h.turn === 'red' ? (isCurrent ? 'text-gray-950' : 'text-red-400 font-bold') : (isCurrent ? 'text-gray-950' : 'text-blue-300 font-bold')}>
                             {h.turn === 'red' ? 'Đỏ' : 'Đen'}: {h.notationVi || h.notationCn}
+                          </span>
+                          <span
+                            className="px-1.5 py-0.2 rounded text-[9.5px] font-bold"
+                            style={{
+                              backgroundColor: isCurrent ? 'rgba(0,0,0,0.2)' : gr.bg,
+                              color: isCurrent ? '#000000' : gr.textColor,
+                              border: isCurrent ? 'none' : `1px solid ${gr.border}`
+                            }}
+                          >
+                            {gr.label} {gr.symbol}
                           </span>
                         </div>
 
