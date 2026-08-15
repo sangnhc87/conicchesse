@@ -166,8 +166,15 @@ function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
 export function isStandardOpening(board) {
   if (!board) return false;
   return board[9]?.[4] === 'K' && board[0]?.[4] === 'k' &&
-         board[7]?.[1] === 'C' && board[7]?.[7] === 'C' &&
-         board[9]?.[0] === 'R' && board[9]?.[8] === 'R';
+         board[9]?.[0] === 'R' && board[9]?.[8] === 'R' &&
+         board[0]?.[0] === 'r' && board[0]?.[8] === 'r';
+}
+
+export function isBlackInitialDefense(board) {
+  if (!board) return false;
+  // Black pieces still in starting formation
+  return board[0]?.[4] === 'k' && board[0]?.[7] === 'n' && board[0]?.[1] === 'n' &&
+         board[2]?.[1] === 'c' && board[2]?.[7] === 'c';
 }
 
 export const GRANDMASTER_OPENING_MOVES = [
@@ -178,15 +185,21 @@ export const GRANDMASTER_OPENING_MOVES = [
   { fromR: 6, fromC: 6, toR: 5, toC: 6, name: 'Binh 7 tiến 1 (Tiên Nhân Chỉ Lộ)' },
   { fromR: 6, fromC: 2, toR: 5, toC: 2, name: 'Binh 3 tiến 1 (Tiên Nhân Chỉ Lộ)' },
   { fromR: 9, fromC: 2, toR: 7, toC: 4, name: 'Tượng 3 tiến 5 (Phi Tượng Cuộc)' },
-  { fromR: 9, fromC: 6, toR: 7, toC: 4, name: 'Tượng 7 tiến 5 (Phi Tượng Cuộc)' },
-  { fromR: 7, fromC: 1, toR: 3, toC: 1, name: 'Pháo 2 tiến 4 (Quá Cung Pháo)' },
-  { fromR: 7, fromC: 1, toR: 7, toC: 3, name: 'Pháo 2 bình 4 (Sĩ Giác Pháo)' }
+  { fromR: 9, fromC: 6, toR: 7, toC: 4, name: 'Tượng 7 tiến 5 (Phi Tượng Cuộc)' }
 ];
 
 export function getBestMove(board, turn = 'red', depth = 4) {
-  if (turn === 'red' && isStandardOpening(board)) {
-    // Return standard Trung Pháo as default highest opening move
+  // Red Initial Standard Opening
+  if (turn === 'red' && isStandardOpening(board) && board[7]?.[1] === 'C' && board[7]?.[7] === 'C') {
     return { fromR: 7, fromC: 1, toR: 7, toC: 4, captured: null };
+  }
+
+  // Black Initial Standard Defense against Trung Pháo -> Mã 8 tiến 7 (Bình phong mã)
+  if (turn === 'black' && isBlackInitialDefense(board)) {
+    // If Red played central cannon
+    if (board[7]?.[4] === 'C') {
+      return { fromR: 0, fromC: 7, toR: 2, toC: 6, captured: null };
+    }
   }
 
   const moves = getLegalMoves(board, turn);

@@ -1,10 +1,11 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   Printer, X, BookOpen, Layers, Eye, FileText, Folder, CheckCircle, Sparkles, LayoutGrid, FileDown,
-  Hash, Sliders, ChevronDown, Check, ArrowRight
+  Hash, Sliders, ChevronDown, Check, ArrowRight, CheckCircle2, Loader2
 } from 'lucide-react';
 import { parseFen, PIECE_NAMES, isRed } from './XiangqiLogic';
 import { safeFetchJson } from '../lib/dataLoader.js';
+import { invoke as tauriInvoke, isTauri as checkIsTauri } from '@tauri-apps/api/core';
 
 export default function PdfExportModal({
   isOpen,
@@ -14,8 +15,12 @@ export default function PdfExportModal({
 }) {
   const [exportScope, setExportScope] = useState('folder'); // 'current', 'folder', 'range'
   const [selectedFolder, setSelectedFolder] = useState('');
-  const [layoutMode, setLayoutMode] = useState('6'); // '6' = 6/page, '4' = 4/page, '2' = 2/page
+  const [layoutMode, setLayoutMode] = useState('9'); // '9' = 9/page (3x3), '6' = 6/page, '4' = 4/page, '2' = 2/page
   const [pieceStyle, setPieceStyle] = useState('cn'); // 'cn' or 'vi'
+  const [colorMode, setColorMode] = useState('bw'); // 'bw' = Publishing B&W (Red: White disc, Black: Solid black disc), 'color' = Luxury Color
+  const [includeMainCover, setIncludeMainCover] = useState(true); // Include grand master book cover
+  const [includeToc, setIncludeToc] = useState(true); // Include Table of Contents page
+  const [includeNotesLines, setIncludeNotesLines] = useState(true); // Include 2 dotted note lines under each board
   const [solutionMode, setSolutionMode] = useState('end'); // 'end' or 'below'
   const [namingStyle, setNamingStyle] = useState('topic_num'); // 'topic_num', 'topic_code', 'topic_only'
   const [bookTitle, setBookTitle] = useState('KỲ PHỔ CỜ TƯỚNG CONIC');
@@ -28,6 +33,9 @@ export default function PdfExportModal({
 
   const [cachedLessons, setCachedLessons] = useState({});
   const [isGenerating, setIsGenerating] = useState(false);
+  const [progressPercent, setProgressPercent] = useState(0);
+  const [progressStepText, setProgressStepText] = useState('Đang khởi tạo...');
+  const [toastMsg, setToastMsg] = useState(null);
   const modalRef = useRef(null);
 
   const catalogItems = catalog?.items || [];
@@ -102,12 +110,39 @@ export default function PdfExportModal({
     return catalogItems.filter(item => item.folderPath?.join(' / ') === selectedFolder);
   }, [catalogItems, selectedFolder]);
 
-  // Update default range when selected folder changes
+  // Update default range and title when selected folder changes
   useEffect(() => {
     const total = itemsInSelectedFolder.length;
     setRangeStart(1);
     setRangeEnd(Math.max(1, Math.min(total, 50)));
+
+    if (selectedFolder) {
+      const cleanName = selectedFolder.replace(/^ALL::/, '').replace(/^\d+\.\s*/, '').trim();
+      if (cleanName) {
+        setBookTitle(`KỲ PHỔ CONIC • ${cleanName.toUpperCase()}`);
+      }
+    }
   }, [selectedFolder, itemsInSelectedFolder.length]);
+
+  const getExportFilename = () => {
+    let cleanFolder = 'Co_Tuong';
+    if (exportScope === 'current' && currentLesson) {
+      cleanFolder = `The_${currentLesson.id || 1}`;
+    } else if (selectedFolder) {
+      cleanFolder = selectedFolder
+        .replace(/^ALL::/, '')
+        .replace(/^\d+\.\s*/, '')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-zA-Z0-9_-]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+    }
+    const rangeTag = quantityPreset === 'all' 
+      ? `Full_${exportLessons.length}` 
+      : quantityPreset === 'custom' 
+      ? `Bai_${rangeStart}_${rangeEnd}` 
+      : `Tap_${quantityPreset}`;
+    return `Ky_Pho_Conic_${cleanFolder || 'Tap'}_${rangeTag}`;
+  };
 
   // Target items based on scope and quantity
   const targetItems = useMemo(() => {
@@ -191,14 +226,11 @@ export default function PdfExportModal({
     const isPureNumber = /^\d+$/.test((lesson.title || '').trim());
 
     if (namingStyle === 'topic_num') {
-      // e.g. "Chốt Tượng Khéo Thắng 1 Sĩ (Thế 1)"
-      return isPureNumber || !lesson.title ? `${topicName} • Thế ${index + 1}` : lesson.title;
+      return isPureNumber || !lesson.title ? topicName : lesson.title;
     } else if (namingStyle === 'topic_code') {
-      // e.g. "Chốt Tượng Khéo Thắng 1 Sĩ [#11362]"
       return `${topicName} [Mã ${originalCode}]`;
     } else {
-      // topic_only
-      return isPureNumber ? `${topicName} (Bài ${index + 1})` : lesson.title;
+      return isPureNumber || !lesson.title ? topicName : lesson.title;
     }
   };
 
@@ -227,60 +259,207 @@ export default function PdfExportModal({
       selectedFolder.startsWith('ALL::') ? selectedFolder.replace('ALL::', '') : (selectedFolder.split(' / ').slice(-1)[0] || 'Tuyển tập'),
       layoutMode,
       pieceStyle,
-      solutionMode
+      solutionMode,
+      colorMode,
+      includeMainCover,
+      includeToc,
+      includeNotesLines
     );
   };
 
-  const handlePrint = () => {
+  const handleExportPdfDirect = async () => {
+    let progressTimer = null;
     try {
+      setIsGenerating(true);
+      setProgressPercent(15);
+      setProgressStepText(`Đang xử lý dữ liệu ${exportLessons.length} thế cờ...`);
+      await new Promise(resolve => setTimeout(resolve, 80));
+
+      setProgressPercent(35);
+      setProgressStepText(`Đang kết xuất ${Math.ceil(exportLessons.length / (layoutMode === '9' ? 9 : 6))} trang Vector & Mục lục...`);
+      await new Promise(resolve => setTimeout(resolve, 60));
+
       const htmlContent = buildHtmlDoc();
+      const filename = getExportFilename();
 
-      // In Desktop Webview / Tauri: create an isolated printing iframe
-      const iframe = document.createElement('iframe');
-      iframe.style.position = 'fixed';
-      iframe.style.right = '0';
-      iframe.style.bottom = '0';
-      iframe.style.width = '0';
-      iframe.style.height = '0';
-      iframe.style.border = '0';
-      document.body.appendChild(iframe);
+      setProgressPercent(50);
+      setProgressStepText('Đang nạp công cụ Headless PDF Engine...');
+      await new Promise(resolve => setTimeout(resolve, 60));
 
-      const doc = iframe.contentWindow.document;
-      doc.open();
-      doc.write(htmlContent);
-      doc.close();
-
-      setTimeout(() => {
-        try {
-          iframe.contentWindow.focus();
-          iframe.contentWindow.print();
-        } catch (e) {
-          console.warn('Iframe print error, falling back to window.print', e);
-          window.print();
+      // Simulate smooth progress while Rust command runs
+      let currentP = 55;
+      progressTimer = setInterval(() => {
+        currentP = Math.min(94, currentP + Math.max(1, Math.floor((95 - currentP) / 5)));
+        setProgressPercent(currentP);
+        if (currentP < 70) {
+          setProgressStepText(`Đang dàn trang đồ họa Vector... (${currentP}%)`);
+        } else if (currentP < 88) {
+          setProgressStepText(`Đang kết xuất PDF Vector độ nét cao... (${currentP}%)`);
+        } else {
+          setProgressStepText(`Đang ghi file vào thư mục Downloads... (${currentP}%)`);
         }
+      }, 400);
+
+      // Check if Tauri invoke is available
+      let isTauriEnv = false;
+      try {
+        isTauriEnv = checkIsTauri() || Boolean(window.__TAURI_INTERNALS__) || (typeof window.__TAURI__ !== 'undefined');
+      } catch {
+        isTauriEnv = Boolean(window.__TAURI_INTERNALS__);
+      }
+
+      if (isTauriEnv && typeof tauriInvoke === 'function') {
+        let savedPath = null;
+        try {
+          savedPath = await tauriInvoke('export_pdf_direct', {
+            content: htmlContent,
+            filename
+          });
+        } catch {
+          savedPath = await tauriInvoke('exportPdfDirect', {
+            content: htmlContent,
+            filename
+          });
+        }
+        if (progressTimer) clearInterval(progressTimer);
+        setProgressPercent(100);
+        setProgressStepText('🎉 Đã xuất thành công! Đang mở trong Xem Trước...');
+        await new Promise(resolve => setTimeout(resolve, 400));
+        setIsGenerating(false);
+
+        setToastMsg(`📕 Đã xuất thành công file PDF chuẩn NXB sạch 100%:\n${savedPath}\n(Đang mở trong Xem Trước / Preview)`);
+        setTimeout(() => setToastMsg(null), 9000);
+        return;
+      }
+
+      // Browser Fallback (only in pure web browser)
+      if (progressTimer) clearInterval(progressTimer);
+      setProgressPercent(100);
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.open();
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.focus();
         setTimeout(() => {
-          if (document.body.contains(iframe)) {
-            document.body.removeChild(iframe);
-          }
-        }, 2000);
-      }, 300);
+          try { printWindow.print(); } catch {}
+        }, 500);
+      }
+      setIsGenerating(false);
     } catch (e) {
-      console.error('Print error:', e);
-      window.print();
+      if (progressTimer) clearInterval(progressTimer);
+      console.error('Export PDF error:', e);
+      setIsGenerating(false);
+      setToastMsg(`❌ Lỗi khi xuất PDF: ${e?.message || e}`);
+      setTimeout(() => setToastMsg(null), 5000);
     }
   };
 
-  const handleDownloadHtmlBook = () => {
-    const htmlContent = buildHtmlDoc();
-    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${(bookTitle || 'Ky_Pho_Co_Tuong_Conic').replace(/\s+/g, '_')}.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const handlePrint = async () => {
+    try {
+      setIsGenerating(true);
+      const htmlContent = buildHtmlDoc();
+      const filename = `${getExportFilename()}_In_Sach`;
+
+      // Check if Tauri invoke is available
+      let isTauriEnv = false;
+      try {
+        isTauriEnv = checkIsTauri() || Boolean(window.__TAURI_INTERNALS__) || (typeof window.__TAURI__ !== 'undefined');
+      } catch {
+        isTauriEnv = Boolean(window.__TAURI_INTERNALS__);
+      }
+
+      if (isTauriEnv && typeof tauriInvoke === 'function') {
+        let savedPath = null;
+        try {
+          savedPath = await tauriInvoke('print_or_open_html', {
+            content: htmlContent,
+            filename,
+            autoPrint: true
+          });
+        } catch {
+          savedPath = await tauriInvoke('printOrOpenHtml', {
+            content: htmlContent,
+            filename,
+            autoPrint: true
+          });
+        }
+        setToastMsg(`🖨️ Đã mở hộp thoại in hệ thống:\n${savedPath}`);
+        setTimeout(() => setToastMsg(null), 8000);
+        setIsGenerating(false);
+        return;
+      }
+
+      // Browser Fallback
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.open();
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+          try { printWindow.print(); } catch {}
+        }, 500);
+      }
+      setIsGenerating(false);
+    } catch (e) {
+      console.error('Print error:', e);
+      setIsGenerating(false);
+      setToastMsg(`❌ Lỗi khi mở hộp thoại in: ${e?.message || e}`);
+      setTimeout(() => setToastMsg(null), 5000);
+    }
+  };
+
+  const handleDownloadHtmlBook = async () => {
+    try {
+      setIsGenerating(true);
+      const htmlContent = buildHtmlDoc();
+      const filename = getExportFilename();
+
+      // Check if Tauri invoke is available
+      let isTauriEnv = false;
+      try {
+        isTauriEnv = checkIsTauri() || Boolean(window.__TAURI_INTERNALS__) || (typeof window.__TAURI__ !== 'undefined');
+      } catch {
+        isTauriEnv = Boolean(window.__TAURI_INTERNALS__);
+      }
+
+      if (isTauriEnv && typeof tauriInvoke === 'function') {
+        let savedPath = null;
+        try {
+          savedPath = await tauriInvoke('export_book_html', {
+            content: htmlContent,
+            filename
+          });
+        } catch {
+          savedPath = await tauriInvoke('exportBookHtml', {
+            content: htmlContent,
+            filename
+          });
+        }
+        setToastMsg(`✅ Đã lưu file sách chuẩn in vào thư mục Downloads:\n${savedPath}`);
+        setTimeout(() => setToastMsg(null), 8000);
+        setIsGenerating(false);
+        return;
+      }
+
+      // Browser Fallback
+      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${filename}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setIsGenerating(false);
+    } catch (e) {
+      console.error('Download error:', e);
+      setIsGenerating(false);
+      setToastMsg(`❌ Lỗi tải sách: ${e?.message || e}`);
+      setTimeout(() => setToastMsg(null), 5000);
+    }
   };
 
   return (
@@ -374,55 +553,52 @@ export default function PdfExportModal({
                   {/* Quantity & Range Selector */}
                   <div>
                     <label className="text-[11px] text-gray-400 block mb-1">Số lượng bài cần xuất:</label>
-                    <div className="grid grid-cols-3 gap-1.5 mb-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mb-2">
                       <button
                         onClick={() => setQuantityPreset('all')}
                         className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
                           quantityPreset === 'all'
-                            ? 'bg-amber-500/20 border-amber-500 text-amber-300'
+                            ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
                             : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                         }`}
                       >
-                        Tất cả ({itemsInSelectedFolder.length})
+                        Tất cả ({itemsInSelectedFolder.length} bài)
                       </button>
                       <button
-                        onClick={() => setQuantityPreset('6')}
+                        onClick={() => setQuantityPreset('54')}
                         className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
-                          quantityPreset === '6'
-                            ? 'bg-amber-500/20 border-amber-500 text-amber-300'
+                          quantityPreset === '54'
+                            ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
                             : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                         }`}
                       >
-                        6 bài (1 trang)
+                        54 bài (6 trang A4)
                       </button>
                       <button
-                        onClick={() => setQuantityPreset('12')}
+                        onClick={() => setQuantityPreset('108')}
                         className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
-                          quantityPreset === '12'
-                            ? 'bg-amber-500/20 border-amber-500 text-amber-300'
+                          quantityPreset === '108'
+                            ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
                             : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                         }`}
                       >
-                        12 bài (2 trang)
+                        108 bài (12 trang)
                       </button>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-1.5 mb-2">
                       <button
-                        onClick={() => setQuantityPreset('24')}
+                        onClick={() => setQuantityPreset('180')}
                         className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
-                          quantityPreset === '24'
-                            ? 'bg-amber-500/20 border-amber-500 text-amber-300'
+                          quantityPreset === '180'
+                            ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
                             : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                         }`}
                       >
-                        24 bài (4 trang)
+                        180 bài (20 trang)
                       </button>
                       <button
                         onClick={() => setQuantityPreset('custom')}
-                        className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
+                        className={`p-1.5 rounded-lg border text-center font-bold text-[11px] col-span-2 sm:col-span-1 ${
                           quantityPreset === 'custom'
-                            ? 'bg-amber-500/20 border-amber-500 text-amber-300'
+                            ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
                             : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                         }`}
                       >
@@ -499,39 +675,50 @@ export default function PdfExportModal({
               <label className="font-bold text-amber-300 uppercase tracking-wider block">
                 3. Bố cục trang in (Tiết kiệm giấy)
               </label>
-              <div className="grid grid-cols-3 gap-1.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                <button
+                  onClick={() => setLayoutMode('9')}
+                  className={`p-2 rounded-xl border text-center font-bold transition-all ${
+                    layoutMode === '9'
+                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm ring-1 ring-amber-500/40'
+                      : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
+                  }`}
+                >
+                  9 hình / trang
+                  <span className="block text-[9px] font-normal text-emerald-400 mt-0.5">⚡ Siêu tiết kiệm (3x3)</span>
+                </button>
                 <button
                   onClick={() => setLayoutMode('6')}
                   className={`p-2 rounded-xl border text-center font-bold transition-all ${
                     layoutMode === '6'
-                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                      : 'bg-[#151924] border-gray-800 text-gray-400'
+                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm ring-1 ring-amber-500/40'
+                      : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                   }`}
                 >
                   6 hình / trang
-                  <span className="block text-[9px] font-normal text-emerald-400 mt-0.5">Siêu tiết kiệm</span>
+                  <span className="block text-[9px] font-normal text-emerald-400 mt-0.5">Cân đối (3x2)</span>
                 </button>
                 <button
                   onClick={() => setLayoutMode('4')}
                   className={`p-2 rounded-xl border text-center font-bold transition-all ${
                     layoutMode === '4'
-                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                      : 'bg-[#151924] border-gray-800 text-gray-400'
+                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm ring-1 ring-amber-500/40'
+                      : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                   }`}
                 >
                   4 hình / trang
-                  <span className="block text-[9px] font-normal text-amber-400 mt-0.5">Chuẩn đẹp</span>
+                  <span className="block text-[9px] font-normal text-amber-400 mt-0.5">Chuẩn đẹp (2x2)</span>
                 </button>
                 <button
                   onClick={() => setLayoutMode('2')}
                   className={`p-2 rounded-xl border text-center font-bold transition-all ${
                     layoutMode === '2'
-                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
-                      : 'bg-[#151924] border-gray-800 text-gray-400'
+                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm ring-1 ring-amber-500/40'
+                      : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                   }`}
                 >
                   2 hình / trang
-                  <span className="block text-[9px] font-normal text-gray-400 mt-0.5">Khổ lớn</span>
+                  <span className="block text-[9px] font-normal text-gray-400 mt-0.5">Khổ lớn (1x2)</span>
                 </button>
               </div>
             </div>
@@ -568,12 +755,44 @@ export default function PdfExportModal({
               </div>
             </div>
 
-            {/* 5. Piece Style & Title */}
+            {/* 5. Chế độ màu sắc in ấn & Chữ */}
             <div className="space-y-2">
               <label className="font-bold text-amber-300 uppercase tracking-wider block">
-                5. Tùy chỉnh hiển thị
+                5. Chế độ in ấn & Màu sắc
               </label>
+              
+              {/* Color Mode: B&W Publishing (Standard) vs Color */}
               <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setColorMode('bw')}
+                  className={`p-2 rounded-xl border text-center font-bold transition-all ${
+                    colorMode === 'bw'
+                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm ring-1 ring-amber-500/40'
+                      : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <div className="text-xs">🖨️ Chuẩn Trắng Đen NXB</div>
+                  <div className="text-[9.5px] font-normal text-emerald-400 mt-0.5">
+                    Đỏ Trắng / Đen Đặc
+                  </div>
+                </button>
+                <button
+                  onClick={() => setColorMode('color')}
+                  className={`p-2 rounded-xl border text-center font-bold transition-all ${
+                    colorMode === 'color'
+                      ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm ring-1 ring-amber-500/40'
+                      : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <div className="text-xs">🎨 In Màu Sắc Nét</div>
+                  <div className="text-[9.5px] font-normal text-amber-400 mt-0.5">
+                    Đỏ Viền Đỏ / Đen Viền Than
+                  </div>
+                </button>
+              </div>
+
+              {/* Character Style */}
+              <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
                   onClick={() => setPieceStyle('cn')}
                   className={`p-2 rounded-xl border text-center font-bold ${
@@ -590,6 +809,39 @@ export default function PdfExportModal({
                 >
                   Chữ Việt (Tướng/Sĩ)
                 </button>
+              </div>
+
+              {/* Cover & Book Formatting Options */}
+              <div className="space-y-1.5 pt-1 border-t border-gray-800">
+                <label className="flex items-center gap-2 p-2 bg-[#151924] rounded-xl border border-gray-800 cursor-pointer hover:border-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={includeMainCover}
+                    onChange={(e) => setIncludeMainCover(e.target.checked)}
+                    className="accent-amber-500 rounded"
+                  />
+                  <span className="text-gray-200 text-xs font-semibold">📖 Kèm Trang Bìa Sách Hoàng Gia (Đầu sách)</span>
+                </label>
+
+                <label className="flex items-center gap-2 p-2 bg-[#151924] rounded-xl border border-gray-800 cursor-pointer hover:border-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={includeToc}
+                    onChange={(e) => setIncludeToc(e.target.checked)}
+                    className="accent-amber-500 rounded"
+                  />
+                  <span className="text-gray-200 text-xs font-semibold">📑 Kèm Trang Mục Lục Sách (Tra cứu nhanh theo chương)</span>
+                </label>
+
+                <label className="flex items-center gap-2 p-2 bg-[#151924] rounded-xl border border-gray-800 cursor-pointer hover:border-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={includeNotesLines}
+                    onChange={(e) => setIncludeNotesLines(e.target.checked)}
+                    className="accent-amber-500 rounded"
+                  />
+                  <span className="text-gray-200 text-xs font-semibold">✍️ 2 dòng kẻ ghi chú lời giải dưới mỗi bàn cờ</span>
+                </label>
               </div>
 
               <input
@@ -615,19 +867,30 @@ export default function PdfExportModal({
               className="print-sheet w-full max-w-[650px] bg-white text-black p-6 sm:p-8 rounded-xl shadow-2xl space-y-6 font-serif"
             >
               {/* Cover Header */}
-              <div className="text-center pb-4 border-b-2 border-red-900">
-                <h1 className="text-xl font-black text-red-950 tracking-wider uppercase mb-1 font-serif">
+              <div className="text-center pb-3 border-b-2 border-red-900">
+                <div className="flex items-center justify-center gap-3 mb-1.5">
+                  <span className="w-6 h-6 rounded-full bg-white border-2 border-red-700 flex items-center justify-center text-xs font-black text-red-700 font-serif">帥</span>
+                  <span className="text-sm">⚔️</span>
+                  <span className="w-6 h-6 rounded-full bg-slate-900 border-2 border-slate-900 flex items-center justify-center text-xs font-black text-white font-serif">將</span>
+                </div>
+                <h1 className="text-lg font-black text-red-950 tracking-wider uppercase font-serif">
                   {bookTitle}
                 </h1>
-                <p className="text-xs text-gray-600 font-sans italic">{bookSubtitle}</p>
-                <div className="text-[10px] text-gray-500 mt-1 font-sans font-bold">
-                  Tuyển tập {exportLessons.length} thế cờ • Thư mục: {selectedFolder.split(' / ').slice(-1)[0] || 'Tuyển tập'}
+                
+                {/* 2-Line Centered Loving Dedication */}
+                <div className="my-2 py-1.5 px-4 bg-red-50 border border-red-300 rounded-lg inline-block text-center shadow-sm">
+                  <div className="text-[11px] font-black text-red-900">❤️ TÀI LIỆU DÀNH CHO CONIC HỌC CỜ TƯỚNG ❤️</div>
+                  <div className="text-[10px] font-black text-red-700 mt-0.5">✨ CON TRAI YÊU CỦA BA ✨</div>
+                </div>
+
+                <div className="text-[9.5px] text-gray-500 font-sans font-bold">
+                  Tuyển tập {exportLessons.length} thế cờ • {colorMode === 'bw' ? 'Trắng Đen NXB' : 'In Màu'} • Bố cục {layoutMode} hình/trang
                 </div>
               </div>
 
               {/* Diagrams Grid */}
-              <div className={`grid gap-3.5 ${
-                layoutMode === '6' ? 'grid-cols-3' : layoutMode === '4' ? 'grid-cols-2' : 'grid-cols-2'
+              <div className={`grid ${
+                layoutMode === '9' ? 'grid-cols-3 gap-2' : layoutMode === '6' ? 'grid-cols-3 gap-3.5' : layoutMode === '4' ? 'grid-cols-2 gap-3.5' : 'grid-cols-2 gap-3.5'
               }`}>
                 {previewLessons.map((les, lIdx) => {
                   const { board } = parseFen(les.fen);
@@ -635,12 +898,13 @@ export default function PdfExportModal({
 
                   return (
                     <div key={`les-preview-${les.id}-${lIdx}`} className="space-y-1 break-inside-avoid border border-gray-300 p-2 rounded bg-[#fffdfa] shadow-sm">
-                      <div className="border-b border-gray-200 pb-0.5 text-[10.5px] font-bold text-red-950 truncate font-sans">
-                        <span>{les.displayTitle}</span>
+                      <div className="border-b border-gray-200 pb-0.5 text-[10.5px] font-bold text-red-950 font-sans flex justify-between items-center gap-1">
+                        <span className="truncate">{les.displayTitle || `Thế ${lIdx + 1}`}</span>
+                        <span className="text-[8.5px] font-bold text-gray-500 bg-gray-100 px-1 py-0.2 rounded shrink-0">#{lIdx + 1}</span>
                       </div>
 
                       {/* Vector SVG Xiangqi Board */}
-                      <PrintBoardSvg board={board} pieceStyle={pieceStyle} />
+                      <PrintBoardSvg board={board} pieceStyle={pieceStyle} colorMode={colorMode} />
 
                       <div className="text-[9px] text-gray-700 font-sans flex justify-between font-semibold pt-0.5">
                         <span className="text-red-900">{goalText}</span>
@@ -654,6 +918,17 @@ export default function PdfExportModal({
                           <div className="font-bold text-red-900">Lời giải:</div>
                           <div className="leading-tight text-gray-800 font-mono">
                             {les.moves?.map(m => `${m.num}. ${m.red_short || m.red_vi || m.red} ${m.black_short || m.black_vi || m.black}`).join('  ') || '1. Tg5-4 Tg6-5 (1-0)'}
+                          </div>
+                        </div>
+                      )}
+
+                      {solutionMode === 'end' && includeNotesLines && (
+                        <div className="mt-1 pt-1 border-t border-dashed border-gray-200">
+                          <div className="flex items-center border-b border-dotted border-gray-400 h-3.5 pb-0.5">
+                            <span className="text-[7.5px] text-gray-500 font-mono font-bold">✍️ Ghi 1:</span>
+                          </div>
+                          <div className="flex items-center border-b border-dotted border-gray-400 h-3.5 pb-0.5 mt-0.5">
+                            <span className="text-[7.5px] text-gray-500 font-mono font-bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2:</span>
                           </div>
                         </div>
                       )}
@@ -698,6 +973,67 @@ export default function PdfExportModal({
           </div>
         </div>
 
+        {/* Full Modal Generating Overlay with Real-Time Progress Bar */}
+        {isGenerating && (
+          <div className="absolute inset-0 z-50 bg-[#0c0e15]/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-fadeIn no-print">
+            <div className="p-6 sm:p-8 bg-[#161a26] border-2 border-amber-500/60 rounded-3xl shadow-2xl max-w-lg w-full flex flex-col items-center space-y-4 relative">
+              <div className="relative flex items-center justify-center">
+                <Loader2 className="w-14 h-14 text-amber-400 animate-spin" />
+                <span className="absolute font-mono text-xs font-black text-amber-300">
+                  {progressPercent}%
+                </span>
+              </div>
+              <div className="space-y-1 w-full">
+                <h3 className="text-lg font-black text-amber-300">
+                  Đang Kết Xuất Sách PDF Chuẩn In...
+                </h3>
+                <p className="text-xs text-gray-300">
+                  Đang xử lý <strong className="text-white font-bold">{exportLessons.length} thế cờ</strong> (Khoảng <strong className="text-amber-400 font-bold">{Math.ceil(exportLessons.length / (layoutMode === '9' ? 9 : 6))} trang A4</strong>)
+                </p>
+              </div>
+
+              {/* Real-time Progress Bar */}
+              <div className="w-full space-y-1.5">
+                <div className="w-full bg-gray-800 rounded-full h-3 overflow-hidden p-0.5 border border-gray-700">
+                  <div 
+                    className="bg-gradient-to-r from-amber-500 via-red-500 to-amber-400 h-full rounded-full transition-all duration-300 ease-out shadow-sm"
+                    style={{ width: `${progressPercent}%` }}
+                  ></div>
+                </div>
+                <div className="flex justify-between items-center text-[11px] font-mono text-gray-400">
+                  <span className="text-amber-300 font-sans font-semibold truncate max-w-[80%]">{progressStepText}</span>
+                  <span className="font-bold text-amber-400 font-mono">{progressPercent}%</span>
+                </div>
+              </div>
+
+              <div className="pt-2 w-full flex justify-center">
+                <button
+                  onClick={() => setIsGenerating(false)}
+                  className="px-4 py-1.5 bg-gray-800/80 hover:bg-gray-700 text-gray-300 hover:text-white rounded-xl text-xs font-bold border border-gray-700 transition-all active:scale-95"
+                >
+                  Đóng cửa sổ chờ
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Toast Notification Banner */}
+        {toastMsg && (
+          <div className="px-5 py-2.5 bg-emerald-950/90 border-t border-emerald-500/40 text-emerald-200 text-xs font-bold flex items-center justify-between animate-fadeIn no-print">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+              <span className="whitespace-pre-wrap">{toastMsg}</span>
+            </div>
+            <button
+              onClick={() => setToastMsg(null)}
+              className="p-1 text-emerald-400 hover:text-white rounded"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+
         {/* Modal Footer Actions */}
         <div className="px-5 py-3 border-t border-[#232a3b] bg-gradient-to-r from-[#171b26] via-[#131622] to-[#171b26] flex items-center justify-between no-print">
           <div className="text-xs text-gray-300">
@@ -708,19 +1044,30 @@ export default function PdfExportModal({
             <button
               onClick={handleDownloadHtmlBook}
               disabled={isGenerating || exportLessons.length === 0}
-              className="px-3.5 py-2 rounded-xl bg-[#1c2233] hover:bg-[#273047] text-cyan-300 hover:text-cyan-200 border border-cyan-500/40 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
-              title="Tải file sách HTML tự động mở hộp thoại in trên mọi trình duyệt"
+              className="px-3 py-2 rounded-xl bg-[#1c2233] hover:bg-[#273047] text-gray-300 hover:text-white border border-gray-700 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
+              title="Lưu file HTML dự phòng"
             >
               <FileDown className="w-4 h-4 text-cyan-400" />
-              <span>Tải File Sách In</span>
+              <span>Lưu File HTML</span>
             </button>
 
             <button
               onClick={handlePrint}
               disabled={isGenerating || exportLessons.length === 0}
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-red-600 hover:from-amber-400 hover:to-red-500 text-white font-black text-xs flex items-center gap-2 shadow-lg transition-all active:scale-95"
+              className="px-3.5 py-2 rounded-xl bg-[#1c2233] hover:bg-[#273047] text-cyan-300 hover:text-cyan-200 border border-cyan-500/40 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
+              title="Mở trực tiếp hộp thoại in hệ thống (Print Dialog)"
             >
-              <Printer className="w-4 h-4" /> In Sách / Lưu PDF
+              <Printer className="w-4 h-4 text-cyan-400" />
+              <span>Hộp Thoại In</span>
+            </button>
+
+            <button
+              onClick={handleExportPdfDirect}
+              disabled={isGenerating || exportLessons.length === 0}
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-red-600 to-amber-600 hover:from-amber-400 hover:to-red-500 text-white font-black text-xs flex items-center gap-2 shadow-xl ring-2 ring-amber-500/40 transition-all active:scale-95"
+              title="Xuất file PDF trực tiếp vào Downloads và tự động mở trong ứng dụng Xem Trước (Preview)"
+            >
+              <FileDown className="w-4 h-4" /> 📕 Xuất File PDF Chuẩn In
             </button>
 
             <button
@@ -736,41 +1083,42 @@ export default function PdfExportModal({
   );
 }
 
-function PrintBoardSvg({ board, pieceStyle = 'cn' }) {
+function PrintBoardSvg({ board, pieceStyle = 'cn', colorMode = 'bw' }) {
   return (
     <div className="relative w-full border border-black bg-[#fffdf8] rounded-sm overflow-hidden" style={{ aspectRatio: '450/500' }}>
       <svg viewBox="0 0 450 500" className="w-full h-full block">
-        <rect width="450" height="500" fill="#fffef9" />
-        <rect x="25" y="25" width="400" height="450" fill="none" stroke="#000" strokeWidth="1.8" />
+        <rect width="450" height="500" fill="#fffdf8" />
+        <rect x="23" y="23" width="404" height="454" fill="none" stroke="#3e2723" strokeWidth="2" />
+        <rect x="25" y="25" width="400" height="450" fill="none" stroke="#5d4037" strokeWidth="1" />
 
         {/* Horizontal Lines */}
         {Array.from({ length: 10 }).map((_, i) => (
-          <line key={`h-${i}`} x1="25" y1={25 + i * 50} x2="425" y2={25 + i * 50} stroke="#000" strokeWidth="1" />
+          <line key={`h-${i}`} x1="25" y1={25 + i * 50} x2="425" y2={25 + i * 50} stroke="#3e2723" strokeWidth="1.2" />
         ))}
 
         {/* Vertical Lines */}
         {Array.from({ length: 9 }).map((_, i) => {
           const x = 25 + i * 50;
           if (i === 0 || i === 8) {
-            return <line key={`v-${i}`} x1={x} y1="25" x2={x} y2="475" stroke="#000" strokeWidth="1" />;
+            return <line key={`v-${i}`} x1={x} y1="25" x2={x} y2="475" stroke="#3e2723" strokeWidth="1.2" />;
           }
           return (
             <React.Fragment key={`v-${i}`}>
-              <line x1={x} y1="25" x2={x} y2="225" stroke="#000" strokeWidth="1" />
-              <line x1={x} y1="275" x2={x} y2="475" stroke="#000" strokeWidth="1" />
+              <line x1={x} y1="25" x2={x} y2="225" stroke="#3e2723" strokeWidth="1.2" />
+              <line x1={x} y1="275" x2={x} y2="475" stroke="#3e2723" strokeWidth="1.2" />
             </React.Fragment>
           );
         })}
 
         {/* Palaces */}
-        <line x1="175" y1="25" x2="275" y2="125" stroke="#000" strokeWidth="1" />
-        <line x1="275" y1="25" x2="175" y2="125" stroke="#000" strokeWidth="1" />
-        <line x1="175" y1="375" x2="275" y2="475" stroke="#000" strokeWidth="1" />
-        <line x1="275" y1="375" x2="175" y2="475" stroke="#000" strokeWidth="1" />
+        <line x1="175" y1="25" x2="275" y2="125" stroke="#3e2723" strokeWidth="1.2" />
+        <line x1="275" y1="25" x2="175" y2="125" stroke="#3e2723" strokeWidth="1.2" />
+        <line x1="175" y1="375" x2="275" y2="475" stroke="#3e2723" strokeWidth="1.2" />
+        <line x1="275" y1="375" x2="175" y2="475" stroke="#3e2723" strokeWidth="1.2" />
 
         {/* River Text */}
-        <text x="100" y="257" fontSize="16" fontFamily="serif" fontWeight="bold" textAnchor="middle" fill="#222">楚 河</text>
-        <text x="350" y="257" fontSize="16" fontFamily="serif" fontWeight="bold" textAnchor="middle" fill="#222">漢 界</text>
+        <text x="115" y="258" fontSize="15" fontFamily="'KaiTi', 'SimSun', serif" fontWeight="bold" textAnchor="middle" fill="#5d4037" letterSpacing="4">楚 河</text>
+        <text x="335" y="258" fontSize="15" fontFamily="'KaiTi', 'SimSun', serif" fontWeight="bold" textAnchor="middle" fill="#5d4037" letterSpacing="4">漢 界</text>
 
         {/* Pieces on Exact Intersections */}
         {board.map((row, r) =>
@@ -782,18 +1130,55 @@ function PrintBoardSvg({ board, pieceStyle = 'cn' }) {
             const cy = 25 + r * 50;
             const text = pieceStyle === 'cn' ? pInfo?.cn : pInfo?.vi;
 
+            let circleFill, outerStroke, outerWidth, innerStroke, innerWidth, textColor;
+            if (colorMode === 'bw') {
+              if (isRedP) {
+                // Red: Pure White Disc, black double border, black text
+                circleFill = '#ffffff';
+                outerStroke = '#000000';
+                outerWidth = '1.8';
+                innerStroke = '#000000';
+                innerWidth = '0.7';
+                textColor = '#000000';
+              } else {
+                // Black: Solid Black Disc, thin white inner ring, white text
+                circleFill = '#000000';
+                outerStroke = '#000000';
+                outerWidth = '1.8';
+                innerStroke = '#ffffff';
+                innerWidth = '0.9';
+                textColor = '#ffffff';
+              }
+            } else {
+              if (isRedP) {
+                circleFill = '#fffef7';
+                outerStroke = '#b91c1c';
+                outerWidth = '1.8';
+                innerStroke = '#ef4444';
+                innerWidth = '0.8';
+                textColor = '#b91c1c';
+              } else {
+                circleFill = '#1e293b';
+                outerStroke = '#0f172a';
+                outerWidth = '1.8';
+                innerStroke = '#475569';
+                innerWidth = '0.8';
+                textColor = '#ffffff';
+              }
+            }
+
             return (
               <g key={`p-${r}-${c}`}>
-                <circle cx={cx} cy={cy} r="20" fill={isRedP ? '#fff' : '#111'} stroke={isRedP ? '#b91c1c' : '#000'} strokeWidth="1.5" />
-                <circle cx={cx} cy={cy} r="17" fill="none" stroke={isRedP ? '#b91c1c' : '#fff'} strokeWidth="0.8" />
+                <circle cx={cx} cy={cy} r="20.5" fill={circleFill} stroke={outerStroke} strokeWidth={outerWidth} />
+                <circle cx={cx} cy={cy} r="17.5" fill="none" stroke={innerStroke} strokeWidth={innerWidth} />
                 <text
                   x={cx}
-                  y={cy + (pieceStyle === 'cn' ? 5.5 : 4)}
+                  y={cy + (pieceStyle === 'cn' ? 5.5 : 3.8)}
                   fontSize={pieceStyle === 'cn' ? "17" : (text?.length > 4 ? "8.5" : "10")}
-                  fontFamily={pieceStyle === 'cn' ? "serif" : "sans-serif"}
-                  fontWeight="bold"
+                  fontFamily={pieceStyle === 'cn' ? "'KaiTi', 'SimSun', 'Noto Serif SC', serif" : "'Inter', -apple-system, sans-serif"}
+                  fontWeight="900"
                   textAnchor="middle"
-                  fill={isRedP ? '#b91c1c' : '#fff'}
+                  fill={textColor}
                 >
                   {text}
                 </text>
@@ -806,7 +1191,45 @@ function PrintBoardSvg({ board, pieceStyle = 'cn' }) {
   );
 }
 
-function generateBoardSvgString(board, pieceStyle = 'cn') {
+const STATIC_BOARD_GRID_HTML = `
+  <rect width="450" height="500" fill="#fffdf8" />
+  <rect x="23" y="23" width="404" height="454" fill="none" stroke="#3e2723" stroke-width="2" />
+  <rect x="25" y="25" width="400" height="450" fill="none" stroke="#5d4037" stroke-width="1" />
+  <line x1="25" y1="25" x2="425" y2="25" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="75" x2="425" y2="75" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="125" x2="425" y2="125" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="175" x2="425" y2="175" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="225" x2="425" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="275" x2="425" y2="275" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="325" x2="425" y2="325" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="375" x2="425" y2="375" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="425" x2="425" y2="425" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="475" x2="425" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="25" y1="25" x2="25" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="75" y1="25" x2="75" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="75" y1="275" x2="75" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="125" y1="25" x2="125" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="125" y1="275" x2="125" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="175" y1="25" x2="175" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="175" y1="275" x2="175" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="225" y1="25" x2="225" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="225" y1="275" x2="225" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="275" y1="25" x2="275" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="275" y1="275" x2="275" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="325" y1="25" x2="325" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="325" y1="275" x2="325" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="375" y1="25" x2="375" y2="225" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="375" y1="275" x2="375" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="425" y1="25" x2="425" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="175" y1="25" x2="275" y2="125" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="275" y1="25" x2="175" y2="125" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="175" y1="375" x2="275" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <line x1="275" y1="375" x2="175" y2="475" stroke="#3e2723" stroke-width="1.2" />
+  <text x="115" y="258" font-size="15" font-family="'KaiTi', 'SimSun', serif" font-weight="bold" text-anchor="middle" fill="#5d4037" letter-spacing="4">楚 河</text>
+  <text x="335" y="258" font-size="15" font-family="'KaiTi', 'SimSun', serif" font-weight="bold" text-anchor="middle" fill="#5d4037" letter-spacing="4">漢 界</text>
+`;
+
+function generateBoardSvgString(board, pieceStyle = 'cn', colorMode = 'bw') {
   let piecesHtml = '';
   for (let r = 0; r < 10; r++) {
     for (let c = 0; c < 9; c++) {
@@ -818,98 +1241,361 @@ function generateBoardSvgString(board, pieceStyle = 'cn') {
       const cy = 25 + r * 50;
       const text = pieceStyle === 'cn' ? pInfo?.cn : pInfo?.vi;
       const fontSize = pieceStyle === 'cn' ? "17" : (text?.length > 4 ? "8.5" : "10");
-      const fontFamily = pieceStyle === 'cn' ? "serif" : "sans-serif";
+      const fontFamily = pieceStyle === 'cn' ? "'KaiTi', 'SimSun', 'Noto Serif SC', serif" : "'Inter', -apple-system, sans-serif";
+
+      let circleFill, outerStroke, outerWidth, innerStroke, innerWidth, textColor;
+      if (colorMode === 'bw') {
+        if (isRedP) {
+          // Red: White disc with double black border & black text
+          circleFill = '#ffffff';
+          outerStroke = '#000000';
+          outerWidth = '1.8';
+          innerStroke = '#000000';
+          innerWidth = '0.7';
+          textColor = '#000000';
+        } else {
+          // Black: Solid Black disc with thin white inner ring & white text
+          circleFill = '#000000';
+          outerStroke = '#000000';
+          outerWidth = '1.8';
+          innerStroke = '#ffffff';
+          innerWidth = '0.9';
+          textColor = '#ffffff';
+        }
+      } else {
+        if (isRedP) {
+          circleFill = '#fffef7';
+          outerStroke = '#b91c1c';
+          outerWidth = '1.8';
+          innerStroke = '#ef4444';
+          innerWidth = '0.8';
+          textColor = '#b91c1c';
+        } else {
+          circleFill = '#1e293b';
+          outerStroke = '#0f172a';
+          outerWidth = '1.8';
+          innerStroke = '#475569';
+          innerWidth = '0.8';
+          textColor = '#ffffff';
+        }
+      }
+
       piecesHtml += `
-        <circle cx="${cx}" cy="${cy}" r="20" fill="${isRedP ? '#fff' : '#111'}" stroke="${isRedP ? '#b91c1c' : '#000'}" stroke-width="1.5" />
-        <circle cx="${cx}" cy="${cy}" r="17" fill="none" stroke="${isRedP ? '#b91c1c' : '#fff'}" stroke-width="0.8" />
-        <text x="${cx}" y="${cy + (pieceStyle === 'cn' ? 5.5 : 4)}" font-size="${fontSize}" font-family="${fontFamily}" font-weight="bold" text-anchor="middle" fill="${isRedP ? '#b91c1c' : '#fff'}">${text}</text>
+        <circle cx="${cx}" cy="${cy}" r="20.5" fill="${circleFill}" stroke="${outerStroke}" stroke-width="${outerWidth}" />
+        <circle cx="${cx}" cy="${cy}" r="17.5" fill="none" stroke="${innerStroke}" stroke-width="${innerWidth}" />
+        <text x="${cx}" y="${cy + (pieceStyle === 'cn' ? 5.5 : 3.8)}" font-size="${fontSize}" font-family="${fontFamily}" font-weight="900" text-anchor="middle" fill="${textColor}">${text}</text>
       `;
     }
   }
 
-  let hLines = '';
-  for (let i = 0; i < 10; i++) {
-    hLines += `<line x1="25" y1="${25 + i * 50}" x2="425" y2="${25 + i * 50}" stroke="#000" stroke-width="1" />`;
-  }
-
-  let vLines = '';
-  for (let i = 0; i < 9; i++) {
-    const x = 25 + i * 50;
-    if (i === 0 || i === 8) {
-      vLines += `<line x1="${x}" y1="25" x2="${x}" y2="475" stroke="#000" stroke-width="1" />`;
-    } else {
-      vLines += `<line x1="${x}" y1="25" x2="${x}" y2="225" stroke="#000" stroke-width="1" />
-                 <line x1="${x}" y1="275" x2="${x}" y2="475" stroke="#000" stroke-width="1" />`;
-    }
-  }
-
   return `
-    <div style="position:relative;width:100%;border:1px solid #000;background:#fffdf8;border-radius:2px;overflow:hidden;aspect-ratio:450/500;">
+    <div style="position:relative;width:100%;border:1.5px solid #3e2723;background:#fffdf8;border-radius:4px;overflow:hidden;aspect-ratio:450/500;">
       <svg viewBox="0 0 450 500" style="display:block;width:100%;height:auto;">
-        <rect width="450" height="500" fill="#fffef9" />
-        <rect x="25" y="25" width="400" height="450" fill="none" stroke="#000" stroke-width="1.8" />
-        ${hLines}
-        ${vLines}
-        <line x1="175" y1="25" x2="275" y2="125" stroke="#000" stroke-width="1" />
-        <line x1="275" y1="25" x2="175" y2="125" stroke="#000" stroke-width="1" />
-        <line x1="175" y1="375" x2="275" y2="475" stroke="#000" stroke-width="1" />
-        <line x1="275" y1="375" x2="175" y2="475" stroke="#000" stroke-width="1" />
-        <text x="100" y="257" font-size="16" font-family="serif" font-weight="bold" text-anchor="middle" fill="#222">楚 河</text>
-        <text x="350" y="257" font-size="16" font-family="serif" font-weight="bold" text-anchor="middle" fill="#222">漢 界</text>
+        ${STATIC_BOARD_GRID_HTML}
         ${piecesHtml}
       </svg>
     </div>
   `;
 }
 
-function generateFullBookHtml(exportLessons, bookTitle, bookSubtitle, folderName, layoutMode, pieceStyle, solutionMode) {
-  const gridClass = layoutMode === '6' ? 'grid-cols-3' : 'grid-cols-2';
+const CONIC_QUOTES = [
+  "Khéo dùng Chốt thắng Xe — Kiên trì và bền bỉ ắt lập nên kỳ tích. Ba tin Conic làm được!",
+  "Kỳ lộ như nhân sinh — Mỗi nước cờ là một bài học rèn luyện tính kiên nhẫn và bình tĩnh.",
+  "Bình tĩnh quan sát, suy nghĩ chu toàn — Kỳ nghệ tinh thông bắt đầu từ sự cẩn trọng.",
+  "Thắng không kiêu, bại không nản — Mỗi ván cờ là một nấc thang trưởng thành của Conic.",
+  "Nhìn xa trông rộng, tính trước ba nước — Trí tuệ và đam mê sẽ mở lối tương lai tươi sáng.",
+  "Công thủ toàn diện, liệu địch như thần — Chúc Con trai yêu của Ba ngày càng tự tin và tiến bộ!",
+  "Cờ tàn rèn ý chí, sát cục luyện tư duy — Từng bước chinh phục đỉnh cao trí tuệ cùng Ba!",
+  "Chốt qua sông có giá trị ngàn vàng — Cần cù học hỏi thì mục tiêu nào Conic cũng sẽ đạt được.",
+  "Học cờ để tĩnh tâm, luyện trí để làm người — Conic luôn là niềm tự hào to lớn của Ba.",
+  "Tâm bất biến giữa vạn biến — Giữ sự tập trung cao độ trong từng thế trận cam go.",
+  "Nước cờ hay bắt nguồn từ sự quan sát tinh tế — Hãy tin tưởng vào tư duy sắc bén của mình!",
+  "Dũng cảm đối đầu thử thách — Dù thế cờ hiểm hóc đến đâu, luôn có lời giải xuất sắc đang chờ Con.",
+  "Một nước đi đúng lúc đổi thay toàn bộ cục diện — Conic hãy luôn kiên định và quyết đoán!",
+  "Tập trung suy ngẫm, mở rộng tầm nhìn — Học cờ mỗi ngày là rèn luyện trí óc phi thường.",
+  "Biết mình biết người, trăm trận trăm thắng — Ba luôn đồng hành và cổ vũ Conic trên mọi chặng đường.",
+  "Kỳ nghệ bất tận, học hỏi không ngừng — Chúc Conic luôn giữ ngọn lửa đam mê với cờ tướng!",
+  "Đi cờ cẩn trọng, suy tính sâu xa — Rèn luyện hôm nay, tỏa sáng rực rỡ ngày mai!",
+  "Mỗi thế cờ khó là một cơ hội để rèn trí — Tự tin giải mã sát pháp tuyệt kỹ nha Con trai!"
+];
 
-  let diagramsHtml = '';
+function generateFullBookHtml(
+  exportLessons,
+  bookTitle,
+  bookSubtitle,
+  folderName,
+  layoutMode,
+  pieceStyle,
+  solutionMode,
+  colorMode = 'bw',
+  includeMainCover = true,
+  includeToc = true,
+  includeNotesLines = true
+) {
+  const perPage = layoutMode === '9' ? 9 : layoutMode === '6' ? 6 : layoutMode === '4' ? 4 : 2;
+  const isCompact = layoutMode === '9';
+  const gridClass = (layoutMode === '9' || layoutMode === '6') ? 'grid-cols-3' : 'grid-cols-2';
+  const cardGap = isCompact ? '6px' : '10px';
+  const totalPages = Math.ceil(exportLessons.length / perPage);
+
+  // Group lessons into chapters to calculate Table of Contents page index
+  const chapters = [];
+  let currentChapter = null;
+
   exportLessons.forEach((les, idx) => {
-    const { board } = parseFen(les.fen);
-    const goalText = les.tacticalGoal || (les.moves?.length > 0 ? `Đỏ thắng (${les.moves.length} hiệp)` : 'Đỏ đi trước');
-    const boardSvg = generateBoardSvgString(board, pieceStyle);
+    const fPath = (les.folderPath && les.folderPath.length > 0)
+      ? les.folderPath.join(' / ')
+      : (folderName || 'Chuyên đề');
+    
+    const fName = (les.folderPath && les.folderPath.length > 0)
+      ? les.folderPath[les.folderPath.length - 1]
+      : fPath;
 
-    let solUnderHtml = '';
-    if (solutionMode === 'below') {
-      const movesStr = les.moves?.map(m => `${m.num}. ${m.red_short || m.red_vi || m.red} ${m.black_short || m.black_vi || m.black}`).join(' ') || '1. Tg5-4 Tg6-5 (1-0)';
-      solUnderHtml = `
-        <div style="padding:4px;background:#f9fafb;border-radius:4px;border:1px solid #e5e7eb;font-size:8.5px;margin-top:4px;">
-          <div style="font-weight:bold;color:#7f1d1d;">Lời giải:</div>
-          <div style="font-family:monospace;color:#1f2937;line-height:1.2;">${movesStr}</div>
+    if (!currentChapter || currentChapter.folderPath !== fPath) {
+      const startPage = Math.floor(idx / perPage) + 1;
+      currentChapter = {
+        folderPath: fPath,
+        folderName: fName,
+        parentCategory: les.folderPath?.[0] || '',
+        startLesson: idx + 1,
+        startPage: startPage,
+        lessons: []
+      };
+      chapters.push(currentChapter);
+    }
+    currentChapter.lessons.push({ lesson: les, overallIndex: idx });
+    currentChapter.endLesson = idx + 1;
+    currentChapter.endPage = Math.floor(idx / perPage) + 1;
+  });
+
+  // 1. Grand Master Book Cover Page with Xiangqi Pieces & 2-Line Centered Dedication
+  let masterCoverHtml = '';
+  if (includeMainCover) {
+    masterCoverHtml = `
+      <div class="book-cover-page" style="page-break-after:always;break-after:page;min-height:980px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;border:6px double #7f1d1d;padding:35px 25px;background:#fffdf9;box-sizing:border-box;margin-bottom:30px;">
+        <div style="border-bottom:2px solid #b45309;padding-bottom:10px;width:100%;">
+          <div style="font-size:13px;font-weight:900;color:#b45309;letter-spacing:4px;text-transform:uppercase;">
+            ⚔️ KỲ ĐÀI CONIC • TỦ SÁCH CỜ TƯỚNG ⚔️
+          </div>
+          <div style="font-size:10px;color:#64748b;margin-top:3px;letter-spacing:1.5px;font-weight:600;">
+            BÁCH KHOA TOÀN THƯ KHAI CUỘC · TRUNG CUỘC · TÀN CUỘC & SÁT PHÁP
+          </div>
+        </div>
+
+        <div style="padding:15px 10px;">
+          <!-- Authentic Xiangqi Visual Icon: Red Marshal & Black General -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;">
+            <div style="width:52px;height:52px;border-radius:50%;background:#ffffff;border:2.5px solid #b91c1c;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#b91c1c;font-family:'KaiTi', 'SimSun', serif;box-shadow:0 2px 6px rgba(185,28,28,0.15);">帥</div>
+            <div style="font-size:24px;color:#b45309;font-weight:bold;">⚔️</div>
+            <div style="width:52px;height:52px;border-radius:50%;background:#000000;border:2.5px solid #000000;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#ffffff;font-family:'KaiTi', 'SimSun', serif;box-shadow:0 2px 6px rgba(0,0,0,0.25);">將</div>
+          </div>
+
+          <h1 style="font-size:26px;font-weight:900;color:#7f1d1d;text-transform:uppercase;letter-spacing:1px;line-height:1.25;margin:0 0 8px 0;font-family:'Times New Roman', serif;">
+            ${bookTitle || 'KỲ PHỔ CỜ TƯỚNG CONIC'}
+          </h1>
+          <div style="font-size:13px;color:#475569;font-style:italic;max-width:600px;margin:0 auto 12px auto;line-height:1.4;">
+            ${bookSubtitle || 'Tuyển Tập Nghiên Cứu & Luyện Tập Khai - Trung - Tàn Cuộc'}
+          </div>
+
+          <!-- Dad's Loving Message to Conic: Balanced 2 Centered Lines -->
+          <div style="margin:12px 0 16px 0;padding:12px 28px;background:#fff5f5;border:2px solid #ef4444;border-radius:10px;display:inline-block;box-shadow:0 2px 8px rgba(239,68,68,0.12);text-align:center;">
+            <div style="font-size:14px;font-weight:900;color:#991b1b;letter-spacing:0.5px;font-family:'Times New Roman', serif;">
+              ❤️ TÀI LIỆU DÀNH CHO CONIC HỌC CỜ TƯỚNG ❤️
+            </div>
+            <div style="font-size:13px;font-weight:900;color:#b91c1c;letter-spacing:1.5px;font-family:'Times New Roman', serif;margin-top:4px;">
+              ✨ CON TRAI YÊU CỦA BA ✨
+            </div>
+          </div>
+          
+          <div style="display:inline-block;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:8px;padding:8px 20px;margin-top:6px;">
+            <div style="font-size:12px;font-weight:900;color:#1e293b;text-transform:uppercase;letter-spacing:1px;">
+              📁 CHUYÊN ĐỀ: ${folderName.toUpperCase()}
+            </div>
+            <div style="font-size:11px;color:#64748b;font-weight:700;margin-top:3px;">
+              Tuyển chọn ${exportLessons.length} Thế Trận Tiêu Biểu (${chapters.length} Phân Chương)
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:2px solid #b45309;padding-top:12px;width:100%;font-size:10.5px;color:#475569;line-height:1.5;">
+          <div style="font-weight:900;color:#1e293b;font-size:11.5px;margin-bottom:2px;letter-spacing:0.5px;">
+            BAN BIÊN SOẠN CHUYÊN MÔN KỲ ĐÀI CONIC
+          </div>
+          <div>Sách In Vector Chuẩn Xuất Bản A4 • Bố Cục ${layoutMode} Hình / Trang</div>
+          <div style="color:#64748b;font-size:9.5px;margin-top:2px;">
+            Xuất bản: ${new Date().toLocaleDateString('vi-VN')} • Bản quyền © Kỳ Đài Conic
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // 2. Table of Contents Page (Mục Lục Sách)
+  let tocHtml = '';
+  if (includeToc && (chapters.length > 1 || exportLessons.length >= 18)) {
+    let tocRows = '';
+    chapters.forEach((chap, cIdx) => {
+      tocRows += `
+        <div style="display:flex;align-items:baseline;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #e2e8f0;font-size:11px;">
+          <div style="font-weight:bold;color:#1e293b;display:flex;align-items:baseline;gap:6px;max-width:75%;">
+            <span style="color:#b45309;font-weight:900;flex-shrink:0;">Chương ${cIdx + 1}:</span>
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${chap.folderName}</span>
+            <span style="color:#64748b;font-size:9px;font-weight:normal;flex-shrink:0;">(${chap.lessons.length} bài • #${chap.startLesson} - #${chap.endLesson})</span>
+          </div>
+          <div style="flex:1;border-bottom:1px dotted #cbd5e1;margin:0 8px;"></div>
+          <div style="font-weight:900;color:#991b1b;font-size:11px;flex-shrink:0;">Trang ${chap.startPage}</div>
+        </div>
+      `;
+    });
+
+    if (solutionMode === 'end') {
+      tocRows += `
+        <div style="display:flex;align-items:baseline;justify-content:space-between;padding:7px 0;border-top:1.5px solid #b45309;margin-top:6px;font-size:11px;">
+          <div style="font-weight:bold;color:#991b1b;display:flex;align-items:baseline;gap:6px;">
+            <span>📖 PHẦN ĐÁP ÁN & LỜI GIẢI CHI TIẾT</span>
+          </div>
+          <div style="flex:1;border-bottom:1px dotted #cbd5e1;margin:0 8px;"></div>
+          <div style="font-weight:900;color:#991b1b;font-size:11px;">Trang ${totalPages + 1}</div>
         </div>
       `;
     }
 
-    diagramsHtml += `
-      <div class="diagram-card" style="page-break-inside:avoid;break-inside:avoid;border:1px solid #d1d5db;padding:8px;border-radius:4px;background:#fffdfa;">
-        <div style="border-bottom:1px solid #e5e7eb;padding-bottom:3px;font-size:10.5px;font-weight:bold;color:#450a0a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-          ${les.displayTitle || `Thế ${idx + 1}`}
+    tocHtml = `
+      <div class="a4-print-page" style="page-break-inside:avoid;break-inside:avoid;page-break-before:always;break-before:page;page-break-after:always;break-after:page;min-height:980px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;margin-bottom:24px;background:#ffffff;padding:20px 24px;border:1px solid #e2e8f0;border-radius:6px;">
+        <div>
+          <div style="text-align:center;border-bottom:2px double #b45309;padding-bottom:10px;margin-bottom:16px;">
+            <div style="font-size:11px;font-weight:900;color:#b45309;letter-spacing:3px;text-transform:uppercase;">
+              ⚔️ KỲ ĐÀI CONIC • MỤC LỤC TỔNG QUAN ⚔️
+            </div>
+            <h2 style="font-size:20px;font-weight:900;color:#7f1d1d;margin:4px 0 0 0;font-family:'Times New Roman', serif;letter-spacing:1px;">
+              MỤC LỤC NỘI DUNG SÁCH
+            </h2>
+            <div style="font-size:10.5px;color:#64748b;margin-top:2px;font-style:italic;">
+              Tổng hợp ${chapters.length} phân chương • ${exportLessons.length} thế trận thực chiến
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:3px;">
+            ${tocRows}
+          </div>
         </div>
-        <div style="margin-top:4px;">
-          ${boardSvg}
+
+        <div style="border-top:1.5px solid #e2e8f0;padding-top:6px;display:flex;justify-content:space-between;align-items:center;font-size:9px;color:#475569;">
+          <div style="font-style:italic;color:#991b1b;font-weight:700;">
+            ❤️ Conic hãy luyện tập đều đặn và giải từng thế trận theo thứ tự nhé!
+          </div>
+          <div style="font-weight:bold;color:#64748b;">Mục lục</div>
         </div>
-        <div style="font-size:9px;color:#374151;display:flex;justify-content:space-between;font-weight:600;padding-top:4px;">
-          <span style="color:#7f1d1d;">${goalText}</span>
-          ${solutionMode === 'end' ? '<span style="color:#9ca3af;font-style:italic;font-weight:normal;">(Đáp án cuối)</span>' : ''}
-        </div>
-        ${solUnderHtml}
       </div>
     `;
-  });
+  }
 
+  // 3. Strict Page-Chunked Diagram Layout (Guarantees zero cut cards & unique quotes on every footer!)
+  let pagesHtml = '';
+
+  for (let pIdx = 0; pIdx < totalPages; pIdx++) {
+    const pageLessons = exportLessons.slice(pIdx * perPage, (pIdx + 1) * perPage);
+    const startNum = pIdx * perPage + 1;
+    const endNum = pIdx * perPage + pageLessons.length;
+    const quote = CONIC_QUOTES[pIdx % CONIC_QUOTES.length];
+
+    let pageCardsHtml = '';
+    pageLessons.forEach((les, idx) => {
+      const globalIdx = startNum + idx;
+      const { board } = parseFen(les.fen);
+      const goalText = les.tacticalGoal || (les.moves?.length > 0 ? `Đỏ đi trước (${les.moves.length} hiệp)` : 'Đỏ đi trước');
+      const boardSvg = generateBoardSvgString(board, pieceStyle, colorMode);
+
+      let solUnderHtml = '';
+      if (solutionMode === 'below') {
+        const movesStr = les.moves?.map(m => `${m.num}. ${m.red_short || m.red_vi || m.red} ${m.black_short || m.black_vi || m.black}`).join(' ') || '1. Tg5-4 Tg6-5 (1-0)';
+        solUnderHtml = `
+          <div style="padding:3px 5px;background:#f8fafc;border-radius:4px;border:1px solid #e2e8f0;font-size:${isCompact ? '7.5px' : '8.5px'};margin-top:3px;">
+            <div style="font-weight:bold;color:#991b1b;margin-bottom:1px;">Lời giải:</div>
+            <div style="font-family:'Courier New', monospace;color:#1e293b;line-height:1.2;font-size:${isCompact ? '7px' : '8px'};">${movesStr}</div>
+          </div>
+        `;
+      } else if (includeNotesLines) {
+        // 2 dotted practice note lines for learner/Conic to write answer
+        solUnderHtml = `
+          <div style="margin-top:2px;border-top:1px dashed #cbd5e1;padding-top:2px;">
+            <div style="display:flex;align-items:center;border-bottom:1.5px dotted #64748b;height:14px;padding-bottom:1px;">
+              <span style="font-size:8px;color:#475569;font-family:monospace;font-weight:bold;margin-right:4px;">✍️ Ghi 1:</span>
+            </div>
+            <div style="display:flex;align-items:center;border-bottom:1.5px dotted #64748b;height:14px;padding-bottom:1px;margin-top:2px;">
+              <span style="font-size:8px;color:#475569;font-family:monospace;font-weight:bold;margin-right:4px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2:</span>
+            </div>
+          </div>
+        `;
+      }
+
+      const cardPadding = isCompact ? '4px 6px' : '8px';
+      const titleFontSize = isCompact ? '9px' : '10.5px';
+
+      pageCardsHtml += `
+        <div class="diagram-card" style="page-break-inside:avoid;break-inside:avoid;border:1.2px solid #cbd5e1;padding:${cardPadding};border-radius:5px;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,0.03);display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;">
+          <div>
+            <div style="border-bottom:1px solid #e2e8f0;padding-bottom:2px;margin-bottom:3px;display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:${titleFontSize};font-weight:900;color:#991b1b;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%;">
+                ${les.displayTitle || `Thế ${globalIdx}`}
+              </span>
+              <span style="font-size:8px;font-weight:bold;color:#64748b;background:#f1f5f9;padding:1px 4px;border-radius:4px;flex-shrink:0;">
+                #${globalIdx}
+              </span>
+            </div>
+            <div>
+              ${boardSvg}
+            </div>
+          </div>
+          <div style="margin-top:3px;">
+            <div style="font-size:${isCompact ? '8px' : '9px'};color:#334155;display:flex;justify-content:space-between;align-items:center;font-weight:700;">
+              <span style="color:#b91c1c;">🎯 ${goalText}</span>
+              ${solutionMode === 'end' ? '<span style="color:#94a3b8;font-style:italic;font-size:7.5px;">(Đáp án cuối)</span>' : ''}
+            </div>
+            ${solUnderHtml}
+          </div>
+        </div>
+      `;
+    });
+
+    pagesHtml += `
+      <div class="a4-print-page" style="page-break-inside:avoid;break-inside:avoid;page-break-after:always;break-after:page;min-height:980px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;margin-bottom:24px;background:#ffffff;padding:10px 12px;border:1px solid #e2e8f0;border-radius:6px;">
+        <!-- Running Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #b45309;padding-bottom:4px;margin-bottom:8px;font-size:9.5px;color:#78350f;font-weight:bold;">
+          <span>⚔️ KỲ PHỔ CỜ TƯỚNG CONIC • ${folderName.toUpperCase()}</span>
+          <span>Bài #${startNum} - #${endNum}</span>
+        </div>
+
+        <!-- Diagrams Grid -->
+        <div class="grid ${gridClass} diagrams-grid-container" style="gap:${cardGap};flex:1;display:grid;grid-template-rows:repeat(3, 1fr);align-content:space-between;">
+          ${pageCardsHtml}
+        </div>
+
+        <!-- Dynamic Inspiring Quote for Conic & Page Number -->
+        <div style="border-top:1.5px solid #e2e8f0;padding-top:6px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;font-size:8.5px;color:#475569;">
+          <div style="font-style:italic;color:#991b1b;font-weight:700;line-height:1.3;max-width:85%;">
+            💡 "${quote}"
+          </div>
+          <div style="font-weight:bold;color:#64748b;font-size:8.5px;flex-shrink:0;margin-left:10px;">
+            Trang ${pIdx + 1} / ${totalPages}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // 4. Solutions Section at End
   let endSolutionsHtml = '';
   if (solutionMode === 'end') {
     let solCards = '';
     exportLessons.forEach((les, idx) => {
       const movesStr = les.moves?.map(m => `${m.num}. ${m.red_short || m.red_vi || m.red} ${m.black_short || m.black_vi || m.black}`).join(' ') || '1. Tg5-4 Tg6-5 2. Tg4.1 S6/5 (1-0)';
       solCards += `
-        <div style="padding:6px;background:#f9fafb;border-radius:4px;border:1px solid #e5e7eb;break-inside:avoid;page-break-inside:avoid;">
-          <div style="font-weight:bold;color:#7f1d1d;font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
-            ${les.displayTitle || `Thế ${idx + 1}`}
+        <div style="padding:4px 6px;background:#f8fafc;border-radius:4px;border:1px solid #e2e8f0;break-inside:avoid;page-break-inside:avoid;">
+          <div style="font-weight:bold;color:#991b1b;font-size:9px;border-bottom:1px solid #e2e8f0;padding-bottom:1px;margin-bottom:2px;">
+            #${idx + 1}. ${les.displayTitle || `Thế ${idx + 1}`}
           </div>
-          <div style="font-size:9px;color:#1f2937;font-family:monospace;line-height:1.25;margin-top:2px;">
+          <div style="font-size:8px;color:#0f172a;font-family:'Courier New', monospace;line-height:1.2;">
             ${movesStr}
           </div>
         </div>
@@ -917,12 +1603,21 @@ function generateFullBookHtml(exportLessons, bookTitle, bookSubtitle, folderName
     });
 
     endSolutionsHtml = `
-      <div style="page-break-before:always;break-before:page;padding-top:24px;border-top:2px solid #7f1d1d;margin-top:30px;">
-        <h2 style="font-size:14px;font-weight:900;color:#450a0a;text-transform:uppercase;letter-spacing:1px;text-align:center;border-bottom:1px solid #e5e7eb;padding-bottom:6px;margin-bottom:16px;">
-          PHẦN ĐÁP ÁN & LỜI GIẢI CHI TIẾT
-        </h2>
-        <div class="grid grid-cols-3" style="gap:8px;">
-          ${solCards}
+      <div class="a4-print-page" style="page-break-inside:avoid;break-inside:avoid;page-break-before:always;break-before:page;min-height:980px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;margin-top:20px;padding:12px 14px;background:#ffffff;border:1px solid #e2e8f0;border-radius:6px;">
+        <div>
+          <div style="text-align:center;margin-bottom:14px;border-bottom:2px solid #991b1b;padding-bottom:6px;">
+            <h2 style="font-size:15px;font-weight:900;color:#7f1d1d;text-transform:uppercase;letter-spacing:1px;margin:0 0 2px 0;">
+              📖 PHẦN ĐÁP ÁN & LỜI GIẢI CHI TIẾT
+            </h2>
+            <div style="font-size:9.5px;color:#64748b;">Tuyển tập đầy đủ đáp án cho ${exportLessons.length} thế cờ</div>
+          </div>
+          <div class="grid grid-cols-3" style="gap:6px;">
+            ${solCards}
+          </div>
+        </div>
+
+        <div style="border-top:1.5px solid #e2e8f0;padding-top:6px;margin-top:10px;text-align:center;font-size:9px;color:#991b1b;font-style:italic;font-weight:bold;">
+          ❤️ Chúc Conic học cờ tinh tấn, rèn luyện trí tuệ và luôn vững vàng trước mọi thử thách! ❤️
         </div>
       </div>
     `;
@@ -936,42 +1631,84 @@ function generateFullBookHtml(exportLessons, bookTitle, bookSubtitle, folderName
   <style>
     @page {
       size: A4 portrait;
-      margin: 10mm;
+      margin: 6mm 8mm 6mm 8mm;
     }
+    @page :header { display: none !important; }
+    @page :footer { display: none !important; }
     @media print {
-      body { margin: 0; padding: 0; background: #fff; }
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
       .no-print { display: none !important; }
-      .break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
+      .book-wrapper {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+      }
+      .a4-print-page {
+        height: 284mm !important;
+        max-height: 284mm !important;
+        min-height: 284mm !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 0 1mm 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        box-sizing: border-box !important;
+      }
+      .diagrams-grid-container {
+        flex: 1 1 auto !important;
+        display: grid !important;
+        grid-template-rows: repeat(3, 1fr) !important;
+        align-content: space-between !important;
+      }
+      .book-cover-page {
+        height: 284mm !important;
+        max-height: 284mm !important;
+        min-height: 284mm !important;
+        page-break-before: always !important;
+        break-before: page !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        border: 6px double #7f1d1d !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+      }
+    }
+    * {
+      box-sizing: border-box;
     }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Times New Roman", serif;
-      background: #fff;
-      color: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
       margin: 0;
-      padding: 16px;
+      padding: 12px;
     }
     .grid { display: grid; }
     .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .gap-3\\.5 { gap: 14px; }
   </style>
 </head>
 <body>
-  <div style="max-width:800px;margin:0 auto;">
-    <div style="text-align:center;padding-bottom:16px;border-bottom:2px solid #7f1d1d;margin-bottom:20px;">
-      <h1 style="font-size:22px;font-weight:900;color:#450a0a;text-transform:uppercase;letter-spacing:1px;margin:0 0 4px 0;">
-        ${bookTitle || 'KỲ PHỔ CỜ TƯỚNG CONIC'}
-      </h1>
-      <p style="font-size:12px;color:#4b5563;font-style:italic;margin:0 0 6px 0;">${bookSubtitle || ''}</p>
-      <div style="font-size:10.5px;color:#6b7280;font-weight:bold;">
-        Tuyển tập ${exportLessons.length} thế cờ • Thư mục: ${folderName}
-      </div>
-    </div>
-
-    <div class="grid ${gridClass}" style="gap:12px;">
-      ${diagramsHtml}
-    </div>
-
+  <div class="book-wrapper" style="max-width:860px;margin:0 auto;background:#ffffff;padding:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+    ${masterCoverHtml}
+    ${tocHtml}
+    ${pagesHtml}
     ${endSolutionsHtml}
   </div>
 </body>

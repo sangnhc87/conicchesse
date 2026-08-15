@@ -571,3 +571,208 @@ export function parseChineseMove(board, moveText, turn = 'red') {
 
   return null;
 }
+
+/**
+ * Convert UCI move (e.g. "h2e2", "b0c2", "b2e2") to logical coordinates
+ */
+export function uciToMove(uci, engineFamily = 'pikafish') {
+  if (!uci || typeof uci !== 'string' || uci.length < 4) return null;
+  const s = uci.trim().toLowerCase();
+  const fc = s.charCodeAt(0) - 97; // 'a' -> 0 ... 'i' -> 8
+  const fr = parseInt(s[1], 10);
+  const tc = s.charCodeAt(2) - 97;
+  const tr = parseInt(s[3], 10);
+  if (isNaN(fc) || isNaN(fr) || isNaN(tc) || isNaN(tr)) return null;
+  if (fc < 0 || fc > 8 || tc < 0 || tc > 8) return null;
+
+  // Pikafish ranks: 0 (Red back) to 9 (Black back) -> Internal rows: 9 - rank
+  // Fairy ranks: 0..9 or 1..10
+  const isFairy10 = engineFamily === 'fairy' && (fr >= 10 || tr >= 10);
+  const fromR = isFairy10 ? (10 - fr) : (9 - fr);
+  const toR = isFairy10 ? (10 - tr) : (9 - tr);
+
+  if (fromR < 0 || fromR > 9 || toR < 0 || toR > 9) return null;
+  return { fromR, fromC: fc, toR, toC: tc };
+}
+
+/**
+ * Convert a list of UCI moves (PV line) into human-readable Vietnamese notation
+ */
+export function formatPvLine(initialBoard, pvList = [], startTurn = 'red', engineFamily = 'pikafish') {
+  if (!initialBoard || !Array.isArray(pvList) || pvList.length === 0) return [];
+  let curBoard = initialBoard;
+  let curTurn = startTurn;
+  const result = [];
+
+  for (let i = 0; i < Math.min(pvList.length, 12); i++) {
+    const uci = pvList[i];
+    const move = uciToMove(uci, engineFamily);
+    if (!move) break;
+    const piece = curBoard[move.fromR]?.[move.fromC];
+    if (!piece) break;
+
+    const viFull = moveToVietnameseFull(curBoard, move, curTurn);
+    const viShort = moveToVietnamese(curBoard, move, curTurn);
+    const cnMove = moveToChinese(curBoard, move, curTurn);
+
+    result.push({
+      uci,
+      move,
+      turn: curTurn,
+      piece,
+      viFull,
+      viShort,
+      cnMove
+    });
+
+    curBoard = makeMove(curBoard, move);
+    curTurn = curTurn === 'red' ? 'black' : 'red';
+  }
+
+  return result;
+}
+
+/**
+ * Deep Strategic Assessment of Pros & Cons for Red and Black
+ */
+export function analyzePositionProsCons(board, activeTurn = 'red', evalScore = 0) {
+  if (!board || board.length !== 10) return null;
+
+  const redPros = [];
+  const redCons = [];
+  const blackPros = [];
+  const blackCons = [];
+  const tacticalThreats = [];
+
+  let redRooksActive = 0;
+  let blackRooksActive = 0;
+  let redCentralCannon = false;
+  let blackCentralCannon = false;
+  let redCrossedPawns = 0;
+  let blackCrossedPawns = 0;
+  let redHorsesActive = 0;
+  let blackHorsesActive = 0;
+  let redAdvisors = 0;
+  let blackAdvisors = 0;
+  let redElephants = 0;
+  let blackElephants = 0;
+
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 9; c++) {
+      const p = board[r][c];
+      if (!p) continue;
+
+      if (p === 'R') {
+        if (r < 9) redRooksActive++;
+        if (r <= 4) redPros.push('Xe Đỏ đã quá hà kiểm soát địa bàn đối phương');
+      } else if (p === 'r') {
+        if (r > 0) blackRooksActive++;
+        if (r >= 5) blackPros.push('Xe Đen đã quá hà kiểm soát trận địa');
+      } else if (p === 'C') {
+        if (c === 4) {
+          redCentralCannon = true;
+          redPros.push('Pháo đầu (Trung Pháo) khống chế trục tâm lộ 5 cực kỳ nguy hiểm');
+        }
+      } else if (p === 'c') {
+        if (c === 4) {
+          blackCentralCannon = true;
+          blackPros.push('Pháo Đen chiếm trung lộ trực chỉ cung tướng Đỏ');
+        }
+      } else if (p === 'P') {
+        if (r <= 4) redCrossedPawns++;
+      } else if (p === 'p') {
+        if (r >= 5) blackCrossedPawns++;
+      } else if (p === 'N') {
+        if (r <= 6) redHorsesActive++;
+      } else if (p === 'n') {
+        if (r >= 3) blackHorsesActive++;
+      } else if (p === 'A') {
+        redAdvisors++;
+      } else if (p === 'a') {
+        blackAdvisors++;
+      } else if (p === 'B') {
+        redElephants++;
+      } else if (p === 'b') {
+        blackElephants++;
+      }
+    }
+  }
+
+  // Rooks evaluation
+  if (redRooksActive >= 2) redPros.push('Song Xe Đỏ đều đã xuất kích, đường thông hè thoáng');
+  else if (redRooksActive === 0) redCons.push('Song Xe Đỏ chưa kịp xuất kích, chậm nhịp triển khai');
+
+  if (blackRooksActive >= 2) blackPros.push('Song Xe Đen chiếm giữ các lộ huyết mạch');
+  else if (blackRooksActive === 0) blackCons.push('Xe Đen còn kẹt ở góc bàn cờ, chưa tham chiến');
+
+  // Horses evaluation
+  if (redHorsesActive >= 2) redPros.push('Cặp Mã Đỏ linh hoạt, sẵn sàng nhập cung công kích');
+  if (blackHorsesActive >= 2) blackPros.push('Cặp Mã Đen vươn cao, kiểm soát chặt các giao điểm');
+
+  // Crossed pawns
+  if (redCrossedPawns >= 2) redPros.push(`Đỏ có ${redCrossedPawns} Binh đã qua sông tạo sức ép lớn`);
+  else if (redCrossedPawns === 1) redPros.push('Binh Đỏ qua sông đè đầu mã đối phương');
+
+  if (blackCrossedPawns >= 2) blackPros.push(`Đen có ${blackCrossedPawns} Tốt qua sông đe dọa cung cấm`);
+  else if (blackCrossedPawns === 1) blackPros.push('Tốt Đen đã áp sát trận địa Đỏ');
+
+  // Defensive structure
+  if (redAdvisors < 2 || redElephants < 2) {
+    redCons.push(`Hàng phòng thủ Đỏ bị khuyết (${redAdvisors} Sĩ, ${redElephants} Tượng), cẩn trọng đòn đánh úp`);
+  } else {
+    redPros.push('Sĩ Tượng Đỏ liên kết kiên cố, hậu phương vững chắc');
+  }
+
+  if (blackAdvisors < 2 || blackElephants < 2) {
+    blackCons.push(`Đen bị khuyết phòng thủ (${blackAdvisors} Sĩ, ${blackElephants} Tượng), dễ bị Xe Pháo đánh xuyên cung`);
+  } else {
+    blackPros.push('Bộ Sĩ Tượng Đen vững vàng che chắn Tướng');
+  }
+
+  // In Check
+  const redInCheck = isInCheck(board, 'red');
+  const blackInCheck = isInCheck(board, 'black');
+
+  if (redInCheck) {
+    redCons.push('⚠️ Tướng Đỏ đang bị chiếu tướng, bắt buộc phải giải cứu');
+    tacticalThreats.push('Bên Đen đang phát động đòn công kích chiếu Tướng!');
+  }
+  if (blackInCheck) {
+    blackCons.push('⚠️ Tướng Đen đang lâm nguy bị chiếu!');
+    tacticalThreats.push('Bên Đỏ đang nắm quyền chủ động chiếu công phá!');
+  }
+
+  // General evaluation verdict
+  let verdict = 'Thế trận cân bằng, hai bên giằng co';
+  let verdictType = 'balanced'; // 'red_huge' | 'red_lead' | 'balanced' | 'black_lead' | 'black_huge'
+
+  const scoreNum = typeof evalScore === 'number' ? evalScore : parseInt(evalScore, 10) || 0;
+  if (scoreNum >= 400) {
+    verdict = '🔴 Đỏ chiếm ưu thế áp đảo! Có thể phát động đòn sát cục hoặc bắt quân lớn.';
+    verdictType = 'red_huge';
+  } else if (scoreNum >= 120) {
+    verdict = '🔴 Đỏ chiếm ưu thế rõ ràng, chủ động kiểm soát thế trận.';
+    verdictType = 'red_lead';
+  } else if (scoreNum <= -400) {
+    verdict = '⚫ Đen chiếm ưu thế áp đảo! Đỏ đang lâm vào thế phòng thủ bị động.';
+    verdictType = 'black_huge';
+  } else if (scoreNum <= -120) {
+    verdict = '⚫ Đen phản tiên giành ưu, nắm giữ thế công kích chủ động.';
+    verdictType = 'black_lead';
+  } else {
+    verdict = '⚖️ Thế trận cân bằng giằng co, hai bên tranh chấp từng điểm nút then chốt.';
+    verdictType = 'balanced';
+  }
+
+  return {
+    verdict,
+    verdictType,
+    scoreNum,
+    redPros: redPros.slice(0, 4),
+    redCons: redCons.slice(0, 3),
+    blackPros: blackPros.slice(0, 4),
+    blackCons: blackCons.slice(0, 3),
+    tacticalThreats
+  };
+}
+

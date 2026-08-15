@@ -80,6 +80,8 @@ class EngineManagerService {
       checking: false
     };
     this.subscribers = new Set();
+    this.analysisCache = new Map();
+    this.bestMoveCache = new Map();
     this.checkNativeBridge();
     // Periodic health check every 10s
     setInterval(() => this.checkNativeBridge(), 10000);
@@ -171,10 +173,15 @@ class EngineManagerService {
    * Universal Get Best Move
    */
   async getBestMove(board, turn = 'red', depth = 12, timeMs = null) {
+    const fen = boardToFen(board, turn);
+    const cacheKey = `${fen}_${depth || this.nativeStatus.defaultDepth}_${turn}`;
+    if (this.bestMoveCache.has(cacheKey)) {
+      return this.bestMoveCache.get(cacheKey);
+    }
+
     // If native engine is selected and available
     if (this.engineType === 'native' && this.nativeStatus.isAvailable) {
       try {
-        const fen = boardToFen(board, turn);
         const payload = {
           fen,
           depth: depth || this.nativeStatus.defaultDepth,
@@ -198,7 +205,7 @@ class EngineManagerService {
           const viShort = moveToVietnamese(board, data.move, turn);
           const cnMove = moveToChinese(board, data.move, turn);
 
-          return {
+          const result = {
             ...data.move,
             score: data.score,
             depth: data.depth,
@@ -212,6 +219,13 @@ class EngineManagerService {
             viShort,
             cnMove
           };
+
+          if (this.bestMoveCache.size > 200) {
+            const firstKey = this.bestMoveCache.keys().next().value;
+            this.bestMoveCache.delete(firstKey);
+          }
+          this.bestMoveCache.set(cacheKey, result);
+          return result;
         }
       } catch (err) {
         console.warn('Native engine request failed, falling back to WASM:', err);
@@ -221,7 +235,7 @@ class EngineManagerService {
     // WASM Fallback
     const wasmMove = getWasmBestMove(board, turn, Math.min(depth || 4, 6));
     if (wasmMove) {
-      return {
+      const result = {
         ...wasmMove,
         score: evaluateWasmBoard(board),
         depth: Math.min(depth || 4, 6),
@@ -231,6 +245,8 @@ class EngineManagerService {
         viShort: moveToVietnamese(board, wasmMove, turn),
         cnMove: moveToChinese(board, wasmMove, turn)
       };
+      this.bestMoveCache.set(cacheKey, result);
+      return result;
     }
     return null;
   }
@@ -239,9 +255,14 @@ class EngineManagerService {
    * Universal Strategic Analysis (Multi-PV)
    */
   async analyzeStrategicOptions(board, turn = 'red', depth = 12, multiPv = 3) {
+    const fen = boardToFen(board, turn);
+    const cacheKey = `${fen}_${depth || this.nativeStatus.defaultDepth}_${multiPv}_${turn}`;
+    if (this.analysisCache.has(cacheKey)) {
+      return this.analysisCache.get(cacheKey);
+    }
+
     if (this.engineType === 'native' && this.nativeStatus.isAvailable) {
       try {
-        const fen = boardToFen(board, turn);
         const payload = {
           fen,
           depth: depth || this.nativeStatus.defaultDepth,
@@ -261,7 +282,7 @@ class EngineManagerService {
           })();
 
         if (data && data.candidates && data.candidates.length > 0) {
-          return data.candidates.map(cand => {
+          const results = data.candidates.map(cand => {
             const viFull = cand.move ? moveToVietnameseFull(board, cand.move, turn) : '';
             const viShort = cand.move ? moveToVietnamese(board, cand.move, turn) : '';
             const cnMove = cand.move ? moveToChinese(board, cand.move, turn) : '';
@@ -275,6 +296,13 @@ class EngineManagerService {
               isNative: true
             };
           });
+
+          if (this.analysisCache.size > 200) {
+            const firstKey = this.analysisCache.keys().next().value;
+            this.analysisCache.delete(firstKey);
+          }
+          this.analysisCache.set(cacheKey, results);
+          return results;
         }
       } catch (err) {
         console.warn('Native strategic analysis failed, using WASM:', err);

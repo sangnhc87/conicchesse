@@ -10,6 +10,7 @@ import {
 import { sound } from './AudioEngine';
 import { solvePuzzleSequence, getBestMove, evaluateBoard, analyzeStrategicOptions } from './XiangqiAI';
 import { engineManager } from './EngineManager';
+import { analyzePositionProsCons } from './XiangqiLogic';
 import { storageGet, storageSet } from '../lib/safeStorage.js';
 
 export default function StudyPanel({
@@ -636,6 +637,55 @@ export default function StudyPanel({
                 </div>
               ))
             )}
+
+            {/* Pros & Cons Assessment in Study Strategy Tab */}
+            {(() => {
+              const pc = analyzePositionProsCons(activeBoard, activeTurn);
+              if (!pc) return null;
+              return (
+                <div className="space-y-2 pt-2 border-t border-gray-800">
+                  <div className="text-xs font-bold text-amber-300">
+                    ⚖️ Đánh Giá Ưu & Nhược Điểm Thế Trận:
+                  </div>
+
+                  {pc.verdict && (
+                    <div className="p-2 rounded-xl bg-[#141824] border border-[#262d3d] text-xs font-bold text-gray-200">
+                      {pc.verdict}
+                    </div>
+                  )}
+
+                  {/* Red Side */}
+                  <div className="p-2.5 rounded-xl bg-[#131722] border border-[#22293a] text-[11px] space-y-1">
+                    <div className="font-bold text-red-400">🔴 Bên Đỏ:</div>
+                    {pc.redPros.map((p, i) => (
+                      <div key={`sp-rp-${i}`} className="text-gray-300 flex items-start gap-1">
+                        <span className="text-emerald-400 font-bold">✓</span> {p}
+                      </div>
+                    ))}
+                    {pc.redCons.map((c, i) => (
+                      <div key={`sp-rc-${i}`} className="text-gray-300 flex items-start gap-1">
+                        <span className="text-amber-400 font-bold">!</span> {c}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Black Side */}
+                  <div className="p-2.5 rounded-xl bg-[#131722] border border-[#22293a] text-[11px] space-y-1">
+                    <div className="font-bold text-blue-300">⚫ Bên Đen:</div>
+                    {pc.blackPros.map((p, i) => (
+                      <div key={`sp-bp-${i}`} className="text-gray-300 flex items-start gap-1">
+                        <span className="text-emerald-400 font-bold">✓</span> {p}
+                      </div>
+                    ))}
+                    {pc.blackCons.map((c, i) => (
+                      <div key={`sp-bc-${i}`} className="text-gray-300 flex items-start gap-1">
+                        <span className="text-amber-400 font-bold">!</span> {c}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 

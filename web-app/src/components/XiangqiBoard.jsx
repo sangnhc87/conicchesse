@@ -10,6 +10,9 @@ export default function XiangqiBoard({
   legalDestinations = [],
   lastMove = null,
   bestMoveArrow = null,
+  candidateArrows = [],
+  maxArrows = 3,
+  hoveredCandidateIndex = null,
   evalScore = null,
   showEvalBar = true,
   onSquareClick,
@@ -64,12 +67,63 @@ export default function XiangqiBoard({
     arrowEnd = getSvgCoord(lastMove.toR, lastMove.toC);
   }
 
-  // Engine Best Move Arrow
-  let engineArrowStart = null;
-  let engineArrowEnd = null;
-  if (bestMoveArrow) {
-    engineArrowStart = getSvgCoord(bestMoveArrow.fromR, bestMoveArrow.fromC);
-    engineArrowEnd = getSvgCoord(bestMoveArrow.toR, bestMoveArrow.toC);
+  // Multi-PV Candidate Arrows configuration (1 to 5 variants)
+  const ARROW_THEMES = [
+    { rank: 1, color: '#10b981', marker: 'url(#engineArrow1)', width: 4.8, badgeBg: '#10b981', badgeText: '#ffffff' },
+    { rank: 2, color: '#06b6d4', marker: 'url(#engineArrow2)', width: 4.2, badgeBg: '#06b6d4', badgeText: '#ffffff' },
+    { rank: 3, color: '#a855f7', marker: 'url(#engineArrow3)', width: 3.8, badgeBg: '#a855f7', badgeText: '#ffffff' },
+    { rank: 4, color: '#f59e0b', marker: 'url(#engineArrow4)', width: 3.4, badgeBg: '#f59e0b', badgeText: '#ffffff' },
+    { rank: 5, color: '#ec4899', marker: 'url(#engineArrow5)', width: 3.0, badgeBg: '#ec4899', badgeText: '#ffffff' },
+  ];
+
+  // Active arrows to render
+  const renderedArrows = [];
+  if (candidateArrows && candidateArrows.length > 0) {
+    const limit = Math.max(1, Math.min(maxArrows || 3, 5));
+    candidateArrows.slice(0, limit).forEach((cand, idx) => {
+      const mv = cand.move || cand;
+      if (mv && mv.fromR !== undefined && mv.toR !== undefined) {
+        const start = getSvgCoord(mv.fromR, mv.fromC);
+        const end = getSvgCoord(mv.toR, mv.toC);
+        const theme = ARROW_THEMES[idx] || ARROW_THEMES[0];
+        const isHovered = hoveredCandidateIndex === idx;
+        const midX = (start.x + end.x) / 2;
+        const midY = (start.y + end.y) / 2;
+
+        renderedArrows.push({
+          idx,
+          rank: idx + 1,
+          start,
+          end,
+          midX,
+          midY,
+          color: theme.color,
+          marker: theme.marker,
+          width: isHovered ? theme.width + 2.5 : theme.width,
+          badgeBg: theme.badgeBg,
+          badgeText: theme.badgeText,
+          isHovered
+        });
+      }
+    });
+  } else if (bestMoveArrow) {
+    const start = getSvgCoord(bestMoveArrow.fromR, bestMoveArrow.fromC);
+    const end = getSvgCoord(bestMoveArrow.toR, bestMoveArrow.toC);
+    const theme = ARROW_THEMES[0];
+    renderedArrows.push({
+      idx: 0,
+      rank: 1,
+      start,
+      end,
+      midX: (start.x + end.x) / 2,
+      midY: (start.y + end.y) / 2,
+      color: theme.color,
+      marker: theme.marker,
+      width: 4.8,
+      badgeBg: theme.badgeBg,
+      badgeText: theme.badgeText,
+      isHovered: false
+    });
   }
 
   // Calculate Eval Bar percentage (Sigmoidal curve 0..100)
@@ -168,21 +222,29 @@ export default function XiangqiBoard({
                     <polygon points="0 0, 8 3, 0 6" fill="#f59e0b" opacity="0.9" />
                   </marker>
 
-                  {/* Engine Best Move Arrow Marker */}
-                  <marker
-                    id="engineArrow"
-                    markerWidth="8"
-                    markerHeight="6"
-                    refX="7"
-                    refY="3"
-                    orient="auto"
-                  >
+                  {/* Multi-PV Engine Arrow Markers (5 Variants) */}
+                  <marker id="engineArrow1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#10b981" opacity="0.95" />
+                  </marker>
+                  <marker id="engineArrow2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
                     <polygon points="0 0, 8 3, 0 6" fill="#06b6d4" opacity="0.95" />
+                  </marker>
+                  <marker id="engineArrow3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#a855f7" opacity="0.95" />
+                  </marker>
+                  <marker id="engineArrow4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#f59e0b" opacity="0.95" />
+                  </marker>
+                  <marker id="engineArrow5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#ec4899" opacity="0.95" />
                   </marker>
 
                   {/* Drop Shadow filter for pieces */}
                   <filter id="pieceShadow" x="-20%" y="-20%" width="140%" height="140%">
                     <feDropShadow dx="1.5" dy="3" stdDeviation="2.5" floodColor="#2a1403" floodOpacity="0.55" />
+                  </filter>
+                  <filter id="arrowGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#10b981" floodOpacity="0.8" />
                   </filter>
                 </defs>
 
@@ -294,22 +356,68 @@ export default function XiangqiBoard({
                   </g>
                 )}
 
-                {/* Engine Best Move Glowing Cyan Arrow */}
-                {engineArrowStart && engineArrowEnd && (
-                  <g className="pointer-events-none">
+                {/* Pikafish Multi-PV Candidate Glowing Ranked Arrows (1 to 5) */}
+                {renderedArrows.map((arr) => (
+                  <g key={`pv-arrow-${arr.idx}`} className="pointer-events-none transition-all duration-300">
+                    {/* Shadow Glow for Hovered/Primary Arrow */}
                     <line
-                      x1={engineArrowStart.x}
-                      y1={engineArrowStart.y}
-                      x2={engineArrowEnd.x}
-                      y2={engineArrowEnd.y}
-                      stroke="#06b6d4"
-                      strokeWidth="4"
-                      markerEnd="url(#engineArrow)"
-                      opacity="0.95"
+                      x1={arr.start.x}
+                      y1={arr.start.y}
+                      x2={arr.end.x}
+                      y2={arr.end.y}
+                      stroke={arr.color}
+                      strokeWidth={arr.width + 4}
+                      opacity={arr.isHovered ? "0.6" : (arr.rank === 1 ? "0.35" : "0.15")}
                     />
-                    <circle cx={engineArrowStart.x} cy={engineArrowStart.y} r="7" fill="#06b6d4" opacity="0.9" />
+
+                    {/* Main Arrow Body */}
+                    <line
+                      x1={arr.start.x}
+                      y1={arr.start.y}
+                      x2={arr.end.x}
+                      y2={arr.end.y}
+                      stroke={arr.color}
+                      strokeWidth={arr.width}
+                      markerEnd={arr.marker}
+                      opacity={arr.isHovered ? "1" : "0.9"}
+                    />
+
+                    {/* Origin Circle */}
+                    <circle
+                      cx={arr.start.x}
+                      cy={arr.start.y}
+                      r={arr.isHovered ? "8.5" : "6.5"}
+                      fill={arr.color}
+                      opacity={arr.isHovered ? "1" : "0.9"}
+                    />
+
+                    {/* Ranking Badge Circle (#1, #2, #3, #4, #5) */}
+                    {renderedArrows.length > 1 && (
+                      <g>
+                        <circle
+                          cx={arr.midX}
+                          cy={arr.midY}
+                          r={arr.isHovered ? "9" : "7.5"}
+                          fill={arr.badgeBg}
+                          stroke="#ffffff"
+                          strokeWidth="1.2"
+                          shadow="0 0 4px rgba(0,0,0,0.5)"
+                        />
+                        <text
+                          x={arr.midX}
+                          y={arr.midY + 3.2}
+                          fontSize={arr.isHovered ? "9.5" : "8"}
+                          fontFamily="sans-serif"
+                          fontWeight="900"
+                          textAnchor="middle"
+                          fill={arr.badgeText}
+                        >
+                          {arr.rank}
+                        </text>
+                      </g>
+                    )}
                   </g>
-                )}
+                ))}
 
                 {/* Legal Move Destination Dots */}
                 {legalDestinations.map((dest, idx) => {

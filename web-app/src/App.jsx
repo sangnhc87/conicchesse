@@ -11,6 +11,7 @@ import {
 import XiangqiBoard from './components/XiangqiBoard';
 import Sidebar from './components/Sidebar';
 import StudyPanel from './components/StudyPanel';
+import AnalysisPanel from './components/AnalysisPanel';
 import PlayAIPanel from './components/PlayAIPanel';
 import PdfExportModal from './components/PdfExportModal';
 import AiTutorModal from './components/AiTutorModal';
@@ -29,7 +30,7 @@ import { storageGet, storageSet } from './lib/safeStorage.js';
 import { safeFetchJson } from './lib/dataLoader.js';
 
 export default function App() {
-  // App Mode: 'study' (Nghiên cứu kỳ phổ 4.230 bài) | 'play_ai' (Đấu cờ với AI)
+  // App Mode: 'study' (Nghiên cứu kỳ phổ 4.230 bài) | 'analysis' (Phân tích 2 bên & Pikafish) | 'play_ai' (Đấu cờ với AI)
   const [appMode, setAppMode] = useState('study');
 
   // Engine Manager State
@@ -90,6 +91,24 @@ export default function App() {
   const [isPracticeMode, setIsPracticeMode] = useState(false);
   const [practiceSuccess, setPracticeSuccess] = useState(false);
   const [coachFeedback, setCoachFeedback] = useState(null);
+
+  // Analysis & 2-Player Self-Play Mode States
+  const [analysisBoard, setAnalysisBoard] = useState(() => parseFen().board);
+  const [analysisTurn, setAnalysisTurn] = useState('red');
+  const [analysisHistory, setAnalysisHistory] = useState([]); // [{ turn, move, notationVi, notationCn, captured, uci }]
+  const [analysisHistoryIndex, setAnalysisHistoryIndex] = useState(0);
+  const [analysisSelectedSquare, setAnalysisSelectedSquare] = useState(null);
+  const [analysisLegalDests, setAnalysisLegalDests] = useState([]);
+  const [analysisLastMove, setAnalysisLastMove] = useState(null);
+  const [analysisDepth, setAnalysisDepth] = useState(14);
+  const [analysisMultiPv, setAnalysisMultiPv] = useState(3);
+  const [analysisMaxArrows, setAnalysisMaxArrows] = useState(3);
+  const [analysisHoveredCandidateIndex, setAnalysisHoveredCandidateIndex] = useState(null);
+  const [analysisAutoAnalyze, setAnalysisAutoAnalyze] = useState(true);
+  const [analysisCandidates, setAnalysisCandidates] = useState([]);
+  const [analysisEvalScore, setAnalysisEvalScore] = useState(0);
+  const [analysisIsThinking, setAnalysisIsThinking] = useState(false);
+  const [analysisPreviewMove, setAnalysisPreviewMove] = useState(null);
 
   // Play vs AI Mode States
   const [playAiBoard, setPlayAiBoard] = useState(() => parseFen().board);
@@ -270,41 +289,68 @@ export default function App() {
     return { currentStudyBoard: board, totalHalfMoves: totalMoves };
   }, [currentLesson, currentMoveIndex]);
 
-  // Active board is either trial board or study board (or play AI board)
+  // Active board is either trial board or study board, analysis board, or play AI board
   const isStudy = appMode === 'study';
-  const activeBoard = isStudy ? (trialBoard || currentStudyBoard) : playAiBoard;
+  const isAnalysis = appMode === 'analysis';
+  const isPlayAi = appMode === 'play_ai';
+
+  const activeBoard = isStudy
+    ? (trialBoard || currentStudyBoard)
+    : (isAnalysis ? analysisBoard : playAiBoard);
+
   const isTrialMode = isStudy && (trialBoard !== null);
   const activeTurn = isStudy
     ? (isTrialMode ? trialTurn : ((currentMoveIndex % 2 === 0) ? 'red' : 'black'))
-    : playAiTurn;
+    : (isAnalysis ? analysisTurn : playAiTurn);
 
   // Fast O(1) synchronous Material & Positional Eval score (Instant 0.01ms evaluation)
   const currentEvalScore = useMemo(() => {
     if (!activeBoard || !isEngineAssistantEnabled) return 0;
+    if (isAnalysis && analysisEvalScore !== 0) return analysisEvalScore;
     try {
       return evaluateBoard(activeBoard);
     } catch {
       return 0;
     }
-  }, [activeBoard, isEngineAssistantEnabled]);
+  }, [activeBoard, isEngineAssistantEnabled, isAnalysis, analysisEvalScore]);
 
-  // Non-blocking Debounced Engine Best Move Suggestion (Runs smoothly in background without freezing UI)
+  // Non-blocking Debounced Engine Best Move Suggestion (Uses Real Native Pikafish)
   const [bestMoveSuggestion, setBestMoveSuggestion] = useState(null);
+
   useEffect(() => {
     if (!activeBoard || !isEngineAssistantEnabled) {
       setBestMoveSuggestion(null);
       return;
     }
-    const timer = setTimeout(() => {
-      try {
-        const best = getWasmBestMove(activeBoard, activeTurn, 3);
-        setBestMoveSuggestion(best);
-      } catch (e) {
-        setBestMoveSuggestion(null);
+
+    if (isAnalysis) {
+      if (analysisPreviewMove) {
+        setBestMoveSuggestion(analysisPreviewMove);
+        return;
       }
-    }, 70);
-    return () => clearTimeout(timer);
-  }, [activeBoard, activeTurn, isEngineAssistantEnabled]);
+      if (analysisCandidates && analysisCandidates.length > 0 && analysisCandidates[0].move) {
+        setBestMoveSuggestion(analysisCandidates[0].move);
+        return;
+      }
+    }
+
+    let isMounted = true;
+    const timer = setTimeout(async () => {
+      try {
+        const res = await engineManager.getBestMove(activeBoard, activeTurn, 14);
+        if (isMounted && res) {
+          setBestMoveSuggestion(res);
+        }
+      } catch (e) {
+        if (isMounted) setBestMoveSuggestion(null);
+      }
+    }, 80);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
+  }, [activeBoard, activeTurn, isEngineAssistantEnabled, isAnalysis, analysisCandidates, analysisPreviewMove]);
 
   // Fast Instant Next & Previous Lesson Handlers
   const handleNextLesson = useCallback(() => {
@@ -486,6 +532,155 @@ export default function App() {
     handleNextLesson, handlePrevLesson
   ]);
 
+  // Auto-analysis Effect for Analysis & 2-Player Self-Play Mode
+  useEffect(() => {
+    if (appMode !== 'analysis' || !analysisAutoAnalyze) return;
+    let isMounted = true;
+    setAnalysisIsThinking(true);
+
+    const timer = setTimeout(() => {
+      engineManager.analyzeStrategicOptions(analysisBoard, analysisTurn, analysisDepth, analysisMultiPv)
+        .then(candidates => {
+          if (isMounted) {
+            setAnalysisCandidates(candidates || []);
+            if (candidates && candidates[0] && typeof candidates[0].score === 'number') {
+              setAnalysisEvalScore(candidates[0].score);
+            } else {
+              setAnalysisEvalScore(evaluateBoard(analysisBoard));
+            }
+            setAnalysisIsThinking(false);
+          }
+        })
+        .catch(err => {
+          if (isMounted) {
+            setAnalysisIsThinking(false);
+          }
+        });
+    }, 80);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
+  }, [appMode, analysisBoard, analysisTurn, analysisDepth, analysisMultiPv, analysisAutoAnalyze]);
+
+  // Analysis Mode Handlers
+  const handleTriggerAnalysis = useCallback(() => {
+    setAnalysisIsThinking(true);
+    engineManager.analyzeStrategicOptions(analysisBoard, analysisTurn, analysisDepth, analysisMultiPv)
+      .then(candidates => {
+        setAnalysisCandidates(candidates || []);
+        if (candidates && candidates[0] && typeof candidates[0].score === 'number') {
+          setAnalysisEvalScore(candidates[0].score);
+        } else {
+          setAnalysisEvalScore(evaluateBoard(analysisBoard));
+        }
+        setAnalysisIsThinking(false);
+      })
+      .catch(() => {
+        setAnalysisIsThinking(false);
+      });
+  }, [analysisBoard, analysisTurn, analysisDepth, analysisMultiPv]);
+
+  const handleAnalysisApplyMove = useCallback((move) => {
+    if (!move) return;
+    const piece = analysisBoard[move.fromR]?.[move.fromC];
+    const captured = analysisBoard[move.toR]?.[move.toC];
+    if (!piece) return;
+
+    if (captured) sound.playCapture();
+    else sound.playMove();
+
+    const nextBoard = makeMove(analysisBoard, move);
+    const notationVi = moveToVietnameseFull(analysisBoard, move, analysisTurn);
+    const notationCn = moveToChinese(analysisBoard, move, analysisTurn);
+
+    const newHistory = analysisHistory.slice(0, analysisHistoryIndex);
+    newHistory.push({
+      turn: analysisTurn,
+      move,
+      notationVi,
+      notationCn,
+      captured,
+      uci: move.uci || ''
+    });
+
+    setAnalysisBoard(nextBoard);
+    setAnalysisHistory(newHistory);
+    setAnalysisHistoryIndex(newHistory.length);
+    setAnalysisLastMove(move);
+    setAnalysisSelectedSquare(null);
+    setAnalysisLegalDests([]);
+    setAnalysisPreviewMove(null);
+    setAnalysisTurn(analysisTurn === 'red' ? 'black' : 'red');
+
+    if (isInCheck(nextBoard, analysisTurn === 'red' ? 'black' : 'red')) {
+      sound.playCheck();
+    }
+  }, [analysisBoard, analysisTurn, analysisHistory, analysisHistoryIndex]);
+
+  const handleAnalysisGoToIndex = useCallback((targetIndex) => {
+    if (targetIndex < 0 || targetIndex > analysisHistory.length) return;
+    let b = parseFen().board;
+    let t = 'red';
+    let lm = null;
+    for (let i = 0; i < targetIndex; i++) {
+      const h = analysisHistory[i];
+      b = makeMove(b, h.move);
+      t = h.turn === 'red' ? 'black' : 'red';
+      lm = h.move;
+    }
+    setAnalysisBoard(b);
+    setAnalysisTurn(t);
+    setAnalysisHistoryIndex(targetIndex);
+    setAnalysisLastMove(lm);
+    setAnalysisSelectedSquare(null);
+    setAnalysisLegalDests([]);
+    setAnalysisPreviewMove(null);
+    sound.playMove();
+  }, [analysisHistory]);
+
+  const handleAnalysisUndo = useCallback(() => {
+    if (analysisHistoryIndex > 0) {
+      handleAnalysisGoToIndex(analysisHistoryIndex - 1);
+    }
+  }, [analysisHistoryIndex, handleAnalysisGoToIndex]);
+
+  const handleAnalysisRedo = useCallback(() => {
+    if (analysisHistoryIndex < analysisHistory.length) {
+      handleAnalysisGoToIndex(analysisHistoryIndex + 1);
+    }
+  }, [analysisHistoryIndex, analysisHistory.length, handleAnalysisGoToIndex]);
+
+  const handleAnalysisFirst = useCallback(() => {
+    handleAnalysisGoToIndex(0);
+  }, [handleAnalysisGoToIndex]);
+
+  const handleAnalysisLast = useCallback(() => {
+    handleAnalysisGoToIndex(analysisHistory.length);
+  }, [analysisHistory.length, handleAnalysisGoToIndex]);
+
+  const handleAnalysisReset = useCallback(() => {
+    const fresh = parseFen().board;
+    setAnalysisBoard(fresh);
+    setAnalysisTurn('red');
+    setAnalysisHistory([]);
+    setAnalysisHistoryIndex(0);
+    setAnalysisSelectedSquare(null);
+    setAnalysisLegalDests([]);
+    setAnalysisLastMove(null);
+    setAnalysisPreviewMove(null);
+    setAnalysisCandidates([]);
+    sound.playSelect();
+  }, []);
+
+  const handleAnalysisSwitchTurn = useCallback(() => {
+    setAnalysisTurn(prev => prev === 'red' ? 'black' : 'red');
+    setAnalysisSelectedSquare(null);
+    setAnalysisLegalDests([]);
+    sound.playSelect();
+  }, []);
+
   // AI Response Trigger in Play AI Mode
   useEffect(() => {
     if (appMode !== 'play_ai') return;
@@ -544,8 +739,48 @@ export default function App() {
     }
   }, [appMode, playAiTurn, playAiPlayerColor, playAiBoard, playAiDifficulty, playAiThinking]);
 
-  // Interactive Moves on Board (Study Mode & Play AI Mode)
+  // Interactive Moves on Board (Analysis Mode, Study Mode & Play AI Mode)
   const handleSquareClick = async (r, c) => {
+    // 1. ANALYSIS (FREE 2-PLAYER SELF-PLAY) MODE
+    if (appMode === 'analysis') {
+      const clickedPiece = analysisBoard[r][c];
+
+      // If destination selected
+      if (analysisSelectedSquare) {
+        const isDest = analysisLegalDests.some(d => d.toR === r && d.toC === c);
+        if (isDest) {
+          const move = {
+            fromR: analysisSelectedSquare.r,
+            fromC: analysisSelectedSquare.c,
+            toR: r,
+            toC: c,
+            captured: clickedPiece
+          };
+          handleAnalysisApplyMove(move);
+          return;
+        }
+      }
+
+      // Select piece of the current turn
+      if (clickedPiece) {
+        const pieceIsRed = isRed(clickedPiece);
+        const isCurrentTurnPiece = (analysisTurn === 'red' && pieceIsRed) || (analysisTurn === 'black' && !pieceIsRed);
+        if (isCurrentTurnPiece) {
+          setAnalysisSelectedSquare({ r, c });
+          const allLegal = getLegalMoves(analysisBoard, analysisTurn);
+          const pieceLegal = allLegal.filter(m => m.fromR === r && m.fromC === c);
+          setAnalysisLegalDests(pieceLegal);
+          sound.playSelect();
+          return;
+        }
+      }
+
+      setAnalysisSelectedSquare(null);
+      setAnalysisLegalDests([]);
+      return;
+    }
+
+    // 2. PLAY AI MODE
     if (appMode === 'play_ai') {
       if (playAiThinking || playAiTurn !== playAiPlayerColor) return;
 
@@ -611,7 +846,7 @@ export default function App() {
       return;
     }
 
-    // STUDY MODE HANDLING
+    // 3. STUDY MODE HANDLING
     const clickedPiece = activeBoard[r][c];
 
     // If destination selected
@@ -783,6 +1018,19 @@ export default function App() {
     sound.playSelect();
   };
 
+  const handlePlayAiNewGame = () => {
+    handlePlayAiReset();
+  };
+
+  const handlePlayAiResign = () => {
+    sound.playCheck();
+    setCoachFeedback({
+      type: 'mistake',
+      message: '🏳️ Bạn đã xin thua ván này. Hãy bấm Ván Mới để bắt đầu lại!',
+      sub: ''
+    });
+  };
+
   const handlePlayAiSwitchSides = () => {
     const nextColor = playAiPlayerColor === 'red' ? 'black' : 'red';
     setPlayAiPlayerColor(nextColor);
@@ -799,9 +1047,17 @@ export default function App() {
   };
 
   // Active board interactive props
-  const currentSelectedSquare = isStudy ? selectedSquare : playAiSelectedSquare;
-  const currentLegalDestinations = isStudy ? legalDestinations : playAiLegalDests;
-  const currentLastMove = isStudy ? lastMove : playAiLastMove;
+  const currentSelectedSquare = isStudy
+    ? selectedSquare
+    : (isAnalysis ? analysisSelectedSquare : playAiSelectedSquare);
+
+  const currentLegalDestinations = isStudy
+    ? legalDestinations
+    : (isAnalysis ? analysisLegalDests : playAiLegalDests);
+
+  const currentLastMove = isStudy
+    ? lastMove
+    : (isAnalysis ? (analysisPreviewMove || analysisLastMove) : playAiLastMove);
 
   return (
     <div className="flex flex-col h-screen bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
@@ -833,8 +1089,8 @@ export default function App() {
           </div>
         </div>
 
-        {/* Center: Clean Segmented Mode Selector */}
-        <div className="hidden md:flex items-center p-1 rounded-xl bg-[#141824] border border-[#232a3d] shadow-inner">
+        {/* Center: Clean Segmented Mode Selector (3 Modes) */}
+        <div className="hidden md:flex items-center p-1 rounded-xl bg-[#141824] border border-[#232a3d] shadow-inner gap-0.5">
           <button
             onClick={() => setAppMode('study')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
@@ -848,6 +1104,18 @@ export default function App() {
           </button>
 
           <button
+            onClick={() => setAppMode('analysis')}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+              appMode === 'analysis'
+                ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-sm'
+                : 'text-gray-400 hover:text-gray-200'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>Phân Tích 2 Bên & Pikafish</span>
+          </button>
+
+          <button
             onClick={() => setAppMode('play_ai')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
               appMode === 'play_ai'
@@ -856,7 +1124,7 @@ export default function App() {
             }`}
           >
             <Swords className="w-3.5 h-3.5" />
-            <span>Đấu Cờ Với AI</span>
+            <span>Đấu AI</span>
           </button>
         </div>
 
@@ -1112,11 +1380,14 @@ export default function App() {
                 </button>
 
                 {isEngineAssistantEnabled && bestMoveSuggestion && (
-                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-cyan-300 bg-cyan-950/70 px-2.5 py-0.5 rounded-xl border border-cyan-500/40 animate-fadeIn">
-                    <span>💡 Gợi ý:</span>
-                    <span className="font-mono text-amber-200">
-                      {PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} 
-                      {' '}➔ Lộ {flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}
+                  <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-bold text-cyan-300 bg-cyan-950/80 px-2.5 py-0.5 rounded-xl border border-cyan-500/50 animate-fadeIn shadow-sm">
+                    <span className="text-amber-300 flex items-center gap-1">
+                      <Flame className="w-3 h-3 text-amber-400" />
+                      <span>{engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:'}</span>
+                    </span>
+                    <span className="font-sans text-white font-black">
+                      {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
+                        (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
                     </span>
                   </span>
                 )}
@@ -1152,6 +1423,9 @@ export default function App() {
               legalDestinations={currentLegalDestinations}
               lastMove={currentLastMove}
               bestMoveArrow={bestMoveSuggestion}
+              candidateArrows={isAnalysis ? analysisCandidates : (bestMoveSuggestion ? [bestMoveSuggestion] : [])}
+              maxArrows={isAnalysis ? analysisMaxArrows : 1}
+              hoveredCandidateIndex={isAnalysis ? analysisHoveredCandidateIndex : null}
               evalScore={currentEvalScore}
               showEvalBar={showEvalBar && isEngineAssistantEnabled}
               onSquareClick={handleSquareClick}
@@ -1161,7 +1435,7 @@ export default function App() {
             />
           </div>
 
-          {/* Right Panel: Either Study Panel or Play AI Panel (Collapsible) */}
+          {/* Right Panel: Study Panel, Analysis Panel, or Play AI Panel (Collapsible) */}
           {!isRightPanelCollapsed && (
             <div className="w-full lg:w-[420px] xl:w-[460px] 2xl:w-[500px] flex-shrink-0 flex flex-col h-[590px] lg:h-full min-h-0 transition-all duration-300">
               {isStudy ? (
@@ -1201,19 +1475,36 @@ export default function App() {
                   activeBoard={activeBoard}
                   activeTurn={activeTurn}
                 />
-              ) : (
-                <PlayAIPanel
-                  board={playAiBoard}
-                  turn={playAiTurn}
-                  playerColor={playAiPlayerColor}
-                  onChangePlayerColor={setPlayAiPlayerColor}
-                  difficulty={playAiDifficulty}
-                  onChangeDifficulty={setPlayAiDifficulty}
-                  isThinking={playAiThinking}
-                  moveHistory={playAiHistory}
-                  onNewGame={handlePlayAiNewGame}
-                  onUndo={handlePlayAiUndo}
-                  onResign={handlePlayAiResign}
+              ) : isAnalysis ? (
+                <AnalysisPanel
+                  board={analysisBoard}
+                  turn={analysisTurn}
+                  moveHistory={analysisHistory}
+                  historyIndex={analysisHistoryIndex}
+                  onGoToHistoryIndex={handleAnalysisGoToIndex}
+                  onUndoMove={handleAnalysisUndo}
+                  onRedoMove={handleAnalysisRedo}
+                  onFirstMove={handleAnalysisFirst}
+                  onLastMove={handleAnalysisLast}
+                  onResetGame={handleAnalysisReset}
+                  onSwitchTurn={handleAnalysisSwitchTurn}
+                  onApplyMove={handleAnalysisApplyMove}
+                  onPreviewMove={setAnalysisPreviewMove}
+                  previewedMove={analysisPreviewMove}
+                  depth={analysisDepth}
+                  onChangeDepth={setAnalysisDepth}
+                  multiPv={analysisMultiPv}
+                  onChangeMultiPv={setAnalysisMultiPv}
+                  maxArrows={analysisMaxArrows}
+                  onChangeMaxArrows={setAnalysisMaxArrows}
+                  hoveredCandidateIndex={analysisHoveredCandidateIndex}
+                  onHoverCandidate={setAnalysisHoveredCandidateIndex}
+                  autoAnalyze={analysisAutoAnalyze}
+                  onToggleAutoAnalyze={setAnalysisAutoAnalyze}
+                  onTriggerAnalysis={handleTriggerAnalysis}
+                  isAnalyzing={analysisIsThinking}
+                  candidates={analysisCandidates}
+                  evalScore={analysisEvalScore}
                   pieceLanguage={pieceLanguage}
                   onChangePieceLanguage={setPieceLanguage}
                   flipped={flipped}
@@ -1223,7 +1514,31 @@ export default function App() {
                     const m = sound.toggleMute();
                     setIsMuted(m);
                   }}
-                  engineState={engineState}
+                  onOpenEngineSettings={() => setIsEngineModalOpen(true)}
+                  onOpenEditor={() => setIsEditorOpen(true)}
+                />
+              ) : (
+                <PlayAIPanel
+                  board={playAiBoard}
+                  turn={playAiTurn}
+                  playerColor={playAiPlayerColor}
+                  onChangePlayerColor={setPlayAiPlayerColor}
+                  difficulty={playAiDifficulty}
+                  onChangeDifficulty={setPlayAiDifficulty}
+                  aiThinking={playAiThinking}
+                  moveHistory={playAiHistory}
+                  onResetGame={handlePlayAiReset}
+                  onUndoMove={handlePlayAiUndo}
+                  onSwitchSides={handlePlayAiSwitchSides}
+                  pieceLanguage={pieceLanguage}
+                  onChangePieceLanguage={setPieceLanguage}
+                  flipped={flipped}
+                  onToggleFlip={() => setFlipped(prev => !prev)}
+                  isMuted={isMuted}
+                  onToggleMute={() => {
+                    const m = sound.toggleMute();
+                    setIsMuted(m);
+                  }}
                   onOpenEngineSettings={() => setIsEngineModalOpen(true)}
                 />
               )}
