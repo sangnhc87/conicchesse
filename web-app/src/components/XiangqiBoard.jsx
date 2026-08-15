@@ -79,17 +79,38 @@ export default function XiangqiBoard({
 
   // Active arrows to render
   const renderedArrows = [];
-  if (candidateArrows && candidateArrows.length > 0) {
+  const arrowList = (candidateArrows && candidateArrows.length > 0)
+    ? candidateArrows
+    : (bestMoveArrow ? [bestMoveArrow] : []);
+
+  if (arrowList.length > 0) {
     const limit = Math.max(1, Math.min(maxArrows || 3, 5));
-    candidateArrows.slice(0, limit).forEach((cand, idx) => {
+    arrowList.slice(0, limit).forEach((cand, idx) => {
       const mv = cand.move || cand;
       if (mv && mv.fromR !== undefined && mv.toR !== undefined) {
-        const start = getSvgCoord(mv.fromR, mv.fromC);
-        const end = getSvgCoord(mv.toR, mv.toC);
+        const rawStart = getSvgCoord(mv.fromR, mv.fromC);
+        const rawEnd = getSvgCoord(mv.toR, mv.toC);
+
+        const dx = rawEnd.x - rawStart.x;
+        const dy = rawEnd.y - rawStart.y;
+        const len = Math.hypot(dx, dy) || 1;
+        const uX = dx / len;
+        const uY = dy / len;
+
+        // Offset from centers so arrow is crisp and arrowhead clearly points at destination
+        const start = {
+          x: rawStart.x + uX * 12,
+          y: rawStart.y + uY * 12
+        };
+        const end = {
+          x: rawEnd.x - uX * 12,
+          y: rawEnd.y - uY * 12
+        };
+
         const theme = ARROW_THEMES[idx] || ARROW_THEMES[0];
         const isHovered = hoveredCandidateIndex === idx;
-        const midX = (start.x + end.x) / 2;
-        const midY = (start.y + end.y) / 2;
+        const midX = (rawStart.x + rawEnd.x) / 2;
+        const midY = (rawStart.y + rawEnd.y) / 2;
 
         renderedArrows.push({
           idx,
@@ -106,24 +127,6 @@ export default function XiangqiBoard({
           isHovered
         });
       }
-    });
-  } else if (bestMoveArrow) {
-    const start = getSvgCoord(bestMoveArrow.fromR, bestMoveArrow.fromC);
-    const end = getSvgCoord(bestMoveArrow.toR, bestMoveArrow.toC);
-    const theme = ARROW_THEMES[0];
-    renderedArrows.push({
-      idx: 0,
-      rank: 1,
-      start,
-      end,
-      midX: (start.x + end.x) / 2,
-      midY: (start.y + end.y) / 2,
-      color: theme.color,
-      marker: theme.marker,
-      width: 4.8,
-      badgeBg: theme.badgeBg,
-      badgeText: theme.badgeText,
-      isHovered: false
     });
   }
 
@@ -339,87 +342,6 @@ export default function XiangqiBoard({
                   </text>
                 </g>
 
-                {/* Last Move Path & Animated Arrow */}
-                {arrowStart && arrowEnd && (
-                  <g className="pointer-events-none">
-                    <line
-                      x1={arrowStart.x}
-                      y1={arrowStart.y}
-                      x2={arrowEnd.x}
-                      y2={arrowEnd.y}
-                      stroke="#f59e0b"
-                      strokeWidth="3.5"
-                      strokeDasharray="4 3"
-                      markerEnd="url(#arrowhead)"
-                      opacity="0.8"
-                    />
-                    <circle cx={arrowStart.x} cy={arrowStart.y} r="6" fill="#f59e0b" opacity="0.8" />
-                  </g>
-                )}
-
-                {/* Pikafish Multi-PV Candidate Glowing Ranked Arrows (1 to 5) */}
-                {renderedArrows.map((arr) => (
-                  <g key={`pv-arrow-${arr.idx}`} className="pointer-events-none transition-all duration-300">
-                    {/* Shadow Glow for Hovered/Primary Arrow */}
-                    <line
-                      x1={arr.start.x}
-                      y1={arr.start.y}
-                      x2={arr.end.x}
-                      y2={arr.end.y}
-                      stroke={arr.color}
-                      strokeWidth={arr.width + 4}
-                      opacity={arr.isHovered ? "0.6" : (arr.rank === 1 ? "0.35" : "0.15")}
-                    />
-
-                    {/* Main Arrow Body */}
-                    <line
-                      x1={arr.start.x}
-                      y1={arr.start.y}
-                      x2={arr.end.x}
-                      y2={arr.end.y}
-                      stroke={arr.color}
-                      strokeWidth={arr.width}
-                      markerEnd={arr.marker}
-                      opacity={arr.isHovered ? "1" : "0.9"}
-                    />
-
-                    {/* Origin Circle */}
-                    <circle
-                      cx={arr.start.x}
-                      cy={arr.start.y}
-                      r={arr.isHovered ? "8.5" : "6.5"}
-                      fill={arr.color}
-                      opacity={arr.isHovered ? "1" : "0.9"}
-                    />
-
-                    {/* Ranking Badge Circle (#1, #2, #3, #4, #5) */}
-                    {renderedArrows.length > 1 && (
-                      <g>
-                        <circle
-                          cx={arr.midX}
-                          cy={arr.midY}
-                          r={arr.isHovered ? "9" : "7.5"}
-                          fill={arr.badgeBg}
-                          stroke="#ffffff"
-                          strokeWidth="1.2"
-                          shadow="0 0 4px rgba(0,0,0,0.5)"
-                        />
-                        <text
-                          x={arr.midX}
-                          y={arr.midY + 3.2}
-                          fontSize={arr.isHovered ? "9.5" : "8"}
-                          fontFamily="sans-serif"
-                          fontWeight="900"
-                          textAnchor="middle"
-                          fill={arr.badgeText}
-                        >
-                          {arr.rank}
-                        </text>
-                      </g>
-                    )}
-                  </g>
-                ))}
-
                 {/* Legal Move Destination Dots */}
                 {legalDestinations.map((dest, idx) => {
                   const coord = getSvgCoord(dest.toR, dest.toC);
@@ -530,6 +452,86 @@ export default function XiangqiBoard({
                     );
                   })
                 )}
+
+                {/* Last Move Path & Animated Arrow (Rendered on top of pieces) */}
+                {arrowStart && arrowEnd && (
+                  <g className="pointer-events-none">
+                    <line
+                      x1={arrowStart.x}
+                      y1={arrowStart.y}
+                      x2={arrowEnd.x}
+                      y2={arrowEnd.y}
+                      stroke="#f59e0b"
+                      strokeWidth="3.5"
+                      strokeDasharray="4 3"
+                      markerEnd="url(#arrowhead)"
+                      opacity="0.9"
+                    />
+                    <circle cx={arrowStart.x} cy={arrowStart.y} r="5.5" fill="#f59e0b" opacity="0.9" />
+                  </g>
+                )}
+
+                {/* Pikafish Multi-PV Candidate Glowing Ranked Arrows (1 to 5) (Rendered on top of pieces) */}
+                {renderedArrows.map((arr) => (
+                  <g key={`pv-arrow-${arr.idx}`} className="pointer-events-none transition-all duration-300">
+                    {/* Shadow Glow for Hovered/Primary Arrow */}
+                    <line
+                      x1={arr.start.x}
+                      y1={arr.start.y}
+                      x2={arr.end.x}
+                      y2={arr.end.y}
+                      stroke={arr.color}
+                      strokeWidth={arr.width + 4}
+                      opacity={arr.isHovered ? "0.6" : (arr.rank === 1 ? "0.35" : "0.15")}
+                    />
+
+                    {/* Main Arrow Body */}
+                    <line
+                      x1={arr.start.x}
+                      y1={arr.start.y}
+                      x2={arr.end.x}
+                      y2={arr.end.y}
+                      stroke={arr.color}
+                      strokeWidth={arr.width}
+                      markerEnd={arr.marker}
+                      opacity={arr.isHovered ? "1" : "0.95"}
+                    />
+
+                    {/* Origin Circle */}
+                    <circle
+                      cx={arr.start.x}
+                      cy={arr.start.y}
+                      r={arr.isHovered ? "8" : "6"}
+                      fill={arr.color}
+                      opacity={arr.isHovered ? "1" : "0.95"}
+                    />
+
+                    {/* Ranking Badge Circle (#1, #2, #3, #4, #5) */}
+                    {renderedArrows.length > 1 && (
+                      <g>
+                        <circle
+                          cx={arr.midX}
+                          cy={arr.midY}
+                          r={arr.isHovered ? "9" : "7.5"}
+                          fill={arr.badgeBg}
+                          stroke="#ffffff"
+                          strokeWidth="1.2"
+                        />
+                        <text
+                          x={arr.midX}
+                          y={arr.midY + 3.2}
+                          fontSize={arr.isHovered ? "9.5" : "8"}
+                          fontFamily="sans-serif"
+                          fontWeight="900"
+                          textAnchor="middle"
+                          fill={arr.badgeText}
+                        >
+                          {arr.rank}
+                        </text>
+                      </g>
+                    )}
+                  </g>
+                ))}
 
                 {/* Floating Move Quality Grade Badge (Chess.com / Lichess style) */}
                 {lastMove && lastMoveGrade && (

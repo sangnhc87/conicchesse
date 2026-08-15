@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Sparkles, Flame, Zap, Settings2, Volume2, VolumeX, Shuffle, RotateCcw,
   ArrowLeft, ArrowRight, SkipBack, SkipForward, Copy, Check, BarChart3,
