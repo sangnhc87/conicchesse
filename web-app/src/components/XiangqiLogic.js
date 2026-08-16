@@ -1186,7 +1186,9 @@ export function classifyEndgameCandidate(cand, turn = 'red') {
       outcome: 'forced_win',
       outcomeLabel: '🏆 TẤT THẮNG 100%',
       outcomeDesc: 'Nước cờ chuẩn xác dẫn đến chiến thắng tuyệt đối (Chiếu bí hoặc bắt sạch quân đối phương).',
-      badgeColor: 'border-amber-400 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 text-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.3)]'
+      badgeColor: 'border-emerald-400 bg-gradient-to-r from-emerald-500/30 via-teal-500/20 to-emerald-500/30 text-emerald-200 shadow-[0_0_15px_rgba(16,185,129,0.35)] ring-1 ring-emerald-400/40',
+      tagColor: 'bg-emerald-500 text-gray-950 font-black',
+      statusIcon: '🏆'
     };
   }
 
@@ -1195,9 +1197,11 @@ export function classifyEndgameCandidate(cand, turn = 'red') {
     return {
       isForcedWin: false,
       outcome: 'draw',
-      outcomeLabel: '⚠️ BỊ CẦM HÒA (THẤT BẠI CỜ TÀN)',
+      outcomeLabel: '⚖️ BỊ CẦM HÒA (THẤT BẠI CỜ TÀN)',
       outcomeDesc: 'Nước đi này làm mất thế tất thắng, để đối phương có cơ hội thủ hòa vĩnh viễn.',
-      badgeColor: 'border-yellow-600/50 bg-yellow-950/30 text-yellow-400'
+      badgeColor: 'border-amber-500 bg-gradient-to-r from-amber-500/25 via-orange-500/20 to-amber-500/25 text-amber-200 shadow-[0_0_12px_rgba(245,158,11,0.25)] ring-1 ring-amber-500/40',
+      tagColor: 'bg-amber-500 text-gray-950 font-black',
+      statusIcon: '⚖️'
     };
   }
 
@@ -1207,7 +1211,9 @@ export function classifyEndgameCandidate(cand, turn = 'red') {
     outcome: 'losing',
     outcomeLabel: '❌ BỊ THUA / PHẢN CÔNG',
     outcomeDesc: 'Nước đi sơ hở dẫn đến thất bại hoặc bị đối phương phản sát.',
-    badgeColor: 'border-red-600/50 bg-red-950/30 text-red-400'
+    badgeColor: 'border-rose-500 bg-gradient-to-r from-rose-600/30 via-red-600/20 to-rose-600/30 text-rose-200 shadow-[0_0_15px_rgba(244,63,94,0.3)] ring-1 ring-rose-500/40',
+    tagColor: 'bg-rose-600 text-white font-black',
+    statusIcon: '❌'
   };
 }
 

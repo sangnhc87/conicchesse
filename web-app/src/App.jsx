@@ -315,12 +315,35 @@ export default function App() {
     }
   }, [activeBoard, isEngineAssistantEnabled, isAnalysis, analysisEvalScore]);
 
+  // Next expected move in current study lesson
+  const nextLessonMove = useMemo(() => {
+    if (!isStudy || isTrialMode || !currentLesson || !currentStudyBoard) return null;
+    const moves = currentLesson.moves || [];
+    const movePairIndex = Math.floor(currentMoveIndex / 2);
+    const isRedTurn = currentMoveIndex % 2 === 0;
+    const pair = moves[movePairIndex];
+    if (!pair) return null;
+
+    if (isRedTurn && (pair.red || pair.customMoveRed)) {
+      return pair.customMoveRed || parseChineseMove(currentStudyBoard, pair.red, 'red');
+    } else if (!isRedTurn && (pair.black || pair.customMoveBlack)) {
+      return pair.customMoveBlack || parseChineseMove(currentStudyBoard, pair.black, 'black');
+    }
+    return null;
+  }, [isStudy, isTrialMode, currentLesson, currentStudyBoard, currentMoveIndex]);
+
   // Non-blocking Debounced Engine Best Move Suggestion (Uses Real Native Pikafish)
   const [bestMoveSuggestion, setBestMoveSuggestion] = useState(null);
 
   useEffect(() => {
     if (!activeBoard || !isEngineAssistantEnabled) {
       setBestMoveSuggestion(null);
+      return;
+    }
+
+    // In Study Mode (when learning book lessons), prioritize showing the lesson's exact book move!
+    if (isStudy && !isTrialMode && nextLessonMove) {
+      setBestMoveSuggestion(nextLessonMove);
       return;
     }
 
@@ -351,7 +374,7 @@ export default function App() {
       isMounted = false;
       clearTimeout(timer);
     };
-  }, [activeBoard, activeTurn, isEngineAssistantEnabled, isAnalysis, analysisCandidates, analysisPreviewMove]);
+  }, [activeBoard, activeTurn, isEngineAssistantEnabled, isStudy, isTrialMode, nextLessonMove, isAnalysis, analysisCandidates, analysisPreviewMove]);
 
   // Fast Instant Next & Previous Lesson Handlers
   const handleNextLesson = useCallback(() => {
@@ -1417,7 +1440,7 @@ export default function App() {
                   <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-bold text-cyan-300 bg-cyan-950/80 px-2.5 py-0.5 rounded-xl border border-cyan-500/50 animate-fadeIn shadow-sm">
                     <span className="text-amber-300 flex items-center gap-1">
                       <Flame className="w-3 h-3 text-amber-400" />
-                      <span>{engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:'}</span>
+                      <span>{isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:')}</span>
                     </span>
                     <span className="font-sans text-white font-black">
                       {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||

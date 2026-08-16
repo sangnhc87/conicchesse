@@ -164,10 +164,14 @@ function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
 }
 
 export function isStandardOpening(board) {
-  if (!board) return false;
+  if (!board || !Array.isArray(board) || board.length !== 10) return false;
+  // Full 32 pieces initial setup check
   return board[9]?.[4] === 'K' && board[0]?.[4] === 'k' &&
          board[9]?.[0] === 'R' && board[9]?.[8] === 'R' &&
-         board[0]?.[0] === 'r' && board[0]?.[8] === 'r';
+         board[0]?.[0] === 'r' && board[0]?.[8] === 'r' &&
+         board[9]?.[1] === 'N' && board[9]?.[7] === 'N' &&
+         board[7]?.[1] === 'C' && board[7]?.[7] === 'C' &&
+         board[6]?.[0] === 'P' && board[6]?.[4] === 'P';
 }
 
 export function isBlackInitialDefense(board) {

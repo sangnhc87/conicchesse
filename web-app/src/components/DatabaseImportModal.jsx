@@ -175,7 +175,7 @@ export default function DatabaseImportModal({
               </div>
 
               {/* Upload Type Tabs */}
-              <div className="grid grid-cols-2 gap-2 text-xs font-bold pt-1">
+              <div className="grid grid-cols-3 gap-2 text-xs font-bold pt-1">
                 <button
                   onClick={() => setImportType('text')}
                   className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${
@@ -184,7 +184,7 @@ export default function DatabaseImportModal({
                       : 'bg-[#171b26] border-gray-700 text-gray-400'
                   }`}
                 >
-                  <FileText className="w-4 h-4" /> Dán Mã FEN / Văn Bản
+                  <FileText className="w-4 h-4" /> Dán FEN
                 </button>
                 <button
                   onClick={() => setImportType('file')}
@@ -194,7 +194,17 @@ export default function DatabaseImportModal({
                       : 'bg-[#171b26] border-gray-700 text-gray-400'
                   }`}
                 >
-                  <UploadCloud className="w-4 h-4" /> Tải Lên File PGN / XQF
+                  <UploadCloud className="w-4 h-4" /> File PGN/XQF
+                </button>
+                <button
+                  onClick={() => setImportType('online')}
+                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${
+                    importType === 'online'
+                      ? 'bg-amber-600/30 border-amber-500 text-amber-300 shadow-sm'
+                      : 'bg-[#171b26] border-gray-700 text-gray-400'
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4" /> Tra Cứu CSDL
                 </button>
               </div>
 
@@ -211,6 +221,56 @@ export default function DatabaseImportModal({
                     placeholder="rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1&#10;5k3/3P5/5a3/9/9/9/9/9/9/4K4 r"
                     className="w-full bg-[#10131d] border border-gray-700 rounded-2xl p-3 text-xs text-gray-200 font-mono focus:outline-none focus:border-cyan-500 resize-none"
                   />
+                </div>
+              ) : importType === 'online' ? (
+                /* Online Multi-Platform Search Area */
+                <div className="space-y-3 p-4 rounded-2xl bg-[#0e111a] border border-[#262f44]">
+                  <div className="text-xs font-bold text-amber-300 flex items-center gap-2">
+                    <Database className="w-4 h-4 text-amber-400" />
+                    <span>Liên Kết CSDL Cờ Tướng Quốc Tế Trực Tuyến</span>
+                  </div>
+                  <p className="text-[11px] text-gray-300 leading-relaxed">
+                    Bạn có thể tra cứu trực tiếp hàng triệu ván cờ, thế cờ tàn từ các nền tảng cờ tướng hàng đầu:
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                    <a
+                      href="https://www.chessdb.cn/query/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-[#161c2b] hover:bg-[#1d263b] border border-cyan-500/30 flex items-center justify-between text-xs font-bold text-cyan-300 hover:text-white transition-all group"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">🌐</span>
+                        <div>
+                          <div>ChessDB Cloud Database</div>
+                          <div className="text-[10px] text-gray-400 font-normal">Kho dữ liệu đám mây 100M+ ván cờ</div>
+                        </div>
+                      </div>
+                      <span className="text-cyan-400 group-hover:translate-x-1 transition-transform">↗</span>
+                    </a>
+
+                    <a
+                      href="http://www.dpxq.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-[#161c2b] hover:bg-[#1d263b] border border-amber-500/30 flex items-center justify-between text-xs font-bold text-amber-300 hover:text-white transition-all group"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">📜</span>
+                        <div>
+                          <div>Đông Phương Tượng Kỳ (Dpxq)</div>
+                          <div className="text-[10px] text-gray-400 font-normal">Danh phổ cờ thế & giải đấu kinh điển</div>
+                        </div>
+                      </div>
+                      <span className="text-amber-400 group-hover:translate-x-1 transition-transform">↗</span>
+                    </a>
+                  </div>
+
+                  <div className="text-[10.5px] text-gray-400 bg-black/40 p-2.5 rounded-xl border border-gray-800 space-y-1">
+                    <div className="text-amber-300 font-bold">💡 Mẹo nạp ván cờ từ web khác:</div>
+                    <div>Copy mã FEN hoặc tải file PGN/XQF từ các web trên rồi quay lại tab <strong>"Dán FEN"</strong> hoặc <strong>"File PGN/XQF"</strong> để nạp ngay vào bộ sưu tập cá nhân!</div>
+                  </div>
                 </div>
               ) : (
                 /* File Input Area */
