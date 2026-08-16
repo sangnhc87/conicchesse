@@ -1,4 +1,5 @@
 import { parseFen, uciToMove, makeMove, boardToFen } from '../components/XiangqiLogic';
+import { storageGet, storageSet } from './safeStorage';
 
 // We store cache in memory to avoid huge JSON stringify cost on every hit.
 // We sync to LocalStorage on add.
@@ -97,7 +98,67 @@ export const SatsucCache = {
 
     traverse(resultTree.tree, resultTree.root_fen);
     this.saveToStorage();
+    this.saveTreeToLibrary(resultTree); // Automatically save to Library
     console.log(`SatsucCache updated! Total positions cached: ${inMemoryCache.size}`);
+  },
+
+  // --- LIBRARY MANAGEMENT ---
+
+  saveTreeToLibrary(resultTree) {
+    if (!resultTree || !resultTree.root_fen) return;
+    const firstMove = resultTree.tree?.move || 'Sát Cục';
+    const firstScore = resultTree.tree?.score || '';
+    const name = `Sát cục ${firstMove} ${firstScore ? `(${firstScore})` : ''} - ${new Date().toLocaleString('vi-VN')}`;
+    
+    const record = {
+      id: Date.now().toString(),
+      name,
+      timestamp: Date.now(),
+      data: resultTree
+    };
+    
+    try {
+      const stored = storageGet('satsuc_library', '[]');
+      const library = JSON.parse(stored);
+      
+      // Prevent duplicates by checking if the exact root FEN + tree move exists in recent 10
+      const isDuplicate = library.slice(0, 10).some(item => 
+        item.data.root_fen === resultTree.root_fen && 
+        item.data.tree?.move === resultTree.tree?.move
+      );
+      
+      if (!isDuplicate) {
+        library.unshift(record); // Prepend
+        // Keep max 20 latest trees to prevent localStorage limit
+        if (library.length > 20) library.pop();
+        storageSet('satsuc_library', JSON.stringify(library));
+      }
+    } catch (e) {
+      console.warn("Library storage limit reached", e);
+    }
+  },
+
+  getLibrary() {
+    try {
+      return JSON.parse(storageGet('satsuc_library', '[]'));
+    } catch {
+      return [];
+    }
+  },
+
+  deleteFromLibrary(id) {
+    try {
+      const library = this.getLibrary();
+      const newLib = library.filter(item => item.id !== id);
+      storageSet('satsuc_library', JSON.stringify(newLib));
+    } catch (e) {
+      // ignore
+    }
+  },
+
+  getLibraryItem(id) {
+    const library = this.getLibrary();
+    return library.find(item => item.id === id)?.data || null;
   },
 
   checkCache(fen) {

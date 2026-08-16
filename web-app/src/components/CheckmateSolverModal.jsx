@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Bot, Play, StopCircle, Copy, Check, CheckCircle2, ChevronRight, ChevronDown, Download, Upload, Eye, Undo2, Map } from 'lucide-react';
+import { X, Bot, Play, StopCircle, Copy, Check, CheckCircle2, ChevronRight, ChevronDown, Download, Upload, Eye, Undo2, Map, BookOpen, Trash2, FolderOpen } from 'lucide-react';
 import { engineManager } from './EngineManager';
 import { makeMove, boardToFen, parseFen, uciToMove } from './XiangqiLogic';
 import XiangqiBoard from './XiangqiBoard';
@@ -296,9 +296,19 @@ export default function CheckmateSolverModal({
   const [resultTree, setResultTree] = useState(null);
   const [activeTab, setActiveTab] = useState('smart'); // 'smart' | 'tree' | 'json'
   const [copied, setCopied] = useState(false);
+  const [showLibrary, setShowLibrary] = useState(false);
+  const [libraryItems, setLibraryItems] = useState([]);
   
   const abortRef = useRef(false);
   const fileInputRef = useRef(null);
+
+  const loadLibrary = () => {
+    setLibraryItems(SatsucCache.getLibrary());
+  };
+
+  useEffect(() => {
+    if (showLibrary) loadLibrary();
+  }, [showLibrary]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -489,13 +499,66 @@ export default function CheckmateSolverModal({
               >
                 <Upload className="w-3.5 h-3.5" /> Nạp File
               </button>
+              <button
+                onClick={() => setShowLibrary(!showLibrary)}
+                disabled={isSolving}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-xs font-bold border border-[#323d54] ${showLibrary ? 'bg-amber-500/20 text-amber-400' : 'bg-[#222838] hover:bg-[#2e374d] text-gray-300'}`}
+                title="Xem thư viện Sát Cục đã lưu"
+              >
+                <BookOpen className="w-3.5 h-3.5" /> Thư Viện
+              </button>
             </div>
           </div>
         </div>
 
         {/* Results Area */}
         <div className="flex-1 flex flex-col min-h-[300px] bg-[#0d1017]">
-          {resultTree ? (
+          {showLibrary ? (
+            <div className="flex-1 flex flex-col p-4 overflow-y-auto custom-scrollbar">
+              <h3 className="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-amber-400" /> Thư viện Sát cục ({libraryItems.length})
+              </h3>
+              {libraryItems.length === 0 ? (
+                <div className="flex-1 flex flex-col items-center justify-center text-gray-500">
+                  <FolderOpen className="w-12 h-12 mb-3 opacity-20" />
+                  <p>Chưa có sát cục nào được lưu.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {libraryItems.map(item => (
+                    <div key={item.id} className="bg-[#171b26] border border-[#262c3b] hover:border-[#323d54] rounded-xl p-4 flex flex-col gap-3 transition-colors">
+                      <div className="flex items-start justify-between">
+                        <div className="font-bold text-gray-200 text-sm leading-tight pr-2">{item.name}</div>
+                        <button 
+                          onClick={() => {
+                            if (confirm('Xóa sát cục này?')) {
+                              SatsucCache.deleteFromLibrary(item.id);
+                              loadLibrary();
+                            }
+                          }}
+                          className="text-gray-500 hover:text-red-400 p-1 rounded transition-colors flex-shrink-0"
+                          title="Xóa"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <div className="text-xs text-gray-500">{new Date(item.timestamp).toLocaleString('vi-VN')}</div>
+                      <button 
+                        onClick={() => {
+                          setResultTree(item.data);
+                          setShowLibrary(false);
+                          setActiveTab('smart');
+                        }}
+                        className="mt-auto w-full py-2 bg-[#222838] hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/30 text-gray-300 text-xs font-bold rounded-lg transition-colors border border-[#323d54] flex items-center justify-center gap-2"
+                      >
+                        <Eye className="w-3.5 h-3.5" /> Khám Phá Ngay
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : resultTree ? (
             <>
               {/* Tabs */}
               <div className="flex items-center gap-1 p-2 border-b border-[#262c3b] bg-[#12151d]">
