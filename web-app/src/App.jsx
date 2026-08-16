@@ -1769,7 +1769,6 @@ export default function App() {
       <PdfExportModal
         isOpen={isPdfModalOpen}
         onClose={() => setIsPdfModalOpen(false)}
-        pgnData={gameHistory}
         currentLesson={currentLesson}
         catalog={catalog}
       />
