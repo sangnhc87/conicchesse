@@ -736,8 +736,8 @@ export default function App() {
           <button
             onClick={() => setAppMode('study')}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${appMode === 'study'
-                ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 shadow-md'
-                : 'text-gray-400 hover:text-gray-200'
+              ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-gray-950 shadow-md'
+              : 'text-gray-400 hover:text-gray-200'
               }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
@@ -747,8 +747,8 @@ export default function App() {
           <button
             onClick={() => setAppMode('play_ai')}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${appMode === 'play_ai'
-                ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-md'
-                : 'text-gray-400 hover:text-gray-200'
+              ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-md'
+              : 'text-gray-400 hover:text-gray-200'
               }`}
           >
             <Swords className="w-3.5 h-3.5" />
@@ -762,10 +762,10 @@ export default function App() {
           <button
             onClick={() => setIsEngineModalOpen(true)}
             className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl text-xs font-bold border transition-all active:scale-95 shadow-sm ${engineState.isNativeActive
-                ? 'bg-emerald-950/70 border-emerald-500/60 text-emerald-300 hover:bg-emerald-900/80 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
-                : engineState.engineType === 'wasm'
-                  ? 'bg-amber-950/70 border-amber-500/60 text-amber-300 hover:bg-amber-900/80 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
-                  : 'bg-yellow-950/70 border-yellow-500/60 text-yellow-300 hover:bg-yellow-900/80'
+              ? 'bg-emerald-950/70 border-emerald-500/60 text-emerald-300 hover:bg-emerald-900/80 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+              : engineState.engineType === 'wasm'
+                ? 'bg-amber-950/70 border-amber-500/60 text-amber-300 hover:bg-amber-900/80 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                : 'bg-yellow-950/70 border-yellow-500/60 text-yellow-300 hover:bg-yellow-900/80'
               }`}
             title="Bấm để chuyển đổi hoặc cài đặt Động Cơ AI (WASM / Native Pikafish)"
           >
@@ -835,8 +835,8 @@ export default function App() {
             <button
               onClick={() => handleToggleFavorite(currentLesson.id)}
               className={`p-2 rounded-xl border transition-all ${favorites.includes(currentLesson.id)
-                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-sm'
-                  : 'bg-[#1a1d26] border-gray-700/60 text-gray-400 hover:text-white'
+                ? 'bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-sm'
+                : 'bg-[#1a1d26] border-gray-700/60 text-gray-400 hover:text-white'
                 }`}
               title="Đánh dấu yêu thích bài này"
             >
@@ -872,8 +872,8 @@ export default function App() {
             {/* Real-time Coach Feedback Banner in Practice Mode */}
             {isStudy && coachFeedback && (
               <div className={`w-full p-2.5 rounded-xl text-xs flex items-center justify-between border shadow-lg animate-fadeIn ${coachFeedback.type === 'mistake'
-                  ? 'bg-red-950/80 border-red-500/60 text-red-200'
-                  : 'bg-emerald-950/80 border-emerald-500/60 text-emerald-200'
+                ? 'bg-red-950/80 border-red-500/60 text-red-200'
+                : 'bg-emerald-950/80 border-emerald-500/60 text-emerald-200'
                 }`}>
                 <div className="flex items-center gap-2">
                   {coachFeedback.type === 'mistake' ? (

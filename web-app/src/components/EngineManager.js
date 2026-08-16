@@ -290,14 +290,14 @@ class EngineManagerService {
         const data = isTauri
           ? await tauriInvoke('solve_mate', payload)
           : await (async () => {
-              const res = await fetch(`${this.bridgeUrl}/api/mate`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-                signal: AbortSignal.timeout(20000)
-              });
-              return res.ok ? await res.json() : null;
-            })();
+            const res = await fetch(`${this.bridgeUrl}/api/mate`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              signal: AbortSignal.timeout(20000)
+            });
+            return res.ok ? await res.json() : null;
+          })();
 
         if (data && data.mate) {
           return {

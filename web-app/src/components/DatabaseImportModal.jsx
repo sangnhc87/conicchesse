@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { 
-  X, UploadCloud, FileText, Database, Plus, Check, 
+import {
+  X, UploadCloud, FileText, Database, Plus, Check,
   AlertCircle, CheckCircle2, FolderPlus, Sparkles
 } from 'lucide-react';
 import { parseFen } from './XiangqiLogic';
@@ -178,21 +178,19 @@ export default function DatabaseImportModal({
               <div className="grid grid-cols-2 gap-2 text-xs font-bold pt-1">
                 <button
                   onClick={() => setImportType('text')}
-                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${
-                    importType === 'text'
+                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${importType === 'text'
                       ? 'bg-cyan-600/30 border-cyan-500 text-cyan-300 shadow-sm'
                       : 'bg-[#171b26] border-gray-700 text-gray-400'
-                  }`}
+                    }`}
                 >
                   <FileText className="w-4 h-4" /> Dán Mã FEN / Văn Bản
                 </button>
                 <button
                   onClick={() => setImportType('file')}
-                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${
-                    importType === 'file'
+                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${importType === 'file'
                       ? 'bg-cyan-600/30 border-cyan-500 text-cyan-300 shadow-sm'
                       : 'bg-[#171b26] border-gray-700 text-gray-400'
-                  }`}
+                    }`}
                 >
                   <UploadCloud className="w-4 h-4" /> Tải Lên File PGN / XQF
                 </button>

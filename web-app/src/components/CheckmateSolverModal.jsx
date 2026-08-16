@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import XiangqiBoard from './XiangqiBoard';
-import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves, isInCheck, PIECE_NAMES } from './XiangqiLogic';
+import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves, isInCheck, PIECE_NAMES, moveToVietnamese, moveToVietnameseFull } from './XiangqiLogic';
 import SatsucCache from '../lib/SatsucCache';
 import { sound } from './AudioEngine';
 
@@ -115,73 +115,34 @@ const solveTree = async (
       }
     }
 
-    // Always fetch multiple candidates for Red so Red can skip repetitive moves if candidate 0 is a cycle
-    const effectiveMultiPv = isRed
-      ? 4
-      : (currentDepth <= 4 ? Math.min(maxBlack, 3) : 1);
-
-    // Fast engine depth: 16 at root, 12 in subtree
-    const searchDepth = currentDepth === 1 ? 16 : 12;
-
-    const rawCandidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, searchDepth, effectiveMultiPv);
-
-    if (checkAbort()) return null;
-
-    if (!rawCandidates || rawCandidates.length === 0 || !rawCandidates[0].move) {
-      if (isInCheck(currentBoard, currentTurn)) {
-        return { note: currentTurn === 'black' ? "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" : "Sát cục hoàn tất" };
-      }
-      return { note: "Kết thúc phương án" };
-    }
-
     if (isRed) {
-      // Find the best non-repetitive move for Red
-      let chosenCand = null;
-      let chosenNewBoard = null;
+      onProgress(`Đang dùng 'go mate' tìm sát chiêu tuyệt đối cho Đỏ...`);
+      const remainingFullMoves = Math.max(1, Math.ceil((maxPlies - currentDepth + 1) / 2));
+      const mateRes = await engineManager.findMate(currentBoard, 'red', remainingFullMoves);
 
-      for (const cand of rawCandidates) {
-        if (!cand.move) continue;
-        const testBoard = makeMove(currentBoard, cand.move);
-        const testFen = boardToFen(testBoard, 'black').split(' ').slice(0, 2).join(' ');
-        // Prefer moves that do not loop back to an ancestor position
-        if (!nextAncestors.has(testFen)) {
-          chosenCand = cand;
-          chosenNewBoard = testBoard;
-          break;
-        }
+      if (checkAbort()) return null;
+
+      if (!mateRes || !mateRes.mate || !mateRes.move) {
+        return { note: "Sát cục gãy (Không tìm thấy đòn Tất Thắng)" };
       }
 
-      // If all candidate moves are loops, take the first one or declare repetition
-      if (!chosenCand) {
-        chosenCand = rawCandidates[0];
-        chosenNewBoard = makeMove(currentBoard, chosenCand.move);
-      }
+      const bestMove = mateRes.move;
+      const score = `#M${mateRes.mateIn}`;
+      const uciStr = mateRes.bestmove || moveObjToUci(bestMove);
+      const chosenNewBoard = makeMove(currentBoard, bestMove);
 
-      const best = chosenCand;
-      const score = best.scoreText || `cp ${best.score}`;
+      const viShort = moveToVietnamese(currentBoard, bestMove, 'red');
+      const viFull = moveToVietnameseFull(currentBoard, bestMove, 'red');
 
-      onProgress(`Đỏ đi ${best.viShort || best.uci} (${score})`);
+      onProgress(`Đỏ đi ${viShort} (${score})`);
 
-      // ⚡ Tin tưởng engine khi báo Sát Cục (mate) → dừng nhánh ngay, không đệ quy thêm
-      if (best.isMate && best.mateIn > 0) {
-        return {
-          turn: 'red',
-          move: best.viShort || best.uci,
-          viFull: best.viFull || best.viShort || best.uci,
-          uci: best.uci || moveObjToUci(best.move),
-          score: best.scoreText || `#M${best.mateIn}`,
-          reply: { note: `🏆 Chiếu Bí trong ${best.mateIn} nước — Đỏ Tất Thắng!` }
-        };
-      }
-
-      // Check if Black has any legal responses left after Red's move
       const blackLegal = getLegalMoves(chosenNewBoard, 'black');
       if (blackLegal.length === 0) {
         return {
           turn: 'red',
-          move: best.viShort || best.uci,
-          viFull: best.viFull || best.viShort || best.uci,
-          uci: best.uci || moveObjToUci(best.move),
+          move: viShort,
+          viFull,
+          uci: uciStr,
           score,
           reply: { note: "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" }
         };
@@ -200,14 +161,28 @@ const solveTree = async (
 
         return {
           turn: 'red',
-          move: best.viShort || best.uci,
-          viFull: best.viFull || best.viShort || best.uci,
-          uci: best.uci || moveObjToUci(best.move),
+          move: viShort,
+          viFull,
+          uci: uciStr,
           score,
           reply
         };
       }
     } else {
+      const effectiveMultiPv = currentDepth <= 4 ? maxBlack : (maxBlack > 1 ? 2 : 1);
+      const searchDepth = 14; 
+
+      const rawCandidates = await engineManager.analyzeStrategicOptions(currentBoard, 'black', searchDepth, effectiveMultiPv);
+
+      if (checkAbort()) return null;
+
+      if (!rawCandidates || rawCandidates.length === 0 || !rawCandidates[0].move) {
+        if (isInCheck(currentBoard, 'black')) {
+          return { note: "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" };
+        }
+        return { note: "Kết thúc phương án" };
+      }
+
       const responses = [];
       for (let idx = 0; idx < rawCandidates.length; idx++) {
         if (checkAbort()) return null;
@@ -225,7 +200,6 @@ const solveTree = async (
         if (redLegal.length === 0) {
           reply = { note: "Đen phản đòn / Hết nước" };
         } else {
-          // idx > 0 means secondary defense branch
           reply = await solveTree(
             newBoard,
             'red',

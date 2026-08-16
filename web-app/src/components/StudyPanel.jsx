@@ -266,8 +266,8 @@ export default function StudyPanel({
               <button
                 onClick={() => onToggleComplete(lesson.id)}
                 className={`p-1.5 rounded-lg border transition-all flex items-center gap-1 text-[11px] font-bold ${isCompleted
-                    ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300 shadow-sm'
-                    : 'bg-[#1a202c] border-gray-700 text-gray-400 hover:text-gray-200'
+                  ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300 shadow-sm'
+                  : 'bg-[#1a202c] border-gray-700 text-gray-400 hover:text-gray-200'
                   }`}
                 title={isCompleted ? 'Đã hoàn thành (Bấm để hủy)' : 'Đánh dấu đã học xong'}
               >
@@ -322,8 +322,8 @@ export default function StudyPanel({
           <button
             onClick={onStartPracticeMode}
             className={`px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all border shadow-sm active:scale-95 ${isPracticeMode
-                ? 'bg-red-600/30 border-red-500 text-red-300 shadow-[0_0_12px_rgba(239,68,68,0.4)]'
-                : 'bg-[#1b212f] hover:bg-[#252e42] text-amber-300 border-amber-500/40'
+              ? 'bg-red-600/30 border-red-500 text-red-300 shadow-[0_0_12px_rgba(239,68,68,0.4)]'
+              : 'bg-[#1b212f] hover:bg-[#252e42] text-amber-300 border-amber-500/40'
               }`}
             title="Luyện cờ đối kháng với AI"
           >
@@ -468,8 +468,8 @@ export default function StudyPanel({
         <button
           onClick={() => setActiveTab('moves')}
           className={`flex-1 py-2.5 font-bold flex items-center justify-center gap-1 border-b-2 transition-all ${activeTab === 'moves'
-              ? 'border-amber-500 text-amber-300 bg-[#161a25]'
-              : 'border-transparent text-gray-400 hover:text-gray-200'
+            ? 'border-amber-500 text-amber-300 bg-[#161a25]'
+            : 'border-transparent text-gray-400 hover:text-gray-200'
             }`}
         >
           <Compass className="w-3.5 h-3.5" />
@@ -479,8 +479,8 @@ export default function StudyPanel({
         <button
           onClick={() => setActiveTab('strategy')}
           className={`flex-1 py-2.5 font-bold flex items-center justify-center gap-1 border-b-2 transition-all ${activeTab === 'strategy'
-              ? 'border-cyan-500 text-cyan-300 bg-[#161a25]'
-              : 'border-transparent text-gray-400 hover:text-gray-200'
+            ? 'border-cyan-500 text-cyan-300 bg-[#161a25]'
+            : 'border-transparent text-gray-400 hover:text-gray-200'
             }`}
         >
           <Target className="w-3.5 h-3.5 text-cyan-400" />
@@ -490,8 +490,8 @@ export default function StudyPanel({
         <button
           onClick={() => setActiveTab('commentary')}
           className={`flex-1 py-2.5 font-bold flex items-center justify-center gap-1 border-b-2 transition-all ${activeTab === 'commentary'
-              ? 'border-amber-500 text-amber-300 bg-[#161a25]'
-              : 'border-transparent text-gray-400 hover:text-gray-200'
+            ? 'border-amber-500 text-amber-300 bg-[#161a25]'
+            : 'border-transparent text-gray-400 hover:text-gray-200'
             }`}
         >
           <MessageSquare className="w-3.5 h-3.5" />
@@ -501,8 +501,8 @@ export default function StudyPanel({
         <button
           onClick={() => setActiveTab('notes')}
           className={`flex-1 py-2.5 font-bold flex items-center justify-center gap-1 border-b-2 transition-all ${activeTab === 'notes'
-              ? 'border-amber-500 text-amber-300 bg-[#161a25]'
-              : 'border-transparent text-gray-400 hover:text-gray-200'
+            ? 'border-amber-500 text-amber-300 bg-[#161a25]'
+            : 'border-transparent text-gray-400 hover:text-gray-200'
             }`}
         >
           <Edit3 className="w-3.5 h-3.5" />
@@ -555,8 +555,8 @@ export default function StudyPanel({
                       key={`move-row-${idx}`}
                       ref={isCurrentRow ? activeMoveRef : null}
                       className={`grid grid-cols-12 items-center px-3 py-2 rounded-xl transition-all border ${isCurrentRow
-                          ? 'bg-amber-500/15 border-amber-500/40 shadow-sm'
-                          : 'bg-[#10131c] border-transparent hover:bg-[#151924]'
+                        ? 'bg-amber-500/15 border-amber-500/40 shadow-sm'
+                        : 'bg-[#10131c] border-transparent hover:bg-[#151924]'
                         }`}
                     >
                       <span className="col-span-2 text-center font-bold text-gray-500">
@@ -566,8 +566,8 @@ export default function StudyPanel({
                       <button
                         onClick={() => onGoToMove(redPlyIndex)}
                         className={`col-span-5 text-left font-bold transition-all px-2 py-1 rounded-lg ${isRedActive
-                            ? 'bg-red-600 text-white shadow-md'
-                            : 'text-red-400 hover:text-red-300 hover:bg-[#1e2330]'
+                          ? 'bg-red-600 text-white shadow-md'
+                          : 'text-red-400 hover:text-red-300 hover:bg-[#1e2330]'
                           }`}
                       >
                         <div className="text-[12px] font-sans truncate">
@@ -584,8 +584,8 @@ export default function StudyPanel({
                         <button
                           onClick={() => onGoToMove(blackPlyIndex)}
                           className={`col-span-5 text-left font-bold transition-all px-2 py-1 rounded-lg ${isBlackActive
-                              ? 'bg-gray-100 text-black shadow-md'
-                              : 'text-gray-300 hover:text-white hover:bg-[#1e2330]'
+                            ? 'bg-gray-100 text-black shadow-md'
+                            : 'text-gray-300 hover:text-white hover:bg-[#1e2330]'
                             }`}
                         >
                           <div className="text-[12px] font-sans truncate">
