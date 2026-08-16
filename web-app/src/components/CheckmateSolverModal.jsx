@@ -162,6 +162,18 @@ const solveTree = async (
       
       onProgress(`Đỏ đi ${best.viShort || best.uci} (${score})`);
 
+      // ⚡ Tin tưởng engine khi báo Sát Cục (mate) → dừng nhánh ngay, không đệ quy thêm
+      if (best.isMate && best.mateIn > 0) {
+        return {
+          turn: 'red',
+          move: best.viShort || best.uci,
+          viFull: best.viFull || best.viShort || best.uci,
+          uci: best.uci || moveObjToUci(best.move),
+          score: best.scoreText || `#M${best.mateIn}`,
+          reply: { note: `🏆 Chiếu Bí trong ${best.mateIn} nước — Đỏ Tất Thắng!` }
+        };
+      }
+
       // Check if Black has any legal responses left after Red's move
       const blackLegal = getLegalMoves(chosenNewBoard, 'black');
       if (blackLegal.length === 0) {
@@ -764,7 +776,27 @@ export default function CheckmateSolverModal({
     setNoCheckmateError(false);
     setPath([]);
     abortRef.current = false;
-    
+
+    // ⚡ Bước 1: Dò sát cục nhanh bằng Pikafish `go mate` (chính xác & nhanh).
+    // Tránh tìm kiếm cây đệ quy lâu khi thế trận không có chiếu bí cưỡng bức.
+    try {
+      const mateInfo = await engineManager.findMate(initialBoard, initialTurn, maxDepth, 12000);
+      if (abortRef.current) { setIsSolving(false); return; }
+
+      if (mateInfo && mateInfo.mate && mateInfo.isNative) {
+        setProgressMsg(`✅ Pikafish tìm thấy Chiếu Bí trong ${mateInfo.mateIn} nước! Đang dựng cây sát cục...`);
+      } else if (mateInfo && !mateInfo.mate && mateInfo.isNative) {
+        // Native engine xác nhận không có chiếu bí cưỡng bức trong giới hạn
+        setResultTree(null);
+        setNoCheckmateError(true);
+        setProgressMsg(`⚠️ Pikafish xác nhận: KHÔNG có Sát Cục cưỡng bức trong ${maxDepth} nước Đỏ!`);
+        setIsSolving(false);
+        return;
+      }
+    } catch (e) {
+      console.warn('findMate pre-check failed, tiếp tục dò bằng cây:', e);
+    }
+
     const tree = await solveTree(
       initialBoard, 
       initialTurn, 

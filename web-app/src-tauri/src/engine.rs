@@ -626,8 +626,24 @@ impl EngineState {
                     for (k, v) in tmpl.as_object().unwrap() {
                         obj.insert(k.clone(), v.clone());
                     }
-                    let sc = obj.get("score").and_then(Value::as_i64).unwrap_or(0) as f64 / 100.0;
-                    obj.insert("evalText".into(), json!(format!("{sc:.1}")));
+                    let score = obj.get("score").and_then(Value::as_i64).unwrap_or(0);
+                    if score >= 99000 {
+                        let mate_in = ((100000 - score) / 100).max(1);
+                        obj.insert("isMate".into(), json!(true));
+                        obj.insert("mateIn".into(), json!(mate_in));
+                        obj.insert("scoreText".into(), json!(format!("#M{mate_in}")));
+                        obj.insert("evalText".into(), json!(format!("#M{mate_in}")));
+                    } else if score <= -99000 {
+                        let mate_in = ((100000 + score) / 100).min(-1);
+                        obj.insert("isMate".into(), json!(true));
+                        obj.insert("mateIn".into(), json!(mate_in));
+                        obj.insert("scoreText".into(), json!(format!("-#M{}", -mate_in)));
+                        obj.insert("evalText".into(), json!(format!("-#M{}", -mate_in)));
+                    } else {
+                        obj.insert("isMate".into(), json!(false));
+                        obj.insert("scoreText".into(), json!(format!("cp {score}")));
+                        obj.insert("evalText".into(), json!(format!("{:.1}", score as f64 / 100.0)));
+                    }
                 }
                 candidates.push(c);
             }
@@ -639,6 +655,93 @@ impl EngineState {
             "depth": res.get("depth").cloned().unwrap_or_else(|| json!(0)),
             "nps": res.get("nps").cloned().unwrap_or_else(|| json!(0)),
             "candidates": candidates
+        })
+    }
+
+    pub fn find_mate(&self, fen: &str, active_turn: &str, max_moves: i32, time_ms: Option<u64>) -> Value {
+        let mut inner = self.inner.lock().unwrap();
+        if !self.ensure_engine(&mut inner) {
+            return json!({ "error": inner.last_error.clone().unwrap_or_else(|| "Engine not available".into()) });
+        }
+
+        let normalized = normalize_fen(fen, active_turn);
+        let plies = (max_moves * 2).clamp(2, 200);
+        let time_limit = time_ms.unwrap_or(12000);
+
+        let family = inner.engine_family.clone();
+        let engine_name = inner.engine_name.clone();
+
+        let proc = inner.proc.as_mut().unwrap();
+        while proc.read_line(Duration::from_millis(80)).is_some() {}
+
+        proc.send("setoption name MultiPV value 1");
+        proc.send(&format!("position fen {normalized}"));
+        proc.send(&format!("go mate {plies} movetime {time_limit}"));
+
+        let mut mate_in: Option<i64> = None;
+        let mut best_move: Option<String> = None;
+        let mut pv: Vec<String> = Vec::new();
+        let mut cur_depth = 0i32;
+        let mut nps = 0i64;
+
+        let deadline = Instant::now() + Duration::from_secs(40);
+        while Instant::now() < deadline {
+            let line = match proc.read_line(Duration::from_millis(200)) {
+                Some(l) => l,
+                None => continue,
+            };
+            if line.starts_with("info") {
+                let parts: Vec<&str> = line.split_whitespace().collect();
+                let mut i = 0;
+                while i < parts.len() {
+                    match parts[i] {
+                        "mate" => mate_in = parts.get(i + 1).and_then(|s| s.parse().ok()),
+                        "depth" => cur_depth = parts.get(i + 1).and_then(|s| s.parse().ok()).unwrap_or(cur_depth),
+                        "nps" => nps = parts.get(i + 1).and_then(|s| s.parse().ok()).unwrap_or(nps),
+                        "pv" => {
+                            pv = parts[i + 1..].iter().map(|s| s.to_string()).collect();
+                            break;
+                        }
+                        _ => {}
+                    }
+                    i += 1;
+                }
+            } else if line.starts_with("bestmove") {
+                let p: Vec<&str> = line.split_whitespace().collect();
+                if p.len() > 1 {
+                    best_move = Some(p[1].to_string());
+                }
+                break;
+            }
+        }
+
+        let Some(bm) = best_move else {
+            return json!({ "error": "No legal moves / Game over" });
+        };
+        if bm == "(none)" || bm == "0000" {
+            return json!({ "error": "No legal moves / Game over" });
+        }
+
+        let is_mate = mate_in.map(|m| m > 0).unwrap_or(false);
+        let moves: Vec<Value> = pv
+            .iter()
+            .filter_map(|u| {
+                parse_uci(u, &family).map(|mv| json!({ "uci": u, "move": mv }))
+            })
+            .collect();
+
+        json!({
+            "engine": engine_name,
+            "engineFamily": family,
+            "mate": is_mate,
+            "mateIn": mate_in,
+            "bestmove": bm,
+            "move": parse_uci(&bm, &family),
+            "pv": pv,
+            "moves": moves,
+            "depth": cur_depth,
+            "nps": nps,
+            "turn": if normalized.split_whitespace().nth(1) == Some("w") { "red" } else { "black" }
         })
     }
 

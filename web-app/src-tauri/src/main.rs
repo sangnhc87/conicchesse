@@ -46,6 +46,17 @@ async fn analyze(
 }
 
 #[tauri::command(rename_all = "camelCase")]
+async fn solve_mate(
+    state: tauri::State<'_, EngineState>,
+    fen: String,
+    max_moves: Option<i32>,
+    time_ms: Option<u64>,
+    turn: Option<String>,
+) -> Result<Value, String> {
+    Ok(state.find_mate(&fen, turn.as_deref().unwrap_or("red"), max_moves.unwrap_or(35), time_ms))
+}
+
+#[tauri::command(rename_all = "camelCase")]
 fn configure(
     state: tauri::State<'_, EngineState>,
     engine_path: Option<String>,
@@ -269,6 +280,7 @@ fn main() {
             get_status,
             best_move,
             analyze,
+            solve_mate,
             configure,
             export_book_html,
             print_or_open_html,

@@ -19,7 +19,9 @@ import {
   moveToChinese,
   boardToFen,
   makeMove,
-  isInCheck
+  isInCheck,
+  parseFen,
+  getLegalMoves
 } from './XiangqiLogic.js';
 
 import { invoke as tauriInvoke } from '@tauri-apps/api/core';
@@ -276,11 +278,121 @@ class EngineManagerService {
   }
 
   /**
+   * Dò Sát Cục — tìm chiếu bí cưỡng bức (forced mate) bằng lệnh UCI `go mate`
+   * của Pikafish. Chính xác & nhanh hơn rất nhiều so với tìm kiếm thường.
+   * Trả về { mate, mateIn, pv, moves, ... } hoặc { mate: false }.
+   */
+  async findMate(board, turn = 'red', maxMoves = 35, timeMs = null) {
+    if (this.engineType === 'native' && this.nativeStatus.isAvailable) {
+      try {
+        const fen = boardToFen(board, turn);
+        const payload = { fen, maxMoves, timeMs, turn };
+        const data = isTauri
+          ? await tauriInvoke('solve_mate', payload)
+          : await (async () => {
+              const res = await fetch(`${this.bridgeUrl}/api/mate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+                signal: AbortSignal.timeout(20000)
+              });
+              return res.ok ? await res.json() : null;
+            })();
+
+        if (data && data.mate) {
+          return {
+            mate: true,
+            mateIn: data.mateIn,
+            pv: data.pv || [],
+            moves: data.moves || [],
+            bestmove: data.bestmove,
+            move: data.move,
+            depth: data.depth,
+            nps: data.nps,
+            engine: data.engine || 'Pikafish',
+            engineFamily: data.engineFamily || 'pikafish',
+            isNative: true
+          };
+        }
+        if (data && !data.error) {
+          return { mate: false, engine: data.engine || 'Pikafish', isNative: true };
+        }
+      } catch (err) {
+        console.warn('Native mate search failed, falling back to WASM:', err);
+      }
+    }
+
+    // WASM fallback: alpha-beta thường, không thể dò mate sâu → báo không tìm thấy
+    return { mate: false, isNative: false, engine: 'WASM (Trình duyệt)' };
+  }
+
+  /**
    * Universal Puzzle Solver
    */
   async solvePuzzle(initialFen, maxMoves = 5, depth = 14) {
-    // We can use fast solver or native iterative deep search
+    // Ưu tiên dùng native mate search nếu có sẵn
+    if (this.engineType === 'native' && this.nativeStatus.isAvailable) {
+      try {
+        const parsed = parseFen(initialFen);
+        const res = await this.findMate(parsed.board, parsed.turn || 'red', maxMoves, 8000);
+        if (res && res.mate && res.moves && res.moves.length) {
+          return this._buildPuzzleFromMatePv(parsed.board, parsed.turn || 'red', res);
+        }
+      } catch (e) {
+        console.warn('solvePuzzle native path failed:', e);
+      }
+    }
     return solveWasmPuzzle(initialFen, maxMoves, Math.min(depth, 5));
+  }
+
+  /** Chuyển PV chiếu bí của engine thành dữ liệu giải thế chuẩn. */
+  _buildPuzzleFromMatePv(board, turn, mateRes) {
+    const plies = [];
+    let b = board;
+    let t = turn;
+    for (const item of mateRes.moves) {
+      const mv = item.move;
+      if (!mv) break;
+      const after = makeMove(b, mv);
+      plies.push({
+        turn: t,
+        move: mv,
+        viFull: moveToVietnameseFull(b, mv, t),
+        viShort: moveToVietnamese(b, mv, t),
+        cnMove: moveToChinese(b, mv, t),
+        bBefore: b,
+        bAfter: after
+      });
+      b = after;
+      t = t === 'red' ? 'black' : 'red';
+      if (getLegalMoves(b, t).length === 0) break;
+    }
+
+    const formatted = [];
+    for (let i = 0; i < plies.length; i += 2) {
+      const red = plies[i];
+      const black = plies[i + 1];
+      formatted.push({
+        num: Math.floor(i / 2) + 1,
+        red: red ? red.cnMove : '',
+        red_vi: red ? red.viFull : '',
+        red_short: red ? red.viShort : '',
+        black: black ? black.cnMove : '',
+        black_vi: black ? black.viFull : '',
+        black_short: black ? black.viShort : '',
+        customMoveRed: red?.move || null,
+        customMoveBlack: black?.move || null
+      });
+    }
+
+    return {
+      rawPlies: plies,
+      formattedMoves: formatted,
+      redMoveCount: Math.ceil(plies.length / 2),
+      isCheckmateWin: true,
+      targetGoal: `🏆 Chiếu Bí Hoàn Tất — ${Math.ceil(plies.length / 2)} nước Đỏ (Pikafish)`,
+      firstMoveHint: formatted[0] ? `💡 Gợi ý: Đi nước ${formatted[0].red_vi} [${formatted[0].red_short}]` : ''
+    };
   }
 }
 

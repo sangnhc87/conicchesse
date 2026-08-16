@@ -429,21 +429,45 @@ class XiangqiEngineManager:
         for i in range(1, num_pv + 1):
             if i in multipv_map:
                 cand = multipv_map[i]
+                score_val = cand.get("score", 0)
+                if score_val >= 99000:
+                    cand["isMate"] = True
+                    cand["mateIn"] = max(1, round((100000 - score_val) / 100))
+                    cand["scoreText"] = f"#M{cand['mateIn']}"
+                elif score_val <= -99000:
+                    cand["isMate"] = True
+                    cand["mateIn"] = -max(1, round((100000 + score_val) / 100))
+                    cand["scoreText"] = f"-#M{-cand['mateIn']}"
+                else:
+                    cand["isMate"] = False
+                    cand["mateIn"] = None
+                    cand["scoreText"] = f"cp {score_val}"
+                cand["evalText"] = cand["scoreText"]
                 tmpl = style_templates[(i - 1) % len(style_templates)]
-                candidates.append({**cand, **tmpl, "evalText": f"{cand['score'] / 100:.1f}"})
+                candidates.append({**cand, **tmpl})
 
         # Fallback: if MultiPV wasn't fully populated, reuse the best move line
         if not candidates and res.get("move"):
+            score_val = res.get("score", 0)
             cand = {
                 "rank": 1,
                 "uci": res["bestmove"],
                 "move": res["move"],
-                "score": res["score"],
+                "score": score_val,
                 "pv": res.get("pv", []),
                 "depth": res["depth"],
                 "nps": res.get("nps", 0)
             }
-            candidates.append({**cand, **style_templates[0], "evalText": f"{cand['score'] / 100:.1f}"})
+            if score_val >= 99000:
+                cand["isMate"] = True
+                cand["mateIn"] = max(1, round((100000 - score_val) / 100))
+                cand["scoreText"] = f"#M{cand['mateIn']}"
+            else:
+                cand["isMate"] = False
+                cand["mateIn"] = None
+                cand["scoreText"] = f"cp {score_val}"
+            cand["evalText"] = cand["scoreText"]
+            candidates.append({**cand, **style_templates[0]})
 
         return {
             "engine": self.engine_name,
@@ -452,6 +476,87 @@ class XiangqiEngineManager:
             "nps": res.get("nps", 0),
             "candidates": candidates
         }
+
+    def find_mate(self, fen, active_turn="red", max_moves=35, time_ms=None):
+        """
+        Dò sát cục bằng lệnh UCI 'go mate' của Pikafish/Stockfish.
+        Tìm chiếu bí cưỡng bức (forced mate) — nhanh & chính xác hơn nhiều
+        so với tìm kiếm positional thông thường.
+        """
+        with self.lock:
+            if not self.proc or self.proc.poll() is not None:
+                if not self.find_and_start_engine():
+                    return {"error": self.last_error or "Engine not available"}
+
+            normalized_fen = normalize_fen(fen, active_turn)
+            self._drain_output(0.1)
+            self.send_cmd("setoption name MultiPV value 1")
+            self.send_cmd(f"position fen {normalized_fen}")
+
+            # 'go mate N': N = số plies tối đa (mỗi nước Đỏ = 2 plies)
+            plies = max(2, min(200, int(max_moves or 35) * 2))
+            time_limit = int(time_ms or 12000)
+            self.send_cmd(f"go mate {plies} movetime {time_limit}")
+
+            mate_in = None
+            best_move_str = None
+            pv = []
+            cur_depth = 0
+            nps = 0
+
+            deadline = time.time() + 40.0
+            while time.time() < deadline:
+                line = self._readline(0.2)
+                if line is None:
+                    continue
+                if line.startswith("info"):
+                    parts = line.split()
+                    if "score" in parts and "mate" in parts:
+                        try:
+                            mate_in = int(parts[parts.index("mate") + 1])
+                        except (ValueError, IndexError):
+                            pass
+                    if "depth" in parts:
+                        try:
+                            cur_depth = int(parts[parts.index("depth") + 1])
+                        except (ValueError, IndexError):
+                            pass
+                    if "nps" in parts:
+                        try:
+                            nps = int(parts[parts.index("nps") + 1])
+                        except (ValueError, IndexError):
+                            pass
+                    if "pv" in parts:
+                        pv = parts[parts.index("pv") + 1:]
+                elif line.startswith("bestmove"):
+                    parts = line.split()
+                    if len(parts) > 1:
+                        best_move_str = parts[1]
+                    break
+
+            if not best_move_str or best_move_str == "(none)" or best_move_str == "0000":
+                return {"error": "No legal moves / Game over"}
+
+            is_mate = mate_in is not None and mate_in > 0
+            pv_moves = []
+            for u in pv:
+                c = uci_to_coords(u, self.engine_family)
+                if c:
+                    pv_moves.append({"uci": u, "move": c})
+
+            return {
+                "engine": self.engine_name,
+                "engineFamily": self.engine_family,
+                "mate": is_mate,
+                "mateIn": mate_in,
+                "bestmove": best_move_str,
+                "move": uci_to_coords(best_move_str, self.engine_family),
+                "pv": pv,
+                "moves": pv_moves,
+                "depth": cur_depth,
+                "nps": nps,
+                "turn": "red" if normalized_fen.split()[1] == "w" else "black"
+            }
 
 engine_manager = XiangqiEngineManager()
 
@@ -517,6 +622,14 @@ class XiangqiRequestHandler(BaseHTTPRequestHandler):
             multi_pv = req.get("multiPv", 3)
             turn = req.get("turn", "red")
             res = engine_manager.analyze_strategic_options(fen, depth, multi_pv, turn)
+            self._respond_json(200, res)
+
+        elif parsed.path == "/api/mate":
+            fen = req.get("fen", "")
+            max_moves = req.get("maxMoves", 35)
+            time_ms = req.get("timeMs")
+            turn = req.get("turn", "red")
+            res = engine_manager.find_mate(fen, turn, max_moves, time_ms)
             self._respond_json(200, res)
 
         elif parsed.path == "/api/config":
