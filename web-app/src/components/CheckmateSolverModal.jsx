@@ -3,6 +3,7 @@ import { X, Bot, Play, StopCircle, Copy, Check, CheckCircle2, ChevronRight, Chev
 import { engineManager } from './EngineManager';
 import { makeMove, boardToFen, parseFen, uciToMove } from './XiangqiLogic';
 import XiangqiBoard from './XiangqiBoard';
+import { SatsucCache } from '../lib/SatsucCache';
 
 // Helper: Deep copy the board array (10x9)
 const cloneBoard = (board) => board.map(row => [...row]);
@@ -317,10 +318,12 @@ export default function CheckmateSolverModal({
     );
     
     if (!abortRef.current) {
-      setResultTree({
+      const finalTree = {
         root_fen: boardToFen(initialBoard, initialTurn),
         tree
-      });
+      };
+      setResultTree(finalTree);
+      SatsucCache.addTree(finalTree);
       setProgressMsg('Đã giải xong!');
     }
     setIsSolving(false);
@@ -361,7 +364,8 @@ export default function CheckmateSolverModal({
         const data = JSON.parse(evt.target.result);
         if (data.root_fen && data.tree) {
           setResultTree(data);
-          setProgressMsg('Đã nạp cây sát cục từ file!');
+          SatsucCache.addTree(data);
+          setProgressMsg('Đã nạp cây sát cục từ file và lưu vào Từ Điển!');
           setActiveTab('smart');
         } else {
           alert('File JSON không đúng định dạng cây Sát Cục!');

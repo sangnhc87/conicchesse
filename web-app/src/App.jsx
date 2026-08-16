@@ -25,10 +25,11 @@ import { PuzzlesData } from './data/PuzzlesData';
 import {
   parseFen, getLegalMoves, makeMove, isInCheck, PIECE_NAMES,
   moveToVietnameseFull, moveToVietnamese, moveToChinese, parseChineseMove, isRed,
-  classifyMoveQuality
+  classifyMoveQuality, boardToFen
 } from './components/XiangqiLogic';
 import { getBestMove as getWasmBestMove, evaluateBoard, solvePuzzleSequence, isStandardOpening, GRANDMASTER_OPENING_MOVES } from './components/XiangqiAI';
 import { engineManager } from './components/EngineManager';
+import { SatsucCache } from './lib/SatsucCache';
 import { sound } from './components/AudioEngine';
 import { storageGet, storageSet } from './lib/safeStorage.js';
 import { safeFetchJson } from './lib/dataLoader.js';
@@ -578,6 +579,37 @@ export default function App() {
     let isMounted = true;
     setAnalysisIsThinking(true);
 
+    const currentFen = boardToFen(analysisBoard, analysisTurn);
+    const cached = SatsucCache.checkCache(currentFen);
+    
+    if (cached) {
+      if (isMounted) {
+        if (cached.type === 'win') {
+          setAnalysisCandidates([{
+            move: cached.move,
+            uci: cached.uci,
+            score: 10000,
+            scoreText: cached.score,
+            isSatsucCached: true,
+            viShort: cached.move
+          }]);
+          setAnalysisEvalScore(10000);
+        } else if (cached.type === 'defend') {
+          setAnalysisCandidates(cached.responses.map(resp => ({
+            move: resp.move,
+            uci: resp.uci,
+            score: -10000,
+            scoreText: resp.score,
+            isSatsucCached: true,
+            viShort: resp.move
+          })));
+          setAnalysisEvalScore(-10000);
+        }
+        setAnalysisIsThinking(false);
+      }
+      return;
+    }
+
     const timer = setTimeout(() => {
       engineManager.analyzeStrategicOptions(analysisBoard, analysisTurn, analysisDepth, analysisMultiPv)
         .then(candidates => {
@@ -607,6 +639,36 @@ export default function App() {
   // Analysis Mode Handlers
   const handleTriggerAnalysis = useCallback(() => {
     setAnalysisIsThinking(true);
+    
+    const currentFen = boardToFen(analysisBoard, analysisTurn);
+    const cached = SatsucCache.checkCache(currentFen);
+    
+    if (cached) {
+      if (cached.type === 'win') {
+        setAnalysisCandidates([{
+          move: cached.move,
+          uci: cached.uci,
+          score: 10000,
+          scoreText: cached.score,
+          isSatsucCached: true,
+          viShort: cached.move
+        }]);
+        setAnalysisEvalScore(10000);
+      } else if (cached.type === 'defend') {
+        setAnalysisCandidates(cached.responses.map(resp => ({
+          move: resp.move,
+          uci: resp.uci,
+          score: -10000,
+          scoreText: resp.score,
+          isSatsucCached: true,
+          viShort: resp.move
+        })));
+        setAnalysisEvalScore(-10000);
+      }
+      setAnalysisIsThinking(false);
+      return;
+    }
+
     engineManager.analyzeStrategicOptions(analysisBoard, analysisTurn, analysisDepth, analysisMultiPv)
       .then(candidates => {
         setAnalysisCandidates(candidates || []);

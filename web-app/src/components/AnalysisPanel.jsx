@@ -546,6 +546,11 @@ export default function AnalysisPanel({
 
                       {/* Evaluation Score Badge */}
                       <div className="flex items-center gap-1.5">
+                        {cand.isSatsucCached && (
+                           <span className="px-2 py-0.5 bg-amber-500/20 border border-amber-500/40 text-amber-300 rounded text-[10px] font-bold shadow-[0_0_8px_rgba(245,158,11,0.3)] animate-pulse whitespace-nowrap">
+                             🌟 TỪ ĐIỂN
+                           </span>
+                        )}
                         {/* Depth indicator */}
                         {cand.evalDepth && (
                           <span className="px-1.5 py-0.5 rounded text-[9px] font-mono border border-gray-700 text-gray-500 bg-gray-900">
@@ -553,7 +558,7 @@ export default function AnalysisPanel({
                           </span>
                         )}
                         <span className={`px-2.5 py-0.5 rounded-lg text-xs font-mono font-black border ${
-                          cand.isCheckmateWin
+                          cand.isCheckmateWin || cand.isSatsucCached
                             ? 'bg-emerald-950/80 border-emerald-400 text-emerald-300 shadow-[0_0_8px_rgba(16,185,129,0.4)]'
                             : (cand.score || 0) > 200
                               ? 'bg-red-950/60 border-red-500/40 text-red-300'
@@ -587,7 +592,11 @@ export default function AnalysisPanel({
                         <span>Ý Đồ Chiến Thuật:</span>
                       </div>
                       <div>
-                        {cand.outcomeDesc || cand.description || (idx === 0 ? 'Nước đi mạnh nhất — duy trì quyền chủ động và gây áp lực trực tiếp lên trận địa đối phương.' : 'Phương án khả dĩ — kiểm soát cục diện và phòng ngừa đòn phản công.')}
+                        {cand.isSatsucCached ? (
+                          'Nước đi tất thắng được trích xuất từ Từ Điển Sát Cục lưu trữ (Tốc độ ánh sáng).'
+                        ) : (
+                          cand.outcomeDesc || cand.description || (idx === 0 ? 'Nước đi mạnh nhất — duy trì quyền chủ động và gây áp lực trực tiếp lên trận địa đối phương.' : 'Phương án khả dĩ — kiểm soát cục diện và phòng ngừa đòn phản công.')
+                        )}
                       </div>
                       {cand.risk && (
                         <div className="mt-1 text-[10px] text-gray-500 italic border-t border-gray-800 pt-1">
