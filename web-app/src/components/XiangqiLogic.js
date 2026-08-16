@@ -1227,8 +1227,10 @@ export function classifyEndgameCandidate(cand, turn = 'red') {
   const isRed = turn === 'red';
   const effectiveScore = isRed ? score : -score;
 
-  // 1. Forced Win: Checkmate or decisive numerical advantage
-  const isDecisive = effectiveScore >= 350 || cand.isCheckmateWin || (typeof cand.scoreText === 'string' && cand.scoreText.includes('M'));
+  // 1. Forced Win: ONLY when there is an actual Mate in N or massive overwhelming advantage (>1200 cp)
+  const isDecisive = cand.isCheckmateWin || 
+                     (typeof cand.scoreText === 'string' && cand.scoreText.includes('M')) || 
+                     effectiveScore >= 1200;
   
   if (isDecisive) {
     return {
@@ -1242,20 +1244,33 @@ export function classifyEndgameCandidate(cand, turn = 'red') {
     };
   }
 
-  // 2. Drawish (Mất ưu thế cờ tàn)
-  if (effectiveScore >= -100 && effectiveScore <= 200) {
+  // 2. Advantage / Tranh Tiên (Ưu thế nhưng chưa chắc chắn tất thắng trong cờ tàn)
+  if (effectiveScore >= 250) {
+    return {
+      isForcedWin: false,
+      outcome: 'advantage',
+      outcomeLabel: '⭐ ƯU THẾ VẬT CHẤT / TRANH TIÊN',
+      outcomeDesc: 'Nước đi chiếm ưu thế hoặc kiểm soát trung tâm, nhưng cần vần tàn khéo léo để tìm cơ hội thắng.',
+      badgeColor: 'border-cyan-500 bg-gradient-to-r from-cyan-500/25 via-blue-500/20 to-cyan-500/25 text-cyan-200 shadow-[0_0_12px_rgba(6,182,212,0.25)] ring-1 ring-cyan-500/40',
+      tagColor: 'bg-cyan-500 text-gray-950 font-black',
+      statusIcon: '⭐'
+    };
+  }
+
+  // 3. Drawish (Cờ hòa căn bản hoặc cân bằng)
+  if (effectiveScore >= -150 && effectiveScore < 250) {
     return {
       isForcedWin: false,
       outcome: 'draw',
-      outcomeLabel: '⚖️ BỊ CẦM HÒA (THẤT BẠI CỜ TÀN)',
-      outcomeDesc: 'Nước đi này làm mất thế tất thắng, để đối phương có cơ hội thủ hòa vĩnh viễn.',
+      outcomeLabel: '⚖️ THẾ CỜ CÂN BẰNG / HÒA CƠ BẢN',
+      outcomeDesc: 'Cục diện hòa hoãn hoặc đối phương có đủ quân phòng thủ để thủ hòa.',
       badgeColor: 'border-amber-500 bg-gradient-to-r from-amber-500/25 via-orange-500/20 to-amber-500/25 text-amber-200 shadow-[0_0_12px_rgba(245,158,11,0.25)] ring-1 ring-amber-500/40',
       tagColor: 'bg-amber-500 text-gray-950 font-black',
       statusIcon: '⚖️'
     };
   }
 
-  // 3. Losing (Bị phản công)
+  // 4. Losing (Bị phản công / Thua)
   return {
     isForcedWin: false,
     outcome: 'losing',

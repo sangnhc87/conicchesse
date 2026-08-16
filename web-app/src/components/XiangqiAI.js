@@ -43,12 +43,29 @@ export function evaluateBoard(board) {
     }
   }
 
+  let rR = 0, rC = 0, rN = 0, rP = 0, rA = 0, rB = 0;
+  let bR = 0, bC = 0, bN = 0, bP = 0, bA = 0, bB = 0;
+
   for (let r = 0; r < 10; r++) {
     for (let c = 0; c < 9; c++) {
       const piece = board[r][c];
       if (!piece) continue;
 
       let val = PIECE_VALS[piece] || 0;
+
+      // Track piece counts for endgame theoretical resolution
+      if (piece === 'R') rR++;
+      else if (piece === 'C') rC++;
+      else if (piece === 'N') rN++;
+      else if (piece === 'P') { if (r <= 4) rP++; }
+      else if (piece === 'A') rA++;
+      else if (piece === 'B') rB++;
+      else if (piece === 'r') bR++;
+      else if (piece === 'c') bC++;
+      else if (piece === 'n') bN++;
+      else if (piece === 'p') { if (r >= 5) bP++; }
+      else if (piece === 'a') bA++;
+      else if (piece === 'b') bB++;
 
       // Pawn (Chốt / Binh)
       if (piece === 'P') {
@@ -66,13 +83,9 @@ export function evaluateBoard(board) {
 
       // Cannon (Pháo) - Center control & Positional harmony
       if (piece === 'C') {
-        if (c === 4) val += 120; // Trung Pháo bonus
-        if (r === 7 && c === 4) val += 60; // Ngũ Lộ Pháo
-        if (r <= 4) val += 30; // Crossed river
-        // Avoid losing cannon early for minor pieces in opening
-        if (r === 0 && board[0][c] === 'n' && board[0][c-1] && board[0][c+1]) {
-          val -= 300; // Early cannon sacrifice penalty
-        }
+        if (c === 4) val += 120;
+        if (r === 7 && c === 4) val += 60;
+        if (r <= 4) val += 30;
       } else if (piece === 'c') {
         if (c === 4) val += 120;
         if (r === 2 && c === 4) val += 60;
@@ -81,9 +94,9 @@ export function evaluateBoard(board) {
 
       // Knight (Mã) - Mobility and screen horse
       if (piece === 'N') {
-        if (r <= 5) val += 60; // Forward horse
-        if (r === 7 && (c === 2 || c === 6)) val += 70; // Developed opening horse
-        if (r === 6 && (c === 3 || c === 5)) val += 90; // Screen horse (Bàn Đầu Mã)
+        if (r <= 5) val += 60;
+        if (r === 7 && (c === 2 || c === 6)) val += 70;
+        if (r === 6 && (c === 3 || c === 5)) val += 90;
       } else if (piece === 'n') {
         if (r >= 4) val += 60;
         if (r === 2 && (c === 2 || c === 6)) val += 70;
@@ -92,9 +105,9 @@ export function evaluateBoard(board) {
 
       // Chariot (Xe) - Fast development
       if (piece === 'R') {
-        if (r < 9) val += 80; // Active out of initial rank
-        if (r <= 4) val += 60; // In opponent territory
-        if (c === 3 || c === 5) val += 40; // Pressure central files
+        if (r < 9) val += 80;
+        if (r <= 4) val += 60;
+        if (c === 3 || c === 5) val += 40;
       } else if (piece === 'r') {
         if (r > 0) val += 80;
         if (r >= 5) val += 60;
@@ -102,9 +115,9 @@ export function evaluateBoard(board) {
       }
 
       // Advisor & Elephant (Sĩ, Tượng) - Defense harmony
-      if (piece === 'B' && r === 7 && c === 4) val += 40; // Phi Tượng
+      if (piece === 'B' && r === 7 && c === 4) val += 40;
       if (piece === 'b' && r === 2 && c === 4) val += 40;
-      if (piece === 'A' && r === 8 && c === 4) val += 30; // Sĩ trung tâm
+      if (piece === 'A' && r === 8 && c === 4) val += 30;
       if (piece === 'a' && r === 1 && c === 4) val += 30;
 
       if (isRed(piece)) {
@@ -117,6 +130,23 @@ export function evaluateBoard(board) {
 
   if (isInCheck(board, 'black')) redScore += 250;
   if (isInCheck(board, 'red')) blackScore += 250;
+
+  // Theoretical Endgame Draw Overrides (Cờ Tàn Hòa Căn Bản)
+  // 1. Đơn Mã (Không có Chốt/Xe/Pháo) vs Đơn Sĩ hoặc Đơn Tượng -> Hòa
+  if (rR === 0 && rC === 0 && rP === 0 && rN === 1 && (bA >= 1 || bB >= 1)) {
+    return 0;
+  }
+  if (bR === 0 && bC === 0 && bP === 0 && bN === 1 && (rA >= 1 || rB >= 1)) {
+    return 0;
+  }
+
+  // 2. Đơn Pháo (Không có ngòi/Chốt/Xe/Mã) vs Đơn Sĩ hoặc Đơn Tượng -> Hòa
+  if (rR === 0 && rN === 0 && rP === 0 && rC === 1 && (bA >= 1 || bB >= 1)) {
+    return 0;
+  }
+  if (bR === 0 && bN === 0 && bP === 0 && bC === 1 && (rA >= 1 || rB >= 1)) {
+    return 0;
+  }
 
   return redScore - blackScore;
 }
