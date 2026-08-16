@@ -132,9 +132,10 @@ const InteractiveTree = ({ resultTree }) => {
 
   if (!resultTree) return null;
 
-  let currentBoard = parseFen(resultTree.root_fen);
+  const parsed = parseFen(resultTree.root_fen);
+  let currentBoard = parsed.board.map(row => [...row]); // clone the board array
   let currentNode = resultTree.tree;
-  let currentTurn = resultTree.root_fen.includes(' w ') ? 'red' : 'black';
+  let currentTurn = parsed.turn;
   let historyMoves = []; // To display breadcrumbs
 
   // Traverse the path
