@@ -262,7 +262,7 @@ impl EngineState {
         }
     }
 
-    fn start_engine(&self, custom_path: Option<PathBuf>) -> bool {
+    pub fn start_engine(&self, custom_path: Option<PathBuf>) -> bool {
         let mut inner = self.inner.lock().unwrap();
         let ok = self.start_engine_locked(&mut inner, custom_path);
         self.refresh_cache(&mut inner);

@@ -7,6 +7,7 @@ use serde_json::Value;
 use std::fs;
 use std::path::PathBuf;
 use std::process::Command;
+use std::sync::Arc;
 
 fn get_downloads_dir() -> PathBuf {
     if let Some(home) = std::env::var_os("HOME") {
@@ -19,13 +20,13 @@ fn get_downloads_dir() -> PathBuf {
 }
 
 #[tauri::command]
-fn get_status(state: tauri::State<'_, EngineState>) -> Value {
+fn get_status(state: tauri::State<'_, Arc<EngineState>>) -> Value {
     state.status()
 }
 
 #[tauri::command(rename_all = "camelCase")]
 async fn best_move(
-    state: tauri::State<'_, EngineState>,
+    state: tauri::State<'_, Arc<EngineState>>,
     fen: String,
     depth: Option<i32>,
     time_ms: Option<u64>,
@@ -36,7 +37,7 @@ async fn best_move(
 
 #[tauri::command(rename_all = "camelCase")]
 async fn analyze(
-    state: tauri::State<'_, EngineState>,
+    state: tauri::State<'_, Arc<EngineState>>,
     fen: String,
     depth: Option<i32>,
     multi_pv: Option<i32>,
@@ -47,7 +48,7 @@ async fn analyze(
 
 #[tauri::command(rename_all = "camelCase")]
 async fn solve_mate(
-    state: tauri::State<'_, EngineState>,
+    state: tauri::State<'_, Arc<EngineState>>,
     fen: String,
     max_moves: Option<i32>,
     time_ms: Option<u64>,
@@ -58,7 +59,7 @@ async fn solve_mate(
 
 #[tauri::command(rename_all = "camelCase")]
 fn configure(
-    state: tauri::State<'_, EngineState>,
+    state: tauri::State<'_, Arc<EngineState>>,
     engine_path: Option<String>,
     threads: Option<i32>,
     hash: Option<i32>,
@@ -274,8 +275,18 @@ async fn export_pdf_direct(content: String, filename: Option<String>) -> Result<
 }
 
 fn main() {
+    let engine = Arc::new(EngineState::new());
+    // Khởi động Pikafish ở nền để cửa sổ app hiện ngay lập tức,
+    // engine nóng sẵn trước khi người dùng bấm dò sát cục / đánh AI.
+    {
+        let bg = Arc::clone(&engine);
+        std::thread::spawn(move || {
+            bg.start_engine(None);
+        });
+    }
+
     tauri::Builder::default()
-        .manage(EngineState::new())
+        .manage(engine)
         .invoke_handler(tauri::generate_handler![
             get_status,
             best_move,
