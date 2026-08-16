@@ -1534,7 +1534,7 @@ export default function App() {
             )}
 
             {/* Quick Smart Toolbar above Xiangqi Board */}
-            <div className="w-full max-w-[530px] lg:max-w-[570px] xl:max-w-[620px] 2xl:max-w-[670px] flex items-center justify-between px-3 py-1.5 bg-gradient-to-r from-[#141824] via-[#10131d] to-[#141824] rounded-2xl border border-[#2b3447] text-xs shadow-md no-print flex-shrink-0">
+            <div className="w-full h-[44px] max-w-[530px] lg:max-w-[570px] xl:max-w-[620px] 2xl:max-w-[670px] flex items-center justify-between px-3 py-1.5 bg-gradient-to-r from-[#141824] via-[#10131d] to-[#141824] rounded-2xl border border-[#2b3447] text-xs shadow-md no-print flex-shrink-0 overflow-hidden">
               {/* Left: Engine Toggle & Real-time AI Indicator */}
               <div className="flex items-center gap-2">
                 <button

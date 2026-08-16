@@ -295,13 +295,7 @@ export default function XiangqiBoard({
                     <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#ec4899" opacity="0.95" />
                   </marker>
 
-                  {/* Drop Shadow filter for pieces */}
-                  <filter id="pieceShadow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="1.5" dy="3" stdDeviation="2.5" floodColor="#2a1403" floodOpacity="0.55" />
-                  </filter>
-                  <filter id="arrowGlow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#10b981" floodOpacity="0.8" />
-                  </filter>
+                  {/* arrowGlow (Removed for maximum Safari performance) */}
                 </defs>
 
                 {/* Sandalwood background fill */}
@@ -546,19 +540,16 @@ export default function XiangqiBoard({
                       className="cursor-pointer"
                       style={{
                         transform: `translate(${coord.x}px, ${coord.y}px)`,
-                        transition: 'transform 0.15s ease-out'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = `translate(${coord.x}px, ${coord.y}px) scale(1.05)`;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = `translate(${coord.x}px, ${coord.y}px) scale(1)`;
+                        transition: 'transform 0.15s ease-out',
+                        willChange: 'transform'
                       }}
                     >
-                      {/* Apply shadow to a circle instead of the group for 60fps Safari performance */}
-                      <circle cx="0" cy="0" r="20.5" filter="url(#pieceShadow)" fill="transparent" />
+                      {/* Inner scalable group for hover effect without fighting React transform */}
+                      <g className="transition-transform duration-150 ease-out origin-center hover:scale-105" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
+                        {/* Ultra-fast Fake Drop Shadow (no SVG filters) */}
+                        <circle cx="1.5" cy="2.5" r="20.5" fill="#1a0d02" opacity="0.4" />
 
-                      {/* Checked King Warning Aura (Clean static ring) */}
+                        {/* Checked King Warning Aura (Clean static ring) */}
                       {isKingChecked && (
                         <circle
                           cx={0}
@@ -604,6 +595,7 @@ export default function XiangqiBoard({
                       >
                         {text}
                       </text>
+                      </g>
                     </g>
                   );
                 })}
