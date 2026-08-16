@@ -50,7 +50,7 @@ function getTacticalExplanation(moveText, score, turn) {
   }
 }
 
-// Recursive Solver Logic (Blazing-Fast Deep Tree Search to Checkmate)
+// Recursive Solver Logic (Blazing-Fast Deep Tree Search to Checkmate with Cycle Detection)
 const solveTree = async (
   currentBoard, 
   currentTurn, 
@@ -60,7 +60,7 @@ const solveTree = async (
   onProgress, 
   checkAbort,
   isSecondaryBranch = false,
-  memo = new Map()
+  ancestorFens = new Set()
 ) => {
   if (checkAbort()) return null;
   
@@ -77,9 +77,14 @@ const solveTree = async (
   }
 
   const fenKey = boardToFen(currentBoard, currentTurn).split(' ').slice(0, 2).join(' ');
-  if (memo.has(fenKey)) {
-    return memo.get(fenKey);
+  
+  // Cycle Detection: Prevent infinite loops / repetition in chess trees
+  if (ancestorFens.has(fenKey)) {
+    return { note: "Lặp lại nước cờ (Tuần hoàn)" };
   }
+
+  const nextAncestors = new Set(ancestorFens);
+  nextAncestors.add(fenKey);
 
   try {
     const isRed = currentTurn === 'red';
@@ -113,8 +118,6 @@ const solveTree = async (
       return { note: "Sát cục hoàn tất (Tất Thắng)" };
     }
 
-    let resultNode = null;
-
     if (isRed) {
       const best = candidates[0];
       const move = best.move;
@@ -129,7 +132,7 @@ const solveTree = async (
       // Check if Black has any legal responses left
       const blackLegal = getLegalMoves(newBoard, 'black');
       if (blackLegal.length === 0) {
-        resultNode = {
+        return {
           turn: 'red',
           move: best.viShort || best.uci,
           viFull: best.viFull || best.viShort || best.uci,
@@ -147,10 +150,10 @@ const solveTree = async (
           onProgress, 
           checkAbort,
           isSecondaryBranch,
-          memo
+          nextAncestors
         );
         
-        resultNode = {
+        return {
           turn: 'red',
           move: best.viShort || best.uci,
           viFull: best.viFull || best.viShort || best.uci,
@@ -187,7 +190,7 @@ const solveTree = async (
             onProgress, 
             checkAbort,
             isSecondaryBranch || idx > 0,
-            memo
+            nextAncestors
           );
         }
         
@@ -199,14 +202,11 @@ const solveTree = async (
           red_reply: reply
         });
       }
-      resultNode = {
+      return {
         turn: 'black',
         responses
       };
     }
-
-    memo.set(fenKey, resultNode);
-    return resultNode;
   } catch (err) {
     console.error("Solver error:", err);
     return { note: "Kết thúc nhánh" };
