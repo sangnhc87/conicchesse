@@ -335,7 +335,7 @@ export default function CheckmateSolverModal({
       // Auto-lookup current board position in SatsucCache
       if (initialBoard) {
         const fen = boardToFen(initialBoard, initialTurn || 'red');
-        const cached = SatsucCache.getTree(fen);
+        const cached = SatsucCache?.getTree ? SatsucCache.getTree(fen) : null;
         if (cached && cached.tree) {
           setResultTree(cached);
           setPath([]);

@@ -182,6 +182,22 @@ export const SatsucCache = {
     return library.find(item => item.id === id)?.data || null;
   },
 
+  getTree(fen) {
+    if (!fen) return null;
+    try {
+      const cleanFen = fen.split(' ').slice(0, 2).join(' ');
+      const library = this.getLibrary();
+      const found = library.find(item => {
+        const root = item?.data?.root_fen;
+        if (!root) return false;
+        return root.split(' ').slice(0, 2).join(' ') === cleanFen;
+      });
+      return found?.data || null;
+    } catch {
+      return null;
+    }
+  },
+
   checkCache(fen) {
     this.loadFromStorage();
     if (!fen) return null;
