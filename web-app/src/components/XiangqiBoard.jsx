@@ -351,26 +351,8 @@ export default function XiangqiBoard({
 
                 {/* Thấu Thị Trận Pháp Động Cơ (Pikafish Tactical Radar & Weakness Analysis) */}
                 {showHeatmap && engineRadar && (
-                  <g className="pointer-events-none transition-all duration-300">
-                    {/* Attack Pressure Corridors (Trục Ép Quân) */}
-                    {engineRadar.pressureZones.map((zone, zIdx) => {
-                      const coord = getSvgCoord(0, zone.col);
-                      return (
-                        <rect
-                          key={`flank-${zIdx}`}
-                          x={coord.x - 24}
-                          y="10"
-                          width="48"
-                          height="480"
-                          rx="12"
-                          fill="#06b6d4"
-                          opacity="0.12"
-                          className="animate-pulse"
-                        />
-                      );
-                    })}
-
-                    {/* 🎯 Điểm Đột Phá Số 1 của Pikafish (Engine Strategic Strike Square) */}
+                  <g className="pointer-events-none">
+                    {/* 🎯 Điểm Đột Phá Số 1 của Pikafish (Clean crisp Emerald ring) */}
                     {engineRadar.focalTargets.map((target, tIdx) => {
                       const coord = getSvgCoord(target.r, target.c);
                       return (
@@ -378,86 +360,83 @@ export default function XiangqiBoard({
                           <circle
                             cx={coord.x}
                             cy={coord.y}
-                            r="24"
+                            r="23"
                             fill="#10b981"
-                            fillOpacity="0.22"
-                            stroke="#34d399"
-                            strokeWidth="2.5"
-                            strokeDasharray="6 3"
-                            className="animate-spin-slow"
+                            fillOpacity="0.18"
+                            stroke="#10b981"
+                            strokeWidth="2"
+                            strokeDasharray="5 3"
                           />
                           <circle
                             cx={coord.x}
                             cy={coord.y}
-                            r="6"
-                            fill="#34d399"
-                            className="animate-ping"
-                            opacity="0.7"
+                            r="3.5"
+                            fill="#10b981"
                           />
                           <rect
-                            x={coord.x - 46}
-                            y={coord.y - 34}
-                            width="92"
-                            height="16"
-                            rx="8"
+                            x={coord.x - 34}
+                            y={coord.y - 30}
+                            width="68"
+                            height="14"
+                            rx="7"
                             fill="#064e3b"
-                            fillOpacity="0.9"
-                            stroke="#34d399"
-                            strokeWidth="1"
+                            fillOpacity="0.95"
+                            stroke="#10b981"
+                            strokeWidth="0.8"
                           />
                           <text
                             x={coord.x}
-                            y={coord.y - 23}
-                            fontSize="8.5"
+                            y={coord.y - 20}
+                            fontSize="7.5"
                             fontFamily="sans-serif"
-                            fontWeight="900"
+                            fontWeight="800"
                             textAnchor="middle"
                             fill="#a7f3d0"
                           >
-                            🎯 ĐIỂM ĐỘT PHÁ
+                            🎯 ĐỘT PHÁ
                           </text>
                         </g>
                       );
                     })}
 
-                    {/* ⚡ Tử Huyệt Đối Phương (Opponent Flaws & Tactical Vulnerabilities) */}
+                    {/* ⚡ Tử Huyệt Đối Phương (Clean crisp Ruby ring) */}
                     {engineRadar.vulnerabilities.map((v, vIdx) => {
                       const coord = getSvgCoord(v.r, v.c);
                       return (
-                        <g key={`vuln-${vIdx}`} className="animate-pulse">
+                        <g key={`vuln-${vIdx}`}>
                           <circle
                             cx={coord.x}
                             cy={coord.y}
-                            r="24"
+                            r="23"
                             fill="#ef4444"
-                            fillOpacity="0.25"
-                            stroke="#f87171"
-                            strokeWidth="2.5"
+                            fillOpacity="0.18"
+                            stroke="#ef4444"
+                            strokeWidth="2"
                             strokeDasharray="4 2"
                           />
                           <circle
                             cx={coord.x}
                             cy={coord.y}
-                            r="6"
-                            fill="#f87171"
+                            r="3.5"
+                            fill="#ef4444"
                           />
                           <rect
-                            x={coord.x - 38}
-                            y={coord.y + 20}
-                            width="76"
-                            height="16"
-                            rx="8"
+                            x={coord.x - 32}
+                            y={coord.y + 18}
+                            width="64"
+                            height="14"
+                            rx="7"
                             fill="#450a0a"
-                            fillOpacity="0.92"
-                            stroke="#f87171"
-                            strokeWidth="1"
+                            fillOpacity="0.95"
+                            stroke="#ef4444"
+                            strokeWidth="0.8"
                           />
                           <text
                             x={coord.x}
-                            y={coord.y + 31}
-                            fontSize="8.5"
+                            y={coord.y + 28.5}
+                            fontSize="7.5"
                             fontFamily="sans-serif"
-                            fontWeight="900"
+                            fontWeight="800"
                             textAnchor="middle"
                             fill="#fecaca"
                           >
