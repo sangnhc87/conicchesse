@@ -1117,125 +1117,147 @@ export function detectEndgamePattern(board) {
     }
   }
 
-  // 1. Đơn Xe đối Pháo Song Sĩ / Pháo Sĩ Tượng
-  if (rR === 1 && rC === 0 && rN === 0 && bR === 0 && bC === 1 && bN === 0) {
-    return {
-      title: '🏆 Đơn Xe Thắng Pháo Song Sĩ (Cờ Tàn Định Thức)',
-      isTheoreticalWin: true,
-      rule: 'Dùng Xe chiếm trung lộ hoặc tuyến đáy, ép Pháo rời vị trí che chắn cho Sĩ, sau đó chia cắt và bắt từng Sĩ.',
-      keyMoveHint: 'Chiếm trục lộ 5, dồn Pháo vào góc chết, dùng mặt Tướng trợ công bắt Sĩ.'
-    };
-  }
-
-  // 2. Đơn Xe đối Mã Song Tượng
-  if (rR === 1 && rC === 0 && rN === 0 && bR === 0 && bC === 0 && bN === 1) {
-    return {
-      title: '🏆 Đơn Xe Thắng Mã Song Tượng (Cờ Tàn Định Thức)',
-      isTheoreticalWin: true,
-      rule: 'Dùng Xe khóa Mã ở góc biên, buộc đôi Tượng phải bay rời nhau, kết hợp mặt Tướng để bắt sống Tượng.',
-      keyMoveHint: 'Không cho Mã đối phương nhảy lên trung tâm, ép Tượng bay biên rồi dùng Xe xỏ xâu.'
-    };
-  }
-
-  // 3. Pháo Chốt đối Sĩ Tượng
-  if (rR === 0 && rC >= 1 && rP >= 1 && bR === 0 && bC === 0 && bN === 0) {
-    if (bA < 2 || bB < 2) {
+  // Helper function to check patterns from the perspective of an "Attacker" vs "Defender"
+  const checkPatterns = (atkR, atkC, atkN, atkP, atkA, atkB, defR, defC, defN, defP, defA, defB) => {
+    // 1. Đơn Xe đối Pháo Song Sĩ / Pháo Sĩ Tượng
+    if (atkR === 1 && atkC === 0 && atkN === 0 && defR === 0 && defC === 1 && defN === 0) {
       return {
-        title: '🏆 Pháo Chốt Thắng Khuyết Sĩ Tượng (Cờ Tàn Sát Cục)',
+        title: '🏆 Đơn Xe Thắng Pháo Song Sĩ (Cờ Tàn Định Thức)',
         isTheoreticalWin: true,
-        rule: 'Pháo chiếm trung lộ hoặc đáy, Chốt áp sát cung cấm khống chế mắt Tượng và ép Tướng vào thế tuyệt sát.',
-        keyMoveHint: 'Đưa Chốt nhập cung sát Tướng, dùng Pháo đáy hoặc Trung Pháo làm ngòi chiếu bí.'
-      };
-    } else {
-      return {
-        title: '⚖️ Pháo Đơn Chốt đối Sĩ Tượng Toàn (Dễ Hòa Nếu Chậm Nhịp)',
-        isTheoreticalWin: false,
-        rule: 'Pháo Chốt muốn thắng Sĩ Tượng Toàn thì Chốt phải nhập cung cao trước khi Đen khép chặt vòng vây.',
-        keyMoveHint: 'Tận dụng từng nước cờ tiên phong, không để Đen liên kết Sĩ Tượng kiên cố.'
+        rule: 'Dùng Xe chiếm trung lộ hoặc tuyến đáy, ép Pháo rời vị trí che chắn cho Sĩ, sau đó chia cắt và bắt từng Sĩ.',
+        keyMoveHint: 'Chiếm trục lộ 5, dồn Pháo vào góc chết, dùng mặt Tướng trợ công bắt Sĩ.'
       };
     }
-  }
 
-  // 4. Mã Chốt đối Sĩ Tượng
-  if (rR === 0 && rC === 0 && rN >= 1 && rP >= 1 && bR === 0 && bC === 0 && bN === 0) {
-    return {
-      title: '🏆 Mã Chốt Thắng Sĩ Tượng (Cờ Tàn Nghệ Thuật)',
-      isTheoreticalWin: true,
-      rule: 'Mã chiếm hoa tâm hoặc góc 4/6, Chốt áp sát cung cấm bịt cửa thoát, ép Tướng đối phương lên lầu 3.',
-      keyMoveHint: 'Mã Ngoạ Tào kết hợp Chốt áp cung, Tướng trợ chiến làm tê liệt toàn bộ lực lượng Đen.'
-    };
-  }
+    // 2. Đơn Xe đối Mã Song Tượng
+    if (atkR === 1 && atkC === 0 && atkN === 0 && defR === 0 && defC === 0 && defN === 1) {
+      return {
+        title: '🏆 Đơn Xe Thắng Mã Song Tượng (Cờ Tàn Định Thức)',
+        isTheoreticalWin: true,
+        rule: 'Dùng Xe khóa Mã ở góc biên, buộc đôi Tượng phải bay rời nhau, kết hợp mặt Tướng để bắt sống Tượng.',
+        keyMoveHint: 'Không cho Mã đối phương nhảy lên trung tâm, ép Tượng bay biên rồi dùng Xe xỏ xâu.'
+      };
+    }
 
+    // 3. Pháo Chốt đối Sĩ Tượng
+    if (atkR === 0 && atkC >= 1 && atkP >= 1 && defR === 0 && defC === 0 && defN === 0) {
+      if (defA < 2 || defB < 2) {
+        return {
+          title: '🏆 Pháo Chốt Thắng Khuyết Sĩ Tượng (Cờ Tàn Sát Cục)',
+          isTheoreticalWin: true,
+          rule: 'Pháo chiếm trung lộ hoặc đáy, Chốt áp sát cung cấm khống chế mắt Tượng và ép Tướng vào thế tuyệt sát.',
+          keyMoveHint: 'Đưa Chốt nhập cung sát Tướng, dùng Pháo đáy hoặc Trung Pháo làm ngòi chiếu bí.'
+        };
+      } else {
+        return {
+          title: '⚖️ Pháo Đơn Chốt đối Sĩ Tượng Toàn (Dễ Hòa Nếu Chậm Nhịp)',
+          isTheoreticalWin: false,
+          rule: 'Pháo Chốt muốn thắng Sĩ Tượng Toàn thì Chốt phải nhập cung cao trước khi đối phương khép chặt vòng vây.',
+          keyMoveHint: 'Tận dụng từng nước cờ tiên phong, không để liên kết Sĩ Tượng kiên cố.'
+        };
+      }
+    }
 
-  // 4d. Đơn Chốt đối Khuyết Sĩ / Tượng (hoặc Chốt Tượng vs Sĩ)
-  if (rR === 0 && rC === 0 && rN === 0 && rP >= 1 && bR === 0 && bC === 0 && bN === 0 && (bA < 2 || bB < 2)) {
-    return {
-      title: '🏆 Chốt Tôn Thắng Khuyết Sĩ Tượng (Sát Cục Tàn Cuộc)',
-      isTheoreticalWin: true,
-      rule: '"Chốt lụt thắng Khuyết Sĩ" — Chốt đã qua sông áp sát cung cấm kết hợp mặt Tướng là một thế lực đáng gờm. Ép Tướng đối phương lên cao hoặc chẹn mắt Tượng.',
-      keyMoveHint: 'Dùng mặt Tướng trợ công. Chốt ép sát Tướng đối phương, kết hợp Tượng cản Sĩ để chiếu bí.'
-    };
-  }
-  // 5. Song Mã bắt Tướng / Song Mã thắng Sĩ Tượng toàn hoặc Khuyết Tượng
-  if (rN >= 2 && bR === 0 && bC === 0 && bN === 0) {
-    return {
-      title: '🏆 Song Mã Thắng (Tất Thắng Lý Thuyết)',
-      isTheoreticalWin: true,
-      rule: 'Hai Mã liên hoàn vừa nhảy vừa chiếu rút. Trong cờ tàn, Song Mã có thể vần thắng Sĩ Tượng toàn hoặc Sĩ Khuyết Tượng nếu biết cách điều động.',
-      keyMoveHint: 'Nhảy Mã ngọa tào chiếu ép Tướng lệch cung, Mã thứ hai nhập tâm khóa chặt đường thoát hoặc bắt chết Sĩ Tượng.'
-    };
-  }
+    // 4. Mã Chốt đối Sĩ Tượng
+    if (atkR === 0 && atkC === 0 && atkN >= 1 && atkP >= 1 && defR === 0 && defC === 0 && defN === 0) {
+      return {
+        title: '🏆 Mã Chốt Thắng Sĩ Tượng (Cờ Tàn Nghệ Thuật)',
+        isTheoreticalWin: true,
+        rule: 'Mã chiếm hoa tâm hoặc góc 4/6, Chốt áp sát cung cấm bịt cửa thoát, ép Tướng đối phương lên lầu 3.',
+        keyMoveHint: 'Mã Ngoạ Tào kết hợp Chốt áp cung, Tướng trợ chiến làm tê liệt toàn bộ lực lượng.'
+      };
+    }
 
+    // 4d. Đơn Chốt đối Khuyết Sĩ / Tượng (hoặc Chốt Tượng vs Sĩ)
+    if (atkR === 0 && atkC === 0 && atkN === 0 && atkP >= 1 && defR === 0 && defC === 0 && defN === 0 && (defA < 2 || defB < 2)) {
+      return {
+        title: '🏆 Chốt Tôn Thắng Khuyết Sĩ Tượng (Sát Cục Tàn Cuộc)',
+        isTheoreticalWin: true,
+        rule: '"Chốt lụt thắng Khuyết Sĩ" — Chốt đã qua sông áp sát cung cấm kết hợp mặt Tướng là một thế lực đáng gờm. Ép Tướng đối phương lên cao hoặc chẹn mắt Tượng.',
+        keyMoveHint: 'Dùng mặt Tướng trợ công. Chốt ép sát Tướng đối phương, kết hợp Tượng cản Sĩ để chiếu bí.'
+      };
+    }
 
-  // 4b. Đơn Mã đối Đơn Sĩ (TẤT THẮNG LÝ THUYẾT KINH ĐIỂN)
-  if (rR === 0 && rC === 0 && rN === 1 && rP === 0 && bR === 0 && bC === 0 && bN === 0 && bA === 1 && bB === 0 && bP === 0) {
-    return {
-      title: '🏆 Đơn Mã Thắng Đơn Sĩ (Tất Thắng Lý Thuyết)',
-      isTheoreticalWin: true,
-      rule: '"Mã Sĩ đơn — Mã thắng" — Kinh điển tàn cuộc Cờ Tướng. Mã và Tướng phối hợp bịt cửa cung, ép Tướng đối phương vào thế chiếu bí.',
-      keyMoveHint: 'Đưa Tướng lên hỗ trợ Mã từ phía sau. Mã nhảy vào vị trí khống chế 2 góc cung, ép Sĩ rời ra để chiếu bí.'
-    };
-  }
+    // 5. Song Mã bắt Tướng / Song Mã thắng Sĩ Tượng toàn hoặc Khuyết Tượng
+    if (atkN >= 2 && defR === 0 && defC === 0 && defN === 0) {
+      return {
+        title: '🏆 Song Mã Thắng (Tất Thắng Lý Thuyết)',
+        isTheoreticalWin: true,
+        rule: 'Hai Mã liên hoàn vừa nhảy vừa chiếu rút. Trong cờ tàn, Song Mã có thể vần thắng Sĩ Tượng toàn hoặc Sĩ Khuyết Tượng nếu biết cách điều động.',
+        keyMoveHint: 'Nhảy Mã ngọa tào chiếu ép Tướng lệch cung, Mã thứ hai nhập tâm khóa chặt đường thoát hoặc bắt chết Sĩ Tượng.'
+      };
+    }
 
-  // 4c. Đơn Mã đối Song Sĩ
-  if (rR === 0 && rC === 0 && rN === 1 && rP === 0 && bR === 0 && bC === 0 && bN === 0 && bA === 2 && bB === 0 && bP === 0) {
-    return {
-      title: '🏆 Đơn Mã Thắng Song Sĩ (Nghệ Thuật Tàn Cuộc)',
-      isTheoreticalWin: true,
-      rule: '"Mã thắng Song Sĩ" — Cần kỹ thuật cao. Mã nhảy chiếu rút liên tục, ép Sĩ di chuyển lộ mắt Tướng.',
-      keyMoveHint: 'Dùng Tướng áp sát hỗ trợ Mã, nhảy Mã vào vị trí chiếu kép buộc Sĩ phải rời cung.'
-    };
-  }
+    // 4b. Đơn Mã đối Đơn Sĩ (TẤT THẮNG LÝ THUYẾT KINH ĐIỂN)
+    if (atkR === 0 && atkC === 0 && atkN === 1 && atkP === 0 && defR === 0 && defC === 0 && defN === 0 && defA === 1 && defB === 0 && defP === 0) {
+      return {
+        title: '🏆 Đơn Mã Thắng Đơn Sĩ (Tất Thắng Lý Thuyết)',
+        isTheoreticalWin: true,
+        rule: '"Mã Sĩ đơn — Mã thắng" — Kinh điển tàn cuộc Cờ Tướng. Mã và Tướng phối hợp bịt cửa cung, ép Tướng đối phương vào thế chiếu bí.',
+        keyMoveHint: 'Đưa Tướng lên hỗ trợ Mã từ phía sau. Mã nhảy vào vị trí khống chế 2 góc cung, ép Sĩ rời ra để chiếu bí.'
+      };
+    }
 
-  // 2b. Xe đơn đối Sĩ Tượng (không có Pháo Mã của Đen)
-  if (rR >= 1 && rC === 0 && rN === 0 && bR === 0 && bC === 0 && bN === 0 && bP === 0) {
-    return {
-      title: '🏆 Xe Đơn Thắng Sĩ Tượng (Tất Thắng Định Thức)',
-      isTheoreticalWin: true,
-      rule: '"Xe đơn thắng Sĩ Tượng" — Đây là thế cờ thắng định thức. Dùng Xe đánh 3 mặt, ép Tướng vào góc cung.',
-      keyMoveHint: 'Xe chiếm lộ đáy hoặc sườn, ép Tướng lên lầu, dùng mặt Tướng trợ chiến bắt Sĩ/Tượng trơ.'
-    };
-  }
+    // 4c. Đơn Mã đối Song Sĩ
+    if (atkR === 0 && atkC === 0 && atkN === 1 && atkP === 0 && defR === 0 && defC === 0 && defN === 0 && defA === 2 && defB === 0 && defP === 0) {
+      return {
+        title: '🏆 Đơn Mã Thắng Song Sĩ (Nghệ Thuật Tàn Cuộc)',
+        isTheoreticalWin: true,
+        rule: '"Mã thắng Song Sĩ" — Cần kỹ thuật cao. Mã nhảy chiếu rút liên tục, ép Sĩ di chuyển lộ mắt Tướng.',
+        keyMoveHint: 'Dùng Tướng áp sát hỗ trợ Mã, nhảy Mã vào vị trí chiếu kép buộc Sĩ phải rời cung.'
+      };
+    }
 
-  // 6. Xe Pháo phối hợp
-  if (rR >= 1 && rC >= 1) {
-    return {
-      title: '🎯 Xe Pháo Sát Cục (Sát Pháp Thực Dụng)',
-      isTheoreticalWin: true,
-      rule: 'Xe chiếm lộ thông thoáng, Pháo gối đầu hoặc thọc đáy tạo thế Xe Pháo Trùng hoặc Thiên Địa Pháo.',
-      keyMoveHint: 'Dùng Xe ép Tướng đối phương vào cùng hàng/cùng cột với Pháo để tung đòn dứt điểm.'
-    };
-  }
+    // 4e. Đơn Mã đối Đơn Tượng (TẤT THẮNG LÝ THUYẾT - "Mã Cầm Tượng")
+    if (atkR === 0 && atkC === 0 && atkN === 1 && atkP === 0 && defR === 0 && defC === 0 && defN === 0 && defA === 0 && defB === 1 && defP === 0) {
+      return {
+        title: '🏆 Đơn Mã Thắng Đơn Tượng (Tất Thắng Lý Thuyết)',
+        isTheoreticalWin: true,
+        rule: '"Mã Cầm Tượng" — Mã linh hoạt khống chế hoàn toàn Tượng què. Tướng hỗ trợ chặn đường lui của Tượng và khóa chặt Tướng đối phương.',
+        keyMoveHint: 'Mã khống chế các lộ di chuyển của Tượng, buộc Tượng rơi vào góc chết hoặc buộc Tướng đối phương phải dạt ra biên.'
+      };
+    }
 
-  // 7. Xe Mã phối hợp
-  if (rR >= 1 && rN >= 1) {
-    return {
-      title: '🎯 Xe Mã Tấn Công (Đòn Sát Cục Lừng Danh)',
-      isTheoreticalWin: true,
-      rule: 'Mã ngọa tào / bát diện khóa góc cung, Xe chiếu đuổi Tướng vào chân Mã để tạo thế Mã Hậu Pháo hoặc Trắc Diện Hổ.',
-      keyMoveHint: 'Phối hợp nhịp nhàng giữa Xe và Mã, không cho Tướng đối phương có nước nghỉ.'
-    };
-  }
+    // 2b. Xe đơn đối Sĩ Tượng (không có Pháo Mã của Đen)
+    if (atkR >= 1 && atkC === 0 && atkN === 0 && defR === 0 && defC === 0 && defN === 0 && defP === 0) {
+      return {
+        title: '🏆 Xe Đơn Thắng Sĩ Tượng (Tất Thắng Định Thức)',
+        isTheoreticalWin: true,
+        rule: '"Xe đơn thắng Sĩ Tượng" — Đây là thế cờ thắng định thức. Dùng Xe đánh 3 mặt, ép Tướng vào góc cung.',
+        keyMoveHint: 'Xe chiếm lộ đáy hoặc sườn, ép Tướng lên lầu, dùng mặt Tướng trợ chiến bắt Sĩ/Tượng trơ.'
+      };
+    }
+
+    // 6. Xe Pháo phối hợp
+    if (atkR >= 1 && atkC >= 1 && defR === 0) {
+      return {
+        title: '🎯 Xe Pháo Sát Cục (Sát Pháp Thực Dụng)',
+        isTheoreticalWin: true,
+        rule: 'Xe chiếm lộ thông thoáng, Pháo gối đầu hoặc thọc đáy tạo thế Xe Pháo Trùng hoặc Thiên Địa Pháo.',
+        keyMoveHint: 'Dùng Xe ép Tướng đối phương vào cùng hàng/cùng cột với Pháo để tung đòn dứt điểm.'
+      };
+    }
+
+    // 7. Xe Mã phối hợp
+    if (atkR >= 1 && atkN >= 1 && defR === 0) {
+      return {
+        title: '🎯 Xe Mã Tấn Công (Đòn Sát Cục Lừng Danh)',
+        isTheoreticalWin: true,
+        rule: 'Mã ngọa tào / bát diện khóa góc cung, Xe chiếu đuổi Tướng vào chân Mã để tạo thế Mã Hậu Pháo hoặc Trắc Diện Hổ.',
+        keyMoveHint: 'Phối hợp nhịp nhàng giữa Xe và Mã, không cho Tướng đối phương có nước nghỉ.'
+      };
+    }
+
+    return null;
+  };
+
+  // Check from Red's attacking perspective
+  const redAttacker = checkPatterns(rR, rC, rN, rP, rA, rB, bR, bC, bN, bP, bA, bB);
+  if (redAttacker) return redAttacker;
+
+  // Check from Black's attacking perspective
+  const blackAttacker = checkPatterns(bR, bC, bN, bP, bA, bB, rR, rC, rN, rP, rA, rB);
+  if (blackAttacker) return blackAttacker;
 
   // Default endgame guideline
   if (totalPieces <= 16) {
