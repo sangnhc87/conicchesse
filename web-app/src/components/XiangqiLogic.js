@@ -295,20 +295,70 @@ export function isInCheck(board, color) {
   const king = findKing(board, color);
   if (!king) return false;
 
-  const opponentColor = color === 'red' ? 'black' : 'red';
-  for (let r = 0; r < 10; r++) {
-    for (let c = 0; c < 9; c++) {
-      const piece = board[r][c];
-      if (piece && getPieceColor(piece) === opponentColor) {
-        const raw = getRawMoves(board, r, c);
-        if (raw.some(m => m.toR === king.r && m.toC === king.c)) {
-          return true;
+  const kr = king.r;
+  const kc = king.c;
+  const isRedKing = color === 'red';
+  const enemyRook = isRedKing ? 'r' : 'R';
+  const enemyCannon = isRedKing ? 'c' : 'C';
+  const enemyKnight = isRedKing ? 'n' : 'N';
+  const enemyPawn = isRedKing ? 'p' : 'P';
+  const enemyKing = isRedKing ? 'k' : 'K';
+
+  // 1. Check straight horizontal/vertical rays (Rook, Cannon, Flying General King)
+  const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+  for (let [dr, dc] of dirs) {
+    let r = kr + dr;
+    let c = kc + dc;
+    let screenCount = 0;
+
+    while (r >= 0 && r < 10 && c >= 0 && c < 9) {
+      const p = board[r][c];
+      if (p) {
+        if (screenCount === 0) {
+          // Direct line of sight: enemy Rook or enemy King (Flying general)
+          if (p === enemyRook || p === enemyKing) return true;
+          screenCount = 1;
+        } else if (screenCount === 1) {
+          // After 1 screen: enemy Cannon
+          if (p === enemyCannon) return true;
+          break; // Ray blocked after 2nd piece
         }
+      }
+      r += dr;
+      c += dc;
+    }
+  }
+
+  // 2. Check 8 Knight positions around King (with leg blocking checks)
+  const horseChecks = [
+    [-2, -1, -1, 0], [-2, 1, -1, 0],
+    [2, -1, 1, 0], [2, 1, 1, 0],
+    [-1, -2, 0, -1], [1, -2, 0, -1],
+    [-1, 2, 0, 1], [1, 2, 0, 1]
+  ];
+  for (let [dr, dc, ldr, ldc] of horseChecks) {
+    const nr = kr + dr;
+    const nc = kc + dc;
+    if (nr >= 0 && nr < 10 && nc >= 0 && nc < 9) {
+      if (board[nr][nc] === enemyKnight) {
+        const lr = kr + ldr;
+        const lc = kc + ldc;
+        if (!board[lr][lc]) return true; // Horse leg is free -> CHECK!
       }
     }
   }
 
-  if (isFlyingGeneral(board)) return true;
+  // 3. Check Pawns attacking the King
+  if (isRedKing) {
+    if (kr - 1 >= 0 && board[kr - 1][kc] === enemyPawn) return true;
+    if (kc - 1 >= 0 && board[kr][kc - 1] === enemyPawn) return true;
+    if (kc + 1 < 9 && board[kr][kc + 1] === enemyPawn) return true;
+  } else {
+    if (kr + 1 < 10 && board[kr + 1][kc] === enemyPawn) return true;
+    if (kc - 1 >= 0 && board[kr][kc - 1] === enemyPawn) return true;
+    if (kc + 1 < 9 && board[kr][kc + 1] === enemyPawn) return true;
+  }
+
   return false;
 }
 
