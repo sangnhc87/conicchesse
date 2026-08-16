@@ -125,8 +125,16 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
   }
 };
 
-// Visual Flowchart Tree Component
-const FlowchartNode = ({ node, pathPrefix, activePath, onSelectPath, level = 0 }) => {
+// Visual Flowchart Tree Component with Expand / Collapse
+const FlowchartNode = ({ 
+  node, 
+  pathPrefix, 
+  activePath, 
+  onSelectPath, 
+  level = 0,
+  collapsedNodes,
+  onToggleCollapse
+}) => {
   if (!node) return null;
 
   if (node.note) {
@@ -140,15 +148,17 @@ const FlowchartNode = ({ node, pathPrefix, activePath, onSelectPath, level = 0 }
 
   if (node.turn === 'red') {
     const currentStepPath = [...pathPrefix, 0];
+    const nodeKey = currentStepPath.join('-');
     const isNodeActive = activePath.slice(0, currentStepPath.length).every((v, i) => v === currentStepPath[i]) && activePath.length >= currentStepPath.length;
     const isExactMatch = activePath.length === currentStepPath.length && isNodeActive;
+    const isCollapsed = collapsedNodes?.has(nodeKey);
 
     return (
-      <div className="flex flex-col gap-2 relative">
+      <div className="flex flex-col gap-2 relative animate-in fade-in">
         <div className="flex items-center gap-2">
           <button
             onClick={() => onSelectPath(currentStepPath)}
-            className={`flex items-center gap-3 px-4 py-3 rounded-2xl border text-xs font-bold transition-all shadow-md group text-left ${
+            className={`flex items-center gap-3 px-4 py-3 rounded-2xl border text-xs font-bold transition-all shadow-md group text-left flex-1 ${
               isExactMatch
                 ? 'bg-gradient-to-r from-red-950 via-red-900 to-amber-950/60 border-amber-400 text-amber-300 ring-2 ring-amber-400/40 shadow-red-950/80 scale-[1.02]'
                 : isNodeActive
@@ -156,27 +166,53 @@ const FlowchartNode = ({ node, pathPrefix, activePath, onSelectPath, level = 0 }
                   : 'bg-[#181d2a] hover:bg-red-950/40 border-[#2a3449] hover:border-red-500/40 text-gray-300'
             }`}
           >
-            <span className="w-6 h-6 rounded-full bg-red-500/30 text-red-400 flex items-center justify-center text-xs font-black border border-red-500/40 shadow-inner">
+            <span className="w-6 h-6 rounded-full bg-red-500/30 text-red-400 flex items-center justify-center text-xs font-black border border-red-500/40 shadow-inner flex-shrink-0">
               Đ
             </span>
-            <div>
-              <div className="font-extrabold text-sm tracking-wide text-red-200 group-hover:text-amber-300">
+            <div className="min-w-0">
+              <div className="font-extrabold text-sm tracking-wide text-red-200 group-hover:text-amber-300 truncate">
                 {node.viFull || node.move}
               </div>
               <div className="text-[10px] text-gray-400 font-mono mt-0.5">{node.score}</div>
             </div>
-            <ArrowRight className={`w-4 h-4 ml-auto transition-transform ${isExactMatch ? 'text-amber-400 translate-x-1' : 'text-gray-600 group-hover:text-red-400'}`} />
+            <ArrowRight className={`w-4 h-4 ml-auto flex-shrink-0 transition-transform ${isExactMatch ? 'text-amber-400 translate-x-1' : 'text-gray-600 group-hover:text-red-400'}`} />
           </button>
+
+          {node.reply && onToggleCollapse && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleCollapse(nodeKey);
+              }}
+              className={`p-2.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${
+                isCollapsed 
+                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 hover:bg-amber-500/30' 
+                  : 'bg-[#181d2a] border-[#2a3449] text-gray-400 hover:text-white hover:bg-[#22293a]'
+              }`}
+              title={isCollapsed ? "Mở rộng nhánh này" : "Thu gọn nhánh này"}
+            >
+              {isCollapsed ? (
+                <>
+                  <ChevronRight className="w-4 h-4 text-amber-400" />
+                  <span className="text-[10px] font-mono pr-1">Mở</span>
+                </>
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </button>
+          )}
         </div>
 
-        {node.reply && (
-          <div className="pl-4 ml-3 border-l-2 border-[#2b3548] flex flex-col gap-2 pt-1">
+        {node.reply && !isCollapsed && (
+          <div className="pl-4 ml-3 border-l-2 border-[#2b3548] flex flex-col gap-2 pt-1 animate-in fade-in slide-in-from-top-1">
             <FlowchartNode 
               node={node.reply} 
               pathPrefix={currentStepPath} 
               activePath={activePath} 
               onSelectPath={onSelectPath} 
-              level={level + 1} 
+              level={level + 1}
+              collapsedNodes={collapsedNodes}
+              onToggleCollapse={onToggleCollapse}
             />
           </div>
         )}
@@ -194,40 +230,70 @@ const FlowchartNode = ({ node, pathPrefix, activePath, onSelectPath, level = 0 }
         <div className="grid grid-cols-1 gap-2.5">
           {node.responses.map((resp, idx) => {
             const respPath = [...pathPrefix, idx];
+            const nodeKey = respPath.join('-');
             const isNodeActive = activePath.slice(0, respPath.length).every((v, i) => v === respPath[i]) && activePath.length >= respPath.length;
             const isExactMatch = activePath.length === respPath.length && isNodeActive;
+            const isCollapsed = collapsedNodes?.has(nodeKey);
 
             return (
-              <div key={idx} className="flex flex-col gap-2 bg-[#121622]/90 border border-[#232c3f] p-3 rounded-2xl shadow-sm">
-                <button
-                  onClick={() => onSelectPath(respPath)}
-                  className={`flex items-center justify-between p-3 rounded-xl border text-xs font-bold transition-all text-left ${
-                    isExactMatch
-                      ? 'bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 border-amber-400 text-amber-300 ring-2 ring-amber-400/40 scale-[1.01]'
-                      : isNodeActive
-                        ? 'bg-blue-950/80 border-blue-500/60 text-blue-200'
-                        : 'bg-[#181d2a] hover:bg-[#202738] border-[#2c374d] text-gray-300'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-black border border-blue-500/30">
-                      #{idx + 1}
+              <div key={idx} className="flex flex-col gap-2 bg-[#121622]/90 border border-[#232c3f] p-3 rounded-2xl shadow-sm animate-in fade-in">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => onSelectPath(respPath)}
+                    className={`flex items-center justify-between p-3 rounded-xl border text-xs font-bold transition-all text-left flex-1 ${
+                      isExactMatch
+                        ? 'bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 border-amber-400 text-amber-300 ring-2 ring-amber-400/40 scale-[1.01]'
+                        : isNodeActive
+                          ? 'bg-blue-950/80 border-blue-500/60 text-blue-200'
+                          : 'bg-[#181d2a] hover:bg-[#202738] border-[#2c374d] text-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-black border border-blue-500/30 flex-shrink-0">
+                        #{idx + 1}
+                      </span>
+                      <span className="text-blue-300 font-black text-sm">{resp.viFull || resp.move}</span>
+                    </div>
+                    <span className="text-[10px] bg-black/40 px-2.5 py-1 rounded-lg text-gray-400 font-mono border border-[#2a3449]">
+                      {resp.score}
                     </span>
-                    <span className="text-blue-300 font-black text-sm">{resp.viFull || resp.move}</span>
-                  </div>
-                  <span className="text-[10px] bg-black/40 px-2.5 py-1 rounded-lg text-gray-400 font-mono border border-[#2a3449]">
-                    {resp.score}
-                  </span>
-                </button>
+                  </button>
 
-                {resp.red_reply && (
-                  <div className="pl-3 ml-2 border-l-2 border-[#263145] pt-1">
+                  {resp.red_reply && onToggleCollapse && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleCollapse(nodeKey);
+                      }}
+                      className={`p-2.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${
+                        isCollapsed 
+                          ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 hover:bg-amber-500/30' 
+                          : 'bg-[#181d2a] border-[#2a3449] text-gray-400 hover:text-white hover:bg-[#22293a]'
+                      }`}
+                      title={isCollapsed ? "Mở rộng nhánh này" : "Thu gọn nhánh này"}
+                    >
+                      {isCollapsed ? (
+                        <>
+                          <ChevronRight className="w-4 h-4 text-amber-400" />
+                          <span className="text-[10px] font-mono pr-1">Mở</span>
+                        </>
+                      ) : (
+                        <ChevronDown className="w-4 h-4" />
+                      )}
+                    </button>
+                  )}
+                </div>
+
+                {resp.red_reply && !isCollapsed && (
+                  <div className="pl-3 ml-2 border-l-2 border-[#263145] pt-1 animate-in fade-in slide-in-from-top-1">
                     <FlowchartNode 
                       node={resp.red_reply} 
                       pathPrefix={respPath} 
                       activePath={activePath} 
                       onSelectPath={onSelectPath} 
-                      level={level + 1} 
+                      level={level + 1}
+                      collapsedNodes={collapsedNodes}
+                      onToggleCollapse={onToggleCollapse}
                     />
                   </div>
                 )}
@@ -296,6 +362,50 @@ export default function CheckmateSolverModal({
   const [autoPlaying, setAutoPlaying] = useState(false);
   const [autoPlaySpeed, setAutoPlaySpeed] = useState(1200); // ms
   
+  // Flowchart Collapse / Expand state
+  const [collapsedNodes, setCollapsedNodes] = useState(() => new Set());
+
+  const handleToggleCollapse = (nodeKey) => {
+    setCollapsedNodes(prev => {
+      const next = new Set(prev);
+      if (next.has(nodeKey)) {
+        next.delete(nodeKey);
+      } else {
+        next.add(nodeKey);
+      }
+      return next;
+    });
+  };
+
+  const handleExpandAll = () => {
+    setCollapsedNodes(new Set());
+  };
+
+  const handleCollapseAll = () => {
+    if (!resultTree?.tree) return;
+    const allKeys = new Set();
+    const collectKeys = (node, prefix) => {
+      if (!node || node.note) return;
+      if (node.turn === 'red') {
+        const step = [...prefix, 0];
+        if (node.reply) {
+          allKeys.add(step.join('-'));
+          collectKeys(node.reply, step);
+        }
+      } else if (node.turn === 'black' && node.responses) {
+        node.responses.forEach((resp, idx) => {
+          const step = [...prefix, idx];
+          if (resp.red_reply) {
+            allKeys.add(step.join('-'));
+            collectKeys(resp.red_reply, step);
+          }
+        });
+      }
+    };
+    collectKeys(resultTree.tree, []);
+    setCollapsedNodes(allKeys);
+  };
+  
   // Interactive board selection state
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [hoveredResponseMove, setHoveredResponseMove] = useState(null);
@@ -336,6 +446,7 @@ export default function CheckmateSolverModal({
       setSelectedSquare(null);
     } else {
       abortRef.current = false;
+      loadLibrary();
       // Auto-lookup current board position in SatsucCache
       if (initialBoard) {
         const fen = boardToFen(initialBoard, initialTurn || 'red');
@@ -548,8 +659,10 @@ export default function CheckmateSolverModal({
       };
       setResultTree(finalTree);
       SatsucCache.addTree(finalTree);
+      loadLibrary();
       setProgressMsg('Đã giải xong và lưu vào Từ Điển Sát Cục!');
       setActiveTab('dashboard');
+      showToast('💾 Đã tự động lưu thế cờ vào Thư Viện!');
     }
     setIsSolving(false);
   };
@@ -694,6 +807,10 @@ export default function CheckmateSolverModal({
                 <option value={10}>10 nước (Nhanh)</option>
                 <option value={15}>15 nước (Khuyên dùng)</option>
                 <option value={25}>25 nước (Sát cục sâu)</option>
+                <option value={35}>35 nước (Rất sâu)</option>
+                <option value={50}>50 nước (Cờ thế đại cuộc)</option>
+                <option value={75}>75 nước (Siêu sâu)</option>
+                <option value={100}>100 nước (Không giới hạn)</option>
               </select>
             </div>
 
@@ -1333,7 +1450,7 @@ export default function CheckmateSolverModal({
                   {/* Mode 2: Sơ Đồ Cây Nối Dây (SVG Decision Tree Flowchart) */}
                   {activeTab === 'flowchart' && (
                     <div className="max-w-3xl mx-auto flex flex-col gap-4">
-                      <div className="bg-[#141926] p-4 rounded-2xl border border-[#242e44] mb-2 flex items-center justify-between">
+                      <div className="bg-[#141926] p-4 rounded-2xl border border-[#242e44] mb-2 flex items-center justify-between flex-wrap gap-3">
                         <div>
                           <h4 className="text-sm font-black text-gray-200 flex items-center gap-2">
                             <Sparkles className="w-4 h-4 text-amber-400" />
@@ -1343,14 +1460,37 @@ export default function CheckmateSolverModal({
                             Bấm vào bất kỳ nút nào trên sơ đồ để bàn cờ bên trái tự động di chuyển đến thế cờ đó
                           </p>
                         </div>
+
+                        {/* Expand / Collapse Toolbar */}
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={handleExpandAll}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1c2333] hover:bg-[#273248] text-amber-300 hover:text-amber-200 border border-amber-500/30 text-xs font-bold transition-all active:scale-95 shadow-sm"
+                            title="Mở rộng toàn bộ cây nhánh để xem chi tiết"
+                          >
+                            <FolderOpen className="w-3.5 h-3.5 text-amber-400" />
+                            <span>Mở Rộng Hết</span>
+                          </button>
+
+                          <button
+                            onClick={handleCollapseAll}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1c2333] hover:bg-[#273248] text-gray-300 hover:text-white border border-[#2e3b52] text-xs font-bold transition-all active:scale-95"
+                            title="Thu gọn các nhánh để nhìn tổng thể gọn gàng"
+                          >
+                            <Layers className="w-3.5 h-3.5 text-blue-400" />
+                            <span>Thu Gọn Hết</span>
+                          </button>
+                        </div>
                       </div>
 
-                      <div className="bg-[#121622] p-6 rounded-3xl border border-[#222c3f] shadow-inner">
+                      <div className="bg-[#121622] p-6 rounded-3xl border border-[#222c3f] shadow-inner overflow-x-auto custom-scrollbar">
                         <FlowchartNode
                           node={resultTree.tree}
                           pathPrefix={[]}
                           activePath={path}
                           onSelectPath={(newPath) => setPath(newPath)}
+                          collapsedNodes={collapsedNodes}
+                          onToggleCollapse={handleToggleCollapse}
                         />
                       </div>
                     </div>
