@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
-import { PIECE_NAMES, isRed, isInCheck, parseFen, calculateBoardControlMap } from './XiangqiLogic';
-import { Sparkles, Gauge } from 'lucide-react';
+import { PIECE_NAMES, isRed, isInCheck, parseFen, deriveEngineTacticalRadar } from './XiangqiLogic';
+import { Sparkles, Gauge, Crosshair, Zap, ShieldAlert } from 'lucide-react';
 
 export default function XiangqiBoard({
   board,
@@ -28,11 +28,11 @@ export default function XiangqiBoard({
   const redInCheck = isInCheck(safeBoard, 'red');
   const blackInCheck = isInCheck(safeBoard, 'black');
 
-  // Thấu Thị Trận Pháp (Tactical Heatmap & Weakness Radar)
-  const controlMap = useMemo(() => {
+  // Thấu Thị Trận Pháp Động Cơ (Pikafish Tactical Radar & Weakness Analysis)
+  const engineRadar = useMemo(() => {
     if (!showHeatmap) return null;
-    return calculateBoardControlMap(safeBoard);
-  }, [safeBoard, showHeatmap]);
+    return deriveEngineTacticalRadar(safeBoard, turn, candidateArrows, bestMoveArrow, evalScore);
+  }, [safeBoard, turn, candidateArrows, bestMoveArrow, evalScore, showHeatmap]);
 
   // Convert logical coordinates (r: 0..9, c: 0..8) to SVG pixel center (cx, cy)
   const getSvgCoord = (r, c) => {
@@ -349,60 +349,117 @@ export default function XiangqiBoard({
                   </text>
                 </g>
 
-                {/* Thấu Thị Trận Pháp (Tactical Territory Control Heatmap & Weakness Radar) */}
-                {showHeatmap && controlMap && (
+                {/* Thấu Thị Trận Pháp Động Cơ (Pikafish Tactical Radar & Weakness Analysis) */}
+                {showHeatmap && engineRadar && (
                   <g className="pointer-events-none transition-all duration-300">
-                    {/* Territory Control Glowing Grids */}
-                    {controlMap.matrix.map((row, r) =>
-                      row.map((cell, c) => {
-                        if (cell.dominant === 'neutral') return null;
-                        const coord = getSvgCoord(r, c);
-                        const isRedDom = cell.dominant === 'red';
-                        const intensity = Math.min(0.42, 0.16 + Math.abs(cell.diff) * 0.07);
-                        return (
-                          <rect
-                            key={`heat-${r}-${c}`}
-                            x={coord.x - 21}
-                            y={coord.y - 21}
-                            width="42"
-                            height="42"
-                            rx="10"
-                            fill={isRedDom ? '#10b981' : '#ef4444'}
-                            opacity={intensity}
-                          />
-                        );
-                      })
-                    )}
-
-                    {/* Highlight Tử Huyệt (Tactical Weaknesses & Breach Points) */}
-                    {controlMap.weaknesses.map((w, wIdx) => {
-                      const coord = getSvgCoord(w.r, w.c);
+                    {/* Attack Pressure Corridors (Trục Ép Quân) */}
+                    {engineRadar.pressureZones.map((zone, zIdx) => {
+                      const coord = getSvgCoord(0, zone.col);
                       return (
-                        <g key={`weakness-${wIdx}`} className="animate-pulse">
+                        <rect
+                          key={`flank-${zIdx}`}
+                          x={coord.x - 24}
+                          y="10"
+                          width="48"
+                          height="480"
+                          rx="12"
+                          fill="#06b6d4"
+                          opacity="0.12"
+                          className="animate-pulse"
+                        />
+                      );
+                    })}
+
+                    {/* 🎯 Điểm Đột Phá Số 1 của Pikafish (Engine Strategic Strike Square) */}
+                    {engineRadar.focalTargets.map((target, tIdx) => {
+                      const coord = getSvgCoord(target.r, target.c);
+                      return (
+                        <g key={`focal-${tIdx}`}>
                           <circle
                             cx={coord.x}
                             cy={coord.y}
-                            r="21"
-                            fill="none"
-                            stroke="#f59e0b"
+                            r="24"
+                            fill="#10b981"
+                            fillOpacity="0.22"
+                            stroke="#34d399"
+                            strokeWidth="2.5"
+                            strokeDasharray="6 3"
+                            className="animate-spin-slow"
+                          />
+                          <circle
+                            cx={coord.x}
+                            cy={coord.y}
+                            r="6"
+                            fill="#34d399"
+                            className="animate-ping"
+                            opacity="0.7"
+                          />
+                          <rect
+                            x={coord.x - 46}
+                            y={coord.y - 34}
+                            width="92"
+                            height="16"
+                            rx="8"
+                            fill="#064e3b"
+                            fillOpacity="0.9"
+                            stroke="#34d399"
+                            strokeWidth="1"
+                          />
+                          <text
+                            x={coord.x}
+                            y={coord.y - 23}
+                            fontSize="8.5"
+                            fontFamily="sans-serif"
+                            fontWeight="900"
+                            textAnchor="middle"
+                            fill="#a7f3d0"
+                          >
+                            🎯 ĐIỂM ĐỘT PHÁ
+                          </text>
+                        </g>
+                      );
+                    })}
+
+                    {/* ⚡ Tử Huyệt Đối Phương (Opponent Flaws & Tactical Vulnerabilities) */}
+                    {engineRadar.vulnerabilities.map((v, vIdx) => {
+                      const coord = getSvgCoord(v.r, v.c);
+                      return (
+                        <g key={`vuln-${vIdx}`} className="animate-pulse">
+                          <circle
+                            cx={coord.x}
+                            cy={coord.y}
+                            r="24"
+                            fill="#ef4444"
+                            fillOpacity="0.25"
+                            stroke="#f87171"
                             strokeWidth="2.5"
                             strokeDasharray="4 2"
                           />
                           <circle
                             cx={coord.x}
                             cy={coord.y}
-                            r="4.5"
-                            fill="#f59e0b"
-                            opacity="0.85"
+                            r="6"
+                            fill="#f87171"
+                          />
+                          <rect
+                            x={coord.x - 38}
+                            y={coord.y + 20}
+                            width="76"
+                            height="16"
+                            rx="8"
+                            fill="#450a0a"
+                            fillOpacity="0.92"
+                            stroke="#f87171"
+                            strokeWidth="1"
                           />
                           <text
                             x={coord.x}
-                            y={coord.y - 23}
-                            fontSize="8"
+                            y={coord.y + 31}
+                            fontSize="8.5"
                             fontFamily="sans-serif"
                             fontWeight="900"
                             textAnchor="middle"
-                            fill="#fef08a"
+                            fill="#fecaca"
                           >
                             ⚡ TỬ HUYỆT
                           </text>
@@ -655,6 +712,43 @@ export default function XiangqiBoard({
             return <span key={`coord-${i}`}>{colNum}</span>;
           })}
         </div>
+
+        {/* Radar Tactical Briefing HUD Card */}
+        {showHeatmap && engineRadar && (
+          <div className="mx-2 mt-2 p-3 bg-gradient-to-br from-[#121624] via-[#1a2133] to-[#121624] border border-purple-500/40 rounded-2xl shadow-[0_0_20px_rgba(168,85,247,0.2)] text-xs">
+            <div className="flex items-center justify-between gap-2 pb-2 border-b border-purple-500/20">
+              <div className="flex items-center gap-1.5 text-purple-300 font-black">
+                <Crosshair className="w-4 h-4 text-purple-400 animate-spin-slow" />
+                <span className="uppercase tracking-wider">Thấu Thị Trận Pháp Pikafish</span>
+              </div>
+              <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-[10px] border border-cyan-500/30">
+                Trục: {engineRadar.attackFlank}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+              {engineRadar.focalTargets[0] && (
+                <div className="p-2 rounded-xl bg-emerald-950/30 border border-emerald-500/30 flex items-start gap-2">
+                  <span className="text-sm">🎯</span>
+                  <div>
+                    <div className="font-bold text-emerald-300 text-[11px]">{engineRadar.focalTargets[0].label}</div>
+                    <div className="text-[10px] text-gray-300 leading-tight">{engineRadar.focalTargets[0].desc}</div>
+                  </div>
+                </div>
+              )}
+
+              {engineRadar.vulnerabilities[0] && (
+                <div className="p-2 rounded-xl bg-rose-950/30 border border-rose-500/30 flex items-start gap-2">
+                  <span className="text-sm">⚡</span>
+                  <div>
+                    <div className="font-bold text-rose-300 text-[11px]">{engineRadar.vulnerabilities[0].label}</div>
+                    <div className="text-[10px] text-gray-300 leading-tight">{engineRadar.vulnerabilities[0].desc}</div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
