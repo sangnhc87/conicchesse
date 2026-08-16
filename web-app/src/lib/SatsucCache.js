@@ -104,11 +104,11 @@ export const SatsucCache = {
 
   // --- LIBRARY MANAGEMENT ---
 
-  saveTreeToLibrary(resultTree) {
+  saveTreeToLibrary(resultTree, customName = null) {
     if (!resultTree || !resultTree.root_fen) return;
     const firstMove = resultTree.tree?.move || 'Sát Cục';
     const firstScore = resultTree.tree?.score || '';
-    const name = `Sát cục ${firstMove} ${firstScore ? `(${firstScore})` : ''} - ${new Date().toLocaleString('vi-VN')}`;
+    const name = customName || `Sát cục ${firstMove} ${firstScore ? `(${firstScore})` : ''} - ${new Date().toLocaleString('vi-VN')}`;
     
     const record = {
       id: Date.now().toString(),
@@ -121,21 +121,42 @@ export const SatsucCache = {
       const stored = storageGet('satsuc_library', '[]');
       const library = JSON.parse(stored);
       
-      // Prevent duplicates by checking if the exact root FEN + tree move exists in recent 10
-      const isDuplicate = library.slice(0, 10).some(item => 
-        item.data.root_fen === resultTree.root_fen && 
-        item.data.tree?.move === resultTree.tree?.move
-      );
-      
-      if (!isDuplicate) {
-        library.unshift(record); // Prepend
-        // Keep max 20 latest trees to prevent localStorage limit
-        if (library.length > 20) library.pop();
-        storageSet('satsuc_library', JSON.stringify(library));
+      // If customName is provided, always add it
+      if (customName) {
+        library.unshift(record);
+      } else {
+        // Prevent duplicates by checking if the exact root FEN + tree move exists in recent 10
+        const isDuplicate = library.slice(0, 10).some(item => 
+          item.data.root_fen === resultTree.root_fen && 
+          item.data.tree?.move === resultTree.tree?.move
+        );
+        
+        if (!isDuplicate) {
+          library.unshift(record);
+        }
       }
+      
+      if (library.length > 30) library.pop();
+      storageSet('satsuc_library', JSON.stringify(library));
     } catch (e) {
       console.warn("Library storage limit reached", e);
     }
+  },
+
+  renameInLibrary(id, newName) {
+    if (!id || !newName) return false;
+    try {
+      const library = this.getLibrary();
+      const item = library.find(x => x.id === id);
+      if (item) {
+        item.name = newName.trim();
+        storageSet('satsuc_library', JSON.stringify(library));
+        return true;
+      }
+    } catch (e) {
+      console.warn("Failed to rename in library", e);
+    }
+    return false;
   },
 
   getLibrary() {
@@ -178,3 +199,5 @@ export const SatsucCache = {
     localStorage.removeItem('satsuc_tablebase');
   }
 };
+
+export default SatsucCache;

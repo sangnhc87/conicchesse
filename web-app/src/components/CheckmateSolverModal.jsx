@@ -1,63 +1,102 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Bot, Play, StopCircle, Copy, Check, CheckCircle2, ChevronRight, ChevronDown, Download, Upload, Eye, Undo2, Map, BookOpen, Trash2, FolderOpen } from 'lucide-react';
-import { engineManager } from './EngineManager';
-import { makeMove, boardToFen, parseFen, uciToMove } from './XiangqiLogic';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { 
+  X, Bot, Play, Pause, StopCircle, Copy, Check, CheckCircle2, 
+  ChevronRight, ChevronDown, Download, Upload, Eye, Undo2, 
+  Map, BookOpen, Trash2, FolderOpen, RotateCcw, GitFork, 
+  Layers, Crown, Zap, Sparkles, Maximize2, Minimize2, ArrowRight,
+  Pencil, Save, FastForward, Rewind, Swords, Compass, HelpCircle,
+  Volume2, VolumeX, ShieldAlert
+} from 'lucide-react';
+import confetti from 'canvas-confetti';
 import XiangqiBoard from './XiangqiBoard';
-import { SatsucCache } from '../lib/SatsucCache';
+import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves, PIECE_NAMES } from './XiangqiLogic';
+import SatsucCache from '../lib/SatsucCache';
+import { sound } from './AudioEngine';
 
-// Helper: Deep copy the board array (10x9)
-const cloneBoard = (board) => board.map(row => [...row]);
+// Tactical role translations & explanations
+const VI_ROLE_NAMES = {
+  king: 'Tướng',
+  advisor: 'Sĩ',
+  elephant: 'Tượng',
+  rook: 'Xe',
+  knight: 'Mã',
+  cannon: 'Pháo',
+  pawn: 'Tốt'
+};
+
+function getTacticalExplanation(moveText, score, turn) {
+  if (!moveText) return 'Nước cờ chuẩn xác theo tính toán của Pikafish.';
+  if (score && score.includes('#M1')) {
+    return '🎯 Đòn sát chiêu dứt điểm! Đối phương lập tức hết nước chống đỡ và thua cuộc.';
+  }
+  if (score && score.includes('#M2')) {
+    return '⚡ Nước chiếu/phong tỏa hiểm hóc! Buộc đối phương rơi vào thế cờ tuyệt lộ sau 2 nước.';
+  }
+  if (turn === 'red') {
+    if (moveText.includes('tiến') || moveText.includes('.')) {
+      return '🔥 Đỏ dâng quân áp sát trận địa, công phá trục phòng ngự hiểm yếu của Đen.';
+    }
+    if (moveText.includes('bình') || moveText.includes('-')) {
+      return '⚔️ Đỏ điều quân chuyển hướng tấn công, chiếm lĩnh lộ cờ then chốt để kết liễu.';
+    }
+    return '🛡️ Đỏ cơ động vị trí, giăng bẫy sát cục không thể hóa giải.';
+  } else {
+    return '🛡️ Đen gượng gạo tìm phương án chống đỡ nhằm kéo dài trận đấu.';
+  }
+}
 
 // Recursive Solver Logic
 const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxBlack, onProgress, checkAbort) => {
   if (checkAbort()) return null;
-  if (currentDepth > maxDepth) return { note: "Max depth reached" };
-
-  const isRed = currentTurn === 'red';
-  const multiPv = isRed ? 1 : maxBlack;
-
-  onProgress(`Đang phân tích độ sâu ${currentDepth} (${isRed ? 'Đỏ' : 'Đen'} đi)...`);
+  if (currentDepth > maxDepth) {
+    return { note: "Đạt giới hạn độ sâu" };
+  }
 
   try {
+    const isRed = currentTurn === 'red';
+    const multiPv = isRed ? 1 : maxBlack;
+
+    const engineManager = (await import('./EngineManager')).default;
     const candidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, 14, multiPv);
-    
+
     if (checkAbort()) return null;
 
     if (!candidates || candidates.length === 0 || !candidates[0].move) {
-      return { note: "Checkmate or Stalemate" };
+      return { note: "Sát cục hoàn tất (Tất Thắng)" };
     }
 
     if (isRed) {
-      // Red: Take the best move
       const best = candidates[0];
       const move = best.move;
       const score = best.scoreText || `cp ${best.score}`;
       
-      const newBoard = cloneBoard(currentBoard);
-      makeMove(newBoard, move);
+      if (!move) return { note: "Sát cục hoàn tất (Tất Thắng)" };
       
-      onProgress(`Đỏ đi ${best.viShort || best.uci} (Điểm: ${score})`);
+      let newBoard = makeMove(currentBoard, move);
+      
+      onProgress(`Đỏ đi ${best.viShort || best.uci} (${score})`);
 
       const reply = await solveTree(newBoard, 'black', currentDepth + 1, maxDepth, maxBlack, onProgress, checkAbort);
       
       return {
         turn: 'red',
         move: best.viShort || best.uci,
-        uci: best.uci,
+        viFull: best.viFull || best.viShort || best.uci,
+        uci: best.uci || moveObjToUci(best.move),
         score,
         reply
       };
     } else {
-      // Black: Take up to maxBlack responses
       const responses = [];
       for (const cand of candidates) {
         if (checkAbort()) return null;
         
         const move = cand.move;
+        if (!move) continue;
+        
         const score = cand.scoreText || `cp ${cand.score}`;
         
-        const newBoard = cloneBoard(currentBoard);
-        makeMove(newBoard, move);
+        let newBoard = makeMove(currentBoard, move);
         
         onProgress(`Phân tích nhánh Đen đi ${cand.viShort || cand.uci}...`);
         
@@ -65,7 +104,8 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
         
         responses.push({
           move: cand.viShort || cand.uci,
-          uci: cand.uci,
+          viFull: cand.viFull || cand.viShort || cand.uci,
+          uci: cand.uci || moveObjToUci(cand.move),
           score,
           red_reply: reply
         });
@@ -77,49 +117,120 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
     }
   } catch (err) {
     console.error("Solver error:", err);
-    return { note: "Error analyzing node" };
+    return { note: "Kết thúc nhánh" };
   }
 };
 
-// Tree Node Renderer Component
-const TreeNode = ({ node }) => {
-  const [expanded, setExpanded] = useState(true);
-
+// Visual Flowchart Tree Component
+const FlowchartNode = ({ node, pathPrefix, activePath, onSelectPath, level = 0 }) => {
   if (!node) return null;
+
   if (node.note) {
-    return <div className="text-gray-500 italic ml-4 text-xs flex items-center gap-1"><CheckCircle2 className="w-3 h-3 text-emerald-500"/> {node.note}</div>;
+    return (
+      <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs font-bold shadow-lg shadow-emerald-950/40 animate-in fade-in">
+        <Crown className="w-4 h-4 text-amber-400 flex-shrink-0" />
+        <span>{node.note}</span>
+      </div>
+    );
   }
 
   if (node.turn === 'red') {
+    const currentStepPath = [...pathPrefix, 0];
+    const isNodeActive = activePath.slice(0, currentStepPath.length).every((v, i) => v === currentStepPath[i]) && activePath.length >= currentStepPath.length;
+    const isExactMatch = activePath.length === currentStepPath.length && isNodeActive;
+
     return (
-      <div className="ml-2 border-l-2 border-[#323d54] pl-2 py-1 my-1">
-        <div className="flex items-center gap-1.5 cursor-pointer text-sm font-semibold text-red-400" onClick={() => setExpanded(!expanded)}>
-          {expanded ? <ChevronDown className="w-3.5 h-3.5 text-gray-400" /> : <ChevronRight className="w-3.5 h-3.5 text-gray-400" />}
-          🔴 Đỏ đi: {node.move} <span className="text-[10px] bg-[#1a1f2b] px-1.5 py-0.5 rounded text-gray-400">{node.score}</span>
+      <div className="flex flex-col gap-2 relative">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => onSelectPath(currentStepPath)}
+            className={`flex items-center gap-3 px-4 py-3 rounded-2xl border text-xs font-bold transition-all shadow-md group text-left ${
+              isExactMatch
+                ? 'bg-gradient-to-r from-red-950 via-red-900 to-amber-950/60 border-amber-400 text-amber-300 ring-2 ring-amber-400/40 shadow-red-950/80 scale-[1.02]'
+                : isNodeActive
+                  ? 'bg-red-950/80 border-red-500/60 text-red-200'
+                  : 'bg-[#181d2a] hover:bg-red-950/40 border-[#2a3449] hover:border-red-500/40 text-gray-300'
+            }`}
+          >
+            <span className="w-6 h-6 rounded-full bg-red-500/30 text-red-400 flex items-center justify-center text-xs font-black border border-red-500/40 shadow-inner">
+              Đ
+            </span>
+            <div>
+              <div className="font-extrabold text-sm tracking-wide text-red-200 group-hover:text-amber-300">
+                {node.viFull || node.move}
+              </div>
+              <div className="text-[10px] text-gray-400 font-mono mt-0.5">{node.score}</div>
+            </div>
+            <ArrowRight className={`w-4 h-4 ml-auto transition-transform ${isExactMatch ? 'text-amber-400 translate-x-1' : 'text-gray-600 group-hover:text-red-400'}`} />
+          </button>
         </div>
-        {expanded && (
-          <div className="ml-4 mt-1">
-            <TreeNode node={node.reply} />
+
+        {node.reply && (
+          <div className="pl-4 ml-3 border-l-2 border-[#2b3548] flex flex-col gap-2 pt-1">
+            <FlowchartNode 
+              node={node.reply} 
+              pathPrefix={currentStepPath} 
+              activePath={activePath} 
+              onSelectPath={onSelectPath} 
+              level={level + 1} 
+            />
           </div>
         )}
       </div>
     );
   }
 
-  if (node.turn === 'black') {
+  if (node.turn === 'black' && node.responses) {
     return (
-      <div className="ml-2 border-l-2 border-[#323d54] pl-2 py-1 my-1">
-        <div className="text-xs font-bold text-gray-400 mb-1 flex items-center gap-1">
-          ⚫ Đen có {node.responses.length} cách chống đỡ:
+      <div className="flex flex-col gap-2.5">
+        <div className="text-[11px] font-bold text-blue-400/90 flex items-center gap-1.5 uppercase tracking-wider">
+          <GitFork className="w-3.5 h-3.5" />
+          <span>Đen chống đỡ ({node.responses.length} phương án):</span>
         </div>
-        {node.responses.map((resp, idx) => (
-          <div key={idx} className="mb-2 bg-[#171b26] p-1.5 rounded border border-[#262c3b]">
-            <div className="text-sm text-blue-300 font-medium mb-1">
-              Phán án {idx + 1}: {resp.move} <span className="text-[10px] bg-[#222838] px-1.5 py-0.5 rounded text-gray-400">{resp.score}</span>
-            </div>
-            <TreeNode node={resp.red_reply} />
-          </div>
-        ))}
+        <div className="grid grid-cols-1 gap-2.5">
+          {node.responses.map((resp, idx) => {
+            const respPath = [...pathPrefix, idx];
+            const isNodeActive = activePath.slice(0, respPath.length).every((v, i) => v === respPath[i]) && activePath.length >= respPath.length;
+            const isExactMatch = activePath.length === respPath.length && isNodeActive;
+
+            return (
+              <div key={idx} className="flex flex-col gap-2 bg-[#121622]/90 border border-[#232c3f] p-3 rounded-2xl shadow-sm">
+                <button
+                  onClick={() => onSelectPath(respPath)}
+                  className={`flex items-center justify-between p-3 rounded-xl border text-xs font-bold transition-all text-left ${
+                    isExactMatch
+                      ? 'bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 border-amber-400 text-amber-300 ring-2 ring-amber-400/40 scale-[1.01]'
+                      : isNodeActive
+                        ? 'bg-blue-950/80 border-blue-500/60 text-blue-200'
+                        : 'bg-[#181d2a] hover:bg-[#202738] border-[#2c374d] text-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-black border border-blue-500/30">
+                      #{idx + 1}
+                    </span>
+                    <span className="text-blue-300 font-black text-sm">{resp.viFull || resp.move}</span>
+                  </div>
+                  <span className="text-[10px] bg-black/40 px-2.5 py-1 rounded-lg text-gray-400 font-mono border border-[#2a3449]">
+                    {resp.score}
+                  </span>
+                </button>
+
+                {resp.red_reply && (
+                  <div className="pl-3 ml-2 border-l-2 border-[#263145] pt-1">
+                    <FlowchartNode 
+                      node={resp.red_reply} 
+                      pathPrefix={respPath} 
+                      activePath={activePath} 
+                      onSelectPath={onSelectPath} 
+                      level={level + 1} 
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -127,162 +238,40 @@ const TreeNode = ({ node }) => {
   return null;
 };
 
-// Interactive Tree Component (Smart View)
-const InteractiveTree = ({ resultTree }) => {
-  const [path, setPath] = useState([]);
-
-  if (!resultTree) return null;
-
-  const parsed = parseFen(resultTree.root_fen);
-  let currentBoard = parsed.board.map(row => [...row]); // clone the board array
-  let currentNode = resultTree.tree;
-  let currentTurn = parsed.turn;
-  let historyMoves = []; // To display breadcrumbs
-
-  // Traverse the path
-  for (let i = 0; i < path.length; i++) {
-    const choiceIdx = path[i];
-    if (currentNode.note) break;
-
-    if (currentNode.turn === 'red') {
-      const move = uciToMove(currentNode.uci);
-      makeMove(currentBoard, move);
-      historyMoves.push(currentNode.move);
-      currentNode = currentNode.reply;
-      currentTurn = 'black';
-    } else {
-      const resp = currentNode.responses[choiceIdx];
-      const move = uciToMove(resp.uci);
-      makeMove(currentBoard, move);
-      historyMoves.push(resp.move);
-      currentNode = resp.red_reply;
-      currentTurn = 'red';
-    }
+// Text Tree Component
+const TextTree = ({ node, indent = 0 }) => {
+  if (!node) return null;
+  if (node.note) {
+    return <div style={{ paddingLeft: `${indent * 16}px` }} className="text-emerald-400 font-bold text-xs">➔ {node.note}</div>;
   }
-
-  const handleSelect = (idx) => {
-    setPath([...path, idx]);
-  };
-
-  const handleUndo = (steps) => {
-    setPath(path.slice(0, path.length - steps));
-  };
-
-  const handleBreadcrumbClick = (idx) => {
-    // idx is the index in historyMoves. We want to keep up to idx + 1 moves.
-    setPath(path.slice(0, idx + 1));
-  };
-
-  return (
-    <div className="flex gap-4 flex-1 min-h-[500px] max-h-full">
-      {/* Mini Board (Left) */}
-      <div className="w-[450px] flex-shrink-0 bg-[#0d1017] rounded-lg border border-[#262c3b] overflow-hidden flex flex-col relative shadow-inner">
-        <div className="p-3 bg-[#171b26] border-b border-[#262c3b] font-bold text-amber-400 text-sm flex justify-between items-center">
-          <span>Bàn cờ Phân tích</span>
-          <span className="text-[10px] bg-amber-500/20 px-2 py-0.5 rounded text-amber-300">Đồng bộ với Cây</span>
+  if (node.turn === 'red') {
+    return (
+      <div>
+        <div style={{ paddingLeft: `${indent * 16}px` }} className="text-red-400 font-semibold text-xs py-0.5">
+          🔴 Đỏ: {node.viFull || node.move} <span className="text-[10px] text-gray-500">({node.score})</span>
         </div>
-        <div className="flex-1 flex items-center justify-center p-4">
-          <div style={{ width: '400px', height: '450px' }}>
-            <XiangqiBoard
-              board={currentBoard}
-              turn={currentTurn}
-              interactive={false}
-              showEvalBar={false}
-            />
+        <TextTree node={node.reply} indent={indent + 1} />
+      </div>
+    );
+  }
+  if (node.turn === 'black' && node.responses) {
+    return (
+      <div>
+        {node.responses.map((resp, idx) => (
+          <div key={idx} className="my-1 border-l border-blue-500/30 pl-2">
+            <div style={{ paddingLeft: `${indent * 16}px` }} className="text-blue-400 font-semibold text-xs py-0.5">
+              ⚫ Đen #{idx + 1}: {resp.viFull || resp.move} <span className="text-[10px] text-gray-500">({resp.score})</span>
+            </div>
+            <TextTree node={resp.red_reply} indent={indent + 1} />
           </div>
-        </div>
+        ))}
       </div>
-
-      {/* Interactive Explorer (Right) */}
-      <div className="flex-1 flex flex-col min-w-0 bg-[#12151d] rounded-lg border border-[#262c3b] overflow-hidden">
-        
-        {/* Breadcrumb Header */}
-        <div className="p-2 border-b border-[#262c3b] bg-[#171b26] flex items-center gap-2 overflow-x-auto custom-scrollbar whitespace-nowrap">
-          <button 
-            onClick={() => setPath([])}
-            className="flex items-center gap-1 px-2 py-1 rounded bg-[#222838] hover:bg-[#2e374d] text-gray-300 text-xs font-bold transition-colors"
-          >
-            <Map className="w-3.5 h-3.5 text-amber-400" /> Gốc
-          </button>
-          {historyMoves.map((m, idx) => (
-            <React.Fragment key={idx}>
-              <ChevronRight className="w-3.5 h-3.5 text-gray-600 flex-shrink-0" />
-              <button
-                onClick={() => handleBreadcrumbClick(idx)}
-                className={`px-2 py-1 rounded text-xs font-bold transition-colors ${idx === historyMoves.length - 1 ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' : 'bg-[#222838] hover:bg-[#2e374d] text-gray-300'}`}
-              >
-                {m}
-              </button>
-            </React.Fragment>
-          ))}
-        </div>
-
-        {/* Current Node Options */}
-        <div className="flex-1 p-3 overflow-y-auto custom-scrollbar">
-          {currentNode?.note ? (
-            <div className="flex flex-col items-center justify-center h-full text-center p-4">
-              <CheckCircle2 className="w-10 h-10 text-emerald-500 mb-2 opacity-50" />
-              <p className="text-emerald-400 font-bold">{currentNode.note}</p>
-              <button onClick={() => handleUndo(1)} className="mt-4 flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#222838] hover:bg-[#2e374d] text-sm text-gray-300 transition-colors">
-                <Undo2 className="w-4 h-4" /> Lùi lại
-              </button>
-            </div>
-          ) : currentNode?.turn === 'red' ? (
-            <div className="flex flex-col items-center justify-center h-full gap-4">
-              <p className="text-base text-gray-400 font-semibold mb-2">Đỏ phát động tấn công:</p>
-              <button
-                onClick={() => handleSelect(0)}
-                className="w-full max-w-sm flex items-center justify-between p-4 rounded-xl bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 transition-all shadow-md group"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-sm font-bold shadow-inner">Đỏ</span>
-                  <span className="text-red-300 font-black text-xl tracking-wide">{currentNode.move}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs bg-black/40 px-2 py-1 rounded text-gray-400 font-mono">{currentNode.score}</span>
-                  <ChevronRight className="w-6 h-6 text-red-500/50 group-hover:text-red-400 transition-colors" />
-                </div>
-              </button>
-              {path.length > 0 && (
-                <button onClick={() => handleUndo(1)} className="mt-3 flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 transition-colors bg-[#222838] hover:bg-[#2e374d] px-4 py-2 rounded-lg">
-                  <Undo2 className="w-4 h-4" /> Quay lui
-                </button>
-              )}
-            </div>
-          ) : currentNode?.turn === 'black' ? (
-            <div className="flex flex-col h-full p-2">
-              <p className="text-base text-gray-400 font-semibold mb-4 text-center">Đen có {currentNode.responses.length} phương án chống đỡ:</p>
-              <div className="flex flex-col gap-3 max-w-sm mx-auto w-full">
-                {currentNode.responses.map((resp, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handleSelect(idx)}
-                    className="w-full flex items-center justify-between p-4 rounded-xl bg-[#1a2035] hover:bg-[#252f47] border border-[#323d54] transition-all shadow-sm group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-bold shadow-inner">{idx + 1}</span>
-                      <span className="text-blue-300 font-bold text-lg tracking-wide">{resp.move}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs bg-black/40 px-2 py-1 rounded text-gray-400 font-mono">{resp.score}</span>
-                      <ChevronRight className="w-6 h-6 text-gray-600 group-hover:text-blue-400 transition-colors" />
-                    </div>
-                  </button>
-                ))}
-              </div>
-              {path.length > 0 && (
-                <button onClick={() => handleUndo(1)} className="mt-4 mx-auto flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 transition-colors bg-[#222838] hover:bg-[#2e374d] px-4 py-2 rounded-lg">
-                  <Undo2 className="w-4 h-4" /> Quay lui
-                </button>
-              )}
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
+  return null;
 };
 
+// Main Checkmate Solver Modal Component
 export default function CheckmateSolverModal({
   isOpen,
   onClose,
@@ -294,13 +283,36 @@ export default function CheckmateSolverModal({
   const [isSolving, setIsSolving] = useState(false);
   const [progressMsg, setProgressMsg] = useState('');
   const [resultTree, setResultTree] = useState(null);
-  const [activeTab, setActiveTab] = useState('smart'); // 'smart' | 'tree' | 'json'
+  const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard' | 'flowchart' | 'text' | 'json'
   const [copied, setCopied] = useState(false);
   const [showLibrary, setShowLibrary] = useState(false);
   const [libraryItems, setLibraryItems] = useState([]);
+  const [flipped, setFlipped] = useState(false);
+  const [path, setPath] = useState([]);
+  const [autoPlaying, setAutoPlaying] = useState(false);
+  const [autoPlaySpeed, setAutoPlaySpeed] = useState(1200); // ms
+  
+  // Interactive board selection state
+  const [selectedSquare, setSelectedSquare] = useState(null);
+  const [hoveredResponseMove, setHoveredResponseMove] = useState(null);
+  const [warningToast, setWarningToast] = useState('');
+  
+  // Renaming & Deleting state
+  const [editingId, setEditingId] = useState(null);
+  const [editingName, setEditingName] = useState('');
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [saveNameInput, setSaveNameInput] = useState('');
+  const [appToast, setAppToast] = useState('');
+
+  const showToast = (msg) => {
+    setAppToast(msg);
+    setTimeout(() => setAppToast(''), 3000);
+  };
   
   const abortRef = useRef(false);
   const fileInputRef = useRef(null);
+  const autoPlayTimerRef = useRef(null);
 
   const loadLibrary = () => {
     setLibraryItems(SatsucCache.getLibrary());
@@ -315,14 +327,184 @@ export default function CheckmateSolverModal({
       abortRef.current = true;
       setIsSolving(false);
       setResultTree(null);
+      setPath([]);
+      setAutoPlaying(false);
+      setSelectedSquare(null);
     } else {
       abortRef.current = false;
     }
   }, [isOpen]);
 
+  // Compute current board & state based on path
+  const { currentBoard, currentTurn, currentNode, historyMoves, lastMove, expectedNextMove } = useMemo(() => {
+    if (!resultTree) {
+      return { 
+        currentBoard: initialBoard, 
+        currentTurn: initialTurn, 
+        currentNode: null, 
+        historyMoves: [], 
+        lastMove: null,
+        expectedNextMove: null
+      };
+    }
+
+    const parsed = parseFen(resultTree.root_fen);
+    let b = parsed.board.map(row => [...row]);
+    let curr = resultTree.tree;
+    let turn = parsed.turn;
+    const history = [];
+    let lMove = null;
+
+    for (let i = 0; i < path.length; i++) {
+      if (!curr || curr.note) break;
+      const choiceIdx = path[i];
+
+      if (curr.turn === 'red') {
+        const moveObj = uciToMove(curr.uci);
+        if (moveObj) {
+          b = makeMove(b, moveObj);
+          lMove = moveObj;
+        }
+        history.push({ 
+          text: curr.viFull || curr.move, 
+          short: curr.move,
+          turn: 'red', 
+          score: curr.score,
+          pathIndex: i 
+        });
+        curr = curr.reply;
+        turn = 'black';
+      } else if (curr.turn === 'black' && curr.responses) {
+        const resp = curr.responses[choiceIdx];
+        if (resp) {
+          const moveObj = uciToMove(resp.uci);
+          if (moveObj) {
+            b = makeMove(b, moveObj);
+            lMove = moveObj;
+          }
+          history.push({ 
+            text: resp.viFull || resp.move, 
+            short: resp.move,
+            turn: 'black', 
+            score: resp.score,
+            pathIndex: i 
+          });
+          curr = resp.red_reply;
+          turn = 'red';
+        }
+      }
+    }
+
+    let nextMoveObj = null;
+    if (curr && curr.turn === 'red' && curr.uci) {
+      nextMoveObj = uciToMove(curr.uci);
+    }
+
+    return {
+      currentBoard: b,
+      currentTurn: turn,
+      currentNode: curr,
+      historyMoves: history,
+      lastMove: lMove,
+      expectedNextMove: nextMoveObj
+    };
+  }, [resultTree, path, initialBoard, initialTurn]);
+
+  // Confetti when checkmate reached
+  useEffect(() => {
+    if (currentNode?.note) {
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+      if (sound?.playWin) sound.playWin();
+      else if (sound?.playMove) sound.playMove();
+    }
+  }, [currentNode]);
+
+  // Auto-play effect
+  useEffect(() => {
+    if (!autoPlaying) {
+      if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
+      return;
+    }
+
+    autoPlayTimerRef.current = setInterval(() => {
+      if (!currentNode || currentNode.note) {
+        setAutoPlaying(false);
+        return;
+      }
+
+      if (currentNode.turn === 'red') {
+        sound.playMove();
+        setPath(prev => [...prev, 0]);
+      } else if (currentNode.turn === 'black' && currentNode.responses?.length > 0) {
+        sound.playMove();
+        setPath(prev => [...prev, 0]);
+      } else {
+        setAutoPlaying(false);
+      }
+    }, autoPlaySpeed);
+
+    return () => {
+      if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
+    };
+  }, [autoPlaying, currentNode, autoPlaySpeed]);
+
+  // Interactive square click on the board
+  const handleBoardSquareClick = (r, c) => {
+    if (!resultTree || !currentNode || currentNode.note) return;
+
+    if (!selectedSquare) {
+      // First click: select piece
+      const piece = currentBoard[r]?.[c];
+      if (piece) {
+        const isPieceRed = piece === piece.toUpperCase();
+        if ((currentTurn === 'red' && isPieceRed) || (currentTurn === 'black' && !isPieceRed)) {
+          setSelectedSquare({ r, c });
+          sound.playSelect();
+        }
+      }
+    } else {
+      // Second click: attempt move
+      const fromR = selectedSquare.r;
+      const fromC = selectedSquare.c;
+      const toR = r;
+      const toC = c;
+      setSelectedSquare(null);
+
+      if (fromR === toR && fromC === toC) return;
+
+      const attemptedUci = `${String.fromCharCode(97 + fromC)}${9 - fromR}${String.fromCharCode(97 + toC)}${9 - toR}`;
+
+      if (currentNode.turn === 'red') {
+        if (currentNode.uci === attemptedUci) {
+          sound.playMove();
+          setPath(prev => [...prev, 0]);
+          setWarningToast('');
+        } else {
+          setWarningToast('⚠️ Nước đi không nằm trong cây sát cục tối ưu!');
+          setTimeout(() => setWarningToast(''), 2500);
+        }
+      } else if (currentNode.turn === 'black' && currentNode.responses) {
+        const matchedIdx = currentNode.responses.findIndex(resp => resp.uci === attemptedUci);
+        if (matchedIdx !== -1) {
+          sound.playMove();
+          setPath(prev => [...prev, matchedIdx]);
+          setWarningToast('');
+        } else {
+          setWarningToast('⚠️ Phương án chống đỡ này nằm ngoài cây phân tích!');
+          setTimeout(() => setWarningToast(''), 2500);
+        }
+      }
+    }
+  };
+
   const handleStart = async () => {
     setIsSolving(true);
     setResultTree(null);
+    setPath([]);
     abortRef.current = false;
     
     const tree = await solveTree(
@@ -335,14 +517,15 @@ export default function CheckmateSolverModal({
       () => abortRef.current
     );
     
-    if (!abortRef.current) {
+    if (!abortRef.current && tree) {
       const finalTree = {
         root_fen: boardToFen(initialBoard, initialTurn),
         tree
       };
       setResultTree(finalTree);
       SatsucCache.addTree(finalTree);
-      setProgressMsg('Đã giải xong!');
+      setProgressMsg('Đã giải xong và lưu vào Từ Điển Sát Cục!');
+      setActiveTab('dashboard');
     }
     setIsSolving(false);
   };
@@ -368,7 +551,7 @@ export default function CheckmateSolverModal({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `satsuc_tree_${Date.now()}.json`;
+    a.download = `satsuc_${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -382,176 +565,308 @@ export default function CheckmateSolverModal({
         const data = JSON.parse(evt.target.result);
         if (data.root_fen && data.tree) {
           setResultTree(data);
+          setPath([]);
           SatsucCache.addTree(data);
-          setProgressMsg('Đã nạp cây sát cục từ file và lưu vào Từ Điển!');
-          setActiveTab('smart');
+          setProgressMsg('Đã nạp cây sát cục từ file!');
+          setActiveTab('dashboard');
         } else {
-          alert('File JSON không đúng định dạng cây Sát Cục!');
+          showToast('File JSON không đúng cấu trúc Sát Cục!');
         }
       } catch (err) {
-        alert('Lỗi đọc file JSON!');
+        showToast('Lỗi đọc file JSON!');
       }
     };
     reader.readAsText(file);
-    // Reset file input so same file can be loaded again if needed
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
+
+  // Group history into move pairs (1. Red - Black, 2. Red - ...)
+  const movePairs = useMemo(() => {
+    const pairs = [];
+    for (let i = 0; i < historyMoves.length; i += 2) {
+      pairs.push({
+        moveNumber: Math.floor(i / 2) + 1,
+        red: historyMoves[i] || null,
+        black: historyMoves[i + 1] || null
+      });
+    }
+    return pairs;
+  }, [historyMoves]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-      <div className="bg-[#12151d] w-full max-w-5xl rounded-2xl border border-[#262c3b] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] h-full">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-2 md:p-4 animate-in fade-in duration-200">
+      <div className="bg-[#0e121b] w-full max-w-[98vw] xl:max-w-7xl rounded-3xl border border-[#263147] shadow-2xl overflow-hidden flex flex-col h-[95vh]">
         
-        {/* Header */}
-        <div className="p-4 border-b border-[#262c3b] bg-[#171b26] flex items-center justify-between">
+        {/* Top Header */}
+        <div className="px-5 py-3.5 border-b border-[#222c3f] bg-[#131825] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
-              <Bot className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500/25 via-red-500/20 to-amber-600/30 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-inner">
+              <Bot className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-gray-100">Dò Sát Cục (Tất Thắng)</h2>
-              <p className="text-xs text-gray-400">Tự động đệ quy tạo cây phương án bằng Pikafish</p>
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-black text-gray-100 uppercase tracking-wide">
+                  Trung Tâm Dò Sát Cục & Sơ Đồ Biến Hóa Tất Thắng
+                </h2>
+                <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500/20 to-red-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-black uppercase tracking-wider">
+                  Pikafish AI 4000+
+                </span>
+              </div>
+              <p className="text-xs text-gray-400">
+                Phân tích cây sát chiêu đệ quy, tương tác trực tiếp trên bàn cờ & trực quan hóa từng biến thế
+              </p>
             </div>
           </div>
-          <button
-            onClick={() => { handleStop(); onClose(); }}
-            className="p-2 rounded-lg hover:bg-[#262c3b] text-gray-400 hover:text-white transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowLibrary(!showLibrary)}
+              disabled={isSolving}
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl transition-all text-xs font-bold border ${
+                showLibrary 
+                  ? 'bg-amber-500 text-amber-950 border-amber-400 shadow-lg shadow-amber-500/20' 
+                  : 'bg-[#1c2333] hover:bg-[#273248] text-gray-300 border-[#2f3d57]'
+              }`}
+            >
+              <BookOpen className="w-4 h-4" /> Thư Viện Đã Lưu ({libraryItems.length})
+            </button>
+            <button
+              onClick={() => { handleStop(); onClose(); }}
+              className="p-2 rounded-xl hover:bg-[#252f44] text-gray-400 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        {/* Config Area */}
-        <div className="p-4 border-b border-[#262c3b] bg-[#1a1f2b]">
-          <div className="flex gap-4 mb-4">
-            <div className="flex-1">
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Số nhánh tối đa của Đen</label>
+        {/* Configuration Toolbar */}
+        <div className="px-5 py-2.5 border-b border-[#222c3f] bg-[#161c29] flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-gray-400">Nhánh Đen:</span>
               <select
                 value={maxBlack}
                 onChange={(e) => setMaxBlack(Number(e.target.value))}
                 disabled={isSolving}
-                className="w-full p-2 bg-[#12151d] text-sm text-gray-200 rounded-lg border border-[#262c3b] focus:border-amber-500/50 outline-none"
+                className="bg-[#0e121b] text-xs font-bold text-gray-200 px-3 py-1.5 rounded-xl border border-[#2b374e] focus:border-amber-500 outline-none"
               >
-                <option value={1}>1 (Nhanh nhất)</option>
-                <option value={2}>2 nhánh</option>
-                <option value={3}>3 nhánh (Khuyên dùng)</option>
-                <option value={5}>5 nhánh (Chậm)</option>
+                <option value={1}>1 nhánh (Thẳng 1 lèo)</option>
+                <option value={2}>2 nhánh chống</option>
+                <option value={3}>3 nhánh (Chuẩn nhất)</option>
+                <option value={5}>5 nhánh (Toàn diện)</option>
               </select>
             </div>
-            <div className="flex-1">
-              <label className="block text-xs font-semibold text-gray-400 mb-1">Độ sâu đệ quy tối đa</label>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-gray-400">Độ sâu:</span>
               <select
                 value={maxDepth}
                 onChange={(e) => setMaxDepth(Number(e.target.value))}
                 disabled={isSolving}
-                className="w-full p-2 bg-[#12151d] text-sm text-gray-200 rounded-lg border border-[#262c3b] focus:border-amber-500/50 outline-none"
+                className="bg-[#0e121b] text-xs font-bold text-gray-200 px-3 py-1.5 rounded-xl border border-[#2b374e] focus:border-amber-500 outline-none"
               >
-                <option value={10}>10 Plies (Nhanh)</option>
-                <option value={15}>15 Plies (Tiêu chuẩn)</option>
-                <option value={20}>20 Plies (Chậm)</option>
+                <option value={10}>10 nước (Nhanh)</option>
+                <option value={15}>15 nước (Khuyên dùng)</option>
+                <option value={25}>25 nước (Sát cục sâu)</option>
               </select>
             </div>
-          </div>
 
-          <div className="flex items-center gap-3">
             {!isSolving ? (
               <button
                 onClick={handleStart}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold transition-all text-sm"
+                className="flex items-center gap-2 px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-amber-950 font-black text-xs shadow-lg shadow-amber-500/20 transition-all active:scale-95"
               >
-                <Play className="w-4 h-4" />
-                Bắt đầu Dò
+                <Play className="w-3.5 h-3.5 fill-current" />
+                Bắt Đầu Dò Sát Cục
               </button>
             ) : (
               <button
                 onClick={handleStop}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500 hover:bg-red-400 text-white font-bold transition-all text-sm"
+                className="flex items-center gap-2 px-4 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs shadow-lg shadow-red-600/20 transition-all"
               >
-                <StopCircle className="w-4 h-4" />
-                Dừng lại
+                <StopCircle className="w-3.5 h-3.5" />
+                Dừng Quét
               </button>
             )}
-            
-            <div className="flex-1 flex items-center justify-end gap-2">
-              {isSolving && (
-                <div className="text-xs text-amber-400 animate-pulse flex items-center gap-2 mr-2">
-                  <div className="w-4 h-4 rounded-full border-2 border-amber-400 border-t-transparent animate-spin" />
-                  {progressMsg}
-                </div>
-              )}
-              {!isSolving && progressMsg && (
-                <div className="text-xs text-emerald-400 mr-2">{progressMsg}</div>
-              )}
-              
-              <input 
-                type="file" 
-                accept=".json" 
-                ref={fileInputRef} 
-                onChange={handleLoadFile} 
-                className="hidden" 
-              />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={isSolving}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#222838] hover:bg-[#2e374d] text-gray-300 transition-colors text-xs font-bold border border-[#323d54]"
-                title="Tải tệp Sát Cục (JSON) đã lưu"
-              >
-                <Upload className="w-3.5 h-3.5" /> Nạp File
-              </button>
-              <button
-                onClick={() => setShowLibrary(!showLibrary)}
-                disabled={isSolving}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors text-xs font-bold border border-[#323d54] ${showLibrary ? 'bg-amber-500/20 text-amber-400' : 'bg-[#222838] hover:bg-[#2e374d] text-gray-300'}`}
-                title="Xem thư viện Sát Cục đã lưu"
-              >
-                <BookOpen className="w-3.5 h-3.5" /> Thư Viện
-              </button>
-            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {isSolving && (
+              <div className="text-xs text-amber-400 font-bold animate-pulse flex items-center gap-2 bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/20">
+                <div className="w-3.5 h-3.5 rounded-full border-2 border-amber-400 border-t-transparent animate-spin" />
+                {progressMsg}
+              </div>
+            )}
+            {!isSolving && progressMsg && (
+              <div className="text-xs text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                {progressMsg}
+              </div>
+            )}
+
+            <input 
+              type="file" 
+              accept=".json" 
+              ref={fileInputRef} 
+              onChange={handleLoadFile} 
+              className="hidden" 
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isSolving}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1c2333] hover:bg-[#263045] text-gray-300 text-xs font-bold border border-[#2f3d57] transition-colors"
+            >
+              <Upload className="w-3.5 h-3.5" /> Nạp JSON
+            </button>
           </div>
         </div>
 
-        {/* Results Area */}
-        <div className="flex-1 flex flex-col min-h-[300px] bg-[#0d1017]">
+        {/* Main Work Area */}
+        <div className="flex-1 flex overflow-hidden bg-[#0a0d14]">
           {showLibrary ? (
-            <div className="flex-1 flex flex-col p-4 overflow-y-auto custom-scrollbar">
-              <h3 className="text-lg font-bold text-gray-200 mb-4 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-amber-400" /> Thư viện Sát cục ({libraryItems.length})
-              </h3>
+            /* Library View */
+            <div className="flex-1 flex flex-col p-6 overflow-y-auto custom-scrollbar">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-xl font-black text-gray-100 flex items-center gap-2">
+                    <BookOpen className="w-6 h-6 text-amber-400" />
+                    Thư Viện Thế Trận Sát Cục ({libraryItems.length})
+                  </h3>
+                  <p className="text-xs text-gray-400 mt-1">Các thế cờ đã được giải và lưu trữ để nghiên cứu bất cứ lúc nào</p>
+                </div>
+                <button
+                  onClick={() => setShowLibrary(false)}
+                  className="px-4 py-2 rounded-xl bg-[#1c2333] hover:bg-[#28334a] text-gray-300 text-xs font-bold border border-[#2d3950]"
+                >
+                  Đóng Thư Viện
+                </button>
+              </div>
+
               {libraryItems.length === 0 ? (
-                <div className="flex-1 flex flex-col items-center justify-center text-gray-500">
-                  <FolderOpen className="w-12 h-12 mb-3 opacity-20" />
-                  <p>Chưa có sát cục nào được lưu.</p>
+                <div className="flex-1 flex flex-col items-center justify-center text-gray-500 py-16">
+                  <FolderOpen className="w-16 h-16 mb-4 opacity-20" />
+                  <p className="text-base font-semibold">Chưa có cây sát cục nào trong thư viện.</p>
+                  <p className="text-xs text-gray-600 mt-1">Bấm "Bắt Đầu Dò Sát Cục" để AI tự động tạo và lưu trữ cây phương án.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {libraryItems.map(item => (
-                    <div key={item.id} className="bg-[#171b26] border border-[#262c3b] hover:border-[#323d54] rounded-xl p-4 flex flex-col gap-3 transition-colors">
-                      <div className="flex items-start justify-between">
-                        <div className="font-bold text-gray-200 text-sm leading-tight pr-2">{item.name}</div>
-                        <button 
-                          onClick={() => {
-                            if (confirm('Xóa sát cục này?')) {
-                              SatsucCache.deleteFromLibrary(item.id);
-                              loadLibrary();
-                            }
-                          }}
-                          className="text-gray-500 hover:text-red-400 p-1 rounded transition-colors flex-shrink-0"
-                          title="Xóa"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                    <div 
+                      key={item.id} 
+                      className="bg-[#141926] border border-[#252f44] hover:border-amber-500/50 rounded-2xl p-5 flex flex-col justify-between transition-all group hover:shadow-xl hover:shadow-black/50"
+                    >
+                      <div>
+                        {editingId === item.id ? (
+                          <div className="flex items-center gap-1.5 mb-3">
+                            <input
+                              type="text"
+                              value={editingName}
+                              onChange={(e) => setEditingName(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  if (editingName.trim()) {
+                                    SatsucCache.renameInLibrary(item.id, editingName.trim());
+                                    loadLibrary();
+                                  }
+                                  setEditingId(null);
+                                } else if (e.key === 'Escape') {
+                                  setEditingId(null);
+                                }
+                              }}
+                              autoFocus
+                              placeholder="Nhập tên mới..."
+                              className="flex-1 bg-[#0d1017] text-xs font-bold text-gray-100 px-3 py-1.5 rounded-lg border border-amber-500/60 outline-none"
+                            />
+                            <button
+                              onClick={() => {
+                                if (editingName.trim()) {
+                                  SatsucCache.renameInLibrary(item.id, editingName.trim());
+                                  loadLibrary();
+                                }
+                                setEditingId(null);
+                              }}
+                              className="p-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
+                              title="Lưu tên"
+                            >
+                              <Check className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => setEditingId(null)}
+                              className="p-1.5 rounded-lg bg-[#252f44] hover:bg-[#323d54] text-gray-400 hover:text-white transition-colors"
+                              title="Hủy"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ) : confirmDeleteId === item.id ? (
+                          <div className="flex items-center gap-1.5 p-2 bg-red-950/80 border border-red-500/50 rounded-xl mb-2">
+                            <span className="text-xs text-red-200 font-bold flex-1">Xóa thế cờ này?</span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                SatsucCache.deleteFromLibrary(item.id);
+                                loadLibrary();
+                                setConfirmDeleteId(null);
+                                showToast('Đã xóa thế cờ khỏi thư viện');
+                              }}
+                              className="px-2.5 py-1 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-bold transition-colors"
+                            >
+                              Xác Nhận Xóa
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setConfirmDeleteId(null);
+                              }}
+                              className="px-2 py-1 bg-[#252f44] hover:bg-[#323d54] text-gray-300 rounded-lg text-xs transition-colors"
+                            >
+                              Hủy
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="flex items-start justify-between gap-2 mb-2">
+                            <div className="font-extrabold text-gray-100 text-sm leading-snug group-hover:text-amber-300 transition-colors flex-1">
+                              {item.name}
+                            </div>
+                            <div className="flex items-center gap-1 flex-shrink-0">
+                              <button
+                                onClick={() => {
+                                  setEditingId(item.id);
+                                  setEditingName(item.name);
+                                }}
+                                className="text-gray-500 hover:text-amber-400 p-1.5 rounded-lg hover:bg-amber-500/10 transition-colors"
+                                title="Đổi tên sát cục"
+                              >
+                                <Pencil className="w-3.5 h-3.5" />
+                              </button>
+                              <button 
+                                onClick={() => setConfirmDeleteId(item.id)}
+                                className="text-gray-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-red-500/10 transition-colors"
+                                title="Xóa"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="text-[11px] text-gray-500 flex items-center gap-2 mb-4">
+                          <span>{new Date(item.timestamp).toLocaleString('vi-VN')}</span>
+                        </div>
                       </div>
-                      <div className="text-xs text-gray-500">{new Date(item.timestamp).toLocaleString('vi-VN')}</div>
+
                       <button 
                         onClick={() => {
                           setResultTree(item.data);
+                          setPath([]);
                           setShowLibrary(false);
-                          setActiveTab('smart');
+                          setActiveTab('dashboard');
                         }}
-                        className="mt-auto w-full py-2 bg-[#222838] hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/30 text-gray-300 text-xs font-bold rounded-lg transition-colors border border-[#323d54] flex items-center justify-center gap-2"
+                        className="w-full py-2.5 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-amber-950 font-black text-xs rounded-xl transition-all border border-amber-500/30 flex items-center justify-center gap-2"
                       >
-                        <Eye className="w-3.5 h-3.5" /> Khám Phá Ngay
+                        <Eye className="w-4 h-4" /> Khám Phá & Học Ngay
                       </button>
                     </div>
                   ))}
@@ -559,83 +874,560 @@ export default function CheckmateSolverModal({
               )}
             </div>
           ) : resultTree ? (
-            <>
-              {/* Tabs */}
-              <div className="flex items-center gap-1 p-2 border-b border-[#262c3b] bg-[#12151d]">
-                <button
-                  onClick={() => setActiveTab('smart')}
-                  className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors flex items-center gap-1.5 ${activeTab === 'smart' ? 'bg-[#222838] text-amber-400' : 'text-gray-400 hover:text-gray-200'}`}
-                >
-                  <Eye className="w-3.5 h-3.5" /> Khám Phá (Smart)
-                </button>
-                <button
-                  onClick={() => setActiveTab('tree')}
-                  className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${activeTab === 'tree' ? 'bg-[#222838] text-amber-400' : 'text-gray-400 hover:text-gray-200'}`}
-                >
-                  Dạng Text
-                </button>
-                <button
-                  onClick={() => setActiveTab('json')}
-                  className={`px-3 py-1.5 text-xs font-bold rounded-md transition-colors ${activeTab === 'json' ? 'bg-[#222838] text-amber-400' : 'text-gray-400 hover:text-gray-200'}`}
-                >
-                  Dạng JSON
-                </button>
-                
-                <div className="flex-1" />
-                
-                <button
-                  onClick={handleSaveFile}
-                  className="px-3 py-1.5 text-xs font-bold rounded-md bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors flex items-center gap-1.5 mr-1"
-                >
-                  <Download className="w-3.5 h-3.5" /> Lưu File
-                </button>
-                <button
-                  onClick={handleCopyJson}
-                  className="px-3 py-1.5 text-xs font-bold rounded-md bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors flex items-center gap-1.5 mr-1"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  {copied ? 'Đã Copy!' : 'Copy'}
-                </button>
-                <button
-                  onClick={() => {
-                    if(confirm('Bạn có chắc chắn muốn XÓA TOÀN BỘ Từ điển Sát Cục đã lưu?')) {
-                      SatsucCache.clear();
-                      alert('Đã xóa thành công!');
-                    }
-                  }}
-                  className="px-2 py-1.5 text-xs font-bold rounded-md bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
-                  title="Xoá Từ điển Sát Cục lưu trong bộ nhớ"
-                >
-                  Xoá Cache
-                </button>
-              </div>
+            /* Result Tree Explorer */
+            <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
               
-              {/* Content */}
-              <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
-                {activeTab === 'smart' && (
-                  <InteractiveTree resultTree={resultTree} />
-                )}
-                {activeTab === 'tree' && (
-                  <div className="text-gray-200">
-                    <TreeNode node={resultTree.tree} />
+              {/* Left Column: Big Interactive Chessboard */}
+              <div className="w-full md:w-[500px] lg:w-[540px] flex-shrink-0 bg-[#0d1017] border-r border-[#222c3f] flex flex-col justify-between p-4 relative">
+                
+                {/* Board Top Header */}
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-black text-gray-200 uppercase tracking-wider">
+                      Bàn Cờ Tương Tác Sát Cục
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setFlipped(!flipped)}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1a2130] hover:bg-[#263147] text-gray-300 text-[11px] font-bold border border-[#2d3a52] transition-colors"
+                      title="Đổi hướng nhìn bàn cờ"
+                    >
+                      <RotateCcw className="w-3 h-3" /> Đổi Bên
+                    </button>
+                  </div>
+                </div>
+
+                {/* Warning Toast */}
+                {warningToast && (
+                  <div className="absolute top-12 left-6 right-6 z-20 bg-red-600/90 text-white text-xs font-bold py-2 px-3 rounded-xl text-center shadow-xl border border-red-400 animate-in fade-in">
+                    {warningToast}
                   </div>
                 )}
-                {activeTab === 'json' && (
-                  <pre className="text-[11px] font-mono text-cyan-300 bg-[#12151d] p-3 rounded-lg border border-[#262c3b] overflow-x-auto">
-                    {JSON.stringify(resultTree, null, 2)}
-                  </pre>
-                )}
+
+                {/* Big Chessboard Container */}
+                <div className="flex-1 flex items-center justify-center my-auto relative">
+                  <div style={{ width: '440px', height: '490px' }}>
+                    <XiangqiBoard
+                      board={currentBoard}
+                      turn={currentTurn}
+                      flipped={flipped}
+                      lastMove={lastMove}
+                      bestMoveArrow={hoveredResponseMove || expectedNextMove}
+                      selectedSquare={selectedSquare}
+                      onSquareClick={handleBoardSquareClick}
+                      interactive={true}
+                      showEvalBar={false}
+                    />
+                  </div>
+                </div>
+
+                {/* Playback Controls & Speed */}
+                <div className="mt-3 pt-3 border-t border-[#222c3f] flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => setPath([])}
+                        disabled={path.length === 0}
+                        className="p-2 rounded-xl bg-[#1a2130] hover:bg-[#263147] disabled:opacity-30 text-gray-300 transition-colors border border-[#2d3a52]"
+                        title="Về thế cờ gốc"
+                      >
+                        <Rewind className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={() => setPath(prev => prev.slice(0, prev.length - 1))}
+                        disabled={path.length === 0}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#1a2130] hover:bg-[#263147] disabled:opacity-30 text-gray-300 text-xs font-bold border border-[#2d3a52] transition-colors"
+                      >
+                        <Undo2 className="w-4 h-4" /> Lùi
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (currentNode && !currentNode.note) {
+                            setPath(prev => [...prev, 0]);
+                          }
+                        }}
+                        disabled={!currentNode || currentNode.note}
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#1a2130] hover:bg-[#263147] disabled:opacity-30 text-gray-300 text-xs font-bold border border-[#2d3a52] transition-colors"
+                      >
+                        Tiếp <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={autoPlaySpeed}
+                        onChange={(e) => setAutoPlaySpeed(Number(e.target.value))}
+                        className="bg-[#141926] text-[11px] font-bold text-gray-300 px-2 py-1.5 rounded-lg border border-[#273248] outline-none"
+                      >
+                        <option value={1800}>0.8x</option>
+                        <option value={1200}>1.0x</option>
+                        <option value={800}>1.5x</option>
+                        <option value={500}>2.0x</option>
+                      </select>
+
+                      <button
+                        onClick={() => setAutoPlaying(!autoPlaying)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all shadow-md ${
+                          autoPlaying 
+                            ? 'bg-amber-500 text-amber-950 shadow-amber-500/30 ring-2 ring-amber-400' 
+                            : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30'
+                        }`}
+                      >
+                        {autoPlaying ? (
+                          <>
+                            <Pause className="w-4 h-4 fill-current" /> Tạm Dừng
+                          </>
+                        ) : (
+                          <>
+                            <Play className="w-4 h-4 fill-current" /> Tự Động Chạy
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Move Helper Hint */}
+                  <div className="bg-[#131825] p-2.5 rounded-xl border border-[#222c3f] text-xs flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">Gợi ý:</span>
+                      <span className="font-semibold text-gray-300">
+                        {currentTurn === 'red' 
+                          ? 'Bấm/Kéo quân Đỏ trên bàn cờ hoặc bấm nút bên phải' 
+                          : 'Bấm phương án chống đỡ của Đen'}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-amber-400/90 font-bold">
+                      Bước {path.length + 1}
+                    </span>
+                  </div>
+                </div>
               </div>
-            </>
+
+              {/* Right Column: Tactical Command Suite */}
+              <div className="flex-1 flex flex-col overflow-hidden bg-[#0e121b]">
+                
+                {/* Navigation View Switcher */}
+                <div className="px-5 py-2.5 border-b border-[#222c3f] bg-[#141926] flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setActiveTab('dashboard')}
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
+                        activeTab === 'dashboard'
+                          ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
+                      }`}
+                    >
+                      <Zap className="w-3.5 h-3.5 fill-current" /> Trung Tâm Chiến Thuật
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('flowchart')}
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
+                        activeTab === 'flowchart'
+                          ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
+                      }`}
+                    >
+                      <Map className="w-3.5 h-3.5" /> Sơ Đồ Cây Nối Dây
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('text')}
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
+                        activeTab === 'text'
+                          ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
+                      }`}
+                    >
+                      <Crown className="w-3.5 h-3.5" /> Biên Bản Cờ
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('json')}
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
+                        activeTab === 'json'
+                          ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
+                          : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
+                      }`}
+                    >
+                      Dữ Liệu JSON
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        const defaultName = `Sát cục ${resultTree.tree?.viFull || resultTree.tree?.move || ''} - ${new Date().toLocaleDateString('vi-VN')}`;
+                        setSaveNameInput(defaultName);
+                        setSaveModalOpen(true);
+                      }}
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 border border-amber-500/30 text-xs font-bold transition-all"
+                      title="Lưu thế cờ vào Thư viện và đặt tên"
+                    >
+                      <Save className="w-3.5 h-3.5" /> Đặt Tên & Lưu
+                    </button>
+                    <button
+                      onClick={handleSaveFile}
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/30 text-xs font-bold transition-all"
+                    >
+                      <Download className="w-3.5 h-3.5" /> Lưu File
+                    </button>
+                    <button
+                      onClick={handleCopyJson}
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 text-xs font-bold transition-all"
+                    >
+                      {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copied ? 'Đã chép' : 'Sao chép'}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Breadcrumb Path Bar */}
+                <div className="px-5 py-2 border-b border-[#222c3f] bg-[#0c0f17] flex items-center gap-2 overflow-x-auto custom-scrollbar whitespace-nowrap">
+                  <button 
+                    onClick={() => setPath([])}
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
+                      path.length === 0
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-inner'
+                        : 'bg-[#161c29] hover:bg-[#222c3e] text-gray-400'
+                    }`}
+                  >
+                    <Map className="w-3.5 h-3.5" /> Khởi Đầu
+                  </button>
+                  {historyMoves.map((m, idx) => (
+                    <React.Fragment key={idx}>
+                      <ChevronRight className="w-3.5 h-3.5 text-gray-600 flex-shrink-0" />
+                      <button
+                        onClick={() => setPath(path.slice(0, idx + 1))}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                          idx === historyMoves.length - 1
+                            ? m.turn === 'red'
+                              ? 'bg-gradient-to-r from-red-950 to-red-900 text-red-200 border border-red-500/50 shadow-md ring-1 ring-red-500/30'
+                              : 'bg-gradient-to-r from-blue-950 to-blue-900 text-blue-200 border border-blue-500/50 shadow-md ring-1 ring-blue-500/30'
+                            : 'bg-[#161c29] hover:bg-[#222c3e] text-gray-400'
+                        }`}
+                      >
+                        <span className={`w-2 h-2 rounded-full ${m.turn === 'red' ? 'bg-red-500' : 'bg-blue-500'}`} />
+                        <span>{m.text}</span>
+                      </button>
+                    </React.Fragment>
+                  ))}
+                </div>
+
+                {/* Main Views */}
+                <div className="flex-1 p-5 overflow-y-auto custom-scrollbar">
+                  
+                  {/* Mode 1: Comprehensive Tactical Dashboard (Mặc định siêu thông minh) */}
+                  {activeTab === 'dashboard' && (
+                    <div className="max-w-4xl mx-auto flex flex-col gap-5">
+                      
+                      {/* Section 1: Checkmate Reached OR Current Tactical Card */}
+                      {currentNode?.note ? (
+                        <div className="p-8 rounded-3xl bg-gradient-to-br from-emerald-950/80 via-[#101c18] to-[#0c1613] border-2 border-emerald-500/50 text-center shadow-2xl animate-in zoom-in-95">
+                          <Crown className="w-16 h-16 text-amber-400 mx-auto mb-3 animate-bounce" />
+                          <h3 className="text-2xl font-black text-emerald-300 mb-1">
+                            SÁT CỤC HOÀN TOÀN — TẤT THẮNG!
+                          </h3>
+                          <p className="text-sm text-gray-300 max-w-md mx-auto mb-5 font-medium">
+                            {currentNode.note}. Đỏ đã hoàn thành toàn bộ chuỗi sát chiêu không thể đảo ngược.
+                          </p>
+                          <div className="flex items-center justify-center gap-3">
+                            <button
+                              onClick={() => setPath([])}
+                              className="px-6 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-black text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2"
+                            >
+                              <RotateCcw className="w-4 h-4" /> Xem Lại Từ Đầu
+                            </button>
+                          </div>
+                        </div>
+                      ) : currentNode?.turn === 'red' ? (
+                        /* Red Move Focus Card */
+                        <div className="p-6 rounded-3xl bg-gradient-to-br from-[#1c1214] via-[#16121a] to-[#121520] border-2 border-red-500/40 shadow-2xl flex flex-col gap-4">
+                          <div className="flex items-center justify-between">
+                            <span className="px-3.5 py-1 rounded-full bg-red-500/20 border border-red-500/40 text-red-300 text-xs font-black uppercase tracking-wider flex items-center gap-1.5">
+                              <Swords className="w-3.5 h-3.5" /> Nước Sát Chiêu Đỏ #{path.length + 1}
+                            </span>
+                            <span className="text-xs font-mono bg-black/40 px-3 py-1 rounded-lg text-amber-400 font-bold border border-[#2a3449]">
+                              Đánh giá: {currentNode.score}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center gap-4">
+                              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-600 to-red-800 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-red-600/30 border border-red-400">
+                                Đỏ
+                              </div>
+                              <div>
+                                <div className="text-3xl font-black text-amber-300 tracking-wide">
+                                  {currentNode.viFull || currentNode.move}
+                                </div>
+                                <div className="text-xs text-gray-400 font-mono mt-0.5">
+                                  Mã UCI: {currentNode.uci}
+                                </div>
+                              </div>
+                            </div>
+
+                            <button
+                              onClick={() => {
+                                sound.playMove();
+                                setPath([...path, 0]);
+                              }}
+                              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-amber-950 font-black text-sm shadow-xl shadow-amber-500/30 transition-all flex items-center gap-2 active:scale-95 flex-shrink-0"
+                            >
+                              <span>Đi Nước Này</span>
+                              <ArrowRight className="w-4 h-4" />
+                            </button>
+                          </div>
+
+                          {/* Tactical Explanation */}
+                          <div className="p-3.5 rounded-2xl bg-[#0a0d14]/70 border border-[#263147] text-xs text-gray-300 leading-relaxed flex items-start gap-2.5">
+                            <Sparkles className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <span className="font-bold text-amber-300">Phân tích mục tiêu: </span>
+                              {getTacticalExplanation(currentNode.viFull || currentNode.move, currentNode.score, 'red')}
+                            </div>
+                          </div>
+                        </div>
+                      ) : currentNode?.turn === 'black' ? (
+                        /* Black Responses Multi-Card Grid */
+                        <div className="flex flex-col gap-3">
+                          <div className="flex items-center justify-between">
+                            <span className="px-3.5 py-1 rounded-full bg-blue-500/20 border border-blue-500/40 text-blue-300 text-xs font-black uppercase tracking-wider flex items-center gap-1.5">
+                              <ShieldAlert className="w-3.5 h-3.5" /> Đen có {currentNode.responses.length} phương án chống đỡ
+                            </span>
+                            <span className="text-xs text-gray-400">Chọn 1 nhánh để xem cách Đỏ kết liễu:</span>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {currentNode.responses.map((resp, idx) => {
+                              const isHovered = hoveredResponseMove?.uci === resp.uci;
+                              return (
+                                <button
+                                  key={idx}
+                                  onMouseEnter={() => setHoveredResponseMove(uciToMove(resp.uci))}
+                                  onMouseLeave={() => setHoveredResponseMove(null)}
+                                  onClick={() => {
+                                    sound.playMove();
+                                    setHoveredResponseMove(null);
+                                    setPath([...path, idx]);
+                                  }}
+                                  className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 text-left group ${
+                                    isHovered 
+                                      ? 'bg-[#1f283d] border-blue-400 ring-2 ring-blue-400/30 scale-[1.01]' 
+                                      : 'bg-[#141926] hover:bg-[#1c2336] border-[#253047] hover:border-blue-500/60'
+                                  }`}
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2.5">
+                                      <span className="w-7 h-7 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-black border border-blue-500/30">
+                                        #{idx + 1}
+                                      </span>
+                                      <span className="text-lg font-black text-blue-200 group-hover:text-amber-300 transition-colors">
+                                        {resp.viFull || resp.move}
+                                      </span>
+                                    </div>
+                                    <span className="text-xs font-mono bg-black/40 px-2.5 py-1 rounded-lg text-gray-400 border border-[#2a3449]">
+                                      {resp.score}
+                                    </span>
+                                  </div>
+
+                                  <div className="text-[11px] text-gray-400 leading-snug">
+                                    {getTacticalExplanation(resp.viFull || resp.move, resp.score, 'black')}
+                                  </div>
+
+                                  <div className="flex items-center justify-end text-xs font-bold text-blue-400 group-hover:text-amber-300 gap-1 mt-1">
+                                    <span>Khám phá nhánh này</span>
+                                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {/* Section 2: Move Table & Timeline */}
+                      <div className="bg-[#121622] rounded-3xl border border-[#222c3f] p-5 shadow-xl">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="text-sm font-black text-gray-200 uppercase tracking-wider flex items-center gap-2">
+                            <Crown className="w-4 h-4 text-amber-400" />
+                            Biên Bản Nước Cờ Chuỗi Sát Cục
+                          </h4>
+                          <span className="text-xs text-gray-500">Nhấp vào bất kỳ nước cờ nào để tua đến đó</span>
+                        </div>
+
+                        {movePairs.length === 0 ? (
+                          <div className="text-center py-4 text-xs text-gray-500">
+                            Bấm "Đi Nước Này" hoặc bấm vào bàn cờ để bắt đầu chuỗi đi.
+                          </div>
+                        ) : (
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            {movePairs.map((pair) => (
+                              <div key={pair.moveNumber} className="flex items-center gap-2 bg-[#171d2c] p-2 rounded-xl border border-[#263147]">
+                                <span className="w-6 text-xs font-mono font-bold text-gray-500">
+                                  {pair.moveNumber}.
+                                </span>
+                                
+                                {/* Red Move */}
+                                {pair.red && (
+                                  <button
+                                    onClick={() => setPath(path.slice(0, pair.red.pathIndex + 1))}
+                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                                      path.length - 1 === pair.red.pathIndex
+                                        ? 'bg-red-950 text-amber-300 border border-red-500/50 shadow-sm'
+                                        : 'bg-[#1f2638] hover:bg-[#28324a] text-red-300'
+                                    }`}
+                                  >
+                                    <span>🔴 {pair.red.short || pair.red.text}</span>
+                                    <span className="text-[10px] text-gray-400 font-mono">{pair.red.score}</span>
+                                  </button>
+                                )}
+
+                                {/* Black Move */}
+                                {pair.black && (
+                                  <button
+                                    onClick={() => setPath(path.slice(0, pair.black.pathIndex + 1))}
+                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                                      path.length - 1 === pair.black.pathIndex
+                                        ? 'bg-blue-950 text-amber-300 border border-blue-500/50 shadow-sm'
+                                        : 'bg-[#1f2638] hover:bg-[#28324a] text-blue-300'
+                                    }`}
+                                  >
+                                    <span>⚫ {pair.black.short || pair.black.text}</span>
+                                    <span className="text-[10px] text-gray-400 font-mono">{pair.black.score}</span>
+                                  </button>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                    </div>
+                  )}
+
+                  {/* Mode 2: Sơ Đồ Cây Nối Dây (SVG Decision Tree Flowchart) */}
+                  {activeTab === 'flowchart' && (
+                    <div className="max-w-3xl mx-auto flex flex-col gap-4">
+                      <div className="bg-[#141926] p-4 rounded-2xl border border-[#242e44] mb-2 flex items-center justify-between">
+                        <div>
+                          <h4 className="text-sm font-black text-gray-200 flex items-center gap-2">
+                            <Sparkles className="w-4 h-4 text-amber-400" />
+                            Sơ Đồ Phân Nhánh Quyết Định Toàn Cảnh
+                          </h4>
+                          <p className="text-xs text-gray-400 mt-0.5">
+                            Bấm vào bất kỳ nút nào trên sơ đồ để bàn cờ bên trái tự động di chuyển đến thế cờ đó
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="bg-[#121622] p-6 rounded-3xl border border-[#222c3f] shadow-inner">
+                        <FlowchartNode
+                          node={resultTree.tree}
+                          pathPrefix={[]}
+                          activePath={path}
+                          onSelectPath={(newPath) => setPath(newPath)}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Mode 3: Text Representation */}
+                  {activeTab === 'text' && (
+                    <div className="bg-[#121622] p-6 rounded-3xl border border-[#222c3f] font-mono leading-relaxed">
+                      <TextTree node={resultTree.tree} />
+                    </div>
+                  )}
+
+                  {/* Mode 4: JSON Data */}
+                  {activeTab === 'json' && (
+                    <pre className="p-5 bg-[#0a0d14] rounded-3xl border border-[#222c3f] text-xs font-mono text-amber-300/90 overflow-x-auto custom-scrollbar">
+                      {JSON.stringify(resultTree, null, 2)}
+                    </pre>
+                  )}
+                </div>
+              </div>
+            </div>
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center text-gray-500 p-8 text-center">
-              <Bot className="w-12 h-12 mb-3 opacity-20" />
-              <p className="text-sm">Chưa có kết quả.</p>
-              <p className="text-xs mt-1">Hãy thiết lập thông số và bấm "Bắt đầu Dò" để Engine phân tích toàn bộ cây quyết định.</p>
+            /* Initial State Empty Placeholder */
+            <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-gray-500">
+              <Bot className="w-16 h-16 mb-4 text-amber-400/40 animate-pulse" />
+              <h3 className="text-lg font-bold text-gray-200 mb-1">Chưa có dữ liệu Sát Cục</h3>
+              <p className="text-xs text-gray-400 max-w-sm mb-6">
+                Chọn số nhánh và bấm nút <strong className="text-amber-400">"Bắt Đầu Dò Sát Cục"</strong> để AI quét toàn bộ cây phương án tất thắng.
+              </p>
+              <button
+                onClick={handleStart}
+                disabled={isSolving}
+                className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-black text-sm shadow-xl shadow-amber-500/20 transition-all active:scale-95"
+              >
+                <Play className="w-4 h-4 fill-current" /> Bắt Đầu Dò Ngay
+              </button>
             </div>
           )}
         </div>
 
+        {/* Global In-App Toast */}
+        {appToast && (
+          <div className="absolute bottom-6 right-6 z-50 bg-emerald-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-2xl border border-emerald-400 animate-in fade-in slide-in-from-bottom-2">
+            {appToast}
+          </div>
+        )}
+
+        {/* In-App Save Modal Dialog */}
+        {saveModalOpen && (
+          <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in">
+            <div className="bg-[#141926] border border-amber-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl">
+              <h4 className="text-base font-black text-gray-100 mb-2 flex items-center gap-2">
+                <Save className="w-5 h-5 text-amber-400" /> Đặt Tên & Lưu Thế Cờ
+              </h4>
+              <p className="text-xs text-gray-400 mb-4">
+                Nhập tên gợi nhớ để dễ dàng tra cứu và học lại trong Thư Viện Sát Cục.
+              </p>
+              <input
+                type="text"
+                value={saveNameInput}
+                onChange={(e) => setSaveNameInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    if (saveNameInput.trim() && resultTree) {
+                      SatsucCache.saveTreeToLibrary(resultTree, saveNameInput.trim());
+                      setSaveModalOpen(false);
+                      loadLibrary();
+                      showToast(`Đã lưu "${saveNameInput.trim()}" vào thư viện!`);
+                    }
+                  } else if (e.key === 'Escape') {
+                    setSaveModalOpen(false);
+                  }
+                }}
+                placeholder="Nhập tên thế cờ..."
+                className="w-full bg-[#0d1017] text-sm text-gray-100 px-3.5 py-2.5 rounded-xl border border-amber-500/50 outline-none mb-5 focus:ring-2 focus:ring-amber-500/30"
+                autoFocus
+              />
+              <div className="flex items-center justify-end gap-2.5">
+                <button
+                  onClick={() => setSaveModalOpen(false)}
+                  className="px-4 py-2.5 rounded-xl bg-[#252f44] hover:bg-[#323d54] text-gray-300 text-xs font-bold transition-colors"
+                >
+                  Hủy
+                </button>
+                <button
+                  onClick={() => {
+                    if (saveNameInput.trim() && resultTree) {
+                      SatsucCache.saveTreeToLibrary(resultTree, saveNameInput.trim());
+                      setSaveModalOpen(false);
+                      loadLibrary();
+                      showToast(`Đã lưu "${saveNameInput.trim()}" vào thư viện!`);
+                    }
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-black text-xs shadow-lg shadow-amber-500/20 transition-all"
+                >
+                  Lưu Vào Thư Viện
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

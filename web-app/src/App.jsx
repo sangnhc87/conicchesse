@@ -903,9 +903,7 @@ export default function App() {
           if (moveStr === expectedMoveStr) {
             // Correct move!
             sound.playCapture();
-            const newBoard = JSON.parse(JSON.stringify(trainingBoard));
-            newBoard[move.toR][move.toC] = newBoard[move.fromR][move.fromC];
-            newBoard[move.fromR][move.fromC] = null;
+            const newBoard = makeMove(trainingBoard, move);
             setTrainingBoard(newBoard);
             setTrainingSelectedSquare(null);
             setTrainingLegalDests([]);

@@ -365,17 +365,22 @@ export function isInCheck(board, color) {
 }
 
 export function makeMove(board, move) {
+  if (!board || !Array.isArray(board) || !move) return board || [];
+  if (move.fromR === undefined || move.fromC === undefined || move.toR === undefined || move.toC === undefined) return board;
+  if (!board[move.fromR] || !board[move.toR]) return board;
+  
   const newBoard = board.map(row => [...row]);
-  newBoard[move.toR][move.toC] = newBoard[move.fromR][move.fromC];
+  newBoard[move.toR][move.toC] = newBoard[move.fromR]?.[move.fromC] ?? null;
   newBoard[move.fromR][move.fromC] = null;
   return newBoard;
 }
 
 export function getLegalMoves(board, color) {
+  if (!board || !Array.isArray(board)) return [];
   const legalMoves = [];
   for (let r = 0; r < 10; r++) {
     for (let c = 0; c < 9; c++) {
-      const piece = board[r][c];
+      const piece = board[r]?.[c];
       if (piece && getPieceColor(piece) === color) {
         const raw = getRawMoves(board, r, c);
         for (let m of raw) {
@@ -392,7 +397,8 @@ export function getLegalMoves(board, color) {
 
 // Convert move to Standard Vietnamese Full text notation (e.g. Tướng 5 bình 4, Binh 6 tiến 1, Xe 8 tiến 7)
 export function moveToVietnameseFull(board, move, turn = 'red') {
-  const piece = board[move.fromR][move.fromC];
+  if (!board || !move || move.fromR === undefined || move.fromC === undefined || move.toR === undefined || move.toC === undefined) return '';
+  const piece = board[move.fromR]?.[move.fromC];
   if (!piece) return '';
   const isRedTurn = turn === 'red';
   const role = PIECE_NAMES[piece]?.role;
@@ -433,7 +439,8 @@ export function moveToVietnameseFull(board, move, turn = 'red') {
 
 // Convert move to Standard Vietnamese Short Code notation (e.g. Tg5-4, B6.1, X8.7, M2.3)
 export function moveToVietnamese(board, move, turn = 'red') {
-  const piece = board[move.fromR][move.fromC];
+  if (!board || !move || move.fromR === undefined || move.fromC === undefined || move.toR === undefined || move.toC === undefined) return '';
+  const piece = board[move.fromR]?.[move.fromC];
   if (!piece) return '';
   const isRedTurn = turn === 'red';
   const role = PIECE_NAMES[piece]?.role;
@@ -474,7 +481,8 @@ export function moveToVietnamese(board, move, turn = 'red') {
 
 // Convert move to Standard Chinese notation (e.g. 帥五平四, 兵六进一, 车八进七)
 export function moveToChinese(board, move, turn = 'red') {
-  const piece = board[move.fromR][move.fromC];
+  if (!board || !move || move.fromR === undefined || move.fromC === undefined || move.toR === undefined || move.toC === undefined) return '';
+  const piece = board[move.fromR]?.[move.fromC];
   if (!piece) return '';
   const isRedTurn = turn === 'red';
   const role = PIECE_NAMES[piece]?.role;
@@ -545,7 +553,7 @@ export function parseChineseMove(board, moveText, turn = 'red') {
     const expectedFromC = isRedTurn ? (9 - fromColNum) : (fromColNum - 1);
 
     for (let m of legalMoves) {
-      const p = board[m.fromR][m.fromC];
+      const p = board[m.fromR]?.[m.fromC];
       if (!p || PIECE_NAMES[p]?.role !== pRole) continue;
       if (m.fromC !== expectedFromC) continue;
 
@@ -578,7 +586,7 @@ export function parseChineseMove(board, moveText, turn = 'red') {
     const isFront = (char0 === '前');
     const candidates = [];
     for (let m of legalMoves) {
-      const p = board[m.fromR][m.fromC];
+      const p = board[m.fromR]?.[m.fromC];
       if (!p || PIECE_NAMES[p]?.role !== pRolePref) continue;
       candidates.push(m);
     }
@@ -622,6 +630,15 @@ export function parseChineseMove(board, moveText, turn = 'red') {
   }
 
   return null;
+}
+
+export function moveObjToUci(move) {
+  if (!move) return null;
+  const fc = String.fromCharCode(97 + move.fromC);
+  const fr = 9 - move.fromR;
+  const tc = String.fromCharCode(97 + move.toC);
+  const tr = 9 - move.toR;
+  return `${fc}${fr}${tc}${tr}`;
 }
 
 /**

@@ -13,7 +13,7 @@
 
 import {
   getLegalMoves, makeMove, isInCheck, isRed, isBlack, parseFen, findKing,
-  moveToVietnameseFull, moveToVietnamese, moveToChinese
+  moveToVietnameseFull, moveToVietnamese, moveToChinese, moveObjToUci
 } from './XiangqiLogic.js';
 
 const PIECE_VALS = {
@@ -479,7 +479,8 @@ export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
       isNative: false,
       viFull: moveToVietnameseFull(board, move, turn),
       viShort: moveToVietnamese(board, move, turn),
-      cnMove: moveToChinese(board, move, turn)
+      cnMove: moveToChinese(board, move, turn),
+      uci: moveObjToUci(move)
     });
   }
 

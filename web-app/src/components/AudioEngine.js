@@ -159,6 +159,10 @@ class AudioEngine {
     });
   }
 
+  playCheckmate() {
+    this.playWin();
+  }
+
   playError() {
     if (this.muted) return;
     this.init();

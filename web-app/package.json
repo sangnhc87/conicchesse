@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:build": "tauri build",
+    "tauri:install": "tauri build && rm -rf /Applications/KyDaiConic.app && cp -R src-tauri/target/release/bundle/macos/KyDaiConic.app /Applications/"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.11.1",

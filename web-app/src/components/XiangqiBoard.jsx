@@ -562,14 +562,23 @@ export default function XiangqiBoard({
                         />
                       )}
 
-                      {/* Outer 3D Piece Disc */}
+                      {/* Outer 3D Piece Disc (Solid Rich Ivory with Bevel) */}
                       <circle
                         cx={0}
                         cy={0}
                         r="20.5"
-                        fill={isRedP ? "url(#redPieceGradient)" : "url(#blackPieceGradient)"}
+                        fill={isRedP ? "#fff8ec" : "#f5efe3"}
                         stroke={isRedP ? "#991b1b" : "#1e293b"}
                         strokeWidth="1.8"
+                      />
+
+                      {/* Top Subtle Specular Light (Clean gloss) */}
+                      <circle
+                        cx="-4"
+                        cy="-5"
+                        r="14"
+                        fill="#ffffff"
+                        opacity="0.5"
                       />
 
                       {/* Inner Inscribed Groove Ring */}
