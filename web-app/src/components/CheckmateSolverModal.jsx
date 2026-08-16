@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { 
-  X, Bot, Play, Pause, StopCircle, Copy, Check, CheckCircle2, 
-  ChevronRight, ChevronDown, Download, Upload, Eye, Undo2, 
-  Map, BookOpen, Trash2, FolderOpen, RotateCcw, GitFork, 
+import {
+  X, Bot, Play, Pause, StopCircle, Copy, Check, CheckCircle2,
+  ChevronRight, ChevronDown, Download, Upload, Eye, Undo2,
+  Map, BookOpen, Trash2, FolderOpen, RotateCcw, GitFork,
   Layers, Crown, Zap, Sparkles, Maximize2, Minimize2, ArrowRight,
   Pencil, Save, FastForward, Rewind, Swords, Compass, HelpCircle,
   Volume2, VolumeX, ShieldAlert, Target
@@ -68,21 +68,21 @@ function isTrueCheckmateTree(node) {
 
 // Recursive Solver Logic (Deep Tree Search to Absolute Checkmate Win)
 const solveTree = async (
-  currentBoard, 
-  currentTurn, 
-  currentDepth, 
-  maxDepth, 
-  maxBlack, 
-  onProgress, 
+  currentBoard,
+  currentTurn,
+  currentDepth,
+  maxDepth,
+  maxBlack,
+  onProgress,
   checkAbort,
   isSecondaryBranch = false,
   ancestorFens = new Set()
 ) => {
   if (checkAbort()) return null;
-  
+
   // maxDepth is full moves for Red (each full move has 2 plies: Red move + Black reply)
   const maxPlies = (maxDepth || 35) * 2;
-  
+
   // Secondary blunder/alternate branches only need 2-3 moves to prove refutation/checkmate
   if (isSecondaryBranch && currentDepth > 6) {
     return { note: "Nhánh phụ bị bẻ gãy (Bại cuộc)" };
@@ -93,7 +93,7 @@ const solveTree = async (
   }
 
   const fenKey = boardToFen(currentBoard, currentTurn).split(' ').slice(0, 2).join(' ');
-  
+
   // Cycle Detection: If current state already visited in this path, stop recursion
   if (ancestorFens.has(fenKey)) {
     return { note: "Lặp lại nước cờ (Tuần hoàn)" };
@@ -104,7 +104,7 @@ const solveTree = async (
 
   try {
     const isRed = currentTurn === 'red';
-    
+
     // Check if player is already in checkmate or stalemate
     const legalMoves = getLegalMoves(currentBoard, currentTurn);
     if (legalMoves.length === 0) {
@@ -116,8 +116,8 @@ const solveTree = async (
     }
 
     // Always fetch multiple candidates for Red so Red can skip repetitive moves if candidate 0 is a cycle
-    const effectiveMultiPv = isRed 
-      ? 4 
+    const effectiveMultiPv = isRed
+      ? 4
       : (currentDepth <= 4 ? Math.min(maxBlack, 3) : 1);
 
     // Fast engine depth: 16 at root, 12 in subtree
@@ -159,7 +159,7 @@ const solveTree = async (
 
       const best = chosenCand;
       const score = best.scoreText || `cp ${best.score}`;
-      
+
       onProgress(`Đỏ đi ${best.viShort || best.uci} (${score})`);
 
       // ⚡ Tin tưởng engine khi báo Sát Cục (mate) → dừng nhánh ngay, không đệ quy thêm
@@ -187,17 +187,17 @@ const solveTree = async (
         };
       } else {
         const reply = await solveTree(
-          chosenNewBoard, 
-          'black', 
-          currentDepth + 1, 
-          maxDepth, 
-          maxBlack, 
-          onProgress, 
+          chosenNewBoard,
+          'black',
+          currentDepth + 1,
+          maxDepth,
+          maxBlack,
+          onProgress,
           checkAbort,
           isSecondaryBranch,
           nextAncestors
         );
-        
+
         return {
           turn: 'red',
           move: best.viShort || best.uci,
@@ -214,12 +214,12 @@ const solveTree = async (
         const cand = rawCandidates[idx];
         const move = cand.move;
         if (!move) continue;
-        
+
         const score = cand.scoreText || `cp ${cand.score}`;
         let newBoard = makeMove(currentBoard, move);
-        
+
         onProgress(`Phân tích nhánh Đen đi ${cand.viShort || cand.uci}...`);
-        
+
         const redLegal = getLegalMoves(newBoard, 'red');
         let reply;
         if (redLegal.length === 0) {
@@ -227,18 +227,18 @@ const solveTree = async (
         } else {
           // idx > 0 means secondary defense branch
           reply = await solveTree(
-            newBoard, 
-            'red', 
-            currentDepth + 1, 
-            maxDepth, 
-            maxBlack, 
-            onProgress, 
+            newBoard,
+            'red',
+            currentDepth + 1,
+            maxDepth,
+            maxBlack,
+            onProgress,
             checkAbort,
             isSecondaryBranch || idx > 0,
             nextAncestors
           );
         }
-        
+
         responses.push({
           move: cand.viShort || cand.uci,
           viFull: cand.viFull || cand.viShort || cand.uci,
@@ -259,11 +259,11 @@ const solveTree = async (
 };
 
 // Visual Flowchart Tree Component with Expand / Collapse
-const FlowchartNode = ({ 
-  node, 
-  pathPrefix, 
-  activePath, 
-  onSelectPath, 
+const FlowchartNode = ({
+  node,
+  pathPrefix,
+  activePath,
+  onSelectPath,
   level = 0,
   collapsedNodes,
   onToggleCollapse
@@ -291,13 +291,12 @@ const FlowchartNode = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => onSelectPath(currentStepPath)}
-            className={`flex items-center gap-3 px-4 py-3 rounded-2xl border text-xs font-bold transition-all shadow-md group text-left flex-1 ${
-              isExactMatch
+            className={`flex items-center gap-3 px-4 py-3 rounded-2xl border text-xs font-bold transition-all shadow-md group text-left flex-1 ${isExactMatch
                 ? 'bg-gradient-to-r from-red-950 via-red-900 to-amber-950/60 border-amber-400 text-amber-300 ring-2 ring-amber-400/40 shadow-red-950/80 scale-[1.02]'
                 : isNodeActive
                   ? 'bg-red-950/80 border-red-500/60 text-red-200'
                   : 'bg-[#181d2a] hover:bg-red-950/40 border-[#2a3449] hover:border-red-500/40 text-gray-300'
-            }`}
+              }`}
           >
             <span className="w-6 h-6 rounded-full bg-red-500/30 text-red-400 flex items-center justify-center text-xs font-black border border-red-500/40 shadow-inner flex-shrink-0">
               Đ
@@ -317,11 +316,10 @@ const FlowchartNode = ({
                 e.stopPropagation();
                 onToggleCollapse(nodeKey);
               }}
-              className={`p-2.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${
-                isCollapsed 
-                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 hover:bg-amber-500/30' 
+              className={`p-2.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${isCollapsed
+                  ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 hover:bg-amber-500/30'
                   : 'bg-[#181d2a] border-[#2a3449] text-gray-400 hover:text-white hover:bg-[#22293a]'
-              }`}
+                }`}
               title={isCollapsed ? "Mở rộng nhánh này" : "Thu gọn nhánh này"}
             >
               {isCollapsed ? (
@@ -338,11 +336,11 @@ const FlowchartNode = ({
 
         {node.reply && !isCollapsed && (
           <div className="pl-4 ml-3 border-l-2 border-[#2b3548] flex flex-col gap-2 pt-1 animate-in fade-in slide-in-from-top-1">
-            <FlowchartNode 
-              node={node.reply} 
-              pathPrefix={currentStepPath} 
-              activePath={activePath} 
-              onSelectPath={onSelectPath} 
+            <FlowchartNode
+              node={node.reply}
+              pathPrefix={currentStepPath}
+              activePath={activePath}
+              onSelectPath={onSelectPath}
               level={level + 1}
               collapsedNodes={collapsedNodes}
               onToggleCollapse={onToggleCollapse}
@@ -373,13 +371,12 @@ const FlowchartNode = ({
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => onSelectPath(respPath)}
-                    className={`flex items-center justify-between p-3 rounded-xl border text-xs font-bold transition-all text-left flex-1 ${
-                      isExactMatch
+                    className={`flex items-center justify-between p-3 rounded-xl border text-xs font-bold transition-all text-left flex-1 ${isExactMatch
                         ? 'bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 border-amber-400 text-amber-300 ring-2 ring-amber-400/40 scale-[1.01]'
                         : isNodeActive
                           ? 'bg-blue-950/80 border-blue-500/60 text-blue-200'
                           : 'bg-[#181d2a] hover:bg-[#202738] border-[#2c374d] text-gray-300'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center gap-2.5">
                       <span className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-black border border-blue-500/30 flex-shrink-0">
@@ -398,11 +395,10 @@ const FlowchartNode = ({
                         e.stopPropagation();
                         onToggleCollapse(nodeKey);
                       }}
-                      className={`p-2.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${
-                        isCollapsed 
-                          ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 hover:bg-amber-500/30' 
+                      className={`p-2.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1 ${isCollapsed
+                          ? 'bg-amber-500/20 border-amber-500/50 text-amber-300 hover:bg-amber-500/30'
                           : 'bg-[#181d2a] border-[#2a3449] text-gray-400 hover:text-white hover:bg-[#22293a]'
-                      }`}
+                        }`}
                       title={isCollapsed ? "Mở rộng nhánh này" : "Thu gọn nhánh này"}
                     >
                       {isCollapsed ? (
@@ -419,11 +415,11 @@ const FlowchartNode = ({
 
                 {resp.red_reply && !isCollapsed && (
                   <div className="pl-3 ml-2 border-l-2 border-[#263145] pt-1 animate-in fade-in slide-in-from-top-1">
-                    <FlowchartNode 
-                      node={resp.red_reply} 
-                      pathPrefix={respPath} 
-                      activePath={activePath} 
-                      onSelectPath={onSelectPath} 
+                    <FlowchartNode
+                      node={resp.red_reply}
+                      pathPrefix={respPath}
+                      activePath={activePath}
+                      onSelectPath={onSelectPath}
                       level={level + 1}
                       collapsedNodes={collapsedNodes}
                       onToggleCollapse={onToggleCollapse}
@@ -495,7 +491,7 @@ export default function CheckmateSolverModal({
   const [path, setPath] = useState([]);
   const [autoPlaying, setAutoPlaying] = useState(false);
   const [autoPlaySpeed, setAutoPlaySpeed] = useState(1200); // ms
-  
+
   // Flowchart Collapse / Expand state
   const [collapsedNodes, setCollapsedNodes] = useState(() => new Set());
 
@@ -539,12 +535,12 @@ export default function CheckmateSolverModal({
     collectKeys(resultTree.tree, []);
     setCollapsedNodes(allKeys);
   };
-  
+
   // Interactive board selection state
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [hoveredResponseMove, setHoveredResponseMove] = useState(null);
   const [warningToast, setWarningToast] = useState('');
-  
+
   // Renaming & Deleting state
   const [editingId, setEditingId] = useState(null);
   const [editingName, setEditingName] = useState('');
@@ -557,7 +553,7 @@ export default function CheckmateSolverModal({
     setAppToast(msg);
     setTimeout(() => setAppToast(''), 3000);
   };
-  
+
   const abortRef = useRef(false);
   const fileInputRef = useRef(null);
   const autoPlayTimerRef = useRef(null);
@@ -607,11 +603,11 @@ export default function CheckmateSolverModal({
   // Compute current board & state based on path
   const { currentBoard, currentTurn, currentNode, historyMoves, lastMove, expectedNextMove } = useMemo(() => {
     if (!resultTree) {
-      return { 
-        currentBoard: initialBoard, 
-        currentTurn: initialTurn, 
-        currentNode: null, 
-        historyMoves: [], 
+      return {
+        currentBoard: initialBoard,
+        currentTurn: initialTurn,
+        currentNode: null,
+        historyMoves: [],
         lastMove: null,
         expectedNextMove: null
       };
@@ -634,12 +630,12 @@ export default function CheckmateSolverModal({
           b = makeMove(b, moveObj);
           lMove = moveObj;
         }
-        history.push({ 
-          text: curr.viFull || curr.move, 
+        history.push({
+          text: curr.viFull || curr.move,
           short: curr.move,
-          turn: 'red', 
+          turn: 'red',
           score: curr.score,
-          pathIndex: i 
+          pathIndex: i
         });
         curr = curr.reply;
         turn = 'black';
@@ -651,12 +647,12 @@ export default function CheckmateSolverModal({
             b = makeMove(b, moveObj);
             lMove = moveObj;
           }
-          history.push({ 
-            text: resp.viFull || resp.move, 
+          history.push({
+            text: resp.viFull || resp.move,
             short: resp.move,
-            turn: 'black', 
+            turn: 'black',
             score: resp.score,
-            pathIndex: i 
+            pathIndex: i
           });
           curr = resp.red_reply;
           turn = 'red';
@@ -777,36 +773,16 @@ export default function CheckmateSolverModal({
     setPath([]);
     abortRef.current = false;
 
-    // ⚡ Bước 1: Dò sát cục nhanh bằng Pikafish `go mate` (chính xác & nhanh).
-    // Tránh tìm kiếm cây đệ quy lâu khi thế trận không có chiếu bí cưỡng bức.
-    try {
-      const mateInfo = await engineManager.findMate(initialBoard, initialTurn, maxDepth, 12000);
-      if (abortRef.current) { setIsSolving(false); return; }
-
-      if (mateInfo && mateInfo.mate && mateInfo.isNative) {
-        setProgressMsg(`✅ Pikafish tìm thấy Chiếu Bí trong ${mateInfo.mateIn} nước! Đang dựng cây sát cục...`);
-      } else if (mateInfo && !mateInfo.mate && mateInfo.isNative) {
-        // Native engine xác nhận không có chiếu bí cưỡng bức trong giới hạn
-        setResultTree(null);
-        setNoCheckmateError(true);
-        setProgressMsg(`⚠️ Pikafish xác nhận: KHÔNG có Sát Cục cưỡng bức trong ${maxDepth} nước Đỏ!`);
-        setIsSolving(false);
-        return;
-      }
-    } catch (e) {
-      console.warn('findMate pre-check failed, tiếp tục dò bằng cây:', e);
-    }
-
     const tree = await solveTree(
-      initialBoard, 
-      initialTurn, 
-      1, 
-      maxDepth, 
-      maxBlack, 
-      setProgressMsg, 
+      initialBoard,
+      initialTurn,
+      1,
+      maxDepth,
+      maxBlack,
+      setProgressMsg,
       () => abortRef.current
     );
-    
+
     if (!abortRef.current && tree) {
       const isCheckmate = isTrueCheckmateTree(tree);
       if (isCheckmate) {
@@ -901,7 +877,7 @@ export default function CheckmateSolverModal({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-2 md:p-4 animate-in fade-in duration-200">
       <div className="bg-[#0e121b] w-full max-w-[98vw] xl:max-w-7xl rounded-3xl border border-[#263147] shadow-2xl overflow-hidden flex flex-col h-[95vh]">
-        
+
         {/* Top Header */}
         <div className="px-5 py-3.5 border-b border-[#222c3f] bg-[#131825] flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -927,11 +903,10 @@ export default function CheckmateSolverModal({
             <button
               onClick={() => setShowLibrary(!showLibrary)}
               disabled={isSolving}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl transition-all text-xs font-bold border ${
-                showLibrary 
-                  ? 'bg-amber-500 text-amber-950 border-amber-400 shadow-lg shadow-amber-500/20' 
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl transition-all text-xs font-bold border ${showLibrary
+                  ? 'bg-amber-500 text-amber-950 border-amber-400 shadow-lg shadow-amber-500/20'
                   : 'bg-[#1c2333] hover:bg-[#273248] text-gray-300 border-[#2f3d57]'
-              }`}
+                }`}
             >
               <BookOpen className="w-4 h-4" /> Thư Viện Đã Lưu ({libraryItems.length})
             </button>
@@ -1012,12 +987,12 @@ export default function CheckmateSolverModal({
               </div>
             )}
 
-            <input 
-              type="file" 
-              accept=".json" 
-              ref={fileInputRef} 
-              onChange={handleLoadFile} 
-              className="hidden" 
+            <input
+              type="file"
+              accept=".json"
+              ref={fileInputRef}
+              onChange={handleLoadFile}
+              className="hidden"
             />
             <button
               onClick={() => fileInputRef.current?.click()}
@@ -1059,8 +1034,8 @@ export default function CheckmateSolverModal({
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {libraryItems.map(item => (
-                    <div 
-                      key={item.id} 
+                    <div
+                      key={item.id}
                       className="bg-[#141926] border border-[#252f44] hover:border-amber-500/50 rounded-2xl p-5 flex flex-col justify-between transition-all group hover:shadow-xl hover:shadow-black/50"
                     >
                       <div>
@@ -1147,7 +1122,7 @@ export default function CheckmateSolverModal({
                               >
                                 <Pencil className="w-3.5 h-3.5" />
                               </button>
-                              <button 
+                              <button
                                 onClick={() => setConfirmDeleteId(item.id)}
                                 className="text-gray-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-red-500/10 transition-colors"
                                 title="Xóa"
@@ -1163,7 +1138,7 @@ export default function CheckmateSolverModal({
                         </div>
                       </div>
 
-                      <button 
+                      <button
                         onClick={() => {
                           setResultTree(item.data);
                           setPath([]);
@@ -1182,10 +1157,10 @@ export default function CheckmateSolverModal({
           ) : resultTree ? (
             /* Result Tree Explorer */
             <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-              
+
               {/* Left Column: Big Interactive Chessboard */}
               <div className="w-full md:w-[500px] lg:w-[540px] flex-shrink-0 bg-[#0d1017] border-r border-[#222c3f] flex flex-col justify-between p-4 relative">
-                
+
                 {/* Board Top Header */}
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -1276,11 +1251,10 @@ export default function CheckmateSolverModal({
 
                       <button
                         onClick={() => setAutoPlaying(!autoPlaying)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all shadow-md ${
-                          autoPlaying 
-                            ? 'bg-amber-500 text-amber-950 shadow-amber-500/30 ring-2 ring-amber-400' 
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all shadow-md ${autoPlaying
+                            ? 'bg-amber-500 text-amber-950 shadow-amber-500/30 ring-2 ring-amber-400'
                             : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30'
-                        }`}
+                          }`}
                       >
                         {autoPlaying ? (
                           <>
@@ -1300,8 +1274,8 @@ export default function CheckmateSolverModal({
                     <div className="flex items-center gap-2">
                       <span className="text-gray-400">Gợi ý:</span>
                       <span className="font-semibold text-gray-300">
-                        {currentTurn === 'red' 
-                          ? 'Bấm/Kéo quân Đỏ trên bàn cờ hoặc bấm nút bên phải' 
+                        {currentTurn === 'red'
+                          ? 'Bấm/Kéo quân Đỏ trên bàn cờ hoặc bấm nút bên phải'
                           : 'Bấm phương án chống đỡ của Đen'}
                       </span>
                     </div>
@@ -1314,47 +1288,43 @@ export default function CheckmateSolverModal({
 
               {/* Right Column: Tactical Command Suite */}
               <div className="flex-1 flex flex-col overflow-hidden bg-[#0e121b]">
-                
+
                 {/* Navigation View Switcher */}
                 <div className="px-5 py-2.5 border-b border-[#222c3f] bg-[#141926] flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => setActiveTab('dashboard')}
-                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
-                        activeTab === 'dashboard'
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${activeTab === 'dashboard'
                           ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
                           : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
-                      }`}
+                        }`}
                     >
                       <Zap className="w-3.5 h-3.5 fill-current" /> Trung Tâm Chiến Thuật
                     </button>
                     <button
                       onClick={() => setActiveTab('flowchart')}
-                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
-                        activeTab === 'flowchart'
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${activeTab === 'flowchart'
                           ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
                           : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
-                      }`}
+                        }`}
                     >
                       <Map className="w-3.5 h-3.5" /> Sơ Đồ Cây Nối Dây
                     </button>
                     <button
                       onClick={() => setActiveTab('text')}
-                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
-                        activeTab === 'text'
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${activeTab === 'text'
                           ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
                           : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
-                      }`}
+                        }`}
                     >
                       <Crown className="w-3.5 h-3.5" /> Biên Bản Cờ
                     </button>
                     <button
                       onClick={() => setActiveTab('json')}
-                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${
-                        activeTab === 'json'
+                      className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black transition-all ${activeTab === 'json'
                           ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-amber-950 shadow-md shadow-amber-500/20'
                           : 'text-gray-400 hover:text-gray-200 hover:bg-[#1f2638]'
-                      }`}
+                        }`}
                     >
                       Dữ Liệu JSON
                     </button>
@@ -1390,13 +1360,12 @@ export default function CheckmateSolverModal({
 
                 {/* Breadcrumb Path Bar */}
                 <div className="px-5 py-2 border-b border-[#222c3f] bg-[#0c0f17] flex items-center gap-2 overflow-x-auto custom-scrollbar whitespace-nowrap">
-                  <button 
+                  <button
                     onClick={() => setPath([])}
-                    className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
-                      path.length === 0
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-extrabold transition-all ${path.length === 0
                         ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-inner'
                         : 'bg-[#161c29] hover:bg-[#222c3e] text-gray-400'
-                    }`}
+                      }`}
                   >
                     <Map className="w-3.5 h-3.5" /> Khởi Đầu
                   </button>
@@ -1405,13 +1374,12 @@ export default function CheckmateSolverModal({
                       <ChevronRight className="w-3.5 h-3.5 text-gray-600 flex-shrink-0" />
                       <button
                         onClick={() => setPath(path.slice(0, idx + 1))}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                          idx === historyMoves.length - 1
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${idx === historyMoves.length - 1
                             ? m.turn === 'red'
                               ? 'bg-gradient-to-r from-red-950 to-red-900 text-red-200 border border-red-500/50 shadow-md ring-1 ring-red-500/30'
                               : 'bg-gradient-to-r from-blue-950 to-blue-900 text-blue-200 border border-blue-500/50 shadow-md ring-1 ring-blue-500/30'
                             : 'bg-[#161c29] hover:bg-[#222c3e] text-gray-400'
-                        }`}
+                          }`}
                       >
                         <span className={`w-2 h-2 rounded-full ${m.turn === 'red' ? 'bg-red-500' : 'bg-blue-500'}`} />
                         <span>{m.text}</span>
@@ -1422,11 +1390,11 @@ export default function CheckmateSolverModal({
 
                 {/* Main Views */}
                 <div className="flex-1 p-5 overflow-y-auto custom-scrollbar">
-                  
+
                   {/* Mode 1: Comprehensive Tactical Dashboard (Mặc định siêu thông minh) */}
                   {activeTab === 'dashboard' && (
                     <div className="max-w-4xl mx-auto flex flex-col gap-5">
-                      
+
                       {/* Section 1: Checkmate Reached OR Current Tactical Card */}
                       {currentNode?.note ? (
                         currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng') ? (
@@ -1537,11 +1505,10 @@ export default function CheckmateSolverModal({
                                     setHoveredResponseMove(null);
                                     setPath([...path, idx]);
                                   }}
-                                  className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 text-left group ${
-                                    isHovered 
-                                      ? 'bg-[#1f283d] border-blue-400 ring-2 ring-blue-400/30 scale-[1.01]' 
+                                  className={`p-4 rounded-2xl border-2 transition-all flex flex-col justify-between gap-3 text-left group ${isHovered
+                                      ? 'bg-[#1f283d] border-blue-400 ring-2 ring-blue-400/30 scale-[1.01]'
                                       : 'bg-[#141926] hover:bg-[#1c2336] border-[#253047] hover:border-blue-500/60'
-                                  }`}
+                                    }`}
                                 >
                                   <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2.5">
@@ -1593,16 +1560,15 @@ export default function CheckmateSolverModal({
                                 <span className="w-6 text-xs font-mono font-bold text-gray-500">
                                   {pair.moveNumber}.
                                 </span>
-                                
+
                                 {/* Red Move */}
                                 {pair.red && (
                                   <button
                                     onClick={() => setPath(path.slice(0, pair.red.pathIndex + 1))}
-                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                                      path.length - 1 === pair.red.pathIndex
+                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${path.length - 1 === pair.red.pathIndex
                                         ? 'bg-red-950 text-amber-300 border border-red-500/50 shadow-sm'
                                         : 'bg-[#1f2638] hover:bg-[#28324a] text-red-300'
-                                    }`}
+                                      }`}
                                   >
                                     <span>🔴 {pair.red.short || pair.red.text}</span>
                                     <span className="text-[10px] text-gray-400 font-mono">{pair.red.score}</span>
@@ -1613,11 +1579,10 @@ export default function CheckmateSolverModal({
                                 {pair.black && (
                                   <button
                                     onClick={() => setPath(path.slice(0, pair.black.pathIndex + 1))}
-                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                                      path.length - 1 === pair.black.pathIndex
+                                    className={`flex-1 flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all ${path.length - 1 === pair.black.pathIndex
                                         ? 'bg-blue-950 text-amber-300 border border-blue-500/50 shadow-sm'
                                         : 'bg-[#1f2638] hover:bg-[#28324a] text-blue-300'
-                                    }`}
+                                      }`}
                                   >
                                     <span>⚫ {pair.black.short || pair.black.text}</span>
                                     <span className="text-[10px] text-gray-400 font-mono">{pair.black.score}</span>
@@ -1798,11 +1763,11 @@ export default function CheckmateSolverModal({
                         <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-500/20 to-red-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-xl mb-4">
                           <Target className="w-8 h-8" />
                         </div>
-                        
+
                         <h3 className="text-xl font-black text-gray-100 mb-2">
                           Dò Sát Cục Cho Thế Trận Này
                         </h3>
-                        
+
                         <p className="text-xs text-gray-400 max-w-md mb-6 leading-relaxed">
                           Pikafish AI sẽ quét toàn bộ cây phương án đệ quy, kiểm tra từng nước biến của đối thủ để tìm ra chuỗi sát chiêu tất thắng 100%.
                         </p>
