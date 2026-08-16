@@ -68,13 +68,13 @@ export default function XiangqiBoard({
     arrowEnd = getSvgCoord(lastMove.toR, lastMove.toC);
   }
 
-  // Multi-PV Candidate Arrows configuration (1 to 5 variants)
+  // Multi-PV Candidate Arrows configuration (1 to 5 variants) - Sleek, Refined & Modern
   const ARROW_THEMES = [
-    { rank: 1, color: '#10b981', marker: 'url(#engineArrow1)', width: 4.8, badgeBg: '#10b981', badgeText: '#ffffff' },
-    { rank: 2, color: '#06b6d4', marker: 'url(#engineArrow2)', width: 4.2, badgeBg: '#06b6d4', badgeText: '#ffffff' },
-    { rank: 3, color: '#a855f7', marker: 'url(#engineArrow3)', width: 3.8, badgeBg: '#a855f7', badgeText: '#ffffff' },
-    { rank: 4, color: '#f59e0b', marker: 'url(#engineArrow4)', width: 3.4, badgeBg: '#f59e0b', badgeText: '#ffffff' },
-    { rank: 5, color: '#ec4899', marker: 'url(#engineArrow5)', width: 3.0, badgeBg: '#ec4899', badgeText: '#ffffff' },
+    { rank: 1, color: '#10b981', marker: 'url(#engineArrow1)', width: 2.8, badgeBg: '#10b981', badgeText: '#ffffff' },
+    { rank: 2, color: '#06b6d4', marker: 'url(#engineArrow2)', width: 2.5, badgeBg: '#06b6d4', badgeText: '#ffffff' },
+    { rank: 3, color: '#8b5cf6', marker: 'url(#engineArrow3)', width: 2.3, badgeBg: '#8b5cf6', badgeText: '#ffffff' },
+    { rank: 4, color: '#f59e0b', marker: 'url(#engineArrow4)', width: 2.1, badgeBg: '#f59e0b', badgeText: '#ffffff' },
+    { rank: 5, color: '#ec4899', marker: 'url(#engineArrow5)', width: 1.9, badgeBg: '#ec4899', badgeText: '#ffffff' },
   ];
 
   // Active arrows to render
@@ -97,14 +97,14 @@ export default function XiangqiBoard({
         const uX = dx / len;
         const uY = dy / len;
 
-        // Offset from centers so arrow is crisp and arrowhead clearly points at destination
+        // Elegant offset from centers so arrow points with surgical precision
         const start = {
-          x: rawStart.x + uX * 12,
-          y: rawStart.y + uY * 12
+          x: rawStart.x + uX * 10,
+          y: rawStart.y + uY * 10
         };
         const end = {
-          x: rawEnd.x - uX * 12,
-          y: rawEnd.y - uY * 12
+          x: rawEnd.x - uX * 13,
+          y: rawEnd.y - uY * 13
         };
 
         const theme = ARROW_THEMES[idx] || ARROW_THEMES[0];
@@ -121,7 +121,7 @@ export default function XiangqiBoard({
           midY,
           color: theme.color,
           marker: theme.marker,
-          width: isHovered ? theme.width + 2.5 : theme.width,
+          width: isHovered ? theme.width + 1.2 : theme.width,
           badgeBg: theme.badgeBg,
           badgeText: theme.badgeText,
           isHovered
@@ -214,33 +214,33 @@ export default function XiangqiBoard({
                     <stop offset="100%" stopColor="#a6adb8" />
                   </radialGradient>
 
-                  {/* Last Move Arrow Marker */}
+                  {/* Last Move Arrow Marker - Aerodynamic Sleek Delta Arrow */}
                   <marker
                     id="arrowhead"
-                    markerWidth="8"
-                    markerHeight="6"
-                    refX="7"
-                    refY="3"
+                    markerWidth="7"
+                    markerHeight="7"
+                    refX="5.5"
+                    refY="3.5"
                     orient="auto"
                   >
-                    <polygon points="0 0, 8 3, 0 6" fill="#f59e0b" opacity="0.9" />
+                    <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#f59e0b" opacity="0.9" />
                   </marker>
 
-                  {/* Multi-PV Engine Arrow Markers (5 Variants) */}
-                  <marker id="engineArrow1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                    <polygon points="0 0, 8 3, 0 6" fill="#10b981" opacity="0.95" />
+                  {/* Multi-PV Engine Arrow Markers (5 Variants) - Sleek Aerodynamic Delta Wing */}
+                  <marker id="engineArrow1" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+                    <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#10b981" opacity="0.95" />
                   </marker>
-                  <marker id="engineArrow2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                    <polygon points="0 0, 8 3, 0 6" fill="#06b6d4" opacity="0.95" />
+                  <marker id="engineArrow2" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+                    <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#06b6d4" opacity="0.95" />
                   </marker>
-                  <marker id="engineArrow3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                    <polygon points="0 0, 8 3, 0 6" fill="#a855f7" opacity="0.95" />
+                  <marker id="engineArrow3" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+                    <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#8b5cf6" opacity="0.95" />
                   </marker>
-                  <marker id="engineArrow4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                    <polygon points="0 0, 8 3, 0 6" fill="#f59e0b" opacity="0.95" />
+                  <marker id="engineArrow4" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+                    <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#f59e0b" opacity="0.95" />
                   </marker>
-                  <marker id="engineArrow5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                    <polygon points="0 0, 8 3, 0 6" fill="#ec4899" opacity="0.95" />
+                  <marker id="engineArrow5" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+                    <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#ec4899" opacity="0.95" />
                   </marker>
 
                   {/* Drop Shadow filter for pieces */}
@@ -453,7 +453,7 @@ export default function XiangqiBoard({
                   })
                 )}
 
-                {/* Last Move Path & Animated Arrow (Rendered on top of pieces) */}
+                {/* Last Move Path & Animated Arrow (Sleek & Subtle Amber Vector) */}
                 {arrowStart && arrowEnd && (
                   <g className="pointer-events-none">
                     <line
@@ -462,30 +462,30 @@ export default function XiangqiBoard({
                       x2={arrowEnd.x}
                       y2={arrowEnd.y}
                       stroke="#f59e0b"
-                      strokeWidth="3.5"
-                      strokeDasharray="4 3"
+                      strokeWidth="2.2"
+                      strokeDasharray="3 2.5"
                       markerEnd="url(#arrowhead)"
-                      opacity="0.9"
+                      opacity="0.85"
                     />
-                    <circle cx={arrowStart.x} cy={arrowStart.y} r="5.5" fill="#f59e0b" opacity="0.9" />
+                    <circle cx={arrowStart.x} cy={arrowStart.y} r="3.5" fill="#f59e0b" opacity="0.85" />
                   </g>
                 )}
 
-                {/* Pikafish Multi-PV Candidate Glowing Ranked Arrows (1 to 5) (Rendered on top of pieces) */}
+                {/* Multi-PV Candidate Glowing Ranked Arrows (Refined & Modern) */}
                 {renderedArrows.map((arr) => (
                   <g key={`pv-arrow-${arr.idx}`} className="pointer-events-none transition-all duration-300">
-                    {/* Shadow Glow for Hovered/Primary Arrow */}
+                    {/* Subtle Glow */}
                     <line
                       x1={arr.start.x}
                       y1={arr.start.y}
                       x2={arr.end.x}
                       y2={arr.end.y}
                       stroke={arr.color}
-                      strokeWidth={arr.width + 4}
-                      opacity={arr.isHovered ? "0.6" : (arr.rank === 1 ? "0.35" : "0.15")}
+                      strokeWidth={arr.width + 1.8}
+                      opacity={arr.isHovered ? "0.4" : "0.15"}
                     />
 
-                    {/* Main Arrow Body */}
+                    {/* Main Arrow Body (Slim Elegant Vector) */}
                     <line
                       x1={arr.start.x}
                       y1={arr.start.y}
@@ -494,33 +494,33 @@ export default function XiangqiBoard({
                       stroke={arr.color}
                       strokeWidth={arr.width}
                       markerEnd={arr.marker}
-                      opacity={arr.isHovered ? "1" : "0.95"}
+                      opacity={arr.isHovered ? "1" : "0.9"}
                     />
 
-                    {/* Origin Circle */}
+                    {/* Compact Origin Circle */}
                     <circle
                       cx={arr.start.x}
                       cy={arr.start.y}
-                      r={arr.isHovered ? "8" : "6"}
+                      r={arr.isHovered ? "4.5" : "3.5"}
                       fill={arr.color}
-                      opacity={arr.isHovered ? "1" : "0.95"}
+                      opacity={arr.isHovered ? "1" : "0.9"}
                     />
 
-                    {/* Ranking Badge Circle (#1, #2, #3, #4, #5) */}
+                    {/* Compact Modern Ranking Badge Circle (#1, #2, #3, #4, #5) */}
                     {renderedArrows.length > 1 && (
                       <g>
                         <circle
                           cx={arr.midX}
                           cy={arr.midY}
-                          r={arr.isHovered ? "9" : "7.5"}
+                          r={arr.isHovered ? "6.8" : "5.6"}
                           fill={arr.badgeBg}
                           stroke="#ffffff"
-                          strokeWidth="1.2"
+                          strokeWidth="0.8"
                         />
                         <text
                           x={arr.midX}
-                          y={arr.midY + 3.2}
-                          fontSize={arr.isHovered ? "9.5" : "8"}
+                          y={arr.midY + 2.2}
+                          fontSize={arr.isHovered ? "7.2" : "6.2"}
                           fontFamily="sans-serif"
                           fontWeight="900"
                           textAnchor="middle"
