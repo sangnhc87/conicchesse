@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PIECE_NAMES, isRed, isInCheck, parseFen, deriveEngineTacticalRadar } from './XiangqiLogic';
 import { Sparkles, Gauge, Crosshair, Zap, ShieldAlert } from 'lucide-react';
