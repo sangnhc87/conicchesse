@@ -462,16 +462,11 @@ export default function XiangqiBoard({
                           r="22"
                           fill="none"
                           stroke="#ef4444"
-                          strokeWidth="3.5"
-                          strokeDasharray="5 3"
-                          className="animate-spin-slow"
-                          opacity="0.9"
+                          strokeWidth="2.2"
+                          opacity="0.85"
                         />
                       ) : (
-                        <>
-                          <circle cx={coord.x} cy={coord.y} r="8" fill="#10b981" opacity="0.85" />
-                          <circle cx={coord.x} cy={coord.y} r="4" fill="#ffffff" />
-                        </>
+                        <circle cx={coord.x} cy={coord.y} r="6" fill="#10b981" opacity="0.85" />
                       )}
                     </g>
                   );
@@ -485,8 +480,7 @@ export default function XiangqiBoard({
                     r="23"
                     fill="none"
                     stroke="#f59e0b"
-                    strokeWidth="3.5"
-                    className="animate-pulse"
+                    strokeWidth="2.5"
                   />
                 )}
 
@@ -509,15 +503,16 @@ export default function XiangqiBoard({
                         style={{ transformOrigin: `${coord.x}px ${coord.y}px` }}
                         filter="url(#pieceShadow)"
                       >
-                        {/* Checked King Warning Aura */}
+                        {/* Checked King Warning Aura (Clean static ring) */}
                         {isKingChecked && (
                           <circle
                             cx={coord.x}
                             cy={coord.y}
-                            r="24"
-                            fill="#ef4444"
-                            opacity="0.35"
-                            className="animate-ping"
+                            r="23"
+                            fill="none"
+                            stroke="#ef4444"
+                            strokeWidth="2.5"
+                            opacity="0.9"
                           />
                         )}
 
