@@ -174,16 +174,22 @@ const InteractiveTree = ({ resultTree }) => {
   };
 
   return (
-    <div className="flex gap-4 h-[350px]">
+    <div className="flex gap-4 flex-1 min-h-[500px] max-h-full">
       {/* Mini Board (Left) */}
-      <div className="w-[300px] flex-shrink-0 bg-[#0d1017] rounded-lg border border-[#262c3b] overflow-hidden flex items-center justify-center relative">
-        <div style={{ width: '280px', height: '315px' }}>
-          <XiangqiBoard
-            board={currentBoard}
-            turn={currentTurn}
-            interactive={false}
-            showEvalBar={false}
-          />
+      <div className="w-[450px] flex-shrink-0 bg-[#0d1017] rounded-lg border border-[#262c3b] overflow-hidden flex flex-col relative shadow-inner">
+        <div className="p-3 bg-[#171b26] border-b border-[#262c3b] font-bold text-amber-400 text-sm flex justify-between items-center">
+          <span>Bàn cờ Phân tích</span>
+          <span className="text-[10px] bg-amber-500/20 px-2 py-0.5 rounded text-amber-300">Đồng bộ với Cây</span>
+        </div>
+        <div className="flex-1 flex items-center justify-center p-4">
+          <div style={{ width: '400px', height: '450px' }}>
+            <XiangqiBoard
+              board={currentBoard}
+              turn={currentTurn}
+              interactive={false}
+              showEvalBar={false}
+            />
+          </div>
         </div>
       </div>
 
@@ -222,51 +228,53 @@ const InteractiveTree = ({ resultTree }) => {
               </button>
             </div>
           ) : currentNode?.turn === 'red' ? (
-            <div className="flex flex-col items-center justify-center h-full gap-3">
-              <p className="text-sm text-gray-400 font-semibold mb-2">Đỏ phát động tấn công:</p>
+            <div className="flex flex-col items-center justify-center h-full gap-4">
+              <p className="text-base text-gray-400 font-semibold mb-2">Đỏ phát động tấn công:</p>
               <button
                 onClick={() => handleSelect(0)}
-                className="w-full max-w-xs flex items-center justify-between p-3 rounded-lg bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 transition-colors group"
+                className="w-full max-w-sm flex items-center justify-between p-4 rounded-xl bg-red-950/40 hover:bg-red-900/60 border border-red-500/30 transition-all shadow-md group"
               >
-                <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-xs font-bold">Đỏ</span>
-                  <span className="text-red-300 font-bold text-lg">{currentNode.move}</span>
+                <div className="flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-sm font-bold shadow-inner">Đỏ</span>
+                  <span className="text-red-300 font-black text-xl tracking-wide">{currentNode.move}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] bg-black/40 px-1.5 py-0.5 rounded text-gray-400">{currentNode.score}</span>
-                  <ChevronRight className="w-5 h-5 text-red-500/50 group-hover:text-red-400" />
+                  <span className="text-xs bg-black/40 px-2 py-1 rounded text-gray-400 font-mono">{currentNode.score}</span>
+                  <ChevronRight className="w-6 h-6 text-red-500/50 group-hover:text-red-400 transition-colors" />
                 </div>
               </button>
               {path.length > 0 && (
-                <button onClick={() => handleUndo(1)} className="mt-2 flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors">
-                  <Undo2 className="w-3.5 h-3.5" /> Quay lui
+                <button onClick={() => handleUndo(1)} className="mt-3 flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 transition-colors bg-[#222838] hover:bg-[#2e374d] px-4 py-2 rounded-lg">
+                  <Undo2 className="w-4 h-4" /> Quay lui
                 </button>
               )}
             </div>
           ) : currentNode?.turn === 'black' ? (
-            <div className="flex flex-col h-full">
-              <p className="text-sm text-gray-400 font-semibold mb-3 text-center">Đen có {currentNode.responses.length} phương án chống đỡ:</p>
-              <div className="flex flex-col gap-2 max-w-xs mx-auto w-full">
+            <div className="flex flex-col h-full p-2">
+              <p className="text-base text-gray-400 font-semibold mb-4 text-center">Đen có {currentNode.responses.length} phương án chống đỡ:</p>
+              <div className="flex flex-col gap-3 max-w-sm mx-auto w-full">
                 {currentNode.responses.map((resp, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleSelect(idx)}
-                    className="w-full flex items-center justify-between p-2.5 rounded-lg bg-[#1a1f2b] hover:bg-[#262c3b] border border-[#323d54] hover:border-blue-500/50 transition-colors group"
+                    className="w-full flex items-center justify-between p-4 rounded-xl bg-[#1a2035] hover:bg-[#252f47] border border-[#323d54] transition-all shadow-sm group"
                   >
-                    <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-bold">{idx + 1}</span>
-                      <span className="text-blue-300 font-bold">{resp.move}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-bold shadow-inner">{idx + 1}</span>
+                      <span className="text-blue-300 font-bold text-lg tracking-wide">{resp.move}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] bg-black/40 px-1.5 py-0.5 rounded text-gray-400">{resp.score}</span>
-                      <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-blue-400" />
+                      <span className="text-xs bg-black/40 px-2 py-1 rounded text-gray-400 font-mono">{resp.score}</span>
+                      <ChevronRight className="w-6 h-6 text-gray-600 group-hover:text-blue-400 transition-colors" />
                     </div>
                   </button>
                 ))}
               </div>
-              <button onClick={() => handleUndo(1)} className="mt-auto mx-auto flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors pt-4">
-                <Undo2 className="w-3.5 h-3.5" /> Quay lui
-              </button>
+              {path.length > 0 && (
+                <button onClick={() => handleUndo(1)} className="mt-4 mx-auto flex items-center gap-2 text-sm text-gray-500 hover:text-gray-300 transition-colors bg-[#222838] hover:bg-[#2e374d] px-4 py-2 rounded-lg">
+                  <Undo2 className="w-4 h-4" /> Quay lui
+                </button>
+              )}
             </div>
           ) : null}
         </div>
@@ -383,7 +391,7 @@ export default function CheckmateSolverModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-      <div className="bg-[#12151d] w-full max-w-2xl rounded-2xl border border-[#262c3b] shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+      <div className="bg-[#12151d] w-full max-w-5xl rounded-2xl border border-[#262c3b] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] h-full">
         
         {/* Header */}
         <div className="p-4 border-b border-[#262c3b] bg-[#171b26] flex items-center justify-between">
