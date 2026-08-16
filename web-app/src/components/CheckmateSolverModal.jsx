@@ -50,7 +50,7 @@ function getTacticalExplanation(moveText, score, turn) {
   }
 }
 
-// Recursive Solver Logic (Blazing-Fast Deep Tree Search to Checkmate with Cycle Detection)
+// Recursive Solver Logic (Deep Tree Search to Absolute Checkmate Win)
 const solveTree = async (
   currentBoard, 
   currentTurn, 
@@ -78,7 +78,7 @@ const solveTree = async (
 
   const fenKey = boardToFen(currentBoard, currentTurn).split(' ').slice(0, 2).join(' ');
   
-  // Cycle Detection: Prevent infinite loops / repetition in chess trees
+  // Cycle Detection: If current state already visited in this path, stop recursion
   if (ancestorFens.has(fenKey)) {
     return { note: "Lặp lại nước cờ (Tuần hoàn)" };
   }
@@ -89,48 +89,65 @@ const solveTree = async (
   try {
     const isRed = currentTurn === 'red';
     
-    // Branch pruning: Red always plays 1 best move; Black branches at key moments (early plies)
-    const effectiveMultiPv = isRed 
-      ? 1 
-      : (currentDepth <= 4 ? Math.min(maxBlack, 3) : 1);
-
-    // Fast engine depth: 16 at root, 10-12 in subtree for instant 10ms evaluations
-    const searchDepth = currentDepth === 1 ? 16 : 12;
-
-    // Check if opponent is already in checkmate or stalemate
+    // Check if player is already in checkmate or stalemate
     const legalMoves = getLegalMoves(currentBoard, currentTurn);
     if (legalMoves.length === 0) {
       if (isInCheck(currentBoard, currentTurn)) {
-        return { note: currentTurn === 'black' ? "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" : "Đen Chiếu Bí" };
+        return { note: currentTurn === 'black' ? "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" : "Đen Chiếu Bí Thắng" };
       } else {
         return { note: "⚖️ Hết Nước Đi (Khốn Bức / Hòa)" };
       }
     }
 
-    const candidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, searchDepth, effectiveMultiPv);
+    // Always fetch multiple candidates for Red so Red can skip repetitive moves if candidate 0 is a cycle
+    const effectiveMultiPv = isRed 
+      ? 4 
+      : (currentDepth <= 4 ? Math.min(maxBlack, 3) : 1);
+
+    // Fast engine depth: 16 at root, 12 in subtree
+    const searchDepth = currentDepth === 1 ? 16 : 12;
+
+    const rawCandidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, searchDepth, effectiveMultiPv);
 
     if (checkAbort()) return null;
 
-    if (!candidates || candidates.length === 0 || !candidates[0].move) {
+    if (!rawCandidates || rawCandidates.length === 0 || !rawCandidates[0].move) {
       if (isInCheck(currentBoard, currentTurn)) {
-        return { note: "🏆 Sát Cục Hoàn Tất (Tất Thắng)" };
+        return { note: currentTurn === 'black' ? "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" : "Sát cục hoàn tất" };
       }
-      return { note: "Sát cục hoàn tất (Tất Thắng)" };
+      return { note: "Kết thúc phương án" };
     }
 
     if (isRed) {
-      const best = candidates[0];
-      const move = best.move;
+      // Find the best non-repetitive move for Red
+      let chosenCand = null;
+      let chosenNewBoard = null;
+
+      for (const cand of rawCandidates) {
+        if (!cand.move) continue;
+        const testBoard = makeMove(currentBoard, cand.move);
+        const testFen = boardToFen(testBoard, 'black').split(' ').slice(0, 2).join(' ');
+        // Prefer moves that do not loop back to an ancestor position
+        if (!nextAncestors.has(testFen)) {
+          chosenCand = cand;
+          chosenNewBoard = testBoard;
+          break;
+        }
+      }
+
+      // If all candidate moves are loops, take the first one or declare repetition
+      if (!chosenCand) {
+        chosenCand = rawCandidates[0];
+        chosenNewBoard = makeMove(currentBoard, chosenCand.move);
+      }
+
+      const best = chosenCand;
       const score = best.scoreText || `cp ${best.score}`;
-      
-      if (!move) return { note: "🏆 Sát Cục Hoàn Tất (Tất Thắng)" };
-      
-      let newBoard = makeMove(currentBoard, move);
       
       onProgress(`Đỏ đi ${best.viShort || best.uci} (${score})`);
 
-      // Check if Black has any legal responses left
-      const blackLegal = getLegalMoves(newBoard, 'black');
+      // Check if Black has any legal responses left after Red's move
+      const blackLegal = getLegalMoves(chosenNewBoard, 'black');
       if (blackLegal.length === 0) {
         return {
           turn: 'red',
@@ -142,7 +159,7 @@ const solveTree = async (
         };
       } else {
         const reply = await solveTree(
-          newBoard, 
+          chosenNewBoard, 
           'black', 
           currentDepth + 1, 
           maxDepth, 
@@ -164,9 +181,9 @@ const solveTree = async (
       }
     } else {
       const responses = [];
-      for (let idx = 0; idx < candidates.length; idx++) {
+      for (let idx = 0; idx < rawCandidates.length; idx++) {
         if (checkAbort()) return null;
-        const cand = candidates[idx];
+        const cand = rawCandidates[idx];
         const move = cand.move;
         if (!move) continue;
         
@@ -635,7 +652,7 @@ export default function CheckmateSolverModal({
 
   // Confetti when checkmate reached
   useEffect(() => {
-    if (currentNode?.note) {
+    if (currentNode?.note && (currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng'))) {
       confetti({
         particleCount: 80,
         spread: 70,
@@ -1351,23 +1368,43 @@ export default function CheckmateSolverModal({
                       
                       {/* Section 1: Checkmate Reached OR Current Tactical Card */}
                       {currentNode?.note ? (
-                        <div className="p-8 rounded-3xl bg-gradient-to-br from-emerald-950/80 via-[#101c18] to-[#0c1613] border-2 border-emerald-500/50 text-center shadow-2xl animate-in zoom-in-95">
-                          <Crown className="w-16 h-16 text-amber-400 mx-auto mb-3 animate-bounce" />
-                          <h3 className="text-2xl font-black text-emerald-300 mb-1">
-                            SÁT CỤC HOÀN TOÀN — TẤT THẮNG!
-                          </h3>
-                          <p className="text-sm text-gray-300 max-w-md mx-auto mb-5 font-medium">
-                            {currentNode.note}. Đỏ đã hoàn thành toàn bộ chuỗi sát chiêu không thể đảo ngược.
-                          </p>
-                          <div className="flex items-center justify-center gap-3">
-                            <button
-                              onClick={() => setPath([])}
-                              className="px-6 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-black text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2"
-                            >
-                              <RotateCcw className="w-4 h-4" /> Xem Lại Từ Đầu
-                            </button>
+                        currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng') ? (
+                          <div className="p-8 rounded-3xl bg-gradient-to-br from-emerald-950/80 via-[#101c18] to-[#0c1613] border-2 border-emerald-500/50 text-center shadow-2xl animate-in zoom-in-95">
+                            <Crown className="w-16 h-16 text-amber-400 mx-auto mb-3 animate-bounce" />
+                            <h3 className="text-2xl font-black text-emerald-300 mb-1">
+                              SÁT CỤC HOÀN TOÀN — TẤT THẮNG!
+                            </h3>
+                            <p className="text-sm text-gray-300 max-w-md mx-auto mb-5 font-medium">
+                              {currentNode.note}. Đỏ đã hoàn thành toàn bộ chuỗi sát chiêu không thể đảo ngược.
+                            </p>
+                            <div className="flex items-center justify-center gap-3">
+                              <button
+                                onClick={() => setPath([])}
+                                className="px-6 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-black text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2"
+                              >
+                                <RotateCcw className="w-4 h-4" /> Xem Lại Từ Đầu
+                              </button>
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="p-6 rounded-3xl bg-gradient-to-br from-[#1e1a14] via-[#16141a] to-[#121520] border-2 border-amber-500/40 text-center shadow-2xl animate-in zoom-in-95">
+                            <ShieldAlert className="w-12 h-12 text-amber-400 mx-auto mb-2" />
+                            <h3 className="text-xl font-black text-amber-300 mb-1">
+                              KẾT THÚC NHÁNH DIỄN BIẾN
+                            </h3>
+                            <p className="text-sm text-gray-300 max-w-md mx-auto mb-4 font-medium">
+                              {currentNode.note}
+                            </p>
+                            <div className="flex items-center justify-center gap-3">
+                              <button
+                                onClick={() => setPath([])}
+                                className="px-5 py-2 rounded-2xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-black text-xs transition-all flex items-center gap-2"
+                              >
+                                <RotateCcw className="w-4 h-4" /> Xem Lại Từ Đầu
+                              </button>
+                            </div>
+                          </div>
+                        )
                       ) : currentNode?.turn === 'red' ? (
                         /* Red Move Focus Card */
                         <div className="p-6 rounded-3xl bg-gradient-to-br from-[#1c1214] via-[#16121a] to-[#121520] border-2 border-red-500/40 shadow-2xl flex flex-col gap-4">
