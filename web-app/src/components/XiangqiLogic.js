@@ -4,6 +4,7 @@ export const PIECE_NAMES = {
   K: { name: 'Tướng Đỏ', role: 'king', cn: '帥', vi: 'Tướng', short: 'Tg' },
   A: { name: 'Sĩ Đỏ', role: 'advisor', cn: '仕', vi: 'Sĩ', short: 'S' },
   B: { name: 'Tượng Đỏ', role: 'elephant', cn: '相', vi: 'Tượng', short: 'T' },
+  E: { name: 'Tượng Đỏ', role: 'elephant', cn: '相', vi: 'Tượng', short: 'T' }, // Alias for Pikafish FEN
   N: { name: 'Mã Đỏ', role: 'knight', cn: '傌', vi: 'Mã', short: 'M' },
   R: { name: 'Xe Đỏ', role: 'rook', cn: '俥', vi: 'Xe', short: 'X' },
   C: { name: 'Pháo Đỏ', role: 'cannon', cn: '炮', vi: 'Pháo', short: 'P' },
@@ -11,6 +12,7 @@ export const PIECE_NAMES = {
   k: { name: 'Tướng Đen', role: 'king', cn: '將', vi: 'Tướng', short: 'Tg' },
   a: { name: 'Sĩ Đen', role: 'advisor', cn: '士', vi: 'Sĩ', short: 'S' },
   b: { name: 'Tượng Đen', role: 'elephant', cn: '象', vi: 'Tượng', short: 'T' },
+  e: { name: 'Tượng Đen', role: 'elephant', cn: '象', vi: 'Tượng', short: 'T' }, // Alias for Pikafish FEN
   n: { name: 'Mã Đen', role: 'knight', cn: '馬', vi: 'Mã', short: 'M' },
   r: { name: 'Xe Đen', role: 'rook', cn: '車', vi: 'Xe', short: 'X' },
   c: { name: 'Pháo Đen', role: 'cannon', cn: '砲', vi: 'Pháo', short: 'P' },
@@ -1300,8 +1302,19 @@ export function classifyEndgameCandidate(cand, turn = 'red', isNative = false, b
   const isRed = turn === 'red';
   const effectiveScore = isRed ? score : -score;
 
-  // 1a. Theoretical win from endgame theory table (e.g. Đơn Mã thắng Sĩ)
-  const isTheoreticalWin = board ? isTheoreticalWinPosition(board) : false;
+  // 1a. Theoretical win from endgame theory table
+  // MUST CHECK ON NEXT BOARD (AFTER MOVE IS PLAYED) to ensure the move doesn't blunder away the theoretical win
+  let isTheoreticalWin = false;
+  if (board && cand.move) {
+    try {
+      const nextBoard = makeMove(board, cand.move);
+      isTheoreticalWin = isTheoreticalWinPosition(nextBoard);
+    } catch (e) {
+      isTheoreticalWin = isTheoreticalWinPosition(board);
+    }
+  } else if (board) {
+    isTheoreticalWin = isTheoreticalWinPosition(board);
+  }
 
   // 1b. Forced Win: actual Mate in N
   const isActualMate = cand.isCheckmateWin || (typeof cand.scoreText === 'string' && cand.scoreText.includes('M'));
