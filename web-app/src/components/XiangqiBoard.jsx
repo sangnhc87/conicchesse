@@ -30,43 +30,44 @@ export default function XiangqiBoard({
   const blackInCheck = isInCheck(safeBoard, 'black');
 
   // Track pieces with stable IDs for smooth framer-motion animations
-  const [piecesMap, setPiecesMap] = useState([]);
+  const prevPiecesRef = useRef([]);
   
-  useEffect(() => {
-    setPiecesMap(prev => {
-      const nextPieces = [];
-      const unmatchedNew = [];
-      const usedPrevIds = new Set();
+  const piecesMap = useMemo(() => {
+    const prev = prevPiecesRef.current;
+    const nextPieces = [];
+    const unmatchedNew = [];
+    const usedPrevIds = new Set();
 
-      // 1. Find exact matches (unmoved pieces)
-      for (let r = 0; r < 10; r++) {
-        for (let c = 0; c < 9; c++) {
-          const piece = safeBoard[r][c];
-          if (piece) {
-            const exactMatch = prev.find(p => p.piece === piece && p.r === r && p.c === c && !usedPrevIds.has(p.id));
-            if (exactMatch) {
-              nextPieces.push({ ...exactMatch });
-              usedPrevIds.add(exactMatch.id);
-            } else {
-              unmatchedNew.push({ piece, r, c });
-            }
+    // 1. Find exact matches (unmoved pieces)
+    for (let r = 0; r < 10; r++) {
+      for (let c = 0; c < 9; c++) {
+        const piece = safeBoard[r][c];
+        if (piece) {
+          const exactMatch = prev.find(p => p.piece === piece && p.r === r && p.c === c && !usedPrevIds.has(p.id));
+          if (exactMatch) {
+            nextPieces.push({ ...exactMatch });
+            usedPrevIds.add(exactMatch.id);
+          } else {
+            unmatchedNew.push({ piece, r, c });
           }
         }
       }
+    }
 
-      // 2. Match moved pieces
-      for (const newP of unmatchedNew) {
-        const movedMatch = prev.find(p => p.piece === newP.piece && !usedPrevIds.has(p.id));
-        if (movedMatch) {
-          nextPieces.push({ ...newP, id: movedMatch.id });
-          usedPrevIds.add(movedMatch.id);
-        } else {
-          // Completely new piece (e.g. board reset)
-          nextPieces.push({ ...newP, id: `${newP.piece}-${Math.random().toString(36).substr(2, 9)}` });
-        }
+    // 2. Match moved pieces
+    for (const newP of unmatchedNew) {
+      const movedMatch = prev.find(p => p.piece === newP.piece && !usedPrevIds.has(p.id));
+      if (movedMatch) {
+        nextPieces.push({ ...newP, id: movedMatch.id });
+        usedPrevIds.add(movedMatch.id);
+      } else {
+        // Completely new piece (e.g. board reset)
+        nextPieces.push({ ...newP, id: `${newP.piece}-${Math.random().toString(36).substr(2, 9)}` });
       }
-      return nextPieces;
-    });
+    }
+    
+    prevPiecesRef.current = nextPieces;
+    return nextPieces;
   }, [safeBoard]);
 
   // Thấu Thị Trận Pháp Động Cơ (Pikafish Tactical Radar & Weakness Analysis)
@@ -548,8 +549,10 @@ export default function XiangqiBoard({
                       animate={{ x: coord.x, y: coord.y }}
                       transition={{ type: "tween", ease: "easeOut", duration: 0.15 }}
                       whileHover={{ scale: 1.05 }}
-                      filter="url(#pieceShadow)"
                     >
+                      {/* Apply shadow to a circle instead of the group for 60fps Safari performance */}
+                      <circle cx="0" cy="0" r="20.5" filter="url(#pieceShadow)" fill="transparent" />
+
                       {/* Checked King Warning Aura (Clean static ring) */}
                       {isKingChecked && (
                         <circle
