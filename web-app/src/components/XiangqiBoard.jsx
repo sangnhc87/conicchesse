@@ -1,5 +1,4 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { PIECE_NAMES, isRed, isInCheck, parseFen, deriveEngineTacticalRadar } from './XiangqiLogic';
 import { Sparkles, Gauge, Crosshair, Zap, ShieldAlert } from 'lucide-react';
 
@@ -542,13 +541,19 @@ export default function XiangqiBoard({
                   const isKingChecked = (isKing && isRedP && redInCheck) || (isKing && !isRedP && blackInCheck);
 
                   return (
-                    <motion.g
+                    <g
                       key={id}
                       className="cursor-pointer"
-                      initial={false}
-                      animate={{ x: coord.x, y: coord.y }}
-                      transition={{ type: "tween", ease: "easeOut", duration: 0.15 }}
-                      whileHover={{ scale: 1.05 }}
+                      style={{
+                        transform: `translate(${coord.x}px, ${coord.y}px)`,
+                        transition: 'transform 0.15s ease-out'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = `translate(${coord.x}px, ${coord.y}px) scale(1.05)`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = `translate(${coord.x}px, ${coord.y}px) scale(1)`;
+                      }}
                     >
                       {/* Apply shadow to a circle instead of the group for 60fps Safari performance */}
                       <circle cx="0" cy="0" r="20.5" filter="url(#pieceShadow)" fill="transparent" />
@@ -599,7 +604,7 @@ export default function XiangqiBoard({
                       >
                         {text}
                       </text>
-                    </motion.g>
+                    </g>
                   );
                 })}
 
