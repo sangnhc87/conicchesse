@@ -310,15 +310,16 @@ export default function App() {
   const isStudy = appMode === 'study';
   const isAnalysis = appMode === 'analysis';
   const isPlayAi = appMode === 'play_ai';
+  const isTraining = appMode === 'training';
 
   const activeBoard = isStudy
     ? (trialBoard || currentStudyBoard)
-    : (isAnalysis ? analysisBoard : playAiBoard);
+    : (isAnalysis ? analysisBoard : (isTraining ? (trainingBoard || parseFen().board) : playAiBoard));
 
   const isTrialMode = isStudy && (trialBoard !== null);
   const activeTurn = isStudy
     ? (isTrialMode ? trialTurn : ((currentMoveIndex % 2 === 0) ? 'red' : 'black'))
-    : (isAnalysis ? analysisTurn : playAiTurn);
+    : (isAnalysis ? analysisTurn : (isTraining ? trainingTurn : playAiTurn));
 
   // Fast O(1) synchronous Material & Positional Eval score (Instant 0.01ms evaluation)
   const currentEvalScore = useMemo(() => {
@@ -1723,6 +1724,7 @@ export default function App() {
                   activeBoard={activeBoard}
                   activeTurn={activeTurn}
                   onOpenAnalysisWithPosition={handleOpenAnalysisWithPosition}
+                  onOpenSolver={() => setIsSolverModalOpen(true)}
                 />
               ) : isAnalysis ? (
                 <AnalysisPanel

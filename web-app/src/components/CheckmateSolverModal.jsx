@@ -332,8 +332,22 @@ export default function CheckmateSolverModal({
       setSelectedSquare(null);
     } else {
       abortRef.current = false;
+      // Auto-lookup current board position in SatsucCache
+      if (initialBoard) {
+        const fen = boardToFen(initialBoard, initialTurn || 'red');
+        const cached = SatsucCache.getTree(fen);
+        if (cached && cached.tree) {
+          setResultTree(cached);
+          setPath([]);
+          setActiveTab('dashboard');
+          showToast('Đã tự động nạp thế cờ đã giải từ Thư Viện!');
+        } else {
+          setResultTree(null);
+          setPath([]);
+        }
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, initialBoard, initialTurn]);
 
   // Compute current board & state based on path
   const { currentBoard, currentTurn, currentNode, historyMoves, lastMove, expectedNextMove } = useMemo(() => {
@@ -1349,20 +1363,77 @@ export default function CheckmateSolverModal({
               </div>
             </div>
           ) : (
-            /* Initial State Empty Placeholder */
-            <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-gray-500">
-              <Bot className="w-16 h-16 mb-4 text-amber-400/40 animate-pulse" />
-              <h3 className="text-lg font-bold text-gray-200 mb-1">Chưa có dữ liệu Sát Cục</h3>
-              <p className="text-xs text-gray-400 max-w-sm mb-6">
-                Chọn số nhánh và bấm nút <strong className="text-amber-400">"Bắt Đầu Dò Sát Cục"</strong> để AI quét toàn bộ cây phương án tất thắng.
-              </p>
-              <button
-                onClick={handleStart}
-                disabled={isSolving}
-                className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-amber-500 hover:bg-amber-400 text-amber-950 font-black text-sm shadow-xl shadow-amber-500/20 transition-all active:scale-95"
-              >
-                <Play className="w-4 h-4 fill-current" /> Bắt Đầu Dò Ngay
-              </button>
+            /* Live Position Launchpad */
+            <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+              {/* Left: Live Current Board */}
+              <div className="w-full md:w-[500px] lg:w-[540px] flex-shrink-0 bg-[#0d1017] border-r border-[#222c3f] flex flex-col justify-between p-4 relative">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+                    <span className="text-xs font-black text-amber-300 uppercase tracking-wider">
+                      Thế Trận Hiện Tại Cần Dò
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setFlipped(!flipped)}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#1a2130] hover:bg-[#263147] text-gray-300 text-[11px] font-bold border border-[#2d3a52] transition-colors"
+                  >
+                    <RotateCcw className="w-3 h-3" /> Đổi Bên
+                  </button>
+                </div>
+
+                <div className="flex-1 flex items-center justify-center my-auto">
+                  <div style={{ width: '440px', height: '490px' }}>
+                    <XiangqiBoard
+                      board={initialBoard || parseFen().board}
+                      turn={initialTurn || 'red'}
+                      flipped={flipped}
+                      interactive={false}
+                      showEvalBar={false}
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-[#141926] p-3 rounded-2xl border border-[#242e44] text-xs flex items-center justify-between mt-3">
+                  <span className="text-gray-400">Lượt đi ban đầu:</span>
+                  <span className="font-black text-amber-400 uppercase">
+                    {initialTurn === 'red' ? '🔴 Bên Đỏ Đi Trước' : '⚫ Bên Đen Đi Trước'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: Launch Control Center */}
+              <div className="flex-1 flex flex-col items-center justify-center p-8 bg-[#0e121b] text-center max-w-xl mx-auto">
+                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-500/20 to-red-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-xl mb-4">
+                  <Target className="w-8 h-8" />
+                </div>
+                
+                <h3 className="text-xl font-black text-gray-100 mb-2">
+                  Dò Sát Cục Cho Thế Trận Này
+                </h3>
+                
+                <p className="text-xs text-gray-400 max-w-md mb-6 leading-relaxed">
+                  Pikafish AI sẽ quét toàn bộ cây phương án đệ quy, kiểm tra từng nước biến của đối thủ để tìm ra chuỗi sát chiêu tất thắng 100%.
+                </p>
+
+                <div className="w-full bg-[#141926] p-4 rounded-2xl border border-[#252f44] mb-6 text-left space-y-2">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                    Mã FEN Thế Trận:
+                  </div>
+                  <div className="font-mono text-xs text-amber-300/90 break-all bg-[#0a0d14] p-2.5 rounded-xl border border-[#1f283d]">
+                    {boardToFen(initialBoard || parseFen().board, initialTurn || 'red')}
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleStart}
+                  disabled={isSolving}
+                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-amber-950 font-black text-base shadow-2xl shadow-amber-500/30 transition-all active:scale-95 flex items-center justify-center gap-2.5"
+                >
+                  <Play className="w-5 h-5 fill-current" />
+                  <span>BẮT ĐẦU DÒ SÁT CỤC THẾ CỜ NÀY</span>
+                </button>
+              </div>
             </div>
           )}
         </div>

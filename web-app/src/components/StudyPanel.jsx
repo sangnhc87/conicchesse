@@ -45,7 +45,8 @@ export default function StudyPanel({
   onToggleComplete,
   activeBoard,
   activeTurn,
-  onOpenAnalysisWithPosition
+  onOpenAnalysisWithPosition,
+  onOpenSolver
 }) {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState('moves'); // 'moves', 'strategy', 'commentary', 'notes'
@@ -390,6 +391,17 @@ export default function StudyPanel({
               <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
               <span>Gợi Ý</span>
             </button>
+
+            {onOpenSolver && (
+              <button
+                onClick={onOpenSolver}
+                className="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:bg-amber-500/30 text-amber-300 font-bold border border-amber-500/40 flex items-center gap-1 transition-all active:scale-95 shadow-sm"
+                title="Dò Sát Cục & Cây Quyết Định Tất Thắng cho thế cờ hiện tại"
+              >
+                <Target className="w-3.5 h-3.5 text-amber-400" />
+                <span>Dò Sát Cục</span>
+              </button>
+            )}
 
             {onOpenAnalysisWithPosition && (
               <button
