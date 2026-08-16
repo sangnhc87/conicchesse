@@ -5,7 +5,7 @@ import {
   Map, BookOpen, Trash2, FolderOpen, RotateCcw, GitFork, 
   Layers, Crown, Zap, Sparkles, Maximize2, Minimize2, ArrowRight,
   Pencil, Save, FastForward, Rewind, Swords, Compass, HelpCircle,
-  Volume2, VolumeX, ShieldAlert
+  Volume2, VolumeX, ShieldAlert, Target
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import XiangqiBoard from './XiangqiBoard';
