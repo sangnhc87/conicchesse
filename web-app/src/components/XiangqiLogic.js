@@ -1217,3 +1217,240 @@ export function classifyEndgameCandidate(cand, turn = 'red') {
   };
 }
 
+/**
+ * Thấu Thị Trận Pháp (Tactical Heatmap & Territory Control Radar)
+ * Computes real-time square attack/defense control matrix and identifies tactical weaknesses (Tử Huyệt)
+ */
+export function calculateBoardControlMap(board) {
+  if (!board || !Array.isArray(board) || board.length !== 10) {
+    return { matrix: [], weaknesses: [], redControlled: 0, blackControlled: 0 };
+  }
+
+  const redHits = Array.from({ length: 10 }, () => Array(9).fill(0));
+  const blackHits = Array.from({ length: 10 }, () => Array(9).fill(0));
+  const weaknesses = [];
+
+  // Helper to mark square control with piece weight
+  const markRay = (startR, startC, dR, dC, isRedPiece, isCannon = false) => {
+    let r = startR + dR;
+    let c = startC + dC;
+    let screenCount = 0;
+
+    while (r >= 0 && r < 10 && c >= 0 && c < 9) {
+      const target = board[r][c];
+
+      if (!isCannon) {
+        // Rook / Pawn / King line of sight
+        if (isRedPiece) redHits[r][c] += 1;
+        else blackHits[r][c] += 1;
+
+        if (target) break; // Ray blocked by piece
+      } else {
+        // Cannon jump mechanics
+        if (screenCount === 0) {
+          if (target) screenCount = 1; // Found the screen/mount (ngòi pháo)
+          else {
+            // Unscreened square (controlled for movement)
+            if (isRedPiece) redHits[r][c] += 0.5;
+            else blackHits[r][c] += 0.5;
+          }
+        } else if (screenCount === 1) {
+          // After screen, cannon attacks this target
+          if (isRedPiece) redHits[r][c] += 1.5;
+          else blackHits[r][c] += 1.5;
+
+          if (target) break; // Cannon cannot jump 2 screens
+        }
+      }
+
+      r += dR;
+      c += dC;
+    }
+  };
+
+  // Scan all pieces on board
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 9; c++) {
+      const p = board[r][c];
+      if (!p) continue;
+      const isRedPiece = isRed(p);
+      const type = p.toUpperCase();
+
+      switch (type) {
+        case 'R': // Xe (Rook)
+          markRay(r, c, -1, 0, isRedPiece);
+          markRay(r, c, 1, 0, isRedPiece);
+          markRay(r, c, 0, -1, isRedPiece);
+          markRay(r, c, 0, 1, isRedPiece);
+          break;
+
+        case 'C': // Pháo (Cannon)
+          markRay(r, c, -1, 0, isRedPiece, true);
+          markRay(r, c, 1, 0, isRedPiece, true);
+          markRay(r, c, 0, -1, isRedPiece, true);
+          markRay(r, c, 0, 1, isRedPiece, true);
+          break;
+
+        case 'N': // Mã (Knight)
+          const horseDeltas = [
+            { dr: -2, dc: -1, legR: -1, legC: 0 },
+            { dr: -2, dc: 1, legR: -1, legC: 0 },
+            { dr: 2, dc: -1, legR: 1, legC: 0 },
+            { dr: 2, dc: 1, legR: 1, legC: 0 },
+            { dr: -1, dc: -2, legR: 0, legC: -1 },
+            { dr: 1, dc: -2, legR: 0, legC: -1 },
+            { dr: -1, dc: 2, legR: 0, legC: 1 },
+            { dr: 1, dc: 2, legR: 0, legC: 1 },
+          ];
+          for (let h of horseDeltas) {
+            const tr = r + h.dr;
+            const tc = c + h.dc;
+            const lr = r + h.legR;
+            const lc = c + h.legC;
+            if (tr >= 0 && tr < 10 && tc >= 0 && tc < 9) {
+              if (!board[lr][lc]) {
+                // Leg is not blocked
+                if (isRedPiece) redHits[tr][tc] += 1;
+                else blackHits[tr][tc] += 1;
+              }
+            }
+          }
+          break;
+
+        case 'P': // Binh / Tốt
+          if (isRedPiece) {
+            if (r - 1 >= 0) redHits[r - 1][c] += 1;
+            if (r <= 4) { // Across river
+              if (c - 1 >= 0) redHits[r][c - 1] += 1;
+              if (c + 1 < 9) redHits[r][c + 1] += 1;
+            }
+          } else {
+            if (r + 1 < 10) blackHits[r + 1][c] += 1;
+            if (r >= 5) { // Across river
+              if (c - 1 >= 0) blackHits[r][c - 1] += 1;
+              if (c + 1 < 9) blackHits[r][c + 1] += 1;
+            }
+          }
+          break;
+
+        case 'A': // Sĩ
+          const advDeltas = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
+          for (let [dr, dc] of advDeltas) {
+            const tr = r + dr;
+            const tc = c + dc;
+            if (isRedPiece ? (tr >= 7 && tr <= 9 && tc >= 3 && tc <= 5) : (tr >= 0 && tr <= 2 && tc >= 3 && tc <= 5)) {
+              if (isRedPiece) redHits[tr][tc] += 0.8;
+              else blackHits[tr][tc] += 0.8;
+            }
+          }
+          break;
+
+        case 'B': // Tượng
+          const eleDeltas = [
+            { dr: -2, dc: -2, eyeR: -1, eyeC: -1 },
+            { dr: -2, dc: 2, eyeR: -1, eyeC: 1 },
+            { dr: 2, dc: -2, eyeR: 1, eyeC: -1 },
+            { dr: 2, dc: 2, eyeR: 1, eyeC: 1 }
+          ];
+          for (let e of eleDeltas) {
+            const tr = r + e.dr;
+            const tc = c + e.dc;
+            const er = r + e.eyeR;
+            const ec = c + e.eyeC;
+            if (isRedPiece ? (tr >= 5 && tr <= 9 && tc >= 0 && tc < 9) : (tr >= 0 && tr <= 4 && tc >= 0 && tc < 9)) {
+              if (!board[er][ec]) {
+                if (isRedPiece) redHits[tr][tc] += 0.8;
+                else blackHits[tr][tc] += 0.8;
+              }
+            }
+          }
+          break;
+
+        case 'K': // Tướng
+          const kingDeltas = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+          for (let [dr, dc] of kingDeltas) {
+            const tr = r + dr;
+            const tc = c + dc;
+            if (isRedPiece ? (tr >= 7 && tr <= 9 && tc >= 3 && tc <= 5) : (tr >= 0 && tr <= 2 && tc >= 3 && tc <= 5)) {
+              if (isRedPiece) redHits[tr][tc] += 1;
+              else blackHits[tr][tc] += 1;
+            }
+          }
+          break;
+      }
+    }
+  }
+
+  let redCount = 0;
+  let blackCount = 0;
+  const matrix = [];
+
+  for (let r = 0; r < 10; r++) {
+    const row = [];
+    for (let c = 0; c < 9; c++) {
+      const redVal = redHits[r][c];
+      const blackVal = blackHits[r][c];
+      const diff = redVal - blackVal;
+      const piece = board[r][c];
+
+      let dominant = 'neutral';
+      if (diff >= 0.5) {
+        dominant = 'red';
+        redCount++;
+      } else if (diff <= -0.5) {
+        dominant = 'black';
+        blackCount++;
+      }
+
+      // Check for Weakness (Tử Huyệt):
+      // 1. Piece attacked by enemy with NO defender
+      if (piece) {
+        const isRedP = isRed(piece);
+        if (isRedP && blackVal > 0 && redVal === 0) {
+          weaknesses.push({
+            r, c,
+            targetTurn: 'red',
+            type: 'undefended',
+            label: `Tử Huyệt: ${PIECE_NAMES[piece]?.vi || 'Quân'} Đỏ không có người giữ!`
+          });
+        } else if (!isRedP && redVal > 0 && blackVal === 0) {
+          weaknesses.push({
+            r, c,
+            targetTurn: 'black',
+            type: 'undefended',
+            label: `Tử Huyệt: ${PIECE_NAMES[piece]?.vi || 'Quân'} Đen bị uy hiếp bỏ lỏng!`
+          });
+        }
+      }
+
+      // 2. Palace corner weakness (Sĩ hở sườn hoặc Tướng bị bao vây)
+      if (!piece) {
+        if (r >= 0 && r <= 2 && c >= 3 && c <= 5 && redVal >= 2 && blackVal <= 1) {
+          weaknesses.push({
+            r, c,
+            targetTurn: 'black',
+            type: 'palace_breach',
+            label: `Cửa Đột Phá Sát Cục (Cung Tướng Đen bị Đỏ áp đảo)`
+          });
+        }
+      }
+
+      row.push({
+        r, c,
+        redVal,
+        blackVal,
+        diff,
+        dominant
+      });
+    }
+    matrix.push(row);
+  }
+
+  return {
+    matrix,
+    weaknesses: weaknesses.slice(0, 4),
+    redControlled: redCount,
+    blackControlled: blackCount
+  };
+}
+

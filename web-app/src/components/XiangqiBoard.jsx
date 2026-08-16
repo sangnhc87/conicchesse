@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { PIECE_NAMES, isRed, isInCheck, parseFen } from './XiangqiLogic';
+import React, { useRef, useMemo } from 'react';
+import { PIECE_NAMES, isRed, isInCheck, parseFen, calculateBoardControlMap } from './XiangqiLogic';
 import { Sparkles, Gauge } from 'lucide-react';
 
 export default function XiangqiBoard({
@@ -19,13 +19,20 @@ export default function XiangqiBoard({
   onSquareClick,
   pieceLanguage = 'cn', // 'cn' (default: traditional Chinese calligraphy) or 'vi'
   interactive = true,
-  showMoveArrow = true
+  showMoveArrow = true,
+  showHeatmap = false
 }) {
   const svgRef = useRef(null);
 
   const safeBoard = (Array.isArray(board) && board.length === 10) ? board : parseFen().board;
   const redInCheck = isInCheck(safeBoard, 'red');
   const blackInCheck = isInCheck(safeBoard, 'black');
+
+  // Thấu Thị Trận Pháp (Tactical Heatmap & Weakness Radar)
+  const controlMap = useMemo(() => {
+    if (!showHeatmap) return null;
+    return calculateBoardControlMap(safeBoard);
+  }, [safeBoard, showHeatmap]);
 
   // Convert logical coordinates (r: 0..9, c: 0..8) to SVG pixel center (cx, cy)
   const getSvgCoord = (r, c) => {
@@ -341,6 +348,69 @@ export default function XiangqiBoard({
                     HÁN GIỚI
                   </text>
                 </g>
+
+                {/* Thấu Thị Trận Pháp (Tactical Territory Control Heatmap & Weakness Radar) */}
+                {showHeatmap && controlMap && (
+                  <g className="pointer-events-none transition-all duration-300">
+                    {/* Territory Control Glowing Grids */}
+                    {controlMap.matrix.map((row, r) =>
+                      row.map((cell, c) => {
+                        if (cell.dominant === 'neutral') return null;
+                        const coord = getSvgCoord(r, c);
+                        const isRedDom = cell.dominant === 'red';
+                        const intensity = Math.min(0.42, 0.16 + Math.abs(cell.diff) * 0.07);
+                        return (
+                          <rect
+                            key={`heat-${r}-${c}`}
+                            x={coord.x - 21}
+                            y={coord.y - 21}
+                            width="42"
+                            height="42"
+                            rx="10"
+                            fill={isRedDom ? '#10b981' : '#ef4444'}
+                            opacity={intensity}
+                          />
+                        );
+                      })
+                    )}
+
+                    {/* Highlight Tử Huyệt (Tactical Weaknesses & Breach Points) */}
+                    {controlMap.weaknesses.map((w, wIdx) => {
+                      const coord = getSvgCoord(w.r, w.c);
+                      return (
+                        <g key={`weakness-${wIdx}`} className="animate-pulse">
+                          <circle
+                            cx={coord.x}
+                            cy={coord.y}
+                            r="21"
+                            fill="none"
+                            stroke="#f59e0b"
+                            strokeWidth="2.5"
+                            strokeDasharray="4 2"
+                          />
+                          <circle
+                            cx={coord.x}
+                            cy={coord.y}
+                            r="4.5"
+                            fill="#f59e0b"
+                            opacity="0.85"
+                          />
+                          <text
+                            x={coord.x}
+                            y={coord.y - 23}
+                            fontSize="8"
+                            fontFamily="sans-serif"
+                            fontWeight="900"
+                            textAnchor="middle"
+                            fill="#fef08a"
+                          >
+                            ⚡ TỬ HUYỆT
+                          </text>
+                        </g>
+                      );
+                    })}
+                  </g>
+                )}
 
                 {/* Legal Move Destination Dots */}
                 {legalDestinations.map((dest, idx) => {

@@ -93,6 +93,24 @@ export default function BoardEditorModal({
     }, 100);
   };
 
+  const handleDirectToAnalysis = () => {
+    if (onOpenAnalysisWithPosition) {
+      onOpenAnalysisWithPosition(board, turn);
+    } else if (onLoadCustomPuzzle) {
+      const customLesson = {
+        id: `custom_${Date.now()}`,
+        title: puzzleTitle || 'Thế cờ tự tạo',
+        fen: currentFen,
+        moves: [],
+        tacticalGoal: 'Phân tích tự do thế cờ',
+        folderPath: ['Thế Cờ Tự Tạo'],
+        type: 'custom'
+      };
+      onLoadCustomPuzzle(customLesson);
+    }
+    onClose();
+  };
+
   const redPiecesPalette = ['K', 'R', 'C', 'N', 'A', 'B', 'P'];
   const blackPiecesPalette = ['k', 'r', 'c', 'n', 'a', 'b', 'p'];
 

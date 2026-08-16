@@ -5,7 +5,7 @@ import {
   Compass, ArrowLeft, Sparkles, Award, Swords, Bot, CheckCircle2,
   AlertTriangle, Undo2, Plus, Database, UploadCloud, Cpu, Zap, Flame, Settings2,
   FolderTree, Maximize2, Minimize2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen,
-  PanelTopClose, PanelTopOpen, ChevronDown, ChevronUp
+  PanelTopClose, PanelTopOpen, ChevronDown, ChevronUp, Radar, Eye, Crosshair
 } from 'lucide-react';
 
 import XiangqiBoard from './components/XiangqiBoard';
@@ -75,6 +75,7 @@ export default function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [showEvalBar, setShowEvalBar] = useState(true);
   const [isEngineAssistantEnabled, setIsEngineAssistantEnabled] = useState(true);
+  const [showHeatmap, setShowHeatmap] = useState(false);
 
   // Study Navigation
   const [currentMoveIndex, setCurrentMoveIndex] = useState(0);
@@ -1450,8 +1451,21 @@ export default function App() {
                 )}
               </div>
 
-              {/* Right: Piece Language & Flip Board quick toggles */}
+              {/* Right: Radar Heatmap, Piece Language & Flip Board quick toggles */}
               <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => setShowHeatmap(prev => !prev)}
+                  className={`px-2.5 py-1 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 active:scale-95 shadow-sm ${
+                    showHeatmap
+                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.4)]'
+                      : 'bg-[#1c2230] hover:bg-[#252e40] text-purple-300 border-purple-500/30'
+                  }`}
+                  title="Bật/Tắt Thấu Thị Trận Pháp: Quét bản đồ nhiệt kiểm soát bàn cờ và phát hiện điểm yếu tử huyệt"
+                >
+                  <Radar className="w-3.5 h-3.5 text-purple-400" />
+                  <span className="hidden sm:inline">{showHeatmap ? 'Radar: BẬT' : 'Radar: TẮT'}</span>
+                </button>
+
                 <button
                   onClick={() => setPieceLanguage(prev => prev === 'cn' ? 'vi' : 'cn')}
                   className="px-2.5 py-1 rounded-xl bg-[#1c2230] hover:bg-[#252e40] text-amber-400 font-bold border border-amber-500/30 transition-all text-xs active:scale-95 shadow-sm"
@@ -1490,6 +1504,7 @@ export default function App() {
               pieceLanguage={pieceLanguage}
               interactive={true}
               showMoveArrow={true}
+              showHeatmap={showHeatmap}
             />
           </div>
 
