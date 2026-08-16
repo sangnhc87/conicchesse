@@ -820,7 +820,7 @@ export default function PdfExportModal({
                     onChange={(e) => setIncludeMainCover(e.target.checked)}
                     className="accent-amber-500 rounded"
                   />
-                  <span className="text-gray-200 text-xs font-semibold">📖 Kèm Trang Bìa Sách Hoàng Gia (Đầu sách)</span>
+                  <span className="text-gray-200 text-xs font-semibold">📖 Kèm Trang Bìa Sách Conic (Đầu sách)</span>
                 </label>
 
                 <label className="flex items-center gap-2 p-2 bg-[#151924] rounded-xl border border-gray-800 cursor-pointer hover:border-gray-700">

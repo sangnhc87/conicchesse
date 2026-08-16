@@ -1,8 +1,8 @@
 {
     "$schema": "https://schema.tauri.app/config/2",
-    "productName": "KyDaiHoangGia",
+    "productName": "KyDaiConic",
     "version": "1.0.0",
-    "identifier": "com.ky-dai-hoang-gia.app",
+    "identifier": "com.ky-dai-conic.app",
     "build": {
         "beforeDevCommand": "npm run dev",
         "devUrl": "http://localhost:5173",
@@ -12,7 +12,7 @@
     "app": {
         "windows": [
             {
-                "title": "Kỳ Đài Hoàng Gia — Học Khai · Trung · Tàn & Sát Chiêu",
+                "title": "Kỳ Đài Conic — Học Khai · Trung · Tàn & Sát Chiêu",
                 "width": 1360,
                 "height": 860,
                 "minWidth": 1024,

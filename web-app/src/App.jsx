@@ -716,7 +716,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 tracking-wide flex items-center gap-2">
-                Kỳ Đài Hoàng Gia
+                Kỳ Đài Conic
                 <span className="hidden sm:inline-block text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 font-bold tracking-normal">
                   {catalog?.items?.length || 4230} Bài Cờ
                 </span>
