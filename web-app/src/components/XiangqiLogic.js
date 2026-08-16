@@ -333,10 +333,10 @@ export function isInCheck(board, color) {
 
   // 2. Check 8 Knight positions around King (with leg blocking checks)
   const horseChecks = [
-    [-2, -1, -1, 0], [-2, 1, -1, 0],
-    [2, -1, 1, 0], [2, 1, 1, 0],
-    [-1, -2, 0, -1], [1, -2, 0, -1],
-    [-1, 2, 0, 1], [1, 2, 0, 1]
+    [-2, -1, -1, -1], [-2, 1, -1, 1],
+    [2, -1, 1, -1], [2, 1, 1, 1],
+    [-1, -2, -1, -1], [1, -2, 1, -1],
+    [-1, 2, -1, 1], [1, 2, 1, 1]
   ];
   for (let [dr, dc, ldr, ldc] of horseChecks) {
     const nr = kr + dr;

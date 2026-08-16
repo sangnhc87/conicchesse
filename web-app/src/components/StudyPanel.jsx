@@ -135,7 +135,21 @@ export default function StudyPanel({
 
   useEffect(() => {
     if (activeMoveRef.current) {
-      activeMoveRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      const element = activeMoveRef.current;
+      const container = element.closest('.overflow-y-auto');
+      if (container) {
+        const elementRect = element.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        
+        // If element is out of view (above or below)
+        if (elementRect.top < containerRect.top || elementRect.bottom > containerRect.bottom) {
+          const scrollTarget = element.offsetTop - container.offsetTop - (container.clientHeight / 2) + (element.clientHeight / 2);
+          container.scrollTo({
+            top: scrollTarget,
+            behavior: 'smooth'
+          });
+        }
+      }
     }
   }, [currentMoveIndex]);
 

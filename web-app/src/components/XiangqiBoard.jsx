@@ -1,4 +1,5 @@
 import React, { useRef, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { PIECE_NAMES, isRed, isInCheck, parseFen, deriveEngineTacticalRadar } from './XiangqiLogic';
 import { Sparkles, Gauge, Crosshair, Zap, ShieldAlert } from 'lucide-react';
 
@@ -27,6 +28,46 @@ export default function XiangqiBoard({
   const safeBoard = (Array.isArray(board) && board.length === 10) ? board : parseFen().board;
   const redInCheck = isInCheck(safeBoard, 'red');
   const blackInCheck = isInCheck(safeBoard, 'black');
+
+  // Track pieces with stable IDs for smooth framer-motion animations
+  const [piecesMap, setPiecesMap] = useState([]);
+  
+  useEffect(() => {
+    setPiecesMap(prev => {
+      const nextPieces = [];
+      const unmatchedNew = [];
+      const usedPrevIds = new Set();
+
+      // 1. Find exact matches (unmoved pieces)
+      for (let r = 0; r < 10; r++) {
+        for (let c = 0; c < 9; c++) {
+          const piece = safeBoard[r][c];
+          if (piece) {
+            const exactMatch = prev.find(p => p.piece === piece && p.r === r && p.c === c && !usedPrevIds.has(p.id));
+            if (exactMatch) {
+              nextPieces.push({ ...exactMatch });
+              usedPrevIds.add(exactMatch.id);
+            } else {
+              unmatchedNew.push({ piece, r, c });
+            }
+          }
+        }
+      }
+
+      // 2. Match moved pieces
+      for (const newP of unmatchedNew) {
+        const movedMatch = prev.find(p => p.piece === newP.piece && !usedPrevIds.has(p.id));
+        if (movedMatch) {
+          nextPieces.push({ ...newP, id: movedMatch.id });
+          usedPrevIds.add(movedMatch.id);
+        } else {
+          // Completely new piece (e.g. board reset)
+          nextPieces.push({ ...newP, id: `${newP.piece}-${Math.random().toString(36).substr(2, 9)}` });
+        }
+      }
+      return nextPieces;
+    });
+  }, [safeBoard]);
 
   // Thấu Thị Trận Pháp Động Cơ (Pikafish Tactical Radar & Weakness Analysis)
   const engineRadar = useMemo(() => {
@@ -488,75 +529,76 @@ export default function XiangqiBoard({
                   />
                 )}
 
-                {/* 32 Physical Ivory/Ebony Xiangqi Pieces */}
-                {safeBoard.map((row, r) =>
-                  row.map((piece, c) => {
-                    if (!piece) return null;
-                    const coord = getSvgCoord(r, c);
-                    const isRedP = isRed(piece);
-                    const pInfo = PIECE_NAMES[piece];
-                    const text = pieceLanguage === 'cn' ? pInfo?.cn : pInfo?.vi;
+                {/* 32 Physical Ivory/Ebony Xiangqi Pieces with Smooth Animation */}
+                {piecesMap.map((pInfoState) => {
+                  const { piece, r, c, id } = pInfoState;
+                  const coord = getSvgCoord(r, c);
+                  const isRedP = isRed(piece);
+                  const pInfo = PIECE_NAMES[piece];
+                  const text = pieceLanguage === 'cn' ? pInfo?.cn : pInfo?.vi;
 
-                    const isKing = piece === 'K' || piece === 'k';
-                    const isKingChecked = (isKing && isRedP && redInCheck) || (isKing && !isRedP && blackInCheck);
+                  const isKing = piece === 'K' || piece === 'k';
+                  const isKingChecked = (isKing && isRedP && redInCheck) || (isKing && !isRedP && blackInCheck);
 
-                    return (
-                      <g
-                        key={`piece-${r}-${c}`}
-                        className="cursor-pointer transition-transform hover:scale-105"
-                        style={{ transformOrigin: `${coord.x}px ${coord.y}px` }}
-                        filter="url(#pieceShadow)"
-                      >
-                        {/* Checked King Warning Aura (Clean static ring) */}
-                        {isKingChecked && (
-                          <circle
-                            cx={coord.x}
-                            cy={coord.y}
-                            r="23"
-                            fill="none"
-                            stroke="#ef4444"
-                            strokeWidth="2.5"
-                            opacity="0.9"
-                          />
-                        )}
-
-                        {/* Outer 3D Piece Disc */}
+                  return (
+                    <motion.g
+                      key={id}
+                      className="cursor-pointer"
+                      initial={false}
+                      animate={{ x: coord.x, y: coord.y }}
+                      transition={{ type: "tween", ease: "easeOut", duration: 0.15 }}
+                      whileHover={{ scale: 1.05 }}
+                      filter="url(#pieceShadow)"
+                    >
+                      {/* Checked King Warning Aura (Clean static ring) */}
+                      {isKingChecked && (
                         <circle
-                          cx={coord.x}
-                          cy={coord.y}
-                          r="20.5"
-                          fill={isRedP ? "url(#redPieceGradient)" : "url(#blackPieceGradient)"}
-                          stroke={isRedP ? "#991b1b" : "#1e293b"}
-                          strokeWidth="1.8"
-                        />
-
-                        {/* Inner Inscribed Groove Ring */}
-                        <circle
-                          cx={coord.x}
-                          cy={coord.y}
-                          r="17"
+                          cx={0}
+                          cy={0}
+                          r="23"
                           fill="none"
-                          stroke={isRedP ? "#dc2626" : "#475569"}
-                          strokeWidth="1"
-                          strokeOpacity="0.8"
+                          stroke="#ef4444"
+                          strokeWidth="2.5"
+                          opacity="0.9"
                         />
+                      )}
 
-                        {/* Traditional Calligraphic Inscription */}
-                        <text
-                          x={coord.x}
-                          y={coord.y + (pieceLanguage === 'cn' ? 6 : 4.5)}
-                          fontSize={pieceLanguage === 'cn' ? "18" : (text?.length > 4 ? "9.5" : "11.5")}
-                          fontFamily={pieceLanguage === 'cn' ? "serif" : "sans-serif"}
-                          fontWeight="900"
-                          textAnchor="middle"
-                          fill={isRedP ? "#b91c1c" : "#0f172a"}
-                        >
-                          {text}
-                        </text>
-                      </g>
-                    );
-                  })
-                )}
+                      {/* Outer 3D Piece Disc */}
+                      <circle
+                        cx={0}
+                        cy={0}
+                        r="20.5"
+                        fill={isRedP ? "url(#redPieceGradient)" : "url(#blackPieceGradient)"}
+                        stroke={isRedP ? "#991b1b" : "#1e293b"}
+                        strokeWidth="1.8"
+                      />
+
+                      {/* Inner Inscribed Groove Ring */}
+                      <circle
+                        cx={0}
+                        cy={0}
+                        r="17"
+                        fill="none"
+                        stroke={isRedP ? "#dc2626" : "#475569"}
+                        strokeWidth="1"
+                        strokeOpacity="0.8"
+                      />
+
+                      {/* Traditional Calligraphic Inscription */}
+                      <text
+                        x={0}
+                        y={pieceLanguage === 'cn' ? 6 : 4.5}
+                        fontSize={pieceLanguage === 'cn' ? "18" : (text?.length > 4 ? "9.5" : "11.5")}
+                        fontFamily={pieceLanguage === 'cn' ? "serif" : "sans-serif"}
+                        fontWeight="900"
+                        textAnchor="middle"
+                        fill={isRedP ? "#b91c1c" : "#0f172a"}
+                      >
+                        {text}
+                      </text>
+                    </motion.g>
+                  );
+                })}
 
                 {/* Last Move Path & Animated Arrow (Sleek & Subtle Amber Vector) */}
                 {arrowStart && arrowEnd && (

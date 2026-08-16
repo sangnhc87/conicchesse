@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- Background Gradient (Premium Dark Imperial) -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e131d"/>
+      <stop offset="50%" stop-color="#140a12"/>
+      <stop offset="100%" stop-color="#0a0509"/>
+    </linearGradient>
+
+    <!-- Outer Gold Border Gradient -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d061"/>
+      <stop offset="50%" stop-color="#e6b840"/>
+      <stop offset="100%" stop-color="#c9911e"/>
+    </linearGradient>
+
+    <!-- Inner Piece Wood Texture/Gradient -->
+    <radialGradient id="pieceGrad" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#4a2215"/>
+      <stop offset="100%" stop-color="#2a0f07"/>
+    </radialGradient>
+
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="25" stdDeviation="25" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- App Icon Shape -->
+  <rect x="52" y="52" width="920" height="920" rx="220" ry="220" fill="url(#bgGrad)"/>
+  <rect x="52" y="52" width="920" height="920" rx="220" ry="220" fill="none" stroke="url(#borderGrad)" stroke-width="24"/>
+
+  <!-- The General Piece -->
+  <g filter="url(#shadow)">
+    <circle cx="512" cy="512" r="300" fill="url(#pieceGrad)" stroke="url(#borderGrad)" stroke-width="16"/>
+    <!-- The inner groove -->
+    <circle cx="512" cy="512" r="260" fill="none" stroke="url(#borderGrad)" stroke-width="6" opacity="0.7"/>
+    <!-- The character '帥' -->
+    <text x="512" y="650" font-family="serif" font-size="420" font-weight="bold" fill="url(#borderGrad)" text-anchor="middle">帥</text>
+  </g>
+</svg>

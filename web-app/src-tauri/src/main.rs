@@ -24,25 +24,25 @@ fn get_status(state: tauri::State<'_, EngineState>) -> Value {
 }
 
 #[tauri::command(rename_all = "camelCase")]
-fn best_move(
+async fn best_move(
     state: tauri::State<'_, EngineState>,
     fen: String,
     depth: Option<i32>,
     time_ms: Option<u64>,
     turn: Option<String>,
-) -> Value {
-    state.best_move(&fen, depth, time_ms, turn.as_deref().unwrap_or("red"))
+) -> Result<Value, String> {
+    Ok(state.best_move(&fen, depth, time_ms, turn.as_deref().unwrap_or("red")))
 }
 
 #[tauri::command(rename_all = "camelCase")]
-fn analyze(
+async fn analyze(
     state: tauri::State<'_, EngineState>,
     fen: String,
     depth: Option<i32>,
     multi_pv: Option<i32>,
     turn: Option<String>,
-) -> Value {
-    state.analyze(&fen, depth, multi_pv.unwrap_or(3), turn.as_deref().unwrap_or("red"))
+) -> Result<Value, String> {
+    Ok(state.analyze(&fen, depth, multi_pv.unwrap_or(3), turn.as_deref().unwrap_or("red")))
 }
 
 #[tauri::command(rename_all = "camelCase")]

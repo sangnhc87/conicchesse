@@ -433,6 +433,7 @@ export default function App() {
     setLegalDestinations([]);
     setLastMove(null);
     setCoachFeedback(null);
+    setBestMoveSuggestion(null);
 
     // Auto mark completed when user finishes studying all moves
     if (nextIdx === totalHalfMoves && currentLesson?.id) {
@@ -741,6 +742,7 @@ export default function App() {
     setAnalysisLastMove(null);
     setAnalysisPreviewMove(null);
     setAnalysisCandidates([]);
+    setBestMoveSuggestion(null);
     sound.playSelect();
   }, []);
 
@@ -748,6 +750,7 @@ export default function App() {
     setAnalysisTurn(prev => prev === 'red' ? 'black' : 'red');
     setAnalysisSelectedSquare(null);
     setAnalysisLegalDests([]);
+    setBestMoveSuggestion(null);
     sound.playSelect();
   }, []);
 
@@ -972,6 +975,7 @@ export default function App() {
           setPlayAiLastMove(move);
           setPlayAiSelectedSquare(null);
           setPlayAiLegalDests([]);
+          setBestMoveSuggestion(null);
 
           const notationVi = moveToVietnameseFull(playAiBoard, move, playAiPlayerColor);
           const notationCn = moveToChinese(playAiBoard, move, playAiPlayerColor);
@@ -1122,6 +1126,7 @@ export default function App() {
         setSelectedSquare(null);
         setLegalDestinations([]);
         setTrialTurn(activeTurn === 'red' ? 'black' : 'red');
+        setBestMoveSuggestion(null);
         return;
       }
     }
@@ -1498,7 +1503,7 @@ export default function App() {
         {/* Center & Right Research Workbench */}
         <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-[#06080e] min-h-0">
           {/* Center Master Xiangqi Board (Expands dynamically to fill space) */}
-          <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full max-h-full min-h-0 space-y-1.5 transition-all duration-300">
+          <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full max-h-full min-h-0 space-y-1.5">
             {/* Real-time Coach Feedback Banner in Practice Mode */}
             {isStudy && coachFeedback && (
               <div className={`w-full max-w-[560px] xl:max-w-[620px] p-2.5 rounded-xl text-xs flex items-center justify-between border shadow-lg animate-fadeIn flex-shrink-0 ${coachFeedback.type === 'mistake'
@@ -1618,7 +1623,7 @@ export default function App() {
 
           {/* Right Panel: Study Panel, Analysis Panel, or Play AI Panel (Collapsible) */}
           {!isRightPanelCollapsed && (
-            <div className="w-full lg:w-[420px] xl:w-[460px] 2xl:w-[500px] flex-shrink-0 flex flex-col h-[590px] lg:h-full min-h-0 transition-all duration-300">
+            <div className="w-full lg:w-[420px] xl:w-[460px] 2xl:w-[500px] flex-shrink-0 flex flex-col h-[590px] lg:h-full min-h-0">
               {isStudy ? (
                 <StudyPanel
                   lesson={currentLesson}

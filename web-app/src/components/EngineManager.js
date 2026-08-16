@@ -232,15 +232,34 @@ class EngineManagerService {
             });
             return res.ok ? await res.json() : null;
           })();
+        if (data && data.error === 'aborted by new request') {
+          return null; // Don't fallback to WASM if simply aborted by a newer request
+        }
 
         if (data && data.move) {
           const viFull = moveToVietnameseFull(board, data.move, turn);
           const viShort = moveToVietnamese(board, data.move, turn);
           const cnMove = moveToChinese(board, data.move, turn);
 
+          const rawScore = data.score || 0;
+          const finalScore = turn === 'black' ? -rawScore : rawScore;
+          
+          const isMate = Math.abs(rawScore) >= 90000;
+          const isMaximizing = turn === 'red';
+          const isCheckmateWin = isMate && (isMaximizing ? rawScore > 0 : rawScore < 0);
+          const mateMoves = isMate ? Math.max(1, Math.ceil((99000 - Math.abs(rawScore)) / 2) + 1) : null;
+          const scoreText = isCheckmateWin 
+            ? `#M${mateMoves}`
+            : isMate
+              ? `-#M${mateMoves}`
+              : (finalScore >= 0 ? `+${(finalScore / 100).toFixed(1)}` : `${(finalScore / 100).toFixed(1)}`);
+
           const result = {
             ...data.move,
-            score: turn === 'black' ? -data.score : data.score,
+            score: finalScore,
+            scoreText,
+            isCheckmateWin,
+            isMate,
             depth: data.depth,
             nps: data.nps,
             uci: data.bestmove,
@@ -261,6 +280,7 @@ class EngineManagerService {
           return result;
         }
       } catch (err) {
+        if (err.name === 'AbortError') return null;
         console.warn('Native engine request failed, falling back to WASM:', err);
       }
     }
@@ -320,14 +340,34 @@ class EngineManagerService {
             return res.ok ? await res.json() : null;
           })();
 
+        if (data && data.error === 'aborted by new request') {
+          return []; // Don't fallback to WASM if simply aborted by a newer request
+        }
+
         if (data && data.candidates && data.candidates.length > 0) {
           const results = data.candidates.map(cand => {
             const viFull = cand.move ? moveToVietnameseFull(board, cand.move, turn) : '';
             const viShort = cand.move ? moveToVietnamese(board, cand.move, turn) : '';
             const cnMove = cand.move ? moveToChinese(board, cand.move, turn) : '';
+            const rawScore = cand.score || 0;
+            const finalScore = turn === 'black' ? -rawScore : rawScore;
+            
+            const isMate = Math.abs(rawScore) >= 90000;
+            const isMaximizing = turn === 'red';
+            const isCheckmateWin = isMate && (isMaximizing ? rawScore > 0 : rawScore < 0);
+            const mateMoves = isMate ? Math.max(1, Math.ceil((99000 - Math.abs(rawScore)) / 2) + 1) : null;
+            const scoreText = isCheckmateWin 
+              ? `#M${mateMoves}`
+              : isMate
+                ? `-#M${mateMoves}`
+                : (finalScore >= 0 ? `+${(finalScore / 100).toFixed(1)}` : `${(finalScore / 100).toFixed(1)}`);
+
             return {
               ...cand,
-              score: turn === 'black' ? -cand.score : cand.score,
+              score: finalScore,
+              scoreText,
+              isCheckmateWin,
+              isMate,
               viFull,
               viShort,
               cnMove,
@@ -345,6 +385,7 @@ class EngineManagerService {
           return results;
         }
       } catch (err) {
+        if (err.name === 'AbortError') return [];
         console.warn('Native strategic analysis failed, using WASM:', err);
       }
     }

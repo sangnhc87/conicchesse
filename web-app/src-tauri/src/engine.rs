@@ -239,9 +239,12 @@ impl Default for Inner {
     }
 }
 
+use std::sync::atomic::{AtomicBool, Ordering};
+
 pub struct EngineState {
     inner: Mutex<Inner>,
     cached: Mutex<Value>,
+    abort_flag: AtomicBool,
 }
 
 impl EngineState {
@@ -255,6 +258,7 @@ impl EngineState {
                 "isNative": true,
                 "version": "pikafish-native-tauri"
             })),
+            abort_flag: AtomicBool::new(false),
         }
     }
 
@@ -377,7 +381,10 @@ impl EngineState {
         multi_pv: i32,
         active_turn: &str,
     ) -> Value {
+        self.abort_flag.store(true, Ordering::SeqCst);
         let mut inner = self.inner.lock().unwrap();
+        self.abort_flag.store(false, Ordering::SeqCst);
+        
         if !self.ensure_engine(&mut inner) {
             return json!({ "error": inner.last_error.clone().unwrap_or_else(|| "Engine not available".into()) });
         }
@@ -414,7 +421,24 @@ impl EngineState {
 
         let deadline = Instant::now() + Duration::from_secs(30);
         while Instant::now() < deadline {
-            let line = match proc.read_line(Duration::from_millis(200)) {
+            if self.abort_flag.load(Ordering::SeqCst) {
+                // Another request came in, abort the current search!
+                proc.send("stop");
+                // Consume output briefly until bestmove or timeout
+                let abort_deadline = Instant::now() + Duration::from_millis(500);
+                while Instant::now() < abort_deadline {
+                    if let Some(l) = proc.read_line(Duration::from_millis(50)) {
+                        if l.starts_with("bestmove") {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                return json!({ "error": "aborted by new request" });
+            }
+
+            let line = match proc.read_line(Duration::from_millis(100)) {
                 Some(l) => l,
                 None => continue,
             };

@@ -22,6 +22,7 @@ const PIECE_VALS = {
   'c': 450,   'C': 450,
   'n': 400,   'N': 400,
   'b': 200,   'B': 200,
+  'e': 200,   'E': 200,
   'a': 200,   'A': 200,
   'p': 150,   'P': 150
 };
@@ -105,7 +106,7 @@ export function evaluateBoard(board) {
       }
 
       if ((piece === 'A' || piece === 'a') && c === 4) val += 25;
-      if ((piece === 'B' || piece === 'b') && c === 4) val += 35;
+      if ((piece === 'B' || piece === 'b' || piece === 'E' || piece === 'e') && c === 4) val += 35;
 
       if (isRed(piece)) redScore += val;
       else blackScore += val;
@@ -121,7 +122,7 @@ export function evaluateBoard(board) {
 // Quiescence Search
 function qSearch(board, alpha, beta, isMaximizing, qDepth) {
   searchNodeCount++;
-  if (searchNodeCount > 16000 || qDepth <= 0) return evaluateBoard(board);
+  if (searchNodeCount > 2000000 || qDepth <= 0) return evaluateBoard(board);
 
   const standPat = evaluateBoard(board);
   if (isMaximizing) {
@@ -173,7 +174,7 @@ const repTable = new Map();
 
 function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
   searchNodeCount++;
-  if (searchNodeCount > 16000) return evaluateBoard(board);
+  if (searchNodeCount > 2000000) return evaluateBoard(board);
 
   const turn = isMaximizing ? 'red' : 'black';
   const hash = boardHash(board);
