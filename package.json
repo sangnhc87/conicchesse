@@ -1,0 +1,10 @@
+{
+  "name": "ky-dai-conic",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "cd web-app && npm install && npm run build && cd .. && rm -rf dist && cp -R web-app/dist ./dist",
+    "deploy": "cd web-app && npm run build"
+  }
+}
