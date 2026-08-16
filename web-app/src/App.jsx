@@ -18,6 +18,7 @@ import AiTutorModal from './components/AiTutorModal';
 import BoardEditorModal from './components/BoardEditorModal';
 import DatabaseImportModal from './components/DatabaseImportModal';
 import EngineSettingsModal from './components/EngineSettingsModal';
+import CheckmateSolverModal from './components/CheckmateSolverModal';
 import TrainingPanel from './components/TrainingPanel';
 import { PuzzlesData } from './data/PuzzlesData';
 
@@ -80,6 +81,7 @@ export default function App() {
   const [isAiTutorOpen, setIsAiTutorOpen] = useState(false);
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [isSolverModalOpen, setIsSolverModalOpen] = useState(false);
 
   // Board View Controls (Con cờ giữ chữ Hán truyền thống theo yêu cầu)
   const [flipped, setFlipped] = useState(false);
@@ -1767,8 +1769,17 @@ export default function App() {
       <PdfExportModal
         isOpen={isPdfModalOpen}
         onClose={() => setIsPdfModalOpen(false)}
+        pgnData={gameHistory}
         currentLesson={currentLesson}
         catalog={catalog}
+      />
+
+      {/* Checkmate Solver Modal */}
+      <CheckmateSolverModal
+        isOpen={isSolverModalOpen}
+        onClose={() => setIsSolverModalOpen(false)}
+        initialBoard={activeBoard}
+        initialTurn={activeTurn}
       />
     </div>
   );

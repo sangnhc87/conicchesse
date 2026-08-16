@@ -1,0 +1,34 @@
+{
+  "root_fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+  "tree": {
+    "turn": "red",
+    "move": "h2e2",
+    "score": "cp 25",
+    "reply": {
+      "turn": "black",
+      "responses": [
+        {
+          "move": "h9g7",
+          "score": "cp -16",
+          "red_reply": {
+            "note": "Max depth reached"
+          }
+        },
+        {
+          "move": "b9c7",
+          "score": "cp -30",
+          "red_reply": {
+            "note": "Max depth reached"
+          }
+        },
+        {
+          "move": "h7e7",
+          "score": "cp -33",
+          "red_reply": {
+            "note": "Max depth reached"
+          }
+        }
+      ]
+    }
+  }
+}

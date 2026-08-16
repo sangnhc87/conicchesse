@@ -52,6 +52,7 @@ export default function AnalysisPanel({
   isMuted,
   onToggleMute,
   onOpenEngineSettings,
+  onOpenSolver,
   onOpenEditor
 }) {
   const [activeTab, setActiveTab] = useState('candidates'); // 'candidates' | 'proscons' | 'history'
@@ -154,6 +155,16 @@ export default function AnalysisPanel({
               title="Cài đặt thông số Engine (Pikafish / Độ sâu / Số luồng)"
             >
               <Settings2 className="w-3.5 h-3.5" />
+            </button>
+          )}
+
+          {onOpenSolver && (
+            <button
+              onClick={onOpenSolver}
+              className="p-1.5 rounded-lg bg-[#222838] hover:bg-amber-500/20 text-amber-400 border border-[#323d54] hover:border-amber-500/50 transition-colors shadow-sm"
+              title="Dò Sát Cục (Tính toán cây Tất Thắng)"
+            >
+              <Target className="w-3.5 h-3.5" />
             </button>
           )}
 
