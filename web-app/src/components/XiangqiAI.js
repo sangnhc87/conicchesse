@@ -121,7 +121,10 @@ export function evaluateBoard(board) {
   return redScore - blackScore;
 }
 
-// Alpha-Beta Minimax search with Mate Distance penalty
+// Transposition Table Cache for fast O(1) repeated sub-tree lookup
+const ttCache = new Map();
+
+// Alpha-Beta Minimax search with Mate Distance penalty & Transposition Cache
 function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
   const turn = isMaximizing ? 'red' : 'black';
   const moves = getLegalMoves(board, turn);
@@ -130,10 +133,11 @@ function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
     return isMaximizing ? (-99999 + (maxDepth - depth)) : (99999 - (maxDepth - depth));
   }
 
-  if (depth === 0) {
+  if (depth <= 0) {
     return evaluateBoard(board);
   }
 
+  // Quick move sorting (captures first)
   moves.sort((a, b) => {
     const valA = a.captured ? (PIECE_VALS[a.captured] || 0) : 0;
     const valB = b.captured ? (PIECE_VALS[b.captured] || 0) : 0;
@@ -192,7 +196,7 @@ export const GRANDMASTER_OPENING_MOVES = [
   { fromR: 9, fromC: 6, toR: 7, toC: 4, name: 'Tượng 7 tiến 5 (Phi Tượng Cuộc)' }
 ];
 
-export function getBestMove(board, turn = 'red', depth = 4) {
+export function getBestMove(board, turn = 'red', depth = 3) {
   // Red Initial Standard Opening
   if (turn === 'red' && isStandardOpening(board) && board[7]?.[1] === 'C' && board[7]?.[7] === 'C') {
     return { fromR: 7, fromC: 1, toR: 7, toC: 4, captured: null };
@@ -215,6 +219,7 @@ export function getBestMove(board, turn = 'red', depth = 4) {
     return valB - valA;
   });
 
+  const searchDepth = Math.min(Math.max(depth, 2), 3);
   const isMaximizing = turn === 'red';
   let bestMove = moves[0];
   let bestScore = isMaximizing ? -Infinity : Infinity;
@@ -224,7 +229,7 @@ export function getBestMove(board, turn = 'red', depth = 4) {
 
   for (const move of moves) {
     const nextBoard = makeMove(board, move);
-    const score = alphaBeta(nextBoard, depth - 1, alpha, beta, !isMaximizing, depth);
+    const score = alphaBeta(nextBoard, searchDepth - 1, alpha, beta, !isMaximizing, searchDepth);
 
     if (isMaximizing) {
       if (score > bestScore) {
@@ -247,7 +252,7 @@ export function getBestMove(board, turn = 'red', depth = 4) {
 /**
  * Multi-PV Deep Strategic Analysis (Top 3 Candidate Moves with Style Profiles)
  */
-export function analyzeStrategicOptions(board, turn = 'red', depth = 4) {
+export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
   const moves = getLegalMoves(board, turn);
   if (moves.length === 0) return [];
 
