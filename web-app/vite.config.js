@@ -14,7 +14,7 @@ export default defineConfig({
   // parse được trong WKWebView (không bị lỗi cú pháp → màn hình trống).
   build: {
     target: process.env.TAURI_ENV_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
-    minify: 'oxc',
-    sourcemap: !!process.env.TAURI_ENV_DEBUG,
+    minify: false,
+    sourcemap: true,
   },
 })
