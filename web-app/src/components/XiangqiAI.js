@@ -1,18 +1,19 @@
 /**
- * Master Xiangqi AI Engine & Multi-Style Strategic Analyzer
- * Features:
- * - Configurable Deep Search Depth (Depth 6 - 25+)
- * - Multi-PV (Top 3 Candidate Moves)
- * - Multi-Style Strategic Classification:
- *    ⚔️ Tấn Công Vũ Bão (Thắng nhanh / Đối công sắc bén)
- *    🛡️ An Toàn Chắc Chắn (Triệt tiêu phản đòn / Kiểm soát vững vàng)
- *    🔒 Khống Chế Bóp Nghẹt (Ép cung / Ép đối phương bí đường)
- * - Exact Shortest-Win solver
+ * Master Xiangqi AI Engine v2 — Conic Chess Research Edition
+ *
+ * Improvements:
+ *  ✅ Quiescence Search — ổn định điểm số sau nước ăn quân
+ *  ✅ Repetition Detection — phát hiện và tránh lặp nước 3 lần
+ *  ✅ PV Line Generation — tạo biến cờ dự kiến 4-5 nước
+ *  ✅ Smart Tactical Labels — label dựa vào bản chất thực
+ *  ✅ Honest Score Display — #M3 cho sát cục
+ *  ✅ Adaptive Endgame Depth — quét sâu hơn khi ít quân
+ *  ✅ PST (Piece Square Tables) — đánh giá vị trí chính xác hơn
  */
 
-import { 
+import {
   getLegalMoves, makeMove, isInCheck, isRed, isBlack, parseFen, findKing,
-  moveToVietnameseFull, moveToVietnamese, moveToChinese 
+  moveToVietnameseFull, moveToVietnamese, moveToChinese
 } from './XiangqiLogic.js';
 
 const PIECE_VALS = {
@@ -25,6 +26,42 @@ const PIECE_VALS = {
   'p': 150,   'P': 150
 };
 
+// PST for Knights (row 0 = black home, row 9 = red home)
+const PST_N = [
+  [ 0, 4, 8, 8, 4, 8, 8, 4, 0],
+  [ 4, 8,16,12, 4,12,16, 8, 4],
+  [ 4,12,16,20,12,20,16,12, 4],
+  [ 6,12,20,24,20,24,20,12, 6],
+  [ 4,16,20,24,20,24,20,16, 4],
+  [ 4,12,16,20,20,20,16,12, 4],
+  [ 0, 4,12,12, 8,12,12, 4, 0],
+  [ 0, 4, 8, 8, 4, 8, 8, 4, 0],
+  [ 0, 0, 4, 4, 0, 4, 4, 0, 0],
+  [ 0, 0, 0, 4, 4, 4, 0, 0, 0]
+];
+
+// PST for Rooks
+const PST_R = [
+  [14,14,14,18,22,18,14,14,14],
+  [14,18,16,22,26,22,16,18,14],
+  [12,12,12,18,26,18,12,12,12],
+  [12,14,14,18,26,18,14,14,12],
+  [10,12,12,16,22,16,12,12,10],
+  [ 8,10, 8,14,18,14, 8,10, 8],
+  [ 6, 8, 8,12,14,12, 8, 8, 6],
+  [ 6, 6, 6,10,12,10, 6, 6, 6],
+  [ 6, 6, 6, 8,10, 8, 6, 6, 6],
+  [ 6, 6, 6, 6, 6, 6, 6, 6, 6]
+];
+
+function getPST(piece, r, c) {
+  if (piece === 'N') return PST_N[r]?.[c] || 0;
+  if (piece === 'n') return PST_N[9-r]?.[8-c] || 0;
+  if (piece === 'R') return PST_R[r]?.[c] || 0;
+  if (piece === 'r') return PST_R[9-r]?.[8-c] || 0;
+  return 0;
+}
+
 export function evaluateBoard(board) {
   let redScore = 0;
   let blackScore = 0;
@@ -32,157 +69,297 @@ export function evaluateBoard(board) {
   const redKing = findKing(board, 'red');
   const blackKing = findKing(board, 'black');
 
-  // Facing Kings Check (Lộ Tướng)
-  if (redKing && blackKing) {
-    if (redKing.c === blackKing.c) {
-      let piecesBetween = 0;
-      for (let r = Math.min(redKing.r, blackKing.r) + 1; r < Math.max(redKing.r, blackKing.r); r++) {
-        if (board[r][redKing.c]) piecesBetween++;
-      }
-      if (piecesBetween === 0) redScore += 350;
+  if (redKing && blackKing && redKing.c === blackKing.c) {
+    let piecesBetween = 0;
+    for (let r = Math.min(redKing.r, blackKing.r) + 1; r < Math.max(redKing.r, blackKing.r); r++) {
+      if (board[r][redKing.c]) piecesBetween++;
     }
+    if (piecesBetween === 0) redScore += 400;
   }
-
-  let rR = 0, rC = 0, rN = 0, rP = 0, rA = 0, rB = 0;
-  let bR = 0, bC = 0, bN = 0, bP = 0, bA = 0, bB = 0;
 
   for (let r = 0; r < 10; r++) {
     for (let c = 0; c < 9; c++) {
       const piece = board[r][c];
       if (!piece) continue;
 
-      let val = PIECE_VALS[piece] || 0;
+      let val = (PIECE_VALS[piece] || 0) + getPST(piece, r, c);
 
-      // Track piece counts for endgame theoretical resolution
-      if (piece === 'R') rR++;
-      else if (piece === 'C') rC++;
-      else if (piece === 'N') rN++;
-      else if (piece === 'P') { if (r <= 4) rP++; }
-      else if (piece === 'A') rA++;
-      else if (piece === 'B') rB++;
-      else if (piece === 'r') bR++;
-      else if (piece === 'c') bC++;
-      else if (piece === 'n') bN++;
-      else if (piece === 'p') { if (r >= 5) bP++; }
-      else if (piece === 'a') bA++;
-      else if (piece === 'b') bB++;
-
-      // Pawn (Chốt / Binh)
       if (piece === 'P') {
-        if (r <= 4) val += 180; // River crossed
-        if (r <= 2) val += 150; // Deep in enemy palace
-        if (c >= 3 && c <= 5) val += 80;
-        if (blackKing && Math.abs(r - blackKing.r) + Math.abs(c - blackKing.c) <= 2) {
-          val += 200;
-        }
+        if (r <= 4) val += 150;
+        if (r <= 2) val += 110;
+        if (c >= 3 && c <= 5) val += 50;
+        if (blackKing && Math.abs(r - blackKing.r) + Math.abs(c - blackKing.c) <= 2) val += 170;
       } else if (piece === 'p') {
-        if (r >= 5) val += 180;
-        if (r >= 7) val += 150;
-        if (c >= 3 && c <= 5) val += 80;
+        if (r >= 5) val += 150;
+        if (r >= 7) val += 110;
+        if (c >= 3 && c <= 5) val += 50;
+        if (redKing && Math.abs(r - redKing.r) + Math.abs(c - redKing.c) <= 2) val += 170;
       }
 
-      // Cannon (Pháo) - Center control & Positional harmony
       if (piece === 'C') {
-        if (c === 4) val += 120;
-        if (r === 7 && c === 4) val += 60;
-        if (r <= 4) val += 30;
+        if (c === 4) val += 100;
+        if (r <= 4) val += 25;
       } else if (piece === 'c') {
-        if (c === 4) val += 120;
-        if (r === 2 && c === 4) val += 60;
-        if (r >= 5) val += 30;
+        if (c === 4) val += 100;
+        if (r >= 5) val += 25;
       }
 
-      // Knight (Mã) - Mobility and screen horse
-      if (piece === 'N') {
-        if (r <= 5) val += 60;
-        if (r === 7 && (c === 2 || c === 6)) val += 70;
-        if (r === 6 && (c === 3 || c === 5)) val += 90;
-      } else if (piece === 'n') {
-        if (r >= 4) val += 60;
-        if (r === 2 && (c === 2 || c === 6)) val += 70;
-        if (r === 3 && (c === 3 || c === 5)) val += 90;
-      }
+      if ((piece === 'A' || piece === 'a') && c === 4) val += 25;
+      if ((piece === 'B' || piece === 'b') && c === 4) val += 35;
 
-      // Chariot (Xe) - Fast development
-      if (piece === 'R') {
-        if (r < 9) val += 80;
-        if (r <= 4) val += 60;
-        if (c === 3 || c === 5) val += 40;
-      } else if (piece === 'r') {
-        if (r > 0) val += 80;
-        if (r >= 5) val += 60;
-        if (c === 3 || c === 5) val += 40;
-      }
-
-      // Advisor & Elephant (Sĩ, Tượng) - Defense harmony
-      if (piece === 'B' && r === 7 && c === 4) val += 40;
-      if (piece === 'b' && r === 2 && c === 4) val += 40;
-      if (piece === 'A' && r === 8 && c === 4) val += 30;
-      if (piece === 'a' && r === 1 && c === 4) val += 30;
-
-      if (isRed(piece)) {
-        redScore += val;
-      } else {
-        blackScore += val;
-      }
+      if (isRed(piece)) redScore += val;
+      else blackScore += val;
     }
   }
 
-  if (isInCheck(board, 'black')) redScore += 250;
-  if (isInCheck(board, 'red')) blackScore += 250;
+  if (isInCheck(board, 'black')) redScore += 200;
+  if (isInCheck(board, 'red')) blackScore += 200;
 
   return redScore - blackScore;
 }
 
-// Transposition Table Cache for fast O(1) repeated sub-tree lookup
-const ttCache = new Map();
-let searchNodeCount = 0;
-
-// Alpha-Beta Minimax search with strict Node Capping & Transposition Cache
-function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
+// Quiescence Search
+function qSearch(board, alpha, beta, isMaximizing, qDepth) {
   searchNodeCount++;
-  if (searchNodeCount > 5000) {
-    return evaluateBoard(board);
+  if (searchNodeCount > 16000 || qDepth <= 0) return evaluateBoard(board);
+
+  const standPat = evaluateBoard(board);
+  if (isMaximizing) {
+    if (standPat >= beta) return beta;
+    alpha = Math.max(alpha, standPat);
+  } else {
+    if (standPat <= alpha) return alpha;
+    beta = Math.min(beta, standPat);
   }
 
   const turn = isMaximizing ? 'red' : 'black';
+  const captures = getLegalMoves(board, turn).filter(m => m.captured);
+  captures.sort((a, b) => (PIECE_VALS[b.captured] || 0) - (PIECE_VALS[a.captured] || 0));
+
+  if (isMaximizing) {
+    let maxEval = standPat;
+    for (const move of captures) {
+      const nextBoard = makeMove(board, move);
+      const e = qSearch(nextBoard, alpha, beta, false, qDepth - 1);
+      maxEval = Math.max(maxEval, e);
+      alpha = Math.max(alpha, e);
+      if (beta <= alpha) break;
+    }
+    return maxEval;
+  } else {
+    let minEval = standPat;
+    for (const move of captures) {
+      const nextBoard = makeMove(board, move);
+      const e = qSearch(nextBoard, alpha, beta, true, qDepth - 1);
+      minEval = Math.min(minEval, e);
+      beta = Math.min(beta, e);
+      if (beta <= alpha) break;
+    }
+    return minEval;
+  }
+}
+
+function boardHash(board) {
+  let h = '';
+  for (let r = 0; r < 10; r++)
+    for (let c = 0; c < 9; c++)
+      h += (board[r][c] || '.');
+  return h;
+}
+
+const ttCache = new Map();
+let searchNodeCount = 0;
+const repTable = new Map();
+
+function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
+  searchNodeCount++;
+  if (searchNodeCount > 16000) return evaluateBoard(board);
+
+  const turn = isMaximizing ? 'red' : 'black';
+  const hash = boardHash(board);
+  const repCount = repTable.get(hash) || 0;
+  if (repCount >= 2) return 0;
+
   const moves = getLegalMoves(board, turn);
 
   if (moves.length === 0) {
-    return isMaximizing ? (-99999 + (maxDepth - depth)) : (99999 - (maxDepth - depth));
+    return isMaximizing ? (-99000 + (maxDepth - depth)) : (99000 - (maxDepth - depth));
   }
 
   if (depth <= 0) {
-    return evaluateBoard(board);
+    return qSearch(board, alpha, beta, isMaximizing, 4);
   }
 
   moves.sort((a, b) => {
-    const valA = a.captured ? (PIECE_VALS[a.captured] || 0) : 0;
-    const valB = b.captured ? (PIECE_VALS[b.captured] || 0) : 0;
-    return valB - valA;
+    const capDiff = (PIECE_VALS[b.captured] || 0) - (PIECE_VALS[a.captured] || 0);
+    if (capDiff !== 0) return capDiff;
+    const nb = makeMove(board, b);
+    const na = makeMove(board, a);
+    const oppTurn = turn === 'red' ? 'black' : 'red';
+    return (isInCheck(nb, oppTurn) ? 1 : 0) - (isInCheck(na, oppTurn) ? 1 : 0);
   });
+
+  repTable.set(hash, repCount + 1);
+  let result;
 
   if (isMaximizing) {
     let maxEval = -Infinity;
     for (const move of moves) {
       const nextBoard = makeMove(board, move);
-      const evalScore = alphaBeta(nextBoard, depth - 1, alpha, beta, false, maxDepth);
-      maxEval = Math.max(maxEval, evalScore);
-      alpha = Math.max(alpha, evalScore);
+      const e = alphaBeta(nextBoard, depth - 1, alpha, beta, false, maxDepth);
+      maxEval = Math.max(maxEval, e);
+      alpha = Math.max(alpha, e);
       if (beta <= alpha) break;
     }
-    return maxEval;
+    result = maxEval;
   } else {
     let minEval = Infinity;
     for (const move of moves) {
       const nextBoard = makeMove(board, move);
-      const evalScore = alphaBeta(nextBoard, depth - 1, alpha, beta, true, maxDepth);
-      minEval = Math.min(minEval, evalScore);
-      beta = Math.min(beta, evalScore);
+      const e = alphaBeta(nextBoard, depth - 1, alpha, beta, true, maxDepth);
+      minEval = Math.min(minEval, e);
+      beta = Math.min(beta, e);
       if (beta <= alpha) break;
     }
-    return minEval;
+    result = minEval;
   }
+
+  repTable.set(hash, repCount);
+  return result;
+}
+
+function buildPvLine(board, turn, pvDepth) {
+  const pvMoves = [];
+  let currentBoard = board;
+  let currentTurn = turn;
+
+  for (let i = 0; i < pvDepth; i++) {
+    const legalMoves = getLegalMoves(currentBoard, currentTurn);
+    if (legalMoves.length === 0) break;
+
+    legalMoves.sort((a, b) => (PIECE_VALS[b.captured] || 0) - (PIECE_VALS[a.captured] || 0));
+
+    const isMax = currentTurn === 'red';
+    let bestMove = legalMoves[0];
+    let bestScore = isMax ? -Infinity : Infinity;
+
+    for (const move of legalMoves.slice(0, 10)) {
+      searchNodeCount++;
+      if (searchNodeCount > 16000) break;
+      const nextBoard = makeMove(currentBoard, move);
+      const score = qSearch(nextBoard, -Infinity, Infinity, !isMax, 2);
+      if ((isMax && score > bestScore) || (!isMax && score < bestScore)) {
+        bestScore = score;
+        bestMove = move;
+      }
+    }
+
+    pvMoves.push({
+      turn: currentTurn,
+      move: bestMove,
+      viShort: moveToVietnamese(currentBoard, bestMove, currentTurn),
+      cnMove: moveToChinese(currentBoard, bestMove, currentTurn)
+    });
+
+    currentBoard = makeMove(currentBoard, bestMove);
+    currentTurn = currentTurn === 'red' ? 'black' : 'red';
+    if (getLegalMoves(currentBoard, currentTurn).length === 0) break;
+  }
+
+  return pvMoves;
+}
+
+function classifyTacticalStyle(cand, board, turn) {
+  const { isCheckmateWin, causesCheck, isCapture, move, score } = cand;
+  const isMaximizing = turn === 'red';
+  const effectiveScore = isMaximizing ? score : -score;
+
+  if (isCheckmateWin) {
+    return {
+      style: 'mate',
+      label: '🏆 SÁT CỤC TẤT THẮNG',
+      badgeColor: 'border-emerald-400 bg-gradient-to-r from-emerald-900/50 to-teal-900/50 text-emerald-200',
+      description: 'Đây là nước đi duy nhất dẫn tới Chiếu Bí (Sát Cục). Đòn thắng tuyệt đối — không có đường thoát cho đối phương.',
+      risk: 'Tất thắng tuyệt đối. Chỉ cần tính chính xác là kết thúc ván cờ.'
+    };
+  }
+
+  if (causesCheck && isCapture) {
+    return {
+      style: 'check_capture',
+      label: '⚡ Chiếu + Ăn Quân (Đòn Kép)',
+      badgeColor: 'border-red-400 bg-gradient-to-r from-red-900/40 to-rose-900/40 text-red-200',
+      description: 'Vừa chiếu Tướng vừa ăn quân trong cùng 1 nước — đây là đòn kép nguy hiểm nhất, đối phương không thể giải quyết cả hai.',
+      risk: 'Áp lực tối đa. Đối phương bị ép thoát chiếu, không kịp bảo vệ quân bị ăn.'
+    };
+  }
+
+  if (causesCheck) {
+    return {
+      style: 'check',
+      label: '♟️ Chiếu Tiến Công',
+      badgeColor: 'border-orange-400 bg-gradient-to-r from-orange-900/40 to-amber-900/40 text-orange-200',
+      description: 'Chiếu Tướng đối phương — buộc họ mất lượt chủ động để thoát chiếu. Tạo nhịp điệu tiến công liên tục.',
+      risk: 'Duy trì áp lực. Cần tính trước đòn phản chiếu hoặc phản ăn sau khi thoát chiếu.'
+    };
+  }
+
+  if (isCapture) {
+    const capturedVal = PIECE_VALS[move.captured] || 0;
+    if (capturedVal >= 800) {
+      return {
+        style: 'capture_major',
+        label: '⚔️ Bắt Xe (Đại Thắng)',
+        badgeColor: 'border-red-400 bg-gradient-to-r from-red-950/50 to-rose-950/50 text-red-200',
+        description: 'Bắt Xe đối phương — ưu thế vật chất áp đảo không thể bù đắp. Thường dẫn tới thắng ổn định trong cờ tàn.',
+        risk: 'Cần đảm bảo Xe mình không bị phản bắt lại ngay.'
+      };
+    }
+    if (capturedVal >= 400) {
+      return {
+        style: 'capture_medium',
+        label: '⚔️ Bắt Pháo / Mã',
+        badgeColor: 'border-amber-400 bg-gradient-to-r from-amber-950/50 to-yellow-950/50 text-amber-200',
+        description: 'Thu được Pháo hoặc Mã đối phương — ưu thế vật chất đáng kể, lợi thế rõ ràng trong trung-tàn cuộc.',
+        risk: 'Xem xét kỹ đòn đổi quân tương đương hoặc phản công của đối phương.'
+      };
+    }
+    return {
+      style: 'capture_minor',
+      label: '⚔️ Giành Vật Chất',
+      badgeColor: 'border-yellow-500 bg-gradient-to-r from-yellow-950/40 to-amber-950/40 text-yellow-200',
+      description: 'Bắt quân nhỏ của đối phương — tích lũy ưu thế vật chất từng bước, kiên nhẫn ép tàn.',
+      risk: 'Kiểm tra xem quân mình có an toàn sau nước ăn không.'
+    };
+  }
+
+  if (effectiveScore >= 800) {
+    return {
+      style: 'dominant',
+      label: '🎯 Ép Cung Áp Đảo',
+      badgeColor: 'border-cyan-400 bg-gradient-to-r from-cyan-950/40 to-blue-950/40 text-cyan-200',
+      description: 'Nước cờ khống chế cung Tướng đối phương — Tướng bị thu hẹp hoạt động, quân phòng thủ bị ép vào góc chết.',
+      risk: 'Thế trận hoàn toàn áp đảo. Cần phối hợp thêm vài nước để tạo đòn Sát Cục.'
+    };
+  }
+
+  if (effectiveScore >= 300) {
+    return {
+      style: 'control',
+      label: '🔒 Kiểm Soát Trung Tâm',
+      badgeColor: 'border-blue-400 bg-gradient-to-r from-blue-950/40 to-indigo-950/40 text-blue-200',
+      description: 'Nước cờ chiếm lĩnh và kiểm soát các lộ huyết mạch — tạo ưu thế trận địa bền vững.',
+      risk: 'Duy trì thế chủ động, chờ sơ hở của đối phương để tạo đột phá.'
+    };
+  }
+
+  return {
+    style: 'solid',
+    label: '🛡️ Ổn Định Phòng Thủ',
+    badgeColor: 'border-emerald-500/50 bg-emerald-950/30 text-emerald-300',
+    description: 'Nước cờ củng cố trận địa — giảm thiểu rủi ro, tạo nền tảng vững chắc để phản công sau.',
+    risk: 'An toàn và chắc chắn — phù hợp khi cần bảo toàn ưu thế hiện có.'
+  };
 }
 
 export function isStandardOpening(board) {
@@ -212,34 +389,29 @@ export const GRANDMASTER_OPENING_MOVES = [
   { fromR: 9, fromC: 6, toR: 7, toC: 4, name: 'Tượng 7 tiến 5 (Phi Tượng Cuộc)' }
 ];
 
+function countPieces(board) {
+  let n = 0;
+  for (let r = 0; r < 10; r++)
+    for (let c = 0; c < 9; c++)
+      if (board[r][c]) n++;
+  return n;
+}
+
 export function getBestMove(board, turn = 'red', depth = 3) {
   if (turn === 'red' && isStandardOpening(board) && board[7]?.[1] === 'C' && board[7]?.[7] === 'C') {
     return { fromR: 7, fromC: 1, toR: 7, toC: 4, captured: null };
   }
-
-  if (turn === 'black' && isBlackInitialDefense(board)) {
-    if (board[7]?.[4] === 'C') {
-      return { fromR: 0, fromC: 7, toR: 2, toC: 6, captured: null };
-    }
+  if (turn === 'black' && isBlackInitialDefense(board) && board[7]?.[4] === 'C') {
+    return { fromR: 0, fromC: 7, toR: 2, toC: 6, captured: null };
   }
 
   const moves = getLegalMoves(board, turn);
   if (moves.length === 0) return null;
 
-  moves.sort((a, b) => {
-    const valA = a.captured ? (PIECE_VALS[a.captured] || 0) : 0;
-    const valB = b.captured ? (PIECE_VALS[b.captured] || 0) : 0;
-    return valB - valA;
-  });
+  moves.sort((a, b) => (PIECE_VALS[b.captured] || 0) - (PIECE_VALS[a.captured] || 0));
 
-  let pieceCount = 0;
-  for (let r = 0; r < 10; r++) {
-    for (let c = 0; c < 9; c++) {
-      if (board[r][c]) pieceCount++;
-    }
-  }
-
-  const effectiveDepth = pieceCount <= 6 ? 6 : (pieceCount <= 12 ? 4 : 3);
+  const pc = countPieces(board);
+  const effectiveDepth = pc <= 6 ? 7 : pc <= 12 ? 5 : 3;
   const searchDepth = Math.max(depth || 3, effectiveDepth);
 
   const isMaximizing = turn === 'red';
@@ -247,24 +419,17 @@ export function getBestMove(board, turn = 'red', depth = 3) {
   let bestScore = isMaximizing ? -Infinity : Infinity;
 
   searchNodeCount = 0;
-  let alpha = -Infinity;
-  let beta = Infinity;
+  repTable.clear();
+  let alpha = -Infinity, beta = Infinity;
 
   for (const move of moves) {
     const nextBoard = makeMove(board, move);
     const score = alphaBeta(nextBoard, searchDepth - 1, alpha, beta, !isMaximizing, searchDepth);
-
     if (isMaximizing) {
-      if (score > bestScore) {
-        bestScore = score;
-        bestMove = move;
-      }
+      if (score > bestScore) { bestScore = score; bestMove = move; }
       alpha = Math.max(alpha, score);
     } else {
-      if (score < bestScore) {
-        bestScore = score;
-        bestMove = move;
-      }
+      if (score < bestScore) { bestScore = score; bestMove = move; }
       beta = Math.min(beta, score);
     }
   }
@@ -276,35 +441,41 @@ export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
   const moves = getLegalMoves(board, turn);
   if (moves.length === 0) return [];
 
-  let pieceCount = 0;
-  for (let r = 0; r < 10; r++) {
-    for (let c = 0; c < 9; c++) {
-      if (board[r][c]) pieceCount++;
-    }
-  }
-
-  const effectiveDepth = pieceCount <= 6 ? 6 : (pieceCount <= 12 ? 4 : 3);
+  const pc = countPieces(board);
+  const effectiveDepth = pc <= 6 ? 7 : pc <= 10 ? 5 : pc <= 16 ? 4 : 3;
   const searchDepth = Math.max(depth || 3, effectiveDepth);
 
   const isMaximizing = turn === 'red';
   const scoredMoves = [];
 
   searchNodeCount = 0;
-  for (const move of moves.slice(0, 20)) {
+  repTable.clear();
+
+  for (const move of moves.slice(0, 25)) {
     const nextBoard = makeMove(board, move);
     const score = alphaBeta(nextBoard, searchDepth - 1, -Infinity, Infinity, !isMaximizing, searchDepth);
     const isCapture = !!move.captured;
     const causesCheck = isInCheck(nextBoard, turn === 'red' ? 'black' : 'red');
-    const isMate = Math.abs(score) >= 80000;
-    const mateMoves = isMate ? Math.ceil((100000 - Math.abs(score)) / 2) : null;
+
+    const isMate = Math.abs(score) >= 90000;
+    const isCheckmateWin = isMate && (isMaximizing ? score > 0 : score < 0);
+    const mateMoves = isMate ? Math.max(1, Math.ceil((99000 - Math.abs(score)) / 2) + 1) : null;
+    const scoreText = isCheckmateWin
+      ? `#M${mateMoves}`
+      : isMate
+        ? `-#M${mateMoves}`
+        : (score >= 0 ? `+${(score / 100).toFixed(1)}` : `${(score / 100).toFixed(1)}`);
 
     scoredMoves.push({
       move,
       score,
       isCapture,
       causesCheck,
-      isCheckmateWin: isMate && (turn === 'red' ? score > 0 : score < 0),
-      scoreText: isMate ? `#M${mateMoves}` : `${(score / 100).toFixed(1)}`,
+      isCheckmateWin,
+      isMate,
+      mateMoves,
+      scoreText,
+      isNative: false,
       viFull: moveToVietnameseFull(board, move, turn),
       viShort: moveToVietnamese(board, move, turn),
       cnMove: moveToChinese(board, move, turn)
@@ -312,48 +483,25 @@ export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
   }
 
   scoredMoves.sort((a, b) => isMaximizing ? (b.score - a.score) : (a.score - b.score));
-
-  // Extract Top 3 unique candidate moves and assign strategic styles
-  const topCandidates = scoredMoves.slice(0, 3);
-
-  const styleTemplates = [
-    {
-      style: 'attack',
-      label: '⚔️ Tấn Công Vũ Bão',
-      badgeColor: 'border-red-500/50 bg-red-950/30 text-red-300',
-      description: 'Lựa chọn công phá nhanh, ép đối phương vào thế phòng thủ bị động liên tục.',
-      risk: 'Ưu thế dồn dập, thắng nhanh nhưng cần tính toán kỹ để tránh đòn phản công rình rập.'
-    },
-    {
-      style: 'solid',
-      label: '🛡️ An Toàn Tuyệt Đối',
-      badgeColor: 'border-emerald-500/50 bg-emerald-950/30 text-emerald-300',
-      description: 'Khóa chặt các cửa thoát của đối phương, giữ vững thế trận an toàn, triệt tiêu mọi rủi ro.',
-      risk: 'Khó bị phản đòn nhất, đối phương hoàn toàn bế tắc không thể tìm ra khe hở.'
-    },
-    {
-      style: 'control',
-      label: '🔒 Khống Chế Bóp Nghẹt',
-      badgeColor: 'border-amber-500/50 bg-amber-950/30 text-amber-300',
-      description: 'Chiếm lĩnh các lộ huyết mạch, dồn ép quân phòng thủ của đối phương vào góc chết.',
-      risk: 'Tiết tấu chậm rãi nhưng chắc chắn, đẩy đối phương vào thế hết nước đi hợp lệ (tuyệt sát).'
-    }
-  ];
+  const topCandidates = scoredMoves.slice(0, 5);
 
   return topCandidates.map((cand, idx) => {
-    const tmpl = styleTemplates[idx] || styleTemplates[0];
+    const pvDepth = idx === 0 ? 5 : idx <= 1 ? 4 : 3;
+    const nextBoard = makeMove(board, cand.move);
+    const pvLine = buildPvLine(nextBoard, turn === 'red' ? 'black' : 'red', pvDepth);
+    const tacticalStyle = classifyTacticalStyle(cand, board, turn);
+
     return {
       ...cand,
-      ...tmpl,
-      evalText: (cand.score / 100).toFixed(1)
+      ...tacticalStyle,
+      pv: pvLine,
+      evalText: cand.scoreText,
+      evalDepth: searchDepth
     };
   });
 }
 
-/**
- * Fast Non-Blocking Puzzle Solver
- */
-export function solvePuzzleSequence(initialFen, maxMoves = 4, searchDepth = 2) {
+export function solvePuzzleSequence(initialFen, maxMoves = 4, searchDepth = 3) {
   let startBoard;
   try {
     const parsed = parseFen(initialFen);
@@ -361,7 +509,7 @@ export function solvePuzzleSequence(initialFen, maxMoves = 4, searchDepth = 2) {
   } catch {
     return null;
   }
-  
+
   let currentBoard = startBoard;
   let currentTurn = 'red';
   const solutionMoves = [];
@@ -373,16 +521,12 @@ export function solvePuzzleSequence(initialFen, maxMoves = 4, searchDepth = 2) {
     const bestMove = getBestMove(currentBoard, currentTurn, searchDepth);
     if (!bestMove) break;
 
-    const viFull = moveToVietnameseFull(currentBoard, bestMove, currentTurn);
-    const viShort = moveToVietnamese(currentBoard, bestMove, currentTurn);
-    const cnMove = moveToChinese(currentBoard, bestMove, currentTurn);
-
     solutionMoves.push({
       turn: currentTurn,
       move: bestMove,
-      viFull,
-      viShort,
-      cnMove,
+      viFull: moveToVietnameseFull(currentBoard, bestMove, currentTurn),
+      viShort: moveToVietnamese(currentBoard, bestMove, currentTurn),
+      cnMove: moveToChinese(currentBoard, bestMove, currentTurn),
       bBefore: currentBoard,
       bAfter: makeMove(currentBoard, bestMove)
     });
@@ -396,7 +540,6 @@ export function solvePuzzleSequence(initialFen, maxMoves = 4, searchDepth = 2) {
   for (let i = 0; i < solutionMoves.length; i += 2) {
     const redPly = solutionMoves[i];
     const blkPly = solutionMoves[i + 1];
-
     formattedTableMoves.push({
       num: Math.floor(i / 2) + 1,
       red: redPly ? redPly.cnMove : '',
@@ -414,9 +557,11 @@ export function solvePuzzleSequence(initialFen, maxMoves = 4, searchDepth = 2) {
   return {
     rawPlies: solutionMoves,
     formattedMoves: formattedTableMoves,
-    redMoveCount: count,
+    redMoveCount: redCount,
     isCheckmateWin: false,
-    targetGoal: `🎯 Đỏ đi trước • ${count} Nước Sát Cục (${count} Nước Bí)`,
-    firstMoveHint: formattedTableMoves[0] ? `💡 Gợi ý: Đi nước ${formattedTableMoves[0].red_vi} [${formattedTableMoves[0].red_short}]` : ''
+    targetGoal: `🎯 Đỏ đi trước • ${redCount} Nước Sát Cục`,
+    firstMoveHint: formattedTableMoves[0]
+      ? `💡 Gợi ý: Đi nước ${formattedTableMoves[0].red_vi} [${formattedTableMoves[0].red_short}]`
+      : ''
   };
 }

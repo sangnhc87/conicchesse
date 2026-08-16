@@ -156,18 +156,22 @@ export default function XiangqiBoard({
     <div className="relative select-none w-full max-w-[530px] lg:max-w-[570px] xl:max-w-[620px] 2xl:max-w-[670px] mx-auto flex items-center justify-center gap-2">
       {/* Pikafish Real-Time Evaluation Bar */}
       {showEvalBar && (
-        <div className="hidden sm:flex flex-col items-center justify-between w-5 h-[440px] rounded-full bg-[#11141c] border-2 border-[#3d2e1a] shadow-xl overflow-hidden py-1.5 flex-shrink-0">
-          <div className="text-[9px] font-black font-mono text-gray-300">⚫</div>
+        <div className="hidden sm:flex flex-col items-center justify-between w-6 h-[440px] rounded-xl bg-[#0f1218] border border-[#2a3143] shadow-[0_4px_15px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex-shrink-0">
+          <div className="text-[10px] font-black text-gray-500">Đen</div>
           
-          <div className="w-2 flex-1 bg-[#1a1e2b] rounded-full relative overflow-hidden my-1 flex flex-col justify-end border border-gray-700">
+          <div className="w-2.5 flex-1 bg-[#171b26] rounded-full relative overflow-hidden my-2 flex flex-col justify-end shadow-inner border border-[#1e2433]">
+            {/* 50% Center Marker */}
+            <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-500/50 z-10" />
+            
+            {/* The Bar */}
             <div 
-              className="w-full bg-gradient-to-t from-red-600 via-amber-500 to-amber-300 transition-all duration-500 rounded-b-full shadow-[0_0_8px_rgba(239,68,68,0.6)]"
+              className="w-full bg-gradient-to-t from-red-600 via-red-500 to-amber-400 transition-all duration-700 ease-out shadow-[0_0_12px_rgba(239,68,68,0.4)]"
               style={{ height: `${evalPercent}%` }}
             />
           </div>
 
-          <div className="text-[9px] font-black font-mono text-red-400">🔴</div>
-          <div className="text-[8px] font-mono font-bold text-amber-300 tracking-tighter -rotate-90 my-2">
+          <div className="text-[10px] font-black text-red-500/90">Đỏ</div>
+          <div className={`mt-1 text-[11px] font-mono font-bold tracking-tighter ${evalScore > 0 ? 'text-red-400' : evalScore < 0 ? 'text-gray-400' : 'text-gray-500'}`}>
             {evalText}
           </div>
         </div>

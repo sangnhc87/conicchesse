@@ -18,6 +18,8 @@ import AiTutorModal from './components/AiTutorModal';
 import BoardEditorModal from './components/BoardEditorModal';
 import DatabaseImportModal from './components/DatabaseImportModal';
 import EngineSettingsModal from './components/EngineSettingsModal';
+import TrainingPanel from './components/TrainingPanel';
+import { PuzzlesData } from './data/PuzzlesData';
 
 import {
   parseFen, getLegalMoves, makeMove, isInCheck, PIECE_NAMES,
@@ -33,6 +35,16 @@ import { safeFetchJson } from './lib/dataLoader.js';
 export default function App() {
   // App Mode: 'study' (Nghiên cứu kỳ phổ 4.230 bài) | 'analysis' (Phân tích 2 bên & Pikafish) | 'play_ai' (Đấu cờ với AI)
   const [appMode, setAppMode] = useState('study');
+  const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
+  const [trainingScore, setTrainingScore] = useState(0);
+  const [trainingLives, setTrainingLives] = useState(3);
+  const [timeLeft, setTimeLeft] = useState(180);
+  const [isTrainingCompleted, setIsTrainingCompleted] = useState(false);
+  const [trainingBoard, setTrainingBoard] = useState(null);
+  const [trainingTurn, setTrainingTurn] = useState('red');
+  const [trainingSelectedSquare, setTrainingSelectedSquare] = useState(null);
+  const [trainingLegalDests, setTrainingLegalDests] = useState([]);
+  const [trainingSolutionIndex, setTrainingSolutionIndex] = useState(0);
 
   // Engine Manager State
   const [engineState, setEngineState] = useState(engineManager.getState());
@@ -799,6 +811,102 @@ export default function App() {
 
   // Interactive Moves on Board (Analysis Mode, Study Mode & Play AI Mode)
   const handleSquareClick = async (r, c) => {
+    // 0. TRAINING MODE
+    if (appMode === 'training') {
+      if (isTrainingCompleted) return;
+      const clickedPiece = trainingBoard[r][c];
+
+      // If destination selected
+      if (trainingSelectedSquare) {
+        const isDest = trainingLegalDests.some(d => d.toR === r && d.toC === c);
+        if (isDest) {
+          const move = {
+            fromR: trainingSelectedSquare.r,
+            fromC: trainingSelectedSquare.c,
+            toR: r,
+            toC: c,
+            captured: clickedPiece
+          };
+          
+          // Verify with solution
+          const currentPuzzle = PuzzlesData[currentPuzzleIndex];
+          const expectedMoveStr = currentPuzzle.solution[trainingSolutionIndex];
+          const moveStr = `${String.fromCharCode(97 + move.fromC)}${9 - move.fromR}${String.fromCharCode(97 + move.toC)}${9 - move.toR}`;
+          
+          if (moveStr === expectedMoveStr) {
+            // Correct move!
+            sound.playCapture();
+            const newBoard = JSON.parse(JSON.stringify(trainingBoard));
+            newBoard[move.toR][move.toC] = newBoard[move.fromR][move.fromC];
+            newBoard[move.fromR][move.fromC] = null;
+            setTrainingBoard(newBoard);
+            setTrainingSelectedSquare(null);
+            setTrainingLegalDests([]);
+            
+            const nextIndex = trainingSolutionIndex + 1;
+            if (nextIndex >= currentPuzzle.solution.length) {
+              // Puzzle complete
+              setTrainingScore(s => s + 1);
+              setCurrentPuzzleIndex(prev => (prev + 1) % PuzzlesData.length);
+            } else {
+              // Opponent's turn to auto-reply
+              setTrainingSolutionIndex(nextIndex);
+              setTimeout(() => {
+                const oppMoveStr = currentPuzzle.solution[nextIndex];
+                const oppFromC = oppMoveStr.charCodeAt(0) - 97;
+                const oppFromR = 9 - parseInt(oppMoveStr[1]);
+                const oppToC = oppMoveStr.charCodeAt(2) - 97;
+                const oppToR = 9 - parseInt(oppMoveStr[3]);
+                
+                setTrainingBoard(prevBoard => {
+                  const b2 = JSON.parse(JSON.stringify(prevBoard));
+                  b2[oppToR][oppToC] = b2[oppFromR][oppFromC];
+                  b2[oppFromR][oppFromC] = null;
+                  return b2;
+                });
+                sound.playMove();
+                
+                if (nextIndex + 1 >= currentPuzzle.solution.length) {
+                   setTrainingScore(s => s + 1);
+                   setCurrentPuzzleIndex(prev => (prev + 1) % PuzzlesData.length);
+                } else {
+                   setTrainingSolutionIndex(nextIndex + 1);
+                }
+              }, 500);
+            }
+          } else {
+            // Wrong move!
+            sound.playMove(); // Should be error sound
+            setTrainingLives(l => Math.max(0, l - 1));
+            setTrainingSelectedSquare(null);
+            setTrainingLegalDests([]);
+            if (trainingLives - 1 <= 0) {
+               setIsTrainingCompleted(true);
+            }
+          }
+          return;
+        }
+      }
+
+      // Select piece
+      if (clickedPiece) {
+        const pieceIsRed = isRed(clickedPiece);
+        const isCurrentTurnPiece = (trainingTurn === 'red' && pieceIsRed) || (trainingTurn === 'black' && !pieceIsRed);
+        if (isCurrentTurnPiece) {
+          setTrainingSelectedSquare({ r, c });
+          const allLegal = getLegalMoves(trainingBoard, trainingTurn);
+          const pieceLegal = allLegal.filter(m => m.fromR === r && m.fromC === c);
+          setTrainingLegalDests(pieceLegal);
+          sound.playSelect();
+          return;
+        }
+      }
+
+      setTrainingSelectedSquare(null);
+      setTrainingLegalDests([]);
+      return;
+    }
+
     // 1. ANALYSIS (FREE 2-PLAYER SELF-PLAY) MODE
     if (appMode === 'analysis') {
       const clickedPiece = analysisBoard[r][c];

@@ -72,16 +72,18 @@ export default function AnalysisPanel({
 
   // Evaluated Endgame Candidates with Forced Win Detection
   const evaluatedCandidates = useMemo(() => {
-    return (candidates || []).map(cand => {
-      const classification = classifyEndgameCandidate(cand, turn);
+    return (candidates || []).map((cand, index) => {
+      const native = cand.isNative === true;
+      const classification = classifyEndgameCandidate(cand, turn, native, board);
       return {
         ...cand,
         ...classification
       };
     });
-  }, [candidates, turn]);
+  }, [candidates, turn, board]);
 
   const forcedWinCount = evaluatedCandidates.filter(c => c.isForcedWin).length;
+  const advantageCount = evaluatedCandidates.filter(c => !c.isForcedWin && c.outcome === 'advantage').length;
   const displayedCandidates = onlyShowWinningMoves
     ? (forcedWinCount > 0 ? evaluatedCandidates.filter(c => c.isForcedWin) : evaluatedCandidates)
     : evaluatedCandidates;
@@ -204,30 +206,73 @@ export default function AnalysisPanel({
           </button>
         </div>
 
-        {/* Evaluation Bar */}
+        {/* Evaluation Bar — Góc nhìn Bên Đỏ */}
         <div>
-          <div className="flex justify-between text-[11px] font-bold mb-1">
-            <span className="text-red-400 flex items-center gap-1">
-              <span>🔴 Đỏ</span>
-              <span className="font-mono">{scoreNum > 0 ? `+${(scoreNum/100).toFixed(1)}` : ''}</span>
-            </span>
-            <span className="text-[10px] text-gray-400 font-medium flex items-center gap-1">
-              <BarChart3 className="w-3 h-3 text-amber-400" />
-              <span>{isAnalyzing ? 'Pikafish đang quét...' : 'Đánh giá thế trận 2 bên'}</span>
-            </span>
-            <span className="text-blue-300 flex items-center gap-1">
-              <span className="font-mono">{scoreNum < 0 ? `${(scoreNum/100).toFixed(1)}` : ''}</span>
-              <span>⚫ Đen</span>
+          <div className="flex items-center justify-between mb-1.5">
+            {/* Score chính — góc nhìn Đỏ */}
+            <div className="flex items-center gap-2">
+              <span className={`text-sm font-black font-mono tabular-nums ${
+                scoreNum > 100 ? 'text-red-400' :
+                scoreNum < -100 ? 'text-blue-400' :
+                'text-gray-300'
+              }`}>
+                {scoreNum > 0
+                  ? `+${(scoreNum/100).toFixed(1)}`
+                  : scoreNum < 0
+                    ? `${(scoreNum/100).toFixed(1)}`
+                    : '±0.0'
+                }
+              </span>
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                scoreNum > 300 ? 'bg-red-950/60 text-red-300 border border-red-500/30' :
+                scoreNum < -300 ? 'bg-blue-950/60 text-blue-300 border border-blue-500/30' :
+                'bg-gray-800 text-gray-400 border border-gray-700'
+              }`}>
+                {scoreNum > 600 ? '🔴 Đỏ Áp Đảo' :
+                 scoreNum > 200 ? '🔴 Đỏ Ưu Thế' :
+                 scoreNum < -600 ? '⚫ Đen Áp Đảo' :
+                 scoreNum < -200 ? '⚫ Đen Ưu Thế' :
+                 '⚖️ Cân Bằng'}
+              </span>
+            </div>
+            <span className="text-[10px] text-gray-500 flex items-center gap-1">
+              <BarChart3 className="w-3 h-3 text-amber-400/60" />
+              {isAnalyzing ? <span className="text-amber-400 animate-pulse">Đang tính...</span> : 'Góc nhìn: 🔴 Đỏ'}
             </span>
           </div>
-          <div className="w-full h-2.5 bg-blue-950 rounded-full overflow-hidden flex shadow-inner border border-gray-800">
-            <div
-              className="h-full bg-gradient-to-r from-red-600 via-red-500 to-amber-400 transition-all duration-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"
+
+          {/* Professional Single Eval Bar (Chess.com / Lichess style) */}
+          <div className="relative w-full h-3.5 bg-gray-800 rounded-full overflow-hidden border border-gray-900 shadow-inner">
+            {/* Black background represents Black's advantage */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-[#1c2233] to-blue-900" />
+            
+            {/* Red bar width based on evalPercent (0% to 100%) */}
+            <div 
+              className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-red-700 via-red-500 to-amber-500 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(239,68,68,0.5)]"
               style={{ width: `${evalPercent}%` }}
             />
+
+            {/* Zero/Center marker */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/20 z-10 shadow-sm" />
+            
+            {/* Win zone glow for Red */}
+            {scoreNum > 900 && (
+              <div className="absolute inset-0 opacity-40 bg-gradient-to-r from-transparent to-red-500 animate-pulse mix-blend-screen" />
+            )}
+            {/* Win zone glow for Black */}
+            {scoreNum < -900 && (
+              <div className="absolute inset-0 opacity-40 bg-gradient-to-l from-transparent to-blue-500 animate-pulse mix-blend-screen" />
+            )}
+          </div>
+
+          {/* Min-label */}
+          <div className="flex justify-between text-[9px] text-gray-600 mt-0.5 px-0.5">
+            <span>⚫ Đen thắng</span>
+            <span>🔴 Đỏ thắng</span>
           </div>
         </div>
       </div>
+
 
       {/* Navigation Sub-Tabs */}
       <div className="grid grid-cols-4 border-b border-[#262c3b] bg-[#141824] p-1 gap-1">
@@ -360,15 +405,19 @@ export default function AnalysisPanel({
             {/* Endgame Winning Paths Overview Banner */}
             <div className={`p-3 rounded-2xl border transition-all ${
               forcedWinCount > 0
-                ? 'bg-gradient-to-r from-amber-950/60 via-[#1e1c15] to-amber-950/60 border-amber-500/50 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
-                : 'bg-[#141824] border-[#232a3d]'
+                ? 'bg-gradient-to-r from-emerald-950/60 via-teal-950/40 to-emerald-950/60 border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                : advantageCount > 0
+                  ? 'bg-gradient-to-r from-cyan-950/60 via-[#162032] to-cyan-950/60 border-cyan-500/30'
+                  : 'bg-[#141824] border-[#232a3d]'
             }`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className={`p-1.5 rounded-xl ${
                     forcedWinCount > 0
                       ? 'bg-amber-500 text-gray-950 shadow-md font-black animate-pulse'
-                      : 'bg-gray-800 text-gray-400'
+                      : advantageCount > 0
+                        ? 'bg-cyan-500 text-gray-950 shadow-md font-black'
+                        : 'bg-gray-800 text-gray-400'
                   }`}>
                     <Award className="w-4 h-4" />
                   </div>
@@ -379,13 +428,17 @@ export default function AnalysisPanel({
                           ? '🏆 DUY NHẤT 1 NƯỚC ĐI TẤT THẮNG'
                           : forcedWinCount > 1
                             ? `🏆 PHÁT HIỆN ${forcedWinCount} CON ĐƯỜNG TẤT THẮNG 100%`
-                            : '⚖️ CỤC DIỆN CÂN BẰNG / CHƯA CÓ ĐƯỜNG THẮNG'}
+                            : advantageCount > 0
+                              ? `⭐ ĐANG CHIẾM ƯU THẾ VẬT CHẤT LỚN`
+                              : '⚖️ CỤC DIỆN CÂN BẰNG / CHƯA CÓ ĐƯỜNG THẮNG'}
                       </span>
                     </div>
                     <div className="text-[10px] text-gray-400">
                       {forcedWinCount > 0
                         ? 'Các nước đi khác sẽ làm mất ưu thế và bị cầm hòa (Thất bại trong cờ tàn).'
-                        : 'Cần tích lũy thêm ưu thế hoặc kiên nhẫn tìm sơ hở của đối phương.'}
+                        : advantageCount > 0
+                          ? 'Đã đoạt được lợi thế đáng kể. Cần thi triển kỹ năng vần tàn để chuyển hóa thành chiến thắng.'
+                          : 'Cần tích lũy thêm ưu thế hoặc kiên nhẫn tìm sơ hở của đối phương.'}
                     </div>
                   </div>
                 </div>
@@ -438,7 +491,12 @@ export default function AnalysisPanel({
 
                 const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
                 const badgeRank = medals[idx] || `#${idx + 1}`;
-                const pvReadable = cand.pv ? formatPvLine(board, cand.pv, turn) : [];
+                // Handle both WASM pv (array of objects with viShort/cnMove) and native pv (array of UCI strings)
+                const pvReadable = cand.pv
+                  ? (typeof cand.pv[0] === 'string'
+                      ? formatPvLine(board, cand.pv, turn) // native engine UCI strings
+                      : cand.pv)                           // WASM already-formatted objects
+                  : [];
 
                 return (
                   <div
@@ -477,42 +535,54 @@ export default function AnalysisPanel({
 
                       {/* Evaluation Score Badge */}
                       <div className="flex items-center gap-1.5">
-                        <span className={`px-2 py-0.5 rounded-lg text-xs font-mono font-black border ${
-                          (cand.score || 0) > 50
-                            ? 'bg-red-950/60 border-red-500/40 text-red-300'
-                            : (cand.score || 0) < -50
-                              ? 'bg-blue-950/60 border-blue-500/40 text-blue-300'
-                              : 'bg-gray-800 border-gray-700 text-gray-300'
+                        {/* Depth indicator */}
+                        {cand.evalDepth && (
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-mono border border-gray-700 text-gray-500 bg-gray-900">
+                            D{cand.evalDepth}
+                          </span>
+                        )}
+                        <span className={`px-2.5 py-0.5 rounded-lg text-xs font-mono font-black border ${
+                          cand.isCheckmateWin
+                            ? 'bg-emerald-950/80 border-emerald-400 text-emerald-300 shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+                            : (cand.score || 0) > 200
+                              ? 'bg-red-950/60 border-red-500/40 text-red-300'
+                              : (cand.score || 0) < -200
+                                ? 'bg-blue-950/60 border-blue-500/40 text-blue-300'
+                                : 'bg-gray-800 border-gray-700 text-gray-300'
                         }`}>
-                          {(cand.score || 0) > 0 ? `+${((cand.score || 0)/100).toFixed(1)}` : `${((cand.score || 0)/100).toFixed(1)}`}
+                          {cand.scoreText || cand.evalText || ((cand.score || 0) >= 0 ? `+${((cand.score||0)/100).toFixed(1)}` : `${((cand.score||0)/100).toFixed(1)}`)}
                         </span>
                       </div>
                     </div>
 
-                    {/* Endgame Outcome Status Badge */}
-                    <div className="mb-2">
-                      <div className={`px-2.5 py-1 rounded-xl border text-[11px] font-black flex items-center justify-between ${cand.badgeColor}`}>
-                        <span className="flex items-center gap-1">
-                          <span>{cand.outcomeLabel}</span>
-                        </span>
-                        <span className="text-[10px] font-mono opacity-90">
-                          {cand.isForcedWin ? 'Ép Thắng 100%' : 'Mất Thế Thắng'}
-                        </span>
+                    {/* Smart Tactical Style Badge (from WASM classification) */}
+                    {cand.label && (
+                      <div className="mb-2">
+                        <div className={`px-2.5 py-1 rounded-xl border text-[11px] font-black flex items-center justify-between ${cand.badgeColor}`}>
+                          <span className="flex items-center gap-1">
+                            <span>{cand.label}</span>
+                          </span>
+                          <span className="text-[10px] font-mono opacity-80">
+                            {cand.scoreText || ''}
+                          </span>
+                        </div>
                       </div>
-                      <div className="text-[10.5px] text-gray-400 mt-1 italic pl-1 leading-snug">
-                        {cand.outcomeDesc}
-                      </div>
-                    </div>
+                    )}
 
-                    {/* Candidate Description & Tactical Goal */}
+                    {/* Tactical Description & Intent */}
                     <div className="text-[11px] text-gray-300 bg-[#0e121a] p-2 rounded-xl border border-[#1f2638] mb-2 leading-relaxed">
                       <div className="font-bold text-amber-300 mb-0.5 flex items-center gap-1">
                         <Compass className="w-3 h-3 text-amber-400" />
                         <span>Ý Đồ Chiến Thuật:</span>
                       </div>
                       <div>
-                        {cand.description || (idx === 0 ? 'Nước đi mạnh nhất, duy trì quyền chủ động và gây áp lực trực tiếp lên trận địa đối phương.' : 'Phương án khả dĩ, kiểm soát cục diện và phòng ngừa đòn phản công.')}
+                        {cand.outcomeDesc || cand.description || (idx === 0 ? 'Nước đi mạnh nhất — duy trì quyền chủ động và gây áp lực trực tiếp lên trận địa đối phương.' : 'Phương án khả dĩ — kiểm soát cục diện và phòng ngừa đòn phản công.')}
                       </div>
+                      {cand.risk && (
+                        <div className="mt-1 text-[10px] text-gray-500 italic border-t border-gray-800 pt-1">
+                          ⚠️ {cand.risk}
+                        </div>
+                      )}
                     </div>
 
                     {/* PV Line Continuation Preview */}

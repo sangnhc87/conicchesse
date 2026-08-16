@@ -207,7 +207,7 @@ class EngineManagerService {
 
           const result = {
             ...data.move,
-            score: data.score,
+            score: turn === 'black' ? -data.score : data.score,
             depth: data.depth,
             nps: data.nps,
             uci: data.bestmove,
@@ -288,6 +288,7 @@ class EngineManagerService {
             const cnMove = cand.move ? moveToChinese(board, cand.move, turn) : '';
             return {
               ...cand,
+              score: turn === 'black' ? -cand.score : cand.score,
               viFull,
               viShort,
               cnMove,
