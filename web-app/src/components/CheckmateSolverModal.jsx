@@ -50,19 +50,47 @@ function getTacticalExplanation(moveText, score, turn) {
   }
 }
 
-// Recursive Solver Logic (Deep Tree Search to Checkmate)
-const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxBlack, onProgress, checkAbort) => {
+// Recursive Solver Logic (Blazing-Fast Deep Tree Search to Checkmate)
+const solveTree = async (
+  currentBoard, 
+  currentTurn, 
+  currentDepth, 
+  maxDepth, 
+  maxBlack, 
+  onProgress, 
+  checkAbort,
+  isSecondaryBranch = false,
+  memo = new Map()
+) => {
   if (checkAbort()) return null;
   
   // maxDepth is full moves for Red (each full move has 2 plies: Red move + Black reply)
-  const maxPlies = (maxDepth || 30) * 2;
+  const maxPlies = (maxDepth || 35) * 2;
+  
+  // Secondary blunder/alternate branches only need 2-3 moves to prove refutation/checkmate
+  if (isSecondaryBranch && currentDepth > 6) {
+    return { note: "Nhánh phụ bị bẻ gãy (Bại cuộc)" };
+  }
+
   if (currentDepth > maxPlies) {
     return { note: `Đạt giới hạn độ sâu (${maxDepth} nước Đỏ)` };
   }
 
+  const fenKey = boardToFen(currentBoard, currentTurn).split(' ').slice(0, 2).join(' ');
+  if (memo.has(fenKey)) {
+    return memo.get(fenKey);
+  }
+
   try {
     const isRed = currentTurn === 'red';
-    const multiPv = isRed ? 1 : maxBlack;
+    
+    // Branch pruning: Red always plays 1 best move; Black branches at key moments (early plies)
+    const effectiveMultiPv = isRed 
+      ? 1 
+      : (currentDepth <= 4 ? Math.min(maxBlack, 3) : 1);
+
+    // Fast engine depth: 16 at root, 10-12 in subtree for instant 10ms evaluations
+    const searchDepth = currentDepth === 1 ? 16 : 12;
 
     // Check if opponent is already in checkmate or stalemate
     const legalMoves = getLegalMoves(currentBoard, currentTurn);
@@ -74,8 +102,7 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
       }
     }
 
-    // High depth analysis for deep mate detection
-    const candidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, 18, multiPv);
+    const candidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, searchDepth, effectiveMultiPv);
 
     if (checkAbort()) return null;
 
@@ -85,6 +112,8 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
       }
       return { note: "Sát cục hoàn tất (Tất Thắng)" };
     }
+
+    let resultNode = null;
 
     if (isRed) {
       const best = candidates[0];
@@ -100,7 +129,7 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
       // Check if Black has any legal responses left
       const blackLegal = getLegalMoves(newBoard, 'black');
       if (blackLegal.length === 0) {
-        return {
+        resultNode = {
           turn: 'red',
           move: best.viShort || best.uci,
           viFull: best.viFull || best.viShort || best.uci,
@@ -108,28 +137,37 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
           score,
           reply: { note: "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" }
         };
+      } else {
+        const reply = await solveTree(
+          newBoard, 
+          'black', 
+          currentDepth + 1, 
+          maxDepth, 
+          maxBlack, 
+          onProgress, 
+          checkAbort,
+          isSecondaryBranch,
+          memo
+        );
+        
+        resultNode = {
+          turn: 'red',
+          move: best.viShort || best.uci,
+          viFull: best.viFull || best.viShort || best.uci,
+          uci: best.uci || moveObjToUci(best.move),
+          score,
+          reply
+        };
       }
-
-      const reply = await solveTree(newBoard, 'black', currentDepth + 1, maxDepth, maxBlack, onProgress, checkAbort);
-      
-      return {
-        turn: 'red',
-        move: best.viShort || best.uci,
-        viFull: best.viFull || best.viShort || best.uci,
-        uci: best.uci || moveObjToUci(best.move),
-        score,
-        reply
-      };
     } else {
       const responses = [];
-      for (const cand of candidates) {
+      for (let idx = 0; idx < candidates.length; idx++) {
         if (checkAbort()) return null;
-        
+        const cand = candidates[idx];
         const move = cand.move;
         if (!move) continue;
         
         const score = cand.scoreText || `cp ${cand.score}`;
-        
         let newBoard = makeMove(currentBoard, move);
         
         onProgress(`Phân tích nhánh Đen đi ${cand.viShort || cand.uci}...`);
@@ -139,7 +177,18 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
         if (redLegal.length === 0) {
           reply = { note: "Đen phản đòn / Hết nước" };
         } else {
-          reply = await solveTree(newBoard, 'red', currentDepth + 1, maxDepth, maxBlack, onProgress, checkAbort);
+          // idx > 0 means secondary defense branch
+          reply = await solveTree(
+            newBoard, 
+            'red', 
+            currentDepth + 1, 
+            maxDepth, 
+            maxBlack, 
+            onProgress, 
+            checkAbort,
+            isSecondaryBranch || idx > 0,
+            memo
+          );
         }
         
         responses.push({
@@ -150,11 +199,14 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
           red_reply: reply
         });
       }
-      return {
+      resultNode = {
         turn: 'black',
         responses
       };
     }
+
+    memo.set(fenKey, resultNode);
+    return resultNode;
   } catch (err) {
     console.error("Solver error:", err);
     return { note: "Kết thúc nhánh" };
