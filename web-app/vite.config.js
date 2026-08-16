@@ -1,24 +1,20 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Dùng đường dẫn tương đối để Tauri (custom protocol) nạp được CSS/JS.
+  base: './',
   plugins: [
     react(),
     tailwindcss(),
   ],
-  // Tùy chỉnh server cố định cho Tauri dev workflow
-  clearScreen: false,
-  server: {
-    port: 5173,
-    strictPort: true,
-    host: '127.0.0.1',
-  },
-  // Nhắm target hiện đại cho WebKit và Chromium
+  // Tauri dùng WebKit trên macOS/Linux — phải nhắm đúng target Safari để JS
+  // parse được trong WKWebView (không bị lỗi cú pháp → màn hình trống).
   build: {
+    target: process.env.TAURI_ENV_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
     minify: 'oxc',
     sourcemap: !!process.env.TAURI_ENV_DEBUG,
   },
-});
-
+})

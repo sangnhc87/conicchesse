@@ -50,6 +50,22 @@ function getTacticalExplanation(moveText, score, turn) {
   }
 }
 
+// Validation: Check if EVERY branch in the tree reaches a verified Checkmate (Tất Thắng)
+function isTrueCheckmateTree(node) {
+  if (!node) return false;
+  if (node.note) {
+    return node.note.includes('Chiếu Bí') || node.note.includes('Tất Thắng');
+  }
+  if (node.turn === 'red') {
+    return isTrueCheckmateTree(node.reply);
+  }
+  if (node.turn === 'black') {
+    if (!node.responses || node.responses.length === 0) return false;
+    return node.responses.every(resp => isTrueCheckmateTree(resp.red_reply));
+  }
+  return false;
+}
+
 // Recursive Solver Logic (Deep Tree Search to Absolute Checkmate Win)
 const solveTree = async (
   currentBoard, 
@@ -460,6 +476,7 @@ export default function CheckmateSolverModal({
   const [resultTree, setResultTree] = useState(null);
   const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard' | 'flowchart' | 'text' | 'json'
   const [copied, setCopied] = useState(false);
+  const [noCheckmateError, setNoCheckmateError] = useState(false);
   const [showLibrary, setShowLibrary] = useState(false);
   const [libraryItems, setLibraryItems] = useState([]);
   const [flipped, setFlipped] = useState(false);
@@ -744,6 +761,7 @@ export default function CheckmateSolverModal({
   const handleStart = async () => {
     setIsSolving(true);
     setResultTree(null);
+    setNoCheckmateError(false);
     setPath([]);
     abortRef.current = false;
     
@@ -758,16 +776,27 @@ export default function CheckmateSolverModal({
     );
     
     if (!abortRef.current && tree) {
-      const finalTree = {
-        root_fen: boardToFen(initialBoard, initialTurn),
-        tree
-      };
-      setResultTree(finalTree);
-      SatsucCache.addTree(finalTree);
-      loadLibrary();
-      setProgressMsg('Đã giải xong và lưu vào Từ Điển Sát Cục!');
-      setActiveTab('dashboard');
-      showToast('💾 Đã tự động lưu thế cờ vào Thư Viện!');
+      const isCheckmate = isTrueCheckmateTree(tree);
+      if (isCheckmate) {
+        const finalTree = {
+          root_fen: boardToFen(initialBoard, initialTurn),
+          tree
+        };
+        setResultTree(finalTree);
+        setNoCheckmateError(false);
+        SatsucCache.addTree(finalTree);
+        loadLibrary();
+        setProgressMsg('🎯 Đã tìm ra toàn bộ chuỗi Sát Cục Tất Thắng 100%!');
+        setActiveTab('dashboard');
+        showToast('🏆 Tuyệt tác! Đã giải xong chuỗi Sát Cục Tất Thắng!');
+      } else {
+        setResultTree(null);
+        setNoCheckmateError(true);
+        setProgressMsg('⚠️ Thế trận này không có đòn Sát Cục cưỡng bức!');
+      }
+    } else {
+      setResultTree(null);
+      if (!abortRef.current) setNoCheckmateError(true);
     }
     setIsSolving(false);
   };
@@ -1717,17 +1746,36 @@ export default function CheckmateSolverModal({
                   </div>
                 ) : (
                   <div className="w-full flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-500/20 to-red-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-xl mb-4">
-                      <Target className="w-8 h-8" />
-                    </div>
-                    
-                    <h3 className="text-xl font-black text-gray-100 mb-2">
-                      Dò Sát Cục Cho Thế Trận Này
-                    </h3>
-                    
-                    <p className="text-xs text-gray-400 max-w-md mb-6 leading-relaxed">
-                      Pikafish AI sẽ quét toàn bộ cây phương án đệ quy, kiểm tra từng nước biến của đối thủ để tìm ra chuỗi sát chiêu tất thắng 100%.
-                    </p>
+                    {noCheckmateError ? (
+                      <div className="w-full p-6 rounded-3xl bg-gradient-to-br from-red-950/40 via-[#1c1418] to-[#141824] border-2 border-red-500/50 shadow-2xl text-center mb-6 animate-in zoom-in-95">
+                        <div className="w-12 h-12 rounded-2xl bg-red-500/20 text-red-400 flex items-center justify-center mx-auto mb-3 border border-red-500/40">
+                          <ShieldAlert className="w-6 h-6" />
+                        </div>
+                        <h4 className="text-base font-black text-red-300 mb-1.5 uppercase">
+                          Không Có Sát Cục Ép Buộc (Tất Thắng)
+                        </h4>
+                        <p className="text-xs text-gray-300 leading-relaxed max-w-md mx-auto">
+                          Pikafish AI đã kiểm tra kỹ lưỡng: Thế trận hiện tại là thế cờ điều quân/tàn cuộc thông thường. Đối phương có phương án chống đỡ được (hoặc dẫn đến hòa cờ) và <strong className="text-amber-300">không tồn tại chuỗi chiếu sát bí ép buộc 100%</strong>.
+                        </p>
+                        <p className="text-[11px] text-amber-400/90 mt-3 font-medium bg-black/40 p-2.5 rounded-xl border border-[#2d3a52]">
+                          💡 Gợi ý: Hãy nạp các thế cờ có đòn Sát Cục dứt điểm (như Sát Cục Thực Dụng, Cờ Thế) để xem toàn bộ sơ đồ phân nhánh tất thắng.
+                        </p>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-500/20 to-red-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-xl mb-4">
+                          <Target className="w-8 h-8" />
+                        </div>
+                        
+                        <h3 className="text-xl font-black text-gray-100 mb-2">
+                          Dò Sát Cục Cho Thế Trận Này
+                        </h3>
+                        
+                        <p className="text-xs text-gray-400 max-w-md mb-6 leading-relaxed">
+                          Pikafish AI sẽ quét toàn bộ cây phương án đệ quy, kiểm tra từng nước biến của đối thủ để tìm ra chuỗi sát chiêu tất thắng 100%.
+                        </p>
+                      </>
+                    )}
 
                     <div className="w-full bg-[#141926] p-4 rounded-2xl border border-[#252f44] mb-6 text-left space-y-2">
                       <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
@@ -1744,7 +1792,7 @@ export default function CheckmateSolverModal({
                       className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-amber-950 font-black text-base shadow-2xl shadow-amber-500/30 transition-all active:scale-95 flex items-center justify-center gap-2.5"
                     >
                       <Play className="w-5 h-5 fill-current" />
-                      <span>BẮT ĐẦU DÒ SÁT CỤC THẾ CỜ NÀY</span>
+                      <span>{noCheckmateError ? 'QUÉT LẠI THẾ CỜ NÀY' : 'BẮT ĐẦU DÒ SÁT CỤC THẾ CỜ NÀY'}</span>
                     </button>
                   </div>
                 )}

@@ -7,115 +7,19 @@ import { parseFen } from './XiangqiLogic';
 import { solvePuzzleSequence } from './XiangqiAI';
 import { storageGet, storageSet } from '../lib/safeStorage.js';
 
-const CURATED_ONLINE_GAMES = [
-  {
-    title: 'Vương Thiên Nhất vs Trịnh Duy Đồng (Chung Kết Giáp Cấp)',
-    desc: 'Đỉnh cao Pháo Mã công sát - Vương Thiên Nhất xuất thần kích bại Trịnh Duy Đồng',
-    fen: 'rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1',
-    moves: [
-      { red: 'Pháo 2 bình 5', black: 'Mã 8 tiến 7' },
-      { red: 'Mã 2 tiến 3', black: 'Xe 9 bình 8' },
-      { red: 'Xe 1 bình 2', black: 'Pháo 8 tiến 4' },
-      { red: 'Binh 7 tiến 1', black: 'Pháo 8 bình 3' },
-      { red: 'Binh 7 tiến 1', black: 'Tượng 7 tiến 5' }
-    ],
-    movesCount: 38,
-    category: 'Danh Thủ Kỳ Vương'
-  },
-  {
-    title: 'Lại Lý Huynh vs Uông Dương (Thế Vận Hội Cờ Tướng Hàng Châu)',
-    desc: 'Đặc cấp quốc tế đại sư Lại Lý Huynh bình phong mã xuất sắc kích thủ',
-    fen: 'rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1',
-    moves: [
-      { red: 'Binh 7 tiến 1', black: 'Pháo 2 bình 3' },
-      { red: 'Mã 8 tiến 7', black: 'Mã 2 tiến 3' },
-      { red: 'Xe 9 bình 8', black: 'Xe 1 bình 2' },
-      { red: 'Pháo 8 tiến 4', black: 'Binh 7 tiến 1' }
-    ],
-    movesCount: 42,
-    category: 'Kỳ Vương Việt Nam'
-  },
-  {
-    title: 'Hồ Vinh Hoa vs Liễu Đại Hoa (Đông Phương Bất Bại Trận)',
-    desc: 'Thập liên bá Hồ Vinh Hoa với Thuận Pháo hoành xa tuyệt chiêu',
-    fen: 'rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1',
-    moves: [
-      { red: 'Pháo 2 bình 5', black: 'Pháo 8 bình 5' },
-      { red: 'Mã 2 tiến 3', black: 'Mã 8 tiến 7' },
-      { red: 'Xe 1 tiến 1', black: 'Xe 9 bình 8' },
-      { red: 'Xe 1 bình 6', black: 'Mã 2 tiến 3' }
-    ],
-    movesCount: 35,
-    category: 'Kỳ Phổ Cổ Điển'
-  },
-  {
-    title: 'Thất Tinh Tụ Hội (Tuyệt Thế Danh Cục Cờ Tàn Giang Hồ)',
-    desc: 'Cục cờ thế lừng danh thiên hạ: Song Xe Pháo Tốt công thủ ảo diệu',
-    fen: '3ak4/4a4/4b4/4p4/2r6/6R2/4P4/4B4/4A4/4K4 r - - 0 1',
-    moves: [
-      { red: 'Xe 3 tiến 2', black: 'Tướng 5 tiến 1' },
-      { red: 'Binh 5 tiến 1', black: 'Sĩ 4 tiến 5' },
-      { red: 'Xe 3 thoái 1', black: 'Tướng 5 thoái 1' }
-    ],
-    movesCount: 16,
-    category: 'Cờ Thế Giang Hồ'
-  },
-  {
-    title: 'Dã Mã Thao Điền (Ngựa Hoang Giẫm Ruộng)',
-    desc: 'Tuyệt tác cờ tàn giang hồ: Mã Chốt vận dụng biến hóa khôn lường',
-    fen: '4k4/4a4/4ba3/9/9/4N4/4P4/4B4/4A4/4K4 r - - 0 1',
-    moves: [
-      { red: 'Mã 5 tiến 3', black: 'Tướng 5 bình 6' },
-      { red: 'Binh 5 bình 4', black: 'Sĩ 5 tiến 6' }
-    ],
-    movesCount: 12,
-    category: 'Cờ Thế Giang Hồ'
-  },
-  {
-    title: 'Đơn Xe Phá Pháo Song Sĩ (Khẩu Quyết Cờ Tàn Tất Thắng)',
-    desc: 'Kỹ thuật dùng Xe khống chế tướng sĩ và bắt gọn pháo đối phương',
-    fen: '3ak1b2/4a4/9/9/9/9/9/9/4R4/4K4 r - - 0 1',
-    moves: [
-      { red: 'Xe 5 tiến 8', black: 'Tướng 5 tiến 1' },
-      { red: 'Xe 5 bình 4', black: 'Sĩ 5 thoái 6' }
-    ],
-    movesCount: 8,
-    category: 'Khẩu Quyết Cờ Tàn'
-  }
-];
-
 export default function DatabaseImportModal({
   isOpen,
   onClose,
   onImportSuccess
 }) {
-  const [importType, setImportType] = useState('online'); // 'online', 'text', 'file'
+  const [importType, setImportType] = useState('text'); // 'text', 'file'
   const [collectionName, setCollectionName] = useState('Bộ Sưu Tập Của Tôi');
   const [pastedPgn, setPastedPgn] = useState('');
   const [pastedFen, setPastedFen] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [curatedOnlineGames] = useState(CURATED_ONLINE_GAMES);
   const [isProcessing, setIsProcessing] = useState(false);
   const [importStatus, setImportStatus] = useState(null);
 
   if (!isOpen) return null;
-
-  const handleLoadSingleOnlineGame = (game) => {
-    const singleItem = {
-      id: `online_game_${Date.now()}`,
-      title: game.title,
-      fen: game.fen,
-      moves: game.moves,
-      tacticalGoal: game.desc,
-      folderPath: ['Ván Cờ Trực Tuyến', game.category || 'Tra cứu'],
-      type: 'online'
-    };
-
-    if (onImportSuccess) {
-      onImportSuccess([singleItem]);
-    }
-    onClose();
-  };
 
   const handleImportText = () => {
     if (!pastedFen.trim() && !pastedPgn.trim()) {
@@ -271,17 +175,7 @@ export default function DatabaseImportModal({
               </div>
 
               {/* Upload Type Tabs */}
-              <div className="grid grid-cols-3 gap-2 text-xs font-bold pt-1">
-                <button
-                  onClick={() => setImportType('online')}
-                  className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${
-                    importType === 'online'
-                      ? 'bg-amber-600/30 border-amber-500 text-amber-300 shadow-sm'
-                      : 'bg-[#171b26] border-gray-700 text-gray-400'
-                  }`}
-                >
-                  <Sparkles className="w-4 h-4 text-amber-400" /> 🔍 Tìm & Xem Ván Cờ
-                </button>
+              <div className="grid grid-cols-2 gap-2 text-xs font-bold pt-1">
                 <button
                   onClick={() => setImportType('text')}
                   className={`p-2.5 rounded-xl border flex items-center justify-center gap-1.5 transition-all ${
@@ -290,7 +184,7 @@ export default function DatabaseImportModal({
                       : 'bg-[#171b26] border-gray-700 text-gray-400'
                   }`}
                 >
-                  <FileText className="w-4 h-4" /> Dán FEN
+                  <FileText className="w-4 h-4" /> Dán Mã FEN / Văn Bản
                 </button>
                 <button
                   onClick={() => setImportType('file')}
@@ -300,86 +194,12 @@ export default function DatabaseImportModal({
                       : 'bg-[#171b26] border-gray-700 text-gray-400'
                   }`}
                 >
-                  <UploadCloud className="w-4 h-4" /> File PGN/XQF
+                  <UploadCloud className="w-4 h-4" /> Tải Lên File PGN / XQF
                 </button>
               </div>
 
-              {/* Online On-Demand Search Area */}
-              {importType === 'online' ? (
-                <div className="space-y-3 p-4 rounded-2xl bg-[#0e111a] border border-[#262f44]">
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-amber-300 flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-amber-400" />
-                      <span>Tìm Kiếm Trực Tiếp Ván Cần Xem (Không Tốn Dung Lượng Máy)</span>
-                    </div>
-                  </div>
-                  <p className="text-[11px] text-gray-300">
-                    Nhập tên danh thủ, thế cờ hoặc loại hình khai/trung/tàn cục để lấy <strong>đúng 1 ván</strong> xem ngay:
-                  </p>
-
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Nhập: Vương Thiên Nhất, Lại Lý Huynh, Thuận Pháo, Thất Tinh Tụ Hội..."
-                      className="flex-1 bg-[#161c2b] border border-amber-500/40 rounded-xl px-3 py-2 text-xs text-amber-200 font-bold focus:outline-none focus:border-amber-400 placeholder:text-gray-500"
-                    />
-                  </div>
-
-                  {/* Curated On-Demand Games List */}
-                  <div className="space-y-1.5 max-h-[220px] overflow-y-auto pr-1">
-                    {curatedOnlineGames
-                      .filter(g => !searchQuery.trim() || g.title.toLowerCase().includes(searchQuery.toLowerCase()) || g.desc.toLowerCase().includes(searchQuery.toLowerCase()))
-                      .map((game, idx) => (
-                        <div
-                          key={`online-game-${idx}`}
-                          className="p-2.5 rounded-xl bg-[#141926] hover:bg-[#1c2438] border border-gray-700/60 hover:border-amber-500/50 flex items-center justify-between transition-all group"
-                        >
-                          <div className="min-w-0 flex-1 mr-2">
-                            <div className="text-xs font-bold text-gray-200 group-hover:text-amber-300 truncate">
-                              {game.title}
-                            </div>
-                            <div className="text-[10px] text-gray-400 truncate">
-                              {game.desc} • <span className="text-cyan-400">{game.movesCount} nước</span>
-                            </div>
-                          </div>
-
-                          <button
-                            onClick={() => handleLoadSingleOnlineGame(game)}
-                            className="px-3 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-950 font-black text-[11px] flex-shrink-0 transition-all active:scale-95 shadow-sm"
-                          >
-                            👁️ Mở Xem Ngay
-                          </button>
-                        </div>
-                      ))}
-                  </div>
-
-                  {/* External Search Link */}
-                  <div className="pt-2 border-t border-gray-800 flex items-center justify-between text-[11px] text-gray-400">
-                    <span>Tra cứu sâu hơn:</span>
-                    <div className="flex gap-2">
-                      <a
-                        href="https://www.chessdb.cn/query/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyan-400 hover:underline flex items-center gap-1"
-                      >
-                        ChessDB ↗
-                      </a>
-                      <a
-                        href="http://www.dpxq.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-amber-400 hover:underline flex items-center gap-1"
-                      >
-                        Dpxq ↗
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ) : importType === 'text' ? (
-                /* Text Input Area */
+              {/* Text Input Area */}
+              {importType === 'text' ? (
                 <div className="space-y-2">
                   <label className="text-[11px] text-gray-400 block">
                     Dán một hoặc nhiều dòng mã FEN (mỗi dòng 1 thế cờ):
