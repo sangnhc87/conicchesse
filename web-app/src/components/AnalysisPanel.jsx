@@ -52,8 +52,8 @@ export default function AnalysisPanel({
   isMuted,
   onToggleMute,
   onOpenEngineSettings,
-  onOpenSolver,
-  onOpenEditor
+  onOpenEditor,
+  onOpenSolver
 }) {
   const [activeTab, setActiveTab] = useState('candidates'); // 'candidates' | 'proscons' | 'history'
   const [copiedFen, setCopiedFen] = useState(false);

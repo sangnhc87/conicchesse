@@ -1705,6 +1705,7 @@ export default function App() {
                   }}
                   onOpenEngineSettings={() => setIsEngineModalOpen(true)}
                   onOpenEditor={() => setIsEditorOpen(true)}
+                  onOpenSolver={() => setIsSolverModalOpen(true)}
                 />
               ) : (
                 <PlayAIPanel
