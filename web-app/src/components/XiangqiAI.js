@@ -123,9 +123,15 @@ export function evaluateBoard(board) {
 
 // Transposition Table Cache for fast O(1) repeated sub-tree lookup
 const ttCache = new Map();
+let searchNodeCount = 0;
 
-// Alpha-Beta Minimax search with Mate Distance penalty & Transposition Cache
+// Alpha-Beta Minimax search with strict Node Capping & Transposition Cache
 function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
+  searchNodeCount++;
+  if (searchNodeCount > 1500) {
+    return evaluateBoard(board);
+  }
+
   const turn = isMaximizing ? 'red' : 'black';
   const moves = getLegalMoves(board, turn);
 
@@ -196,7 +202,7 @@ export const GRANDMASTER_OPENING_MOVES = [
   { fromR: 9, fromC: 6, toR: 7, toC: 4, name: 'Tượng 7 tiến 5 (Phi Tượng Cuộc)' }
 ];
 
-export function getBestMove(board, turn = 'red', depth = 3) {
+export function getBestMove(board, turn = 'red', depth = 2) {
   // Red Initial Standard Opening
   if (turn === 'red' && isStandardOpening(board) && board[7]?.[1] === 'C' && board[7]?.[7] === 'C') {
     return { fromR: 7, fromC: 1, toR: 7, toC: 4, captured: null };
@@ -219,11 +225,12 @@ export function getBestMove(board, turn = 'red', depth = 3) {
     return valB - valA;
   });
 
-  const searchDepth = Math.min(Math.max(depth, 2), 3);
+  const searchDepth = Math.min(Math.max(depth, 1), 2);
   const isMaximizing = turn === 'red';
   let bestMove = moves[0];
   let bestScore = isMaximizing ? -Infinity : Infinity;
 
+  searchNodeCount = 0;
   let alpha = -Infinity;
   let beta = Infinity;
 
@@ -250,16 +257,17 @@ export function getBestMove(board, turn = 'red', depth = 3) {
 }
 
 /**
- * Multi-PV Deep Strategic Analysis (Top 3 Candidate Moves with Style Profiles)
+ * Multi-PV Fast Strategic Analysis
  */
-export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
+export function analyzeStrategicOptions(board, turn = 'red', depth = 2) {
   const moves = getLegalMoves(board, turn);
   if (moves.length === 0) return [];
 
   const isMaximizing = turn === 'red';
   const scoredMoves = [];
 
-  for (const move of moves) {
+  searchNodeCount = 0;
+  for (const move of moves.slice(0, 15)) {
     const nextBoard = makeMove(board, move);
     const score = alphaBeta(nextBoard, depth - 1, -Infinity, Infinity, !isMaximizing, depth);
     const isCapture = !!move.captured;
@@ -316,101 +324,17 @@ export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
 }
 
 /**
- * Exact Shortest-Win Solver
+ * Fast Non-Blocking Puzzle Solver
  */
-export function findShortestWin(board, maxRedMoves = 5) {
-  function search(b, redMovesLeft, turn) {
-    if (turn === 'black') {
-      const bMoves = getLegalMoves(b, 'black');
-      if (bMoves.length === 0) {
-        return { mated: true, plies: [] };
-      }
-      let worstForBlack = null;
-      for (let bm of bMoves) {
-        const nb = makeMove(b, bm);
-        const res = search(nb, redMovesLeft, 'red');
-        if (!res || !res.mated) {
-          return null;
-        }
-        if (!worstForBlack || res.plies.length > worstForBlack.plies.length) {
-          worstForBlack = { 
-            mated: true, 
-            plies: [{ move: bm, turn: 'black', bBefore: b, bAfter: nb }, ...res.plies] 
-          };
-        }
-      }
-      return worstForBlack;
-    } else {
-      if (redMovesLeft === 0) return null;
-      const rMoves = getLegalMoves(b, 'red');
-      let bestForRed = null;
-      for (let rm of rMoves) {
-        const nb = makeMove(b, rm);
-        const bMoves = getLegalMoves(nb, 'black');
-        if (bMoves.length === 0) {
-          return { 
-            mated: true, 
-            plies: [{ move: rm, turn: 'red', bBefore: b, bAfter: nb }] 
-          };
-        }
-        const res = search(nb, redMovesLeft - 1, 'black');
-        if (res && res.mated) {
-          if (!bestForRed || res.plies.length < bestForRed.plies.length) {
-            bestForRed = { 
-              mated: true, 
-              plies: [{ move: rm, turn: 'red', bBefore: b, bAfter: nb }, ...res.plies] 
-            };
-          }
-        }
-      }
-      return bestForRed;
-    }
+export function solvePuzzleSequence(initialFen, maxMoves = 4, searchDepth = 2) {
+  let startBoard;
+  try {
+    const parsed = parseFen(initialFen);
+    startBoard = parsed.board;
+  } catch {
+    return null;
   }
-
-  for (let k = 1; k <= maxRedMoves; k++) {
-    const res = search(board, k, 'red');
-    if (res && res.mated) {
-      return { redMoves: k, plies: res.plies };
-    }
-  }
-  return null;
-}
-
-export function solvePuzzleSequence(initialFen, maxMoves = 5, searchDepth = 4) {
-  const { board: startBoard } = parseFen(initialFen);
   
-  const exactWin = findShortestWin(startBoard, 5);
-  if (exactWin && exactWin.plies && exactWin.plies.length > 0) {
-    const formattedTableMoves = [];
-    for (let i = 0; i < exactWin.plies.length; i += 2) {
-      const redPly = exactWin.plies[i];
-      const blkPly = exactWin.plies[i + 1];
-
-      formattedTableMoves.push({
-        num: Math.floor(i / 2) + 1,
-        red: moveToChinese(redPly.bBefore, redPly.move, 'red'),
-        red_vi: moveToVietnameseFull(redPly.bBefore, redPly.move, 'red'),
-        red_short: moveToVietnamese(redPly.bBefore, redPly.move, 'red'),
-        black: blkPly ? moveToChinese(blkPly.bBefore, blkPly.move, 'black') : '',
-        black_vi: blkPly ? moveToVietnameseFull(blkPly.bBefore, blkPly.move, 'black') : '',
-        black_short: blkPly ? moveToVietnamese(blkPly.bBefore, blkPly.move, 'black') : '',
-        customMoveRed: redPly.move,
-        customMoveBlack: blkPly ? blkPly.move : null
-      });
-    }
-
-    const redCount = exactWin.redMoves;
-    return {
-      rawPlies: exactWin.plies,
-      formattedMoves: formattedTableMoves,
-      redMoveCount: redCount,
-      isCheckmateWin: true,
-      targetGoal: `🎯 Đỏ đi trước • ${redCount} Nước Sát Cục (${redCount} Nước Bí)`,
-      firstMoveHint: `💡 Gợi ý: Đi nước ${formattedTableMoves[0].red_vi} [${formattedTableMoves[0].red_short}]`
-    };
-  }
-
-  // Fallback
   let currentBoard = startBoard;
   let currentTurn = 'red';
   const solutionMoves = [];
@@ -448,18 +372,18 @@ export function solvePuzzleSequence(initialFen, maxMoves = 5, searchDepth = 4) {
 
     formattedTableMoves.push({
       num: Math.floor(i / 2) + 1,
-      red: redPly.cnMove,
-      red_vi: redPly.viFull,
-      red_short: redPly.viShort,
+      red: redPly ? redPly.cnMove : '',
+      red_vi: redPly ? redPly.viFull : '',
+      red_short: redPly ? redPly.viShort : '',
       black: blkPly ? blkPly.cnMove : '',
       black_vi: blkPly ? blkPly.viFull : '',
       black_short: blkPly ? blkPly.viShort : '',
-      customMoveRed: redPly.move,
-      customMoveBlack: blkPly ? blkPly.move : null
+      customMoveRed: redPly?.move || null,
+      customMoveBlack: blkPly?.move || null
     });
   }
 
-  const count = Math.max(1, formattedTableMoves.length);
+  const redCount = Math.ceil(solutionMoves.length / 2);
   return {
     rawPlies: solutionMoves,
     formattedMoves: formattedTableMoves,
