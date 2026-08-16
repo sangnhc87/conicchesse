@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import XiangqiBoard from './XiangqiBoard';
-import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves, PIECE_NAMES } from './XiangqiLogic';
+import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves, isInCheck, PIECE_NAMES } from './XiangqiLogic';
 import SatsucCache from '../lib/SatsucCache';
 import { sound } from './AudioEngine';
 
@@ -50,22 +50,39 @@ function getTacticalExplanation(moveText, score, turn) {
   }
 }
 
-// Recursive Solver Logic
+// Recursive Solver Logic (Deep Tree Search to Checkmate)
 const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxBlack, onProgress, checkAbort) => {
   if (checkAbort()) return null;
-  if (currentDepth > maxDepth) {
-    return { note: "Đạt giới hạn độ sâu" };
+  
+  // maxDepth is full moves for Red (each full move has 2 plies: Red move + Black reply)
+  const maxPlies = (maxDepth || 30) * 2;
+  if (currentDepth > maxPlies) {
+    return { note: `Đạt giới hạn độ sâu (${maxDepth} nước Đỏ)` };
   }
 
   try {
     const isRed = currentTurn === 'red';
     const multiPv = isRed ? 1 : maxBlack;
 
-    const candidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, 14, multiPv);
+    // Check if opponent is already in checkmate or stalemate
+    const legalMoves = getLegalMoves(currentBoard, currentTurn);
+    if (legalMoves.length === 0) {
+      if (isInCheck(currentBoard, currentTurn)) {
+        return { note: currentTurn === 'black' ? "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" : "Đen Chiếu Bí" };
+      } else {
+        return { note: "⚖️ Hết Nước Đi (Khốn Bức / Hòa)" };
+      }
+    }
+
+    // High depth analysis for deep mate detection
+    const candidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, 18, multiPv);
 
     if (checkAbort()) return null;
 
     if (!candidates || candidates.length === 0 || !candidates[0].move) {
+      if (isInCheck(currentBoard, currentTurn)) {
+        return { note: "🏆 Sát Cục Hoàn Tất (Tất Thắng)" };
+      }
       return { note: "Sát cục hoàn tất (Tất Thắng)" };
     }
 
@@ -74,11 +91,24 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
       const move = best.move;
       const score = best.scoreText || `cp ${best.score}`;
       
-      if (!move) return { note: "Sát cục hoàn tất (Tất Thắng)" };
+      if (!move) return { note: "🏆 Sát Cục Hoàn Tất (Tất Thắng)" };
       
       let newBoard = makeMove(currentBoard, move);
       
       onProgress(`Đỏ đi ${best.viShort || best.uci} (${score})`);
+
+      // Check if Black has any legal responses left
+      const blackLegal = getLegalMoves(newBoard, 'black');
+      if (blackLegal.length === 0) {
+        return {
+          turn: 'red',
+          move: best.viShort || best.uci,
+          viFull: best.viFull || best.viShort || best.uci,
+          uci: best.uci || moveObjToUci(best.move),
+          score,
+          reply: { note: "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" }
+        };
+      }
 
       const reply = await solveTree(newBoard, 'black', currentDepth + 1, maxDepth, maxBlack, onProgress, checkAbort);
       
@@ -104,7 +134,13 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
         
         onProgress(`Phân tích nhánh Đen đi ${cand.viShort || cand.uci}...`);
         
-        const reply = await solveTree(newBoard, 'red', currentDepth + 1, maxDepth, maxBlack, onProgress, checkAbort);
+        const redLegal = getLegalMoves(newBoard, 'red');
+        let reply;
+        if (redLegal.length === 0) {
+          reply = { note: "Đen phản đòn / Hết nước" };
+        } else {
+          reply = await solveTree(newBoard, 'red', currentDepth + 1, maxDepth, maxBlack, onProgress, checkAbort);
+        }
         
         responses.push({
           move: cand.viShort || cand.uci,
@@ -349,7 +385,7 @@ export default function CheckmateSolverModal({
   initialTurn
 }) {
   const [maxBlack, setMaxBlack] = useState(3);
-  const [maxDepth, setMaxDepth] = useState(15);
+  const [maxDepth, setMaxDepth] = useState(35);
   const [isSolving, setIsSolving] = useState(false);
   const [progressMsg, setProgressMsg] = useState('');
   const [resultTree, setResultTree] = useState(null);
@@ -804,13 +840,12 @@ export default function CheckmateSolverModal({
                 disabled={isSolving}
                 className="bg-[#0e121b] text-xs font-bold text-gray-200 px-3 py-1.5 rounded-xl border border-[#2b374e] focus:border-amber-500 outline-none"
               >
-                <option value={10}>10 nước (Nhanh)</option>
-                <option value={15}>15 nước (Khuyên dùng)</option>
-                <option value={25}>25 nước (Sát cục sâu)</option>
-                <option value={35}>35 nước (Rất sâu)</option>
-                <option value={50}>50 nước (Cờ thế đại cuộc)</option>
-                <option value={75}>75 nước (Siêu sâu)</option>
-                <option value={100}>100 nước (Không giới hạn)</option>
+                <option value={15}>15 nước Đỏ (30 hiệp)</option>
+                <option value={25}>25 nước Đỏ (50 hiệp)</option>
+                <option value={35}>35 nước Đỏ (70 hiệp - Khuyên dùng)</option>
+                <option value={50}>50 nước Đỏ (100 hiệp - Sát cục sâu)</option>
+                <option value={75}>75 nước Đỏ (150 hiệp - Cờ thế đại cuộc)</option>
+                <option value={100}>100 nước Đỏ (200 hiệp - Tận cùng sát chiêu)</option>
               </select>
             </div>
 
