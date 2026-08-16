@@ -131,23 +131,6 @@ export function evaluateBoard(board) {
   if (isInCheck(board, 'black')) redScore += 250;
   if (isInCheck(board, 'red')) blackScore += 250;
 
-  // Theoretical Endgame Draw Overrides (Cờ Tàn Hòa Căn Bản)
-  // 1. Đơn Mã (Không có Chốt/Xe/Pháo) vs Đơn Sĩ hoặc Đơn Tượng -> Hòa
-  if (rR === 0 && rC === 0 && rP === 0 && rN === 1 && (bA >= 1 || bB >= 1)) {
-    return 0;
-  }
-  if (bR === 0 && bC === 0 && bP === 0 && bN === 1 && (rA >= 1 || rB >= 1)) {
-    return 0;
-  }
-
-  // 2. Đơn Pháo (Không có ngòi/Chốt/Xe/Mã) vs Đơn Sĩ hoặc Đơn Tượng -> Hòa
-  if (rR === 0 && rN === 0 && rP === 0 && rC === 1 && (bA >= 1 || bB >= 1)) {
-    return 0;
-  }
-  if (bR === 0 && bN === 0 && bP === 0 && bC === 1 && (rA >= 1 || rB >= 1)) {
-    return 0;
-  }
-
   return redScore - blackScore;
 }
 
@@ -158,7 +141,7 @@ let searchNodeCount = 0;
 // Alpha-Beta Minimax search with strict Node Capping & Transposition Cache
 function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
   searchNodeCount++;
-  if (searchNodeCount > 1500) {
+  if (searchNodeCount > 5000) {
     return evaluateBoard(board);
   }
 
@@ -173,7 +156,6 @@ function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
     return evaluateBoard(board);
   }
 
-  // Quick move sorting (captures first)
   moves.sort((a, b) => {
     const valA = a.captured ? (PIECE_VALS[a.captured] || 0) : 0;
     const valB = b.captured ? (PIECE_VALS[b.captured] || 0) : 0;
@@ -205,7 +187,6 @@ function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
 
 export function isStandardOpening(board) {
   if (!board || !Array.isArray(board) || board.length !== 10) return false;
-  // Full 32 pieces initial setup check
   return board[9]?.[4] === 'K' && board[0]?.[4] === 'k' &&
          board[9]?.[0] === 'R' && board[9]?.[8] === 'R' &&
          board[0]?.[0] === 'r' && board[0]?.[8] === 'r' &&
@@ -216,7 +197,6 @@ export function isStandardOpening(board) {
 
 export function isBlackInitialDefense(board) {
   if (!board) return false;
-  // Black pieces still in starting formation
   return board[0]?.[4] === 'k' && board[0]?.[7] === 'n' && board[0]?.[1] === 'n' &&
          board[2]?.[1] === 'c' && board[2]?.[7] === 'c';
 }
@@ -232,15 +212,12 @@ export const GRANDMASTER_OPENING_MOVES = [
   { fromR: 9, fromC: 6, toR: 7, toC: 4, name: 'Tượng 7 tiến 5 (Phi Tượng Cuộc)' }
 ];
 
-export function getBestMove(board, turn = 'red', depth = 2) {
-  // Red Initial Standard Opening
+export function getBestMove(board, turn = 'red', depth = 3) {
   if (turn === 'red' && isStandardOpening(board) && board[7]?.[1] === 'C' && board[7]?.[7] === 'C') {
     return { fromR: 7, fromC: 1, toR: 7, toC: 4, captured: null };
   }
 
-  // Black Initial Standard Defense against Trung Pháo -> Mã 8 tiến 7 (Bình phong mã)
   if (turn === 'black' && isBlackInitialDefense(board)) {
-    // If Red played central cannon
     if (board[7]?.[4] === 'C') {
       return { fromR: 0, fromC: 7, toR: 2, toC: 6, captured: null };
     }
@@ -255,7 +232,16 @@ export function getBestMove(board, turn = 'red', depth = 2) {
     return valB - valA;
   });
 
-  const searchDepth = Math.min(Math.max(depth, 1), 2);
+  let pieceCount = 0;
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (board[r][c]) pieceCount++;
+    }
+  }
+
+  const effectiveDepth = pieceCount <= 6 ? 6 : (pieceCount <= 12 ? 4 : 3);
+  const searchDepth = Math.max(depth || 3, effectiveDepth);
+
   const isMaximizing = turn === 'red';
   let bestMove = moves[0];
   let bestScore = isMaximizing ? -Infinity : Infinity;
@@ -286,28 +272,39 @@ export function getBestMove(board, turn = 'red', depth = 2) {
   return bestMove;
 }
 
-/**
- * Multi-PV Fast Strategic Analysis
- */
-export function analyzeStrategicOptions(board, turn = 'red', depth = 2) {
+export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
   const moves = getLegalMoves(board, turn);
   if (moves.length === 0) return [];
+
+  let pieceCount = 0;
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (board[r][c]) pieceCount++;
+    }
+  }
+
+  const effectiveDepth = pieceCount <= 6 ? 6 : (pieceCount <= 12 ? 4 : 3);
+  const searchDepth = Math.max(depth || 3, effectiveDepth);
 
   const isMaximizing = turn === 'red';
   const scoredMoves = [];
 
   searchNodeCount = 0;
-  for (const move of moves.slice(0, 15)) {
+  for (const move of moves.slice(0, 20)) {
     const nextBoard = makeMove(board, move);
-    const score = alphaBeta(nextBoard, depth - 1, -Infinity, Infinity, !isMaximizing, depth);
+    const score = alphaBeta(nextBoard, searchDepth - 1, -Infinity, Infinity, !isMaximizing, searchDepth);
     const isCapture = !!move.captured;
     const causesCheck = isInCheck(nextBoard, turn === 'red' ? 'black' : 'red');
+    const isMate = Math.abs(score) >= 80000;
+    const mateMoves = isMate ? Math.ceil((100000 - Math.abs(score)) / 2) : null;
 
     scoredMoves.push({
       move,
       score,
       isCapture,
       causesCheck,
+      isCheckmateWin: isMate && (turn === 'red' ? score > 0 : score < 0),
+      scoreText: isMate ? `#M${mateMoves}` : `${(score / 100).toFixed(1)}`,
       viFull: moveToVietnameseFull(board, move, turn),
       viShort: moveToVietnamese(board, move, turn),
       cnMove: moveToChinese(board, move, turn)
