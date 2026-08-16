@@ -520,10 +520,22 @@ export default function CheckmateSolverModal({
                 </button>
                 <button
                   onClick={handleCopyJson}
-                  className="px-3 py-1.5 text-xs font-bold rounded-md bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors flex items-center gap-1.5"
+                  className="px-3 py-1.5 text-xs font-bold rounded-md bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors flex items-center gap-1.5 mr-1"
                 >
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   {copied ? 'Đã Copy!' : 'Copy'}
+                </button>
+                <button
+                  onClick={() => {
+                    if(confirm('Bạn có chắc chắn muốn XÓA TOÀN BỘ Từ điển Sát Cục đã lưu?')) {
+                      SatsucCache.clear();
+                      alert('Đã xóa thành công!');
+                    }
+                  }}
+                  className="px-2 py-1.5 text-xs font-bold rounded-md bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+                  title="Xoá Từ điển Sát Cục lưu trong bộ nhớ"
+                >
+                  Xoá Cache
                 </button>
               </div>
               
