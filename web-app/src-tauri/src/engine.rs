@@ -230,7 +230,7 @@ impl Default for Inner {
             engine_family: FAMILY_PIKAFISH.into(),
             engine_path: None,
             eval_file: None,
-            threads: cpus.max(1),
+            threads: (cpus / 2).max(1),
             hash_mb: 128,
             default_depth: 16,
             max_depth: 30,

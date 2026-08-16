@@ -6,12 +6,7 @@
  * - 🚀 Native Engine (Pikafish / Fairy-Stockfish qua local bridge http://127.0.0.1:8712)
  */
 
-import {
-  getBestMove as getWasmBestMove,
-  analyzeStrategicOptions as analyzeWasmStrategic,
-  evaluateBoard as evaluateWasmBoard,
-  solvePuzzleSequence as solveWasmPuzzle
-} from './XiangqiAI.js';
+import EngineWorker from '../workers/engineWorker.js?worker';
 
 import {
   moveToVietnameseFull,
@@ -82,6 +77,11 @@ class EngineManagerService {
     this.subscribers = new Set();
     this.analysisCache = new Map();
     this.bestMoveCache = new Map();
+    
+    this.worker = null;
+    this.workerMsgId = 0;
+    this.workerResolvers = new Map();
+
     this.checkNativeBridge();
     // Periodic health check every 10s
     setInterval(() => this.checkNativeBridge(), 10000);
@@ -107,6 +107,39 @@ class EngineManagerService {
   }
 
   /** Tên hiển thị ngắn gọn của native engine đang chạy. */
+  _getWorker(reset = false) {
+    if (reset && this.worker) {
+      this.worker.terminate();
+      this.worker = null;
+      for (const { reject } of this.workerResolvers.values()) {
+        reject(new Error("Worker terminated due to new request"));
+      }
+      this.workerResolvers.clear();
+    }
+    if (!this.worker) {
+      this.worker = new EngineWorker();
+      this.worker.onmessage = (e) => {
+        const { id, type, error, ...data } = e.data;
+        if (this.workerResolvers.has(id)) {
+          const { resolve, reject } = this.workerResolvers.get(id);
+          this.workerResolvers.delete(id);
+          if (type === 'error') reject(new Error(error));
+          else resolve(data);
+        }
+      };
+    }
+    return this.worker;
+  }
+
+  async _runWasmTask(type, payload, resetWorker = false) {
+    return new Promise((resolve, reject) => {
+      const worker = this._getWorker(resetWorker);
+      const id = ++this.workerMsgId;
+      this.workerResolvers.set(id, { resolve, reject });
+      worker.postMessage({ type, id, ...payload });
+    });
+  }
+
   getNativeLabel() {
     const family = this.nativeStatus.engineFamily || '';
     if (family === 'pikafish') return 'Pikafish Native';
@@ -233,20 +266,26 @@ class EngineManagerService {
     }
 
     // WASM Fallback
-    const wasmMove = getWasmBestMove(board, turn, Math.min(depth || 4, 6));
-    if (wasmMove) {
-      const result = {
-        ...wasmMove,
-        score: evaluateWasmBoard(board),
-        depth: Math.min(depth || 4, 6),
-        isNative: false,
-        engine: 'WASM (Trình duyệt)',
-        viFull: moveToVietnameseFull(board, wasmMove, turn),
-        viShort: moveToVietnamese(board, wasmMove, turn),
-        cnMove: moveToChinese(board, wasmMove, turn)
-      };
-      this.bestMoveCache.set(cacheKey, result);
-      return result;
+    try {
+      // Use resetWorker = true because getBestMove should cancel previous analysis
+      const res = await this._runWasmTask('bestmove', { board, turn, depth: Math.min(depth || 4, 6) }, true);
+      const wasmMove = res.move;
+      if (wasmMove) {
+        const result = {
+          ...wasmMove,
+          score: res.score,
+          depth: Math.min(depth || 4, 6),
+          isNative: false,
+          engine: 'WASM (Trình duyệt)',
+          viFull: moveToVietnameseFull(board, wasmMove, turn),
+          viShort: moveToVietnamese(board, wasmMove, turn),
+          cnMove: moveToChinese(board, wasmMove, turn)
+        };
+        this.bestMoveCache.set(cacheKey, result);
+        return result;
+      }
+    } catch (e) {
+      console.warn("WASM getBestMove failed or terminated", e);
     }
     return null;
   }
@@ -311,20 +350,33 @@ class EngineManagerService {
     }
 
     // WASM Fallback
-    const wasmRes = analyzeWasmStrategic(board, turn, Math.min(depth || 4, 5));
-    return wasmRes.map(item => ({
-      ...item,
-      engine: 'WASM (Trình duyệt)',
-      isNative: false
-    }));
+    try {
+      // Use resetWorker = true to immediately cancel any ongoing analysis and start fresh!
+      const res = await this._runWasmTask('analyze', { board, turn, depth: Math.min(depth || 4, 5) }, true);
+      if (res.candidates) {
+        return res.candidates.map(item => ({
+          ...item,
+          engine: 'WASM (Trình duyệt)',
+          isNative: false
+        }));
+      }
+    } catch (e) {
+      console.warn("WASM analyzeStrategicOptions failed or terminated", e);
+    }
+    return [];
   }
 
   /**
    * Universal Puzzle Solver
    */
   async solvePuzzle(initialFen, maxMoves = 5, depth = 14) {
-    // We can use fast solver or native iterative deep search
-    return solveWasmPuzzle(initialFen, maxMoves, Math.min(depth, 5));
+    try {
+      const res = await this._runWasmTask('puzzle', { fen: initialFen, maxMoves, depth: Math.min(depth, 5) });
+      return res.sequence || [];
+    } catch (e) {
+      console.warn("WASM solvePuzzle failed", e);
+      return [];
+    }
   }
 }
 
