@@ -13,6 +13,8 @@ import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves,
 import SatsucCache from '../lib/SatsucCache';
 import { sound } from './AudioEngine';
 
+import { engineManager } from './EngineManager';
+
 // Tactical role translations & explanations
 const VI_ROLE_NAMES = {
   king: 'Tướng',
@@ -39,9 +41,12 @@ function getTacticalExplanation(moveText, score, turn) {
     if (moveText.includes('bình') || moveText.includes('-')) {
       return '⚔️ Đỏ điều quân chuyển hướng tấn công, chiếm lĩnh lộ cờ then chốt để kết liễu.';
     }
-    return '🛡️ Đỏ cơ động vị trí, giăng bẫy sát cục không thể hóa giải.';
+    if (moveText.includes('thoái') || moveText.includes('/')) {
+      return '🛡️ Đỏ lùi quân đổi hướng, chuẩn bị cho đòn phối hợp sát thương quyết định.';
+    }
+    return '👑 Nước cờ then chốt siết chặt vòng vây của Đỏ.';
   } else {
-    return '🛡️ Đen gượng gạo tìm phương án chống đỡ nhằm kéo dài trận đấu.';
+    return '🛡️ Đối phương cố gắng chống đỡ, kéo dài thế trận hoặc tìm đường thoát.';
   }
 }
 
@@ -56,7 +61,6 @@ const solveTree = async (currentBoard, currentTurn, currentDepth, maxDepth, maxB
     const isRed = currentTurn === 'red';
     const multiPv = isRed ? 1 : maxBlack;
 
-    const engineManager = (await import('./EngineManager')).default;
     const candidates = await engineManager.analyzeStrategicOptions(currentBoard, currentTurn, 14, multiPv);
 
     if (checkAbort()) return null;
@@ -344,6 +348,12 @@ export default function CheckmateSolverModal({
         } else {
           setResultTree(null);
           setPath([]);
+          // Auto-start solving immediately
+          setTimeout(() => {
+            if (!abortRef.current) {
+              handleStart();
+            }
+          }, 100);
         }
       }
     }
@@ -1404,35 +1414,76 @@ export default function CheckmateSolverModal({
 
               {/* Right: Launch Control Center */}
               <div className="flex-1 flex flex-col items-center justify-center p-8 bg-[#0e121b] text-center max-w-xl mx-auto">
-                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-500/20 to-red-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-xl mb-4">
-                  <Target className="w-8 h-8" />
-                </div>
-                
-                <h3 className="text-xl font-black text-gray-100 mb-2">
-                  Dò Sát Cục Cho Thế Trận Này
-                </h3>
-                
-                <p className="text-xs text-gray-400 max-w-md mb-6 leading-relaxed">
-                  Pikafish AI sẽ quét toàn bộ cây phương án đệ quy, kiểm tra từng nước biến của đối thủ để tìm ra chuỗi sát chiêu tất thắng 100%.
-                </p>
+                {isSolving ? (
+                  <div className="w-full flex flex-col items-center animate-in fade-in">
+                    <div className="relative mb-6">
+                      <div className="w-20 h-20 rounded-full border-4 border-amber-500/20 border-t-amber-400 animate-spin flex items-center justify-center" />
+                      <div className="absolute inset-0 flex items-center justify-center text-amber-400">
+                        <Bot className="w-8 h-8 animate-pulse" />
+                      </div>
+                    </div>
 
-                <div className="w-full bg-[#141926] p-4 rounded-2xl border border-[#252f44] mb-6 text-left space-y-2">
-                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                    Mã FEN Thế Trận:
-                  </div>
-                  <div className="font-mono text-xs text-amber-300/90 break-all bg-[#0a0d14] p-2.5 rounded-xl border border-[#1f283d]">
-                    {boardToFen(initialBoard || parseFen().board, initialTurn || 'red')}
-                  </div>
-                </div>
+                    <h3 className="text-xl font-black text-amber-300 mb-2">
+                      Đang Dò Quét Toàn Bộ Cây Sát Cục...
+                    </h3>
 
-                <button
-                  onClick={handleStart}
-                  disabled={isSolving}
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-amber-950 font-black text-base shadow-2xl shadow-amber-500/30 transition-all active:scale-95 flex items-center justify-center gap-2.5"
-                >
-                  <Play className="w-5 h-5 fill-current" />
-                  <span>BẮT ĐẦU DÒ SÁT CỤC THẾ CỜ NÀY</span>
-                </button>
+                    <p className="text-xs text-gray-400 max-w-md mb-6 leading-relaxed">
+                      Pikafish AI đang tính toán đa luồng tất cả các biến chống đỡ của đối thủ để tạo ra sơ đồ tất thắng.
+                    </p>
+
+                    <div className="w-full bg-[#141926] p-4 rounded-2xl border border-amber-500/40 mb-6 text-left space-y-2 shadow-xl shadow-amber-950/40">
+                      <div className="flex items-center justify-between text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+                          Tiến độ quét:
+                        </span>
+                        <span className="text-gray-400 font-mono">Độ sâu {maxDepth}</span>
+                      </div>
+                      <div className="font-mono text-xs text-emerald-300 font-bold bg-[#0a0d14] p-3 rounded-xl border border-[#1f283d] break-all">
+                        {progressMsg || 'Đang kết nối Pikafish Engine...'}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleStop}
+                      className="px-8 py-3 rounded-2xl bg-red-950/80 hover:bg-red-900 text-red-300 border border-red-500/60 font-bold text-sm shadow-xl transition-all active:scale-95 flex items-center gap-2"
+                    >
+                      <StopCircle className="w-4 h-4" /> Dừng Quét
+                    </button>
+                  </div>
+                ) : (
+                  <div className="w-full flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-500/20 to-red-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 shadow-xl mb-4">
+                      <Target className="w-8 h-8" />
+                    </div>
+                    
+                    <h3 className="text-xl font-black text-gray-100 mb-2">
+                      Dò Sát Cục Cho Thế Trận Này
+                    </h3>
+                    
+                    <p className="text-xs text-gray-400 max-w-md mb-6 leading-relaxed">
+                      Pikafish AI sẽ quét toàn bộ cây phương án đệ quy, kiểm tra từng nước biến của đối thủ để tìm ra chuỗi sát chiêu tất thắng 100%.
+                    </p>
+
+                    <div className="w-full bg-[#141926] p-4 rounded-2xl border border-[#252f44] mb-6 text-left space-y-2">
+                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+                        Mã FEN Thế Trận:
+                      </div>
+                      <div className="font-mono text-xs text-amber-300/90 break-all bg-[#0a0d14] p-2.5 rounded-xl border border-[#1f283d]">
+                        {boardToFen(initialBoard || parseFen().board, initialTurn || 'red')}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleStart}
+                      disabled={isSolving}
+                      className="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-amber-950 font-black text-base shadow-2xl shadow-amber-500/30 transition-all active:scale-95 flex items-center justify-center gap-2.5"
+                    >
+                      <Play className="w-5 h-5 fill-current" />
+                      <span>BẮT ĐẦU DÒ SÁT CỤC THẾ CỜ NÀY</span>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}

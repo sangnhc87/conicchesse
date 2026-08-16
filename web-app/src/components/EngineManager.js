@@ -422,3 +422,4 @@ class EngineManagerService {
 }
 
 export const engineManager = new EngineManagerService();
+export default engineManager;
