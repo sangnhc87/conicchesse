@@ -322,8 +322,57 @@ class EngineManagerService {
       }
     }
 
-    // WASM fallback: alpha-beta thường, không thể dò mate sâu → báo không tìm thấy
+    // WASM fallback: dùng alpha-beta để tìm sát cục
+    try {
+      const wasmCandidates = analyzeWasmStrategic(board, turn, Math.min(8, maxMoves * 2 + 2));
+      if (wasmCandidates && wasmCandidates.length > 0) {
+        const bestCand = wasmCandidates[0];
+        // Kiểm tra nếu score cho thấy có mate
+        if (bestCand.isCheckmateWin && bestCand.move) {
+          const mateIn = bestCand.mateMoves || 1;
+          // Xây dựng chuỗi move từ PV
+          const moves = [];
+          let b = board;
+          let t = turn;
+          // Thêm nước đi tốt nhất
+          moves.push({
+            move: bestCand.move,
+            viFull: moveToVietnameseFull(b, bestCand.move, t),
+            viShort: moveToVietnamese(b, bestCand.move, t)
+          });
+          b = makeMove(b, bestCand.move);
+          t = t === 'red' ? 'black' : 'red';
+          // Trace PV line nếu có
+          if (bestCand.pv && Array.isArray(bestCand.pv)) {
+            for (const pvMove of bestCand.pv) {
+              if (!pvMove || getLegalMoves(b, t).length === 0) break;
+              moves.push({
+                move: pvMove,
+                viFull: moveToVietnameseFull(b, pvMove, t),
+                viShort: moveToVietnamese(b, pvMove, t)
+              });
+              b = makeMove(b, pvMove);
+              t = t === 'red' ? 'black' : 'red';
+            }
+          }
+          return {
+            mate: true,
+            mateIn,
+            pv: moves.map(m => m.move),
+            moves,
+            bestmove: `${String.fromCharCode(97 + bestCand.move.fromC)}${9 - bestCand.move.fromR}${String.fromCharCode(97 + bestCand.move.toC)}${9 - bestCand.move.toR}`,
+            move: bestCand.move,
+            depth: bestCand.evalDepth || 8,
+            engine: 'WASM (Trình duyệt)',
+            isNative: false
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('WASM mate fallback error:', e);
+    }
     return { mate: false, isNative: false, engine: 'WASM (Trình duyệt)' };
+
   }
 
   /**
