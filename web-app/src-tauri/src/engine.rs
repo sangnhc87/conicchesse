@@ -489,6 +489,11 @@ impl EngineState {
                 }
                 if let Some(idx) = mpv_idx {
                     if let Some(first) = line_pv.first() {
+                        let score_text = if let Some(m) = mate_in {
+                            format!("{}M{}", if m > 0 { "#" } else { "-#" }, m.abs())
+                        } else {
+                            format!("{:.2}", score as f64 / 100.0)
+                        };
                         multipv.insert(
                             idx,
                             json!({
@@ -496,6 +501,7 @@ impl EngineState {
                                 "uci": first,
                                 "move": parse_uci(first, &family),
                                 "score": score,
+                                "scoreText": score_text,
                                 "pv": line_pv,
                                 "depth": cur_depth,
                                 "nps": nps
@@ -665,26 +671,42 @@ impl EngineState {
         }
 
         let normalized = normalize_fen(fen, active_turn);
+        // plies = nước Đen x2 để tính cả nước phản thủ (mỗi nước Đỏ cần 1 reply từ Đen)
         let plies = (max_moves * 2).clamp(2, 200);
-        let time_limit = time_ms.unwrap_or(12000);
+        // Thời gian tối đa: ưu tiên user truyền vào, fallback theo độ sâu
+        let time_limit_ms = time_ms.unwrap_or_else(|| {
+            // Adaptive: thế sâu cần nhiều thời gian hơn
+            if max_moves <= 5 { 15_000 }
+            else if max_moves <= 10 { 30_000 }
+            else if max_moves <= 20 { 60_000 }
+            else { 120_000 }
+        });
 
         let family = inner.engine_family.clone();
         let engine_name = inner.engine_name.clone();
+        let max_threads = inner.threads;
 
         let proc = inner.proc.as_mut().unwrap();
         while proc.read_line(Duration::from_millis(80)).is_some() {}
 
+        // Tối ưu cho mate search: MultiPV=1, thread max, hash lớn
         proc.send("setoption name MultiPV value 1");
+        proc.send(&format!("setoption name Threads value {max_threads}"));
+        proc.send("setoption name Hash value 512");
         proc.send(&format!("position fen {normalized}"));
-        proc.send(&format!("go mate {plies} movetime {time_limit}"));
+        // Sử dụng tìm kiếm tiêu chuẩn (alpha-beta) thay vì "go mate".
+        // Lệnh "go mate" trong Pikafish đôi khi bị bỏ qua hoặc tìm kiếm quá lâu (dùng breadth-first).
+        proc.send(&format!("go depth 40 movetime {time_limit_ms}"));
 
         let mut mate_in: Option<i64> = None;
         let mut best_move: Option<String> = None;
         let mut pv: Vec<String> = Vec::new();
         let mut cur_depth = 0i32;
         let mut nps = 0i64;
+        let mut last_info_score: Option<i64> = None;
 
-        let deadline = Instant::now() + Duration::from_secs(40);
+        // Deadline đủ rộng để không bị timeout trước engine
+        let deadline = Instant::now() + Duration::from_millis(time_limit_ms + 5000);
         while Instant::now() < deadline {
             let line = match proc.read_line(Duration::from_millis(200)) {
                 Some(l) => l,
@@ -693,18 +715,34 @@ impl EngineState {
             if line.starts_with("info") {
                 let parts: Vec<&str> = line.split_whitespace().collect();
                 let mut i = 0;
+                let mut line_pv: Vec<String> = Vec::new();
+                let mut found_mate: Option<i64> = None;
                 while i < parts.len() {
                     match parts[i] {
-                        "mate" => mate_in = parts.get(i + 1).and_then(|s| s.parse().ok()),
+                        "mate" => {
+                            found_mate = parts.get(i + 1).and_then(|s| s.parse().ok());
+                            if let Some(m) = found_mate {
+                                last_info_score = Some(if m > 0 { 100_000 - m * 100 } else { -100_000 + m.abs() * 100 });
+                            }
+                        }
                         "depth" => cur_depth = parts.get(i + 1).and_then(|s| s.parse().ok()).unwrap_or(cur_depth),
                         "nps" => nps = parts.get(i + 1).and_then(|s| s.parse().ok()).unwrap_or(nps),
                         "pv" => {
-                            pv = parts[i + 1..].iter().map(|s| s.to_string()).collect();
+                            line_pv = parts[i + 1..].iter().map(|s| s.to_string()).collect();
                             break;
                         }
                         _ => {}
                     }
                     i += 1;
+                }
+                // Chỉ cập nhật nếu đây là mate dương (Red thắng) và pv không rỗng
+                if let Some(m) = found_mate {
+                    if m > 0 {
+                        mate_in = found_mate;
+                        if !line_pv.is_empty() {
+                            pv = line_pv;
+                        }
+                    }
                 }
             } else if line.starts_with("bestmove") {
                 let p: Vec<&str> = line.split_whitespace().collect();
@@ -715,20 +753,35 @@ impl EngineState {
             }
         }
 
-        let Some(bm) = best_move else {
-            return json!({ "error": "No legal moves / Game over" });
-        };
-        if bm == "(none)" || bm == "0000" {
-            return json!({ "error": "No legal moves / Game over" });
+        // Restore threads về mức mặc định sau mate search
+        if let Some(proc2) = inner.proc.as_mut() {
+            proc2.send(&format!("setoption name Threads value {max_threads}"));
+            proc2.send("setoption name Hash value 128");
         }
 
+        let Some(bm) = best_move else {
+            return json!({ "mate": false, "error": "No bestmove returned" });
+        };
+        if bm == "(none)" || bm == "0000" {
+            return json!({ "mate": false, "error": "No legal moves / Game over" });
+        }
+
+        // is_mate: engine trả mate dương (Red chiếu bí Black)
         let is_mate = mate_in.map(|m| m > 0).unwrap_or(false);
+
+        // Build moves array từ PV — bao gồm cả nước Đen phản thủ
         let moves: Vec<Value> = pv
             .iter()
             .filter_map(|u| {
                 parse_uci(u, &family).map(|mv| json!({ "uci": u, "move": mv }))
             })
             .collect();
+
+        let score_text = if is_mate {
+            format!("#M{}", mate_in.unwrap_or(1))
+        } else {
+            last_info_score.map(|s| format!("{:.1}", s as f64 / 100.0)).unwrap_or_else(|| "?".into())
+        };
 
         json!({
             "engine": engine_name,
@@ -741,6 +794,7 @@ impl EngineState {
             "moves": moves,
             "depth": cur_depth,
             "nps": nps,
+            "scoreText": score_text,
             "turn": if normalized.split_whitespace().nth(1) == Some("w") { "red" } else { "black" }
         })
     }

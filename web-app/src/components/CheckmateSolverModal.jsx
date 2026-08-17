@@ -182,7 +182,7 @@ const solveTree = async (
     if (isRed) {
       onProgress(`Đang dùng 'go mate' tìm sát chiêu tuyệt đối cho Đỏ...`);
       const remainingFullMoves = Math.max(1, Math.ceil((maxPlies - currentDepth + 1) / 2));
-      const mateRes = await engineManager.findMate(currentBoard, 'red', remainingFullMoves);
+      const mateRes = await engineManager.findMate(currentBoard, "red", remainingFullMoves); console.log("FIND MATE RES:", mateRes);
 
       if (checkAbort()) return null;
 
@@ -891,7 +891,7 @@ export default function CheckmateSolverModal({
     );
 
     if (!abortRef.current && tree) {
-      const isCheckmate = isTrueCheckmateTree(tree);
+      console.log("SOLVE TREE RESULT:", JSON.stringify(tree)); const isCheckmate = isTrueCheckmateTree(tree);
       if (isCheckmate) {
         const finalTree = {
           root_fen: boardToFen(initialBoard, initialTurn),
@@ -913,8 +913,8 @@ export default function CheckmateSolverModal({
             if (redData && redData.length > 0 && redData[0].pv) {
               const redStr = redData[0].pv[0];
               const redPvItems = formatPvLine(initialBoard, redData[0].pv, 'red', engineManager.engineFamily);
-              const boardAfterRed = initialBoard.clone();
-              boardAfterRed.makeMove(engineManager.parseUciMove(redStr));
+              const uciMoveObj = uciToMove(redStr);
+              const boardAfterRed = makeMove(initialBoard, uciMoveObj);
               
               const blackData = await engineManager.analyzeStrategicOptions(boardAfterRed, 'black', 20, maxBlack);
               if (blackData && blackData.length > 0) {

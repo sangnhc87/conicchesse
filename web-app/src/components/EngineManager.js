@@ -185,9 +185,11 @@ class EngineManagerService {
           const viShort = moveToVietnamese(board, data.move, turn);
           const cnMove = moveToChinese(board, data.move, turn);
 
+          const normalizedScore = turn === 'black' ? -data.score : data.score;
+
           return {
             ...data.move,
-            score: data.score,
+            score: normalizedScore,
             depth: data.depth,
             nps: data.nps,
             uci: data.bestmove,
@@ -252,8 +254,10 @@ class EngineManagerService {
             const viFull = cand.move ? moveToVietnameseFull(board, cand.move, turn) : '';
             const viShort = cand.move ? moveToVietnamese(board, cand.move, turn) : '';
             const cnMove = cand.move ? moveToChinese(board, cand.move, turn) : '';
+            const normalizedScore = turn === 'black' ? -(cand.score || 0) : (cand.score || 0);
             return {
               ...cand,
+              score: normalizedScore,
               viFull,
               viShort,
               cnMove,
