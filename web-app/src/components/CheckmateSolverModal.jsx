@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
   X, Bot, Play, Pause, StopCircle, Copy, Check, CheckCircle2,
   ChevronRight, ChevronDown, Download, Upload, Eye, Undo2,
@@ -713,6 +713,51 @@ export default function CheckmateSolverModal({
     };
   }, [resultTree, path, initialBoard, initialTurn]);
 
+  // ═══ Tính ĐƯỜNG SÁT trực tiếp trên bàn cờ ═══
+  // — Vẽ mũi tên đỏ rực từ tất cả nước tấn công của Đỏ trong cây sát cục hiện tại
+  const computeCheckmateArrows = useCallback((node, maxArrowCount = 5) => {
+    if (!node) return [];
+    const arrows = [];
+    let cur = node;
+    let depth = 0;
+    while (cur && !cur.note && depth < maxArrowCount) {
+      if (cur.turn === 'red' && cur.uci) {
+        const mv = uciToMove(cur.uci);
+        if (mv) arrows.push({ fromR: mv.fromR, fromC: mv.fromC, toR: mv.toR, toC: mv.toC, label: cur.move || null });
+        cur = cur.reply;
+        depth++;
+        if (cur && cur.turn === 'black' && cur.responses && cur.responses.length > 0) {
+          cur = cur.responses[0]?.red_reply || null;
+          depth++;
+        }
+      } else if (cur.turn === 'black' && cur.responses && cur.responses.length > 0) {
+        cur = cur.responses[0]?.red_reply || null;
+        depth++;
+      } else {
+        break;
+      }
+    }
+    return arrows;
+  }, []);
+
+  const checkmateArrows = useMemo(() => {
+    if (!resultTree || !currentNode || currentNode.note) return [];
+    if (currentNode.turn === 'red' && currentNode.uci) {
+      return computeCheckmateArrows(currentNode, 4);
+    }
+    if (currentNode.turn === 'black' && currentNode.responses) {
+      const arrows = [];
+      currentNode.responses.forEach(resp => {
+        if (resp.red_reply && resp.red_reply.turn === 'red' && resp.red_reply.uci) {
+          const mv = uciToMove(resp.red_reply.uci);
+          if (mv) arrows.push({ fromR: mv.fromR, fromC: mv.fromC, toR: mv.toR, toC: mv.toC, label: resp.red_reply.move || null });
+        }
+      });
+      return arrows;
+    }
+    return [];
+  }, [resultTree, currentNode, computeCheckmateArrows]);
+
   // Confetti when checkmate reached
   useEffect(() => {
     if (currentNode?.note && (currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng')) && !currentNode.note.includes('Sát cục gãy')) {
@@ -1303,6 +1348,7 @@ export default function CheckmateSolverModal({
                       flipped={flipped}
                       lastMove={lastMove}
                       bestMoveArrow={hoveredResponseMove || expectedNextMove}
+                      checkmateArrows={checkmateArrows}
                       selectedSquare={selectedSquare}
                       onSquareClick={handleBoardSquareClick}
                       interactive={true}

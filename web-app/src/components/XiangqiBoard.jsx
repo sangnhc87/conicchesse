@@ -11,6 +11,7 @@ export default function XiangqiBoard({
   lastMove = null,
   bestMoveArrow = null,
   candidateArrows = [],
+  checkmateArrows = [], // [{fromR, fromC, toR, toC, label?}] - đường sát chiêu
   maxArrows = 3,
   hoveredCandidateIndex = null,
   evalScore = null,
@@ -266,16 +267,28 @@ export default function XiangqiBoard({
                     <stop offset="100%" stopColor="#a6adb8" />
                   </radialGradient>
 
-                  {/* Last Move Arrow Marker - Aerodynamic Sleek Delta Arrow */}
+                  {/* Last Move Arrow Marker - Bold Solid Amber Arrow */}
                   <marker
                     id="arrowhead"
-                    markerWidth="7"
-                    markerHeight="7"
-                    refX="5.5"
-                    refY="3.5"
+                    markerWidth="9"
+                    markerHeight="9"
+                    refX="6.5"
+                    refY="4.5"
                     orient="auto"
                   >
-                    <path d="M 0.5 1 L 6.5 3.5 L 0.5 6 C 1.6 4.3 1.6 2.7 0.5 1 Z" fill="#f59e0b" opacity="0.9" />
+                    <path d="M 0.5 0.5 L 8.5 4.5 L 0.5 8.5 C 2 6.5 2 2.5 0.5 0.5 Z" fill="#f59e0b" />
+                  </marker>
+
+                  {/* Checkmate Attack Arrow Marker - Fiery Red */}
+                  <marker
+                    id="checkmateArrow"
+                    markerWidth="9"
+                    markerHeight="9"
+                    refX="6.5"
+                    refY="4.5"
+                    orient="auto"
+                  >
+                    <path d="M 0.5 0.5 L 8.5 4.5 L 0.5 8.5 C 2 6.5 2 2.5 0.5 0.5 Z" fill="#ef4444" />
                   </marker>
 
                   {/* Multi-PV Engine Arrow Markers (5 Variants) - Sleek Aerodynamic Delta Wing */}
@@ -609,21 +622,83 @@ export default function XiangqiBoard({
                   );
                 })}
 
-                {/* Last Move Path & Animated Arrow (Sleek & Subtle Amber Vector) */}
+                {/* Last Move Path — Bold Solid Amber Arrow with Glow */}
                 {arrowStart && arrowEnd && (
                   <g className="pointer-events-none">
+                    {/* Glow halo */}
+                    <line
+                      x1={arrowStart.x}
+                      y1={arrowStart.y}
+                      x2={arrowEnd.x}
+                      y2={arrowEnd.y}
+                      stroke="#fbbf24"
+                      strokeWidth="7"
+                      opacity="0.18"
+                      strokeLinecap="round"
+                    />
+                    {/* Main solid arrow body */}
                     <line
                       x1={arrowStart.x}
                       y1={arrowStart.y}
                       x2={arrowEnd.x}
                       y2={arrowEnd.y}
                       stroke="#f59e0b"
-                      strokeWidth="2.2"
-                      strokeDasharray="3 2.5"
+                      strokeWidth="3.2"
                       markerEnd="url(#arrowhead)"
-                      opacity="0.85"
+                      strokeLinecap="round"
+                      opacity="0.95"
                     />
-                    <circle cx={arrowStart.x} cy={arrowStart.y} r="3.5" fill="#f59e0b" opacity="0.85" />
+                    {/* Origin pulse dot */}
+                    <circle cx={arrowStart.x} cy={arrowStart.y} r="5" fill="#fbbf24" opacity="0.3" />
+                    <circle cx={arrowStart.x} cy={arrowStart.y} r="3.5" fill="#f59e0b" opacity="1" />
+                  </g>
+                )}
+
+                {/* ═══ ĐƯỜNG SÁT — Checkmate Attack Lines (fiery red) ═══ */}
+                {checkmateArrows && checkmateArrows.length > 0 && (
+                  <g className="pointer-events-none">
+                    {checkmateArrows.map((ca, caIdx) => {
+                      if (ca.fromR === undefined || ca.toR === undefined) return null;
+                      const cStart = getSvgCoord(ca.fromR, ca.fromC);
+                      const cEnd   = getSvgCoord(ca.toR,   ca.toC);
+                      const dx = cEnd.x - cStart.x;
+                      const dy = cEnd.y - cStart.y;
+                      const len = Math.hypot(dx, dy) || 1;
+                      const ux = dx / len; const uy = dy / len;
+                      const s = { x: cStart.x + ux * 10, y: cStart.y + uy * 10 };
+                      const e = { x: cEnd.x - ux * 15, y: cEnd.y - uy * 15 };
+                      const isPrimary = caIdx === 0;
+                      return (
+                        <g key={`cmate-${caIdx}`}>
+                          {/* Fiery glow */}
+                          <line x1={s.x} y1={s.y} x2={e.x} y2={e.y}
+                            stroke="#ef4444" strokeWidth={isPrimary ? 12 : 8} opacity="0.15" strokeLinecap="round" />
+                          {/* Second glow ring */}
+                          <line x1={s.x} y1={s.y} x2={e.x} y2={e.y}
+                            stroke="#f97316" strokeWidth={isPrimary ? 6 : 4} opacity="0.25" strokeLinecap="round" />
+                          {/* Main arrow */}
+                          <line x1={s.x} y1={s.y} x2={e.x} y2={e.y}
+                            stroke={isPrimary ? '#ef4444' : '#f97316'}
+                            strokeWidth={isPrimary ? 3.5 : 2.8}
+                            markerEnd="url(#checkmateArrow)"
+                            strokeLinecap="round"
+                            opacity="1"
+                          />
+                          {/* Origin circle */}
+                          <circle cx={s.x} cy={s.y} r={isPrimary ? 5 : 4}
+                            fill={isPrimary ? '#ef4444' : '#f97316'} opacity="0.9" />
+                          {/* Label badge (nếu có) */}
+                          {ca.label && (
+                            <>
+                              <rect x={cEnd.x - 26} y={cEnd.y - 10} width="52" height="14"
+                                rx="7" fill="#7f1d1d" fillOpacity="0.92" stroke="#ef4444" strokeWidth="0.8" />
+                              <text x={cEnd.x} y={cEnd.y + 2.2} fontSize="7" fontFamily="sans-serif"
+                                fontWeight="900" textAnchor="middle" fill="#fca5a5">{ca.label}</text>
+                            </>
+                          )}
+                        </g>
+                      );
+                    })}
                   </g>
                 )}
 
