@@ -310,7 +310,7 @@ class EngineManagerService {
             pv: data.pv || [],
             moves: data.moves || [],
             bestmove: data.bestmove,
-            move: data.move || (data.moves && data.moves.length > 0 ? data.moves[0].move : null),
+            move: data.move || (data.moves && data.moves.length > 0 ? (data.moves[0].move || data.moves[0]) : null),
             depth: data.depth,
             nps: data.nps,
             engine: data.engine || 'Pikafish',

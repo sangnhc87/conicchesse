@@ -675,11 +675,10 @@ impl EngineState {
         let plies = (max_moves * 2).clamp(2, 200);
         // Thời gian tối đa: ưu tiên user truyền vào, fallback theo độ sâu
         let time_limit_ms = time_ms.unwrap_or_else(|| {
-            // Adaptive: thế sâu cần nhiều thời gian hơn
-            if max_moves <= 5 { 15_000 }
-            else if max_moves <= 10 { 30_000 }
-            else if max_moves <= 20 { 60_000 }
-            else { 120_000 }
+            // Cắt giảm thời gian tối đa để tránh treo app quá lâu nếu không có sát cục
+            if max_moves <= 5 { 5_000 }
+            else if max_moves <= 10 { 8_000 }
+            else { 15_000 }
         });
 
         let family = inner.engine_family.clone();
@@ -735,7 +734,7 @@ impl EngineState {
                     }
                     i += 1;
                 }
-                // Chỉ cập nhật nếu đây là mate dương (Red thắng) và pv không rỗng
+                // Chỉ cập nhật kết quả nếu đây là mate dương (Red thắng)
                 if let Some(m) = found_mate {
                     if m > 0 {
                         mate_in = found_mate;
@@ -743,6 +742,9 @@ impl EngineState {
                             pv = line_pv;
                         }
                     }
+                    // Dù là mate âm hay dương, thế cờ đã được giải quyết triệt để (có người bị chiếu bí).
+                    // Gửi lệnh stop ngay lập tức để tiết kiệm thời gian (thay vì đợi hết movetime).
+                    proc.send("stop");
                 }
             } else if line.starts_with("bestmove") {
                 let p: Vec<&str> = line.split_whitespace().collect();

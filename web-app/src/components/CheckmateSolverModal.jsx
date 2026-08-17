@@ -148,9 +148,10 @@ const solveTree = async (
   const maxPlies = (maxDepth || 35) * 2;
 
   // Secondary blunder/alternate branches only need 2-3 moves to prove refutation/checkmate
-  if (isSecondaryBranch && currentDepth > 6) {
-    return { note: "Nhánh phụ bị bẻ gãy (Bại cuộc)" };
-  }
+  // REMOVED early cutoff to allow finding mates deeper than 3 moves (6 plies) in secondary branches.
+  // if (isSecondaryBranch && currentDepth > 6) {
+  //   return { note: "Nhánh phụ bị bẻ gãy (Bại cuộc)" };
+  // }
 
   if (currentDepth > maxPlies) {
     return { note: `Đạt giới hạn độ sâu (${maxDepth} nước Đỏ)` };
@@ -190,24 +191,8 @@ const solveTree = async (
       let score = mateRes?.mate ? `#M${mateRes.mateIn}` : null;
       let uciStr = mateRes?.bestmove || null;
 
-      // Fallback: nếu findMate không tìm được, dùng analyzeStrategicOptions
-      if (!bestMove) {
-        onProgress(`Tìm nước tốt nhất bằng Alpha-Beta...`);
-        try {
-          const candidates = await engineManager.analyzeStrategicOptions(currentBoard, 'red', 10, 1);
-          if (candidates && candidates.length > 0 && candidates[0].move) {
-            bestMove = candidates[0].move;
-            score = candidates[0].scoreText || candidates[0].evalText || '?';
-            uciStr = candidates[0].uci || moveObjToUci(bestMove);
-            // Nếu score cho thấy đây là nước sát (mate), ghi nhận
-            if (candidates[0].isCheckmateWin) {
-              score = `#M${candidates[0].mateMoves || '?'}`;
-            }
-          }
-        } catch (e) {
-          console.warn('analyzeStrategicOptions fallback failed:', e);
-        }
-      }
+      // Nếu không tìm thấy nước sát chiêu, lập tức bẻ gãy nhánh để thoát nhanh,
+      // thay vì cố gắng dùng Alpha-Beta dò tiếp (làm treo app 30 phút).
 
       if (!bestMove) {
         return { note: "Sát cục gãy (Không tìm thấy đòn Tất Thắng)" };
@@ -929,12 +914,19 @@ export default function CheckmateSolverModal({
                     responses: blackData.map(opt => {
                       const bPvItems = formatPvLine(boardAfterRed, opt.pv, 'black', engineManager.engineFamily);
                       const linearTree = buildPvTree(bPvItems, boardAfterRed, 'black');
+                      const respObj = linearTree.responses && linearTree.responses.length > 0 ? linearTree.responses[0] : null;
+                      if (!respObj) {
+                        return {
+                          move: bPvItems[0]?.viShort,
+                          viFull: bPvItems[0]?.viFull,
+                          uci: bPvItems[0]?.uci,
+                          score: opt.scoreText || '?',
+                          red_reply: { note: 'Kết thúc' }
+                        };
+                      }
                       return {
-                        move: linearTree.move || bPvItems[0].viShort,
-                        viFull: linearTree.viFull || bPvItems[0].viFull,
-                        uci: linearTree.uci || bPvItems[0].uci,
-                        score: opt.scoreText || '?',
-                        red_reply: linearTree.reply
+                        ...respObj,
+                        score: opt.scoreText || '?'
                       };
                     })
                   }
@@ -951,12 +943,19 @@ export default function CheckmateSolverModal({
                 responses: blackData.map(opt => {
                   const bPvItems = formatPvLine(initialBoard, opt.pv, 'black', engineManager.engineFamily);
                   const linearTree = buildPvTree(bPvItems, initialBoard, 'black');
+                  const respObj = linearTree.responses && linearTree.responses.length > 0 ? linearTree.responses[0] : null;
+                  if (!respObj) {
+                    return {
+                      move: bPvItems[0]?.viShort,
+                      viFull: bPvItems[0]?.viFull,
+                      uci: bPvItems[0]?.uci,
+                      score: opt.scoreText || '?',
+                      red_reply: { note: 'Kết thúc' }
+                    };
+                  }
                   return {
-                    move: linearTree.move || bPvItems[0].viShort,
-                    viFull: linearTree.viFull || bPvItems[0].viFull,
-                    uci: linearTree.uci || bPvItems[0].uci,
-                    score: opt.scoreText || '?',
-                    red_reply: linearTree.reply
+                    ...respObj,
+                    score: opt.scoreText || '?'
                   };
                 })
               };
