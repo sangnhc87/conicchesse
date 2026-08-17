@@ -920,14 +920,20 @@ export default function CheckmateSolverModal({
               if (blackData && blackData.length > 0) {
                 fallbackTree = {
                   turn: 'red',
-                  move: redPvItems[0],
+                  move: redPvItems[0].viShort,
+                  viFull: redPvItems[0].viFull,
+                  uci: redPvItems[0].uci,
+                  score: redData[0].scoreText || '?',
                   reply: {
                     turn: 'black',
                     responses: blackData.map(opt => {
                       const bPvItems = formatPvLine(boardAfterRed, opt.pv, 'black', engineManager.engineFamily);
                       const linearTree = buildPvTree(bPvItems, boardAfterRed, 'black');
                       return {
-                        black_move: linearTree.move || bPvItems[0],
+                        move: linearTree.move || bPvItems[0].viShort,
+                        viFull: linearTree.viFull || bPvItems[0].viFull,
+                        uci: linearTree.uci || bPvItems[0].uci,
+                        score: opt.scoreText || '?',
                         red_reply: linearTree.reply
                       };
                     })
@@ -946,7 +952,10 @@ export default function CheckmateSolverModal({
                   const bPvItems = formatPvLine(initialBoard, opt.pv, 'black', engineManager.engineFamily);
                   const linearTree = buildPvTree(bPvItems, initialBoard, 'black');
                   return {
-                    black_move: linearTree.move || bPvItems[0],
+                    move: linearTree.move || bPvItems[0].viShort,
+                    viFull: linearTree.viFull || bPvItems[0].viFull,
+                    uci: linearTree.uci || bPvItems[0].uci,
+                    score: opt.scoreText || '?',
                     red_reply: linearTree.reply
                   };
                 })
