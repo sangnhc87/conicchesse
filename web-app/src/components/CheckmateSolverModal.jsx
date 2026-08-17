@@ -855,6 +855,8 @@ export default function CheckmateSolverModal({
           };
           setResultTree(finalTree);
           setNoCheckmateError(false);
+          SatsucCache.addTree(finalTree);
+          loadLibrary();
           setProgressMsg('⚠️ Thế trận điều quân Tàn Cuộc. Trình bày Tuyến Chính (Gợi ý)!');
           setActiveTab('dashboard');
           showToast('Không có Sát Cục cưỡng bức, hiển thị Tuyến Chính.');
