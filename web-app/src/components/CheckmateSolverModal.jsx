@@ -54,7 +54,7 @@ function getTacticalExplanation(moveText, score, turn) {
 function isTrueCheckmateTree(node) {
   if (!node) return false;
   if (node.note) {
-    return node.note.includes('Chiếu Bí') || node.note.includes('Tất Thắng');
+    return (node.note.includes('Chiếu Bí') || node.note.includes('Tất Thắng')) && !node.note.includes('Sát cục gãy');
   }
   if (node.turn === 'red') {
     return isTrueCheckmateTree(node.reply);
@@ -715,7 +715,7 @@ export default function CheckmateSolverModal({
 
   // Confetti when checkmate reached
   useEffect(() => {
-    if (currentNode?.note && (currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng'))) {
+    if (currentNode?.note && (currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng')) && !currentNode.note.includes('Sát cục gãy')) {
       confetti({
         particleCount: 80,
         spread: 70,
@@ -1461,7 +1461,7 @@ export default function CheckmateSolverModal({
 
                       {/* Section 1: Checkmate Reached OR Current Tactical Card */}
                       {currentNode?.note ? (
-                        currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng') ? (
+                        (currentNode.note.includes('Chiếu Bí') || currentNode.note.includes('Tất Thắng')) && !currentNode.note.includes('Sát cục gãy') ? (
                           <div className="p-8 rounded-3xl bg-gradient-to-br from-emerald-950/80 via-[#101c18] to-[#0c1613] border-2 border-emerald-500/50 text-center shadow-2xl animate-in zoom-in-95">
                             <Crown className="w-16 h-16 text-amber-400 mx-auto mb-3 animate-bounce" />
                             <h3 className="text-2xl font-black text-emerald-300 mb-1">
