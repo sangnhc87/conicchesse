@@ -811,16 +811,7 @@ export default function CheckmateSolverModal({
     setPath([]);
     abortRef.current = false;
 
-    // Fetch fallback PV just in case the checkmate tree fails
-    let fallbackPvItems = [];
-    try {
-      const fallbackData = await engineManager.analyzeStrategicOptions(initialBoard, initialTurn, 20, 1);
-      if (fallbackData && fallbackData.length > 0 && fallbackData[0].pv) {
-        fallbackPvItems = formatPvLine(initialBoard, fallbackData[0].pv, initialTurn, engineManager.engineFamily || 'pikafish');
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    // (Fallback PV items will be fetched lazily if checkmate tree fails)
 
     const tree = await solveTree(
       initialBoard,
@@ -847,8 +838,59 @@ export default function CheckmateSolverModal({
         setActiveTab('dashboard');
         showToast('🏆 Tuyệt tác! Đã giải xong chuỗi Sát Cục Tất Thắng!');
       } else {
-        if (fallbackPvItems.length > 0) {
-          const fallbackTree = buildPvTree(fallbackPvItems, initialBoard, initialTurn);
+        setProgressMsg('⚠️ Đang xây dựng Sơ đồ Tuyến Chính (Nhiều nhánh)...');
+        let fallbackTree = null;
+        try {
+          if (initialTurn === 'red') {
+            const redData = await engineManager.analyzeStrategicOptions(initialBoard, 'red', 20, 1);
+            if (redData && redData.length > 0 && redData[0].pv) {
+              const redStr = redData[0].pv[0];
+              const redPvItems = formatPvLine(initialBoard, redData[0].pv, 'red', engineManager.engineFamily);
+              const boardAfterRed = initialBoard.clone();
+              boardAfterRed.makeMove(engineManager.parseUciMove(redStr));
+              
+              const blackData = await engineManager.analyzeStrategicOptions(boardAfterRed, 'black', 20, maxBlack);
+              if (blackData && blackData.length > 0) {
+                fallbackTree = {
+                  turn: 'red',
+                  move: redPvItems[0],
+                  reply: {
+                    turn: 'black',
+                    responses: blackData.map(opt => {
+                      const bPvItems = formatPvLine(boardAfterRed, opt.pv, 'black', engineManager.engineFamily);
+                      const linearTree = buildPvTree(bPvItems, boardAfterRed, 'black');
+                      return {
+                        black_move: linearTree.move || bPvItems[0],
+                        red_reply: linearTree.reply
+                      };
+                    })
+                  }
+                };
+              } else {
+                fallbackTree = buildPvTree(redPvItems, initialBoard, 'red');
+              }
+            }
+          } else {
+            const blackData = await engineManager.analyzeStrategicOptions(initialBoard, 'black', 20, maxBlack);
+            if (blackData && blackData.length > 0) {
+              fallbackTree = {
+                turn: 'black',
+                responses: blackData.map(opt => {
+                  const bPvItems = formatPvLine(initialBoard, opt.pv, 'black', engineManager.engineFamily);
+                  const linearTree = buildPvTree(bPvItems, initialBoard, 'black');
+                  return {
+                    black_move: linearTree.move || bPvItems[0],
+                    red_reply: linearTree.reply
+                  };
+                })
+              };
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
+
+        if (fallbackTree) {
           const finalTree = {
             root_fen: boardToFen(initialBoard, initialTurn),
             tree: fallbackTree
@@ -859,7 +901,7 @@ export default function CheckmateSolverModal({
           loadLibrary();
           setProgressMsg('⚠️ Thế trận điều quân Tàn Cuộc. Trình bày Tuyến Chính (Gợi ý)!');
           setActiveTab('dashboard');
-          showToast('Không có Sát Cục cưỡng bức, hiển thị Tuyến Chính.');
+          showToast(`Không có Sát Cục cưỡng bức, hiển thị Tuyến Chính (${maxBlack} nhánh).`);
         } else {
           setResultTree(null);
           setNoCheckmateError(true);
