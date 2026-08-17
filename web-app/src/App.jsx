@@ -110,6 +110,8 @@ export default function App() {
   const [coachFeedback, setCoachFeedback] = useState(null);
 
   // Analysis & 2-Player Self-Play Mode States
+  const [analysisInitialBoard, setAnalysisInitialBoard] = useState(() => parseFen().board);
+  const [analysisInitialTurn, setAnalysisInitialTurn] = useState('red');
   const [analysisBoard, setAnalysisBoard] = useState(() => parseFen().board);
   const [analysisTurn, setAnalysisTurn] = useState('red');
   const [analysisHistory, setAnalysisHistory] = useState([]); // [{ turn, move, notationVi, notationCn, captured, uci }]
@@ -692,6 +694,8 @@ export default function App() {
   const handleOpenAnalysisWithPosition = useCallback((customBoard, customTurn = 'red') => {
     if (!customBoard) return;
     const initialBoard = customBoard.map(r => [...r]);
+    setAnalysisInitialBoard(initialBoard);
+    setAnalysisInitialTurn(customTurn);
     setAnalysisBoard(initialBoard);
     setAnalysisTurn(customTurn);
     setAnalysisHistory([]);
@@ -761,8 +765,8 @@ export default function App() {
 
   const handleAnalysisGoToIndex = useCallback((targetIndex) => {
     if (targetIndex < 0 || targetIndex > analysisHistory.length) return;
-    let b = parseFen().board;
-    let t = 'red';
+    let b = analysisInitialBoard.map(r => [...r]);
+    let t = analysisInitialTurn;
     let lm = null;
     for (let i = 0; i < targetIndex; i++) {
       const h = analysisHistory[i];
@@ -801,9 +805,9 @@ export default function App() {
   }, [analysisHistory.length, handleAnalysisGoToIndex]);
 
   const handleAnalysisReset = useCallback(() => {
-    const fresh = parseFen().board;
+    const fresh = analysisInitialBoard.map(r => [...r]);
     setAnalysisBoard(fresh);
-    setAnalysisTurn('red');
+    setAnalysisTurn(analysisInitialTurn);
     setAnalysisHistory([]);
     setAnalysisHistoryIndex(0);
     setAnalysisSelectedSquare(null);
