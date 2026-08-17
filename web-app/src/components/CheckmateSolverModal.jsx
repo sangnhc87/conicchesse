@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import XiangqiBoard from './XiangqiBoard';
-import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves, isInCheck, PIECE_NAMES, moveToVietnamese, moveToVietnameseFull } from './XiangqiLogic';
+import { makeMove, boardToFen, parseFen, uciToMove, moveObjToUci, getLegalMoves, isInCheck, PIECE_NAMES, moveToVietnamese, moveToVietnameseFull, formatPvLine } from './XiangqiLogic';
 import SatsucCache from '../lib/SatsucCache';
 import { sound } from './AudioEngine';
 
@@ -64,6 +64,70 @@ function isTrueCheckmateTree(node) {
     return node.responses.every(resp => isTrueCheckmateTree(resp.red_reply));
   }
   return false;
+}
+
+// Convert a PV array from formatPvLine into a linear tree
+function buildPvTree(pvLineItems, initialBoard, initialTurn) {
+  if (!pvLineItems || pvLineItems.length === 0) return { note: "Không thể trích xuất Tuyến Chính" };
+  
+  let root = null;
+  let currentPtr = null;
+  let curBoard = initialBoard;
+  let curTurn = initialTurn;
+  
+  for (let i = 0; i < pvLineItems.length; i++) {
+    const item = pvLineItems[i];
+    if (item.move) {
+      curBoard = makeMove(curBoard, item.move);
+      curTurn = curTurn === 'red' ? 'black' : 'red';
+    }
+    
+    if (item.turn === 'red') {
+      const rNode = {
+        turn: 'red',
+        move: item.viShort,
+        viFull: item.viFull,
+        uci: item.uci,
+        score: 'Tuyến Chính',
+        reply: null
+      };
+      if (!root) { root = rNode; currentPtr = rNode; }
+      else {
+        if (currentPtr.turn === 'red') currentPtr.reply = rNode;
+        else currentPtr.responses = [{ move: currentPtr._tempMove, viFull: currentPtr._tempViFull, uci: currentPtr._tempUci, score: 'Tuyến Chính', red_reply: rNode }];
+        currentPtr = rNode;
+      }
+    } else {
+      const bNode = {
+        turn: 'black',
+        _tempMove: item.viShort,
+        _tempViFull: item.viFull,
+        _tempUci: item.uci,
+        responses: []
+      };
+      if (!root) { root = bNode; currentPtr = bNode; }
+      else {
+        currentPtr.reply = bNode;
+        currentPtr = bNode;
+      }
+    }
+  }
+  
+  if (currentPtr) {
+    const legalMoves = getLegalMoves(curBoard, curTurn);
+    let finalNote = "Kết thúc Tuyến Chính Ưu Thế (Tàn Cuộc)";
+    if (legalMoves.length === 0) {
+      if (isInCheck(curBoard, curTurn)) {
+        finalNote = curTurn === 'black' ? "🏆 CHIẾU BÍ HOÀN TẤT - ĐỎ TẤT THẮNG!" : "Đen Chiếu Bí Thắng";
+      } else {
+        finalNote = curTurn === 'black' ? "🏆 ĐEN BỊ KHỐN TỬ (Hết Nước Đi) - ĐỎ TẤT THẮNG!" : "Đỏ Bị Khốn Tử (Hết Nước Đi) - Đen Thắng";
+      }
+    }
+
+    if (currentPtr.turn === 'red') currentPtr.reply = { note: finalNote };
+    else currentPtr.responses = [{ move: currentPtr._tempMove, viFull: currentPtr._tempViFull, uci: currentPtr._tempUci, score: 'Tuyến Chính', red_reply: { note: finalNote } }];
+  }
+  return root;
 }
 
 // Recursive Solver Logic (Deep Tree Search to Absolute Checkmate Win)
@@ -747,6 +811,17 @@ export default function CheckmateSolverModal({
     setPath([]);
     abortRef.current = false;
 
+    // Fetch fallback PV just in case the checkmate tree fails
+    let fallbackPvItems = [];
+    try {
+      const fallbackData = await engineManager.analyzeStrategicOptions(initialBoard, initialTurn, 20, 1);
+      if (fallbackData && fallbackData.length > 0 && fallbackData[0].pv) {
+        fallbackPvItems = formatPvLine(initialBoard, fallbackData[0].pv, initialTurn, engineManager.engineFamily || 'pikafish');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
     const tree = await solveTree(
       initialBoard,
       initialTurn,
@@ -772,9 +847,22 @@ export default function CheckmateSolverModal({
         setActiveTab('dashboard');
         showToast('🏆 Tuyệt tác! Đã giải xong chuỗi Sát Cục Tất Thắng!');
       } else {
-        setResultTree(null);
-        setNoCheckmateError(true);
-        setProgressMsg('⚠️ Thế trận này không có đòn Sát Cục cưỡng bức!');
+        if (fallbackPvItems.length > 0) {
+          const fallbackTree = buildPvTree(fallbackPvItems, initialBoard, initialTurn);
+          const finalTree = {
+            root_fen: boardToFen(initialBoard, initialTurn),
+            tree: fallbackTree
+          };
+          setResultTree(finalTree);
+          setNoCheckmateError(false);
+          setProgressMsg('⚠️ Thế trận điều quân Tàn Cuộc. Trình bày Tuyến Chính (Gợi ý)!');
+          setActiveTab('dashboard');
+          showToast('Không có Sát Cục cưỡng bức, hiển thị Tuyến Chính.');
+        } else {
+          setResultTree(null);
+          setNoCheckmateError(true);
+          setProgressMsg('⚠️ Thế trận này không có đòn Sát Cục cưỡng bức!');
+        }
       }
     } else {
       setResultTree(null);
