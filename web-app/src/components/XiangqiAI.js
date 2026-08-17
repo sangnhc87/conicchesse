@@ -398,6 +398,202 @@ function countPieces(board) {
   return n;
 }
 
+// ══════════════════════════════════════════════════════════════════════
+// WASM MATE SEARCH — Tìm sát cục cưỡng bức (forced checkmate)
+// Thuật toán: Alpha-Beta chuyên biệt mate-only + iterative deepening
+// ══════════════════════════════════════════════════════════════════════
+
+const MATE_SCORE = 100000;
+let mateSearchAborted = false;
+let mateNodeCount = 0;
+const MATE_NODE_LIMIT = 3000000;
+
+/** Sort moves để mate search: chiêu trước, bắt quân sau, rồi mới đến thường */
+function orderMovesForMate(board, moves, turn) {
+  return moves.slice().sort((a, b) => {
+    const oppTurn = turn === 'red' ? 'black' : 'red';
+    const bAfter = makeMove(board, b);
+    const aAfter = makeMove(board, a);
+    const bCheck = isInCheck(bAfter, oppTurn) ? 1 : 0;
+    const aCheck = isInCheck(aAfter, oppTurn) ? 1 : 0;
+    if (bCheck !== aCheck) return bCheck - aCheck; // chiêu trước
+    const capDiff = (PIECE_VALS[b.captured] || 0) - (PIECE_VALS[a.captured] || 0);
+    return capDiff; // bắt quân to trước
+  });
+}
+
+/**
+ * Mate-only alpha-beta: chỉ tìm forced checkmate cho `attacker`.
+ * Attacker luôn là 'red'. Defender là 'black'.
+ * Returns: >= MATE_SCORE - depth nếu có mate, < 0 nếu không.
+ */
+function mateAlphaBeta(board, depth, alpha, beta, isAttacker, totalDepth, pvTable, pvIdx) {
+  mateNodeCount++;
+  if (mateSearchAborted || mateNodeCount > MATE_NODE_LIMIT) {
+    mateSearchAborted = true;
+    return 0;
+  }
+
+  const turn = isAttacker ? 'red' : 'black';
+  const moves = getLegalMoves(board, turn);
+
+  if (moves.length === 0) {
+    if (isInCheck(board, turn)) {
+      // Checkmate! Score theo độ sâu để ưu tiên mate nhanh hơn
+      return isAttacker ? -(MATE_SCORE - (totalDepth - depth)) : (MATE_SCORE - (totalDepth - depth));
+    }
+    return 0; // Stalemate = hòa
+  }
+
+  if (depth <= 0) {
+    // Tại leaf: nếu attacker đang chiếu thì cộng thêm bonus
+    if (!isAttacker && isInCheck(board, 'black')) return 10;
+    return 0; // Không tìm thấy mate
+  }
+
+  const ordered = orderMovesForMate(board, moves, turn);
+
+  if (isAttacker) {
+    // Red muốn maximize (tìm mate)
+    let maxEval = -MATE_SCORE;
+    for (const move of ordered) {
+      if (mateSearchAborted) return 0;
+      const nextBoard = makeMove(board, move);
+      const blackMoves = getLegalMoves(nextBoard, 'black');
+
+      if (blackMoves.length === 0 && isInCheck(nextBoard, 'black')) {
+        // Direct checkmate
+        const mateVal = MATE_SCORE - (totalDepth - depth);
+        if (pvTable) pvTable[pvIdx] = move;
+        return mateVal;
+      }
+
+      const childPv = pvTable ? [] : null;
+      const e = mateAlphaBeta(nextBoard, depth - 1, alpha, beta, false, totalDepth, childPv, 0);
+      if (e > maxEval) {
+        maxEval = e;
+        if (pvTable && e > 0) {
+          pvTable[pvIdx] = move;
+          if (childPv && childPv.length) pvTable.splice(pvIdx + 1, pvTable.length, ...childPv);
+        }
+      }
+      alpha = Math.max(alpha, e);
+      if (beta <= alpha) break;
+    }
+    return maxEval;
+  } else {
+    // Black muốn minimize (thoát khỏi mate)
+    let minEval = MATE_SCORE;
+    for (const move of ordered) {
+      if (mateSearchAborted) return 0;
+      const nextBoard = makeMove(board, move);
+      const e = mateAlphaBeta(nextBoard, depth - 1, alpha, beta, true, totalDepth, null, 0);
+      minEval = Math.min(minEval, e);
+      beta = Math.min(beta, e);
+      if (beta <= alpha) break;
+      // Nếu black có 1 nước thoát được mate → không cần xét thêm với đoán rằng tất cả nước khác cũng thoát
+      if (e <= 0) return e; // Pruning sớm: không phải forced mate
+    }
+    return minEval;
+  }
+}
+
+/**
+ * findMateWasm — Iterative deepening mate search
+ * Tìm forced checkmate cho Red trong tối đa maxMoves nước.
+ * Returns: { mate, mateIn, move, bestmove, moves, pv, engine } hoặc { mate: false }
+ */
+export function findMateWasm(board, turn = 'red', maxMoves = 10) {
+  // Chỉ support tìm mate cho Red hiện tại
+  if (turn !== 'red') return { mate: false };
+
+  mateSearchAborted = false;
+  mateNodeCount = 0;
+
+  const redMoves = getLegalMoves(board, 'red');
+  if (redMoves.length === 0) return { mate: false };
+
+  // Iterative deepening: thử từ 1 đến maxMoves nước (mỗi nước Red = 2 plies)
+  for (let mateIn = 1; mateIn <= maxMoves; mateIn++) {
+    if (mateSearchAborted) break;
+    const maxDepth = mateIn * 2 - 1; // odd: Red moves last
+    const pvTable = [];
+
+    const orderedMoves = orderMovesForMate(board, redMoves, 'red');
+    let bestMove = null;
+    let bestScore = -MATE_SCORE;
+
+    for (const move of orderedMoves) {
+      if (mateSearchAborted) break;
+      const nextBoard = makeMove(board, move);
+      const blackMoves = getLegalMoves(nextBoard, 'black');
+
+      if (blackMoves.length === 0 && isInCheck(nextBoard, 'black')) {
+        // Mate in 1!
+        const uci = moveObjToUci(move);
+        return {
+          mate: true,
+          mateIn: 1,
+          move,
+          bestmove: uci,
+          pv: [move],
+          moves: [{ move, viFull: moveToVietnameseFull(board, move, 'red'), viShort: moveToVietnamese(board, move, 'red') }],
+          engine: 'WASM Mate Search',
+          isNative: false
+        };
+      }
+
+      const childPv = [];
+      const score = mateAlphaBeta(nextBoard, maxDepth - 1, -MATE_SCORE, MATE_SCORE, false, maxDepth, childPv, 0);
+      if (score > bestScore) {
+        bestScore = score;
+        bestMove = move;
+        pvTable.length = 0;
+        pvTable.push(move, ...childPv);
+      }
+    }
+
+    if (bestScore >= MATE_SCORE - maxDepth - 2 && bestMove && !mateSearchAborted) {
+      // Found forced mate in mateIn moves!
+      const uci = moveObjToUci(bestMove);
+
+      // Build PV move list
+      const pvMoves = [];
+      let b = board;
+      let t = 'red';
+      for (let i = 0; i < pvTable.length && pvMoves.length < mateIn * 2; i++) {
+        const mv = pvTable[i];
+        if (!mv) break;
+        const legal = getLegalMoves(b, t);
+        const found = legal.find(m => m.fromR === mv.fromR && m.fromC === mv.fromC && m.toR === mv.toR && m.toC === mv.toC);
+        if (!found) break;
+        pvMoves.push({
+          move: found,
+          viFull: moveToVietnameseFull(b, found, t),
+          viShort: moveToVietnamese(b, found, t),
+          turn: t
+        });
+        b = makeMove(b, found);
+        t = t === 'red' ? 'black' : 'red';
+        if (getLegalMoves(b, t).length === 0) break;
+      }
+
+      return {
+        mate: true,
+        mateIn,
+        move: bestMove,
+        bestmove: uci,
+        pv: pvTable,
+        moves: pvMoves,
+        engine: 'WASM Mate Search',
+        isNative: false
+      };
+    }
+  }
+
+  return { mate: false, engine: 'WASM Mate Search', isNative: false };
+}
+
 export function getBestMove(board, turn = 'red', depth = 3) {
   if (turn === 'red' && isStandardOpening(board) && board[7]?.[1] === 'C' && board[7]?.[7] === 'C') {
     return { fromR: 7, fromC: 1, toR: 7, toC: 4, captured: null };
