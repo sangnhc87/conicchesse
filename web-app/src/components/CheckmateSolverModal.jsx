@@ -186,19 +186,40 @@ const solveTree = async (
 
       if (checkAbort()) return null;
 
-      if (!mateRes || !mateRes.mate || !mateRes.move) {
+      let bestMove = mateRes?.move || null;
+      let score = mateRes?.mate ? `#M${mateRes.mateIn}` : null;
+      let uciStr = mateRes?.bestmove || null;
+
+      // Fallback: nếu findMate không tìm được, dùng analyzeStrategicOptions
+      if (!bestMove) {
+        onProgress(`Tìm nước tốt nhất bằng Alpha-Beta...`);
+        try {
+          const candidates = await engineManager.analyzeStrategicOptions(currentBoard, 'red', 10, 1);
+          if (candidates && candidates.length > 0 && candidates[0].move) {
+            bestMove = candidates[0].move;
+            score = candidates[0].scoreText || candidates[0].evalText || '?';
+            uciStr = candidates[0].uci || moveObjToUci(bestMove);
+            // Nếu score cho thấy đây là nước sát (mate), ghi nhận
+            if (candidates[0].isCheckmateWin) {
+              score = `#M${candidates[0].mateMoves || '?'}`;
+            }
+          }
+        } catch (e) {
+          console.warn('analyzeStrategicOptions fallback failed:', e);
+        }
+      }
+
+      if (!bestMove) {
         return { note: "Sát cục gãy (Không tìm thấy đòn Tất Thắng)" };
       }
 
-      const bestMove = mateRes.move;
-      const score = `#M${mateRes.mateIn}`;
-      const uciStr = mateRes.bestmove || moveObjToUci(bestMove);
+      uciStr = uciStr || moveObjToUci(bestMove);
       const chosenNewBoard = makeMove(currentBoard, bestMove);
 
       const viShort = moveToVietnamese(currentBoard, bestMove, 'red');
       const viFull = moveToVietnameseFull(currentBoard, bestMove, 'red');
 
-      onProgress(`Đỏ đi ${viShort} (${score})`);
+      onProgress(`Đỏ đi ${viShort} (${score || '?'})`);
 
       const blackLegal = getLegalMoves(chosenNewBoard, 'black');
       if (blackLegal.length === 0) {
@@ -207,7 +228,7 @@ const solveTree = async (
           move: viShort,
           viFull,
           uci: uciStr,
-          score,
+          score: score || '#M1',
           reply: { note: "🏆 Chiếu Bí Hoàn Tất - Đỏ Tất Thắng!" }
         };
       } else {
@@ -228,10 +249,11 @@ const solveTree = async (
           move: viShort,
           viFull,
           uci: uciStr,
-          score,
+          score: score || '?',
           reply
         };
       }
+
     } else {
       const effectiveMultiPv = currentDepth <= 4 ? maxBlack : (maxBlack > 1 ? 2 : 1);
       const searchDepth = 14; 
