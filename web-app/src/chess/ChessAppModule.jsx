@@ -19,9 +19,8 @@ import { ChessAnalysisEngine } from './lib/ChessAnalysisEngine';
 import { audioEngine } from './components/AudioEngine';
 
 const STORAGE_KEY_CHESS_SOLVED = 'conic_chess_solved_ids';
-const STORAGE_KEY_CHESS_FAVS = 'conic_chess_fav_ids';
-
-export default function ChessAppModule() {
+const STORAGE_KEY_CHESS_FAVS = "conic_chess_fav_ids";
+export default function ChessAppModule({ isKidMode = false }) {
   const allPuzzles = useMemo(() => catalogData?.items || [], []);
 
   // Top Module Mode: 'study' | 'analysis' | 'play_ai'
@@ -295,17 +294,19 @@ export default function ChessAppModule() {
             <span>Nghiên Cứu Kỳ Phổ (5.530+ Bài)</span>
           </button>
 
-          <button
-            onClick={() => setChessMode('analysis')}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition ${
-              chessMode === 'analysis'
-                ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Phân Tích 2 Bên & Stockfish</span>
-          </button>
+          {!isKidMode && (
+            <button
+              onClick={() => setChessMode('analysis')}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition ${
+                chessMode === 'analysis'
+                  ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Compass className="w-3.5 h-3.5" />
+              <span>Phân Tích 2 Bên & Stockfish</span>
+            </button>
+          )}
 
           <button
             onClick={() => setChessMode('play_ai')}

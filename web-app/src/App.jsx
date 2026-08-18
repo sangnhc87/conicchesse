@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import confetti from 'canvas-confetti';
 import {
   Menu, BookOpen, Printer, Star, Volume2, VolumeX,
   Shuffle, RotateCcw, ChevronLeft, ChevronRight, Copy, Check,
@@ -53,6 +54,23 @@ export default function App() {
   const [trainingLives, setTrainingLives] = useState(3);
   const [timeLeft, setTimeLeft] = useState(180);
   const [isTrainingCompleted, setIsTrainingCompleted] = useState(false);
+  const [isKidMode, setIsKidMode] = useState(() => {
+    return storageGet('conic_is_kid_mode', false);
+  });
+  
+  const handleToggleKidMode = () => {
+    setIsKidMode(prev => {
+      const next = !prev;
+      storageSet('conic_is_kid_mode', next);
+      if (next && appMode === 'analysis') {
+        setAppMode('study'); // Fallback if they were in analysis mode
+      }
+      return next;
+    });
+  };
+
+  // Modals & Panels
+  const [isEngineModalOpen, setIsEngineModalOpen] = useState(false);
   const [trainingBoard, setTrainingBoard] = useState(null);
   const [trainingTurn, setTrainingTurn] = useState('red');
   const [trainingSelectedSquare, setTrainingSelectedSquare] = useState(null);
@@ -61,7 +79,6 @@ export default function App() {
 
   // Engine Manager State
   const [engineState, setEngineState] = useState(engineManager.getState());
-  const [isEngineModalOpen, setIsEngineModalOpen] = useState(false);
 
   useEffect(() => {
     return engineManager.subscribe(setEngineState);
@@ -813,7 +830,7 @@ export default function App() {
 
   const handleAnalysisLast = useCallback(() => {
     handleAnalysisGoToIndex(analysisHistory.length);
-  }, [analysisHistory.length, handleAnalysisGoToIndex]);
+  }, [handleAnalysisGoToIndex]);
 
   const handleAnalysisReset = useCallback(() => {
     const fresh = analysisInitialBoard.map(r => [...r]);
@@ -846,7 +863,10 @@ export default function App() {
     if (playAiTurn === aiColor && !playAiThinking) {
       const legalMoves = getLegalMoves(playAiBoard, aiColor);
       if (legalMoves.length === 0) {
-        sound.playCheck();
+        sound.playNotify();
+        if (isKidMode) {
+          confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+        }
         return;
       }
 
@@ -931,6 +951,10 @@ export default function App() {
             const nextIndex = trainingSolutionIndex + 1;
             if (nextIndex >= currentPuzzle.solution.length) {
               // Puzzle complete
+              if (isKidMode) {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                sound.playNotify();
+              }
               setTrainingScore(s => s + 1);
               setCurrentPuzzleIndex(prev => (prev + 1) % PuzzlesData.length);
             } else {
@@ -952,6 +976,10 @@ export default function App() {
                 sound.playMove();
                 
                 if (nextIndex + 1 >= currentPuzzle.solution.length) {
+                   if (isKidMode) {
+                     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                     sound.playNotify();
+                   }
                    setTrainingScore(s => s + 1);
                    setCurrentPuzzleIndex(prev => (prev + 1) % PuzzlesData.length);
                 } else {
@@ -1352,7 +1380,7 @@ export default function App() {
 
         {/* Embedded Chess Module */}
         <div className="flex-1 overflow-y-auto flex flex-col">
-          <ChessAppModule />
+          <ChessAppModule isKidMode={isKidMode} />
         </div>
       </div>
     );
@@ -1418,17 +1446,19 @@ export default function App() {
             <span>Nghiên Cứu Kỳ Phổ</span>
           </button>
 
-          <button
-            onClick={() => setAppMode('analysis')}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-              appMode === 'analysis'
-                ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-sm'
-                : 'text-gray-400 hover:text-gray-200'
-            }`}
-          >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Phân Tích 2 Bên & Pikafish</span>
-          </button>
+          {!isKidMode && (
+            <button
+              onClick={() => setAppMode('analysis')}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                appMode === 'analysis'
+                  ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-sm'
+                  : 'text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              <Compass className="w-3.5 h-3.5" />
+              <span>Phân Tích 2 Bên & Pikafish</span>
+            </button>
+          )}
 
           <button
             onClick={() => setAppMode('play_ai')}
@@ -1442,16 +1472,29 @@ export default function App() {
             <span>Đấu AI</span>
           </button>
 
-          <button
-            onClick={() => handleSwitchGameType('chess')}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 shadow-md shadow-amber-500/30 transition-all active:scale-95"
-          >
-            <span>👑 SÁT CỤC CỜ VUA</span>
-          </button>
+          {!isKidMode && (
+            <button
+              onClick={() => handleSwitchGameType('chess')}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 shadow-md shadow-amber-500/30 transition-all active:scale-95"
+            >
+              <span>👑 SÁT CỤC CỜ VUA</span>
+            </button>
+          )}
         </div>
 
         {/* Right: Unified Luxury Action Cluster */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={handleToggleKidMode}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
+              isKidMode 
+                ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md shadow-green-500/30 animate-pulse' 
+                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
+            }`}
+          >
+            <span className="text-sm">👶</span>
+            <span className="hidden sm:inline">Góc Trẻ Em</span>
+          </button>
           {/* Engine Status Pill */}
           <button
             onClick={() => setIsEngineModalOpen(true)}

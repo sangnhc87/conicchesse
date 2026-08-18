@@ -114,7 +114,10 @@ export default function PlayAIPanel({
               className="bg-[#2a303d] border border-gray-700 text-xs text-amber-300 rounded-lg px-2 py-1 focus:outline-none"
             >
               {isNative ? (
-                <>
+                  <>
+                  <option value={2}>Sơ cấp (D2)</option>
+                  <option value={4}>Nghiệp dư (D4)</option>
+                  <option value={6}>Phong trào (D6)</option>
                   <option value={10}>Kỳ nghệ (D10)</option>
                   <option value={14}>Kiện tướng (D14)</option>
                   <option value={18}>Đặc cấp Đại sư (D18)</option>
