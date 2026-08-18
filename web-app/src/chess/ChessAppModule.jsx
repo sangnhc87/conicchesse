@@ -357,9 +357,10 @@ export default function ChessAppModule({ isKidMode = false }) {
           onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         />
 
-        {/* 2. Center Column: Board + Eval Bar + Top Controls */}
-        <div className="flex-1 flex flex-col items-center justify-between p-3 md:p-5 overflow-y-auto bg-[#07090e]">
-          {/* Top Control Bar Above Board */}
+        {/* 2. Center Column: Board + Eval Bar + Top Controls (Only for Study/Analysis) */}
+        {chessMode !== 'play_ai' && (
+          <div className="flex-1 flex flex-col items-center justify-between p-3 md:p-5 overflow-y-auto bg-[#07090e]">
+            {/* Top Control Bar Above Board */}
           <div className="w-full max-w-[580px] flex items-center justify-between gap-2 mb-2">
             <div className="flex items-center gap-2">
               <button
@@ -443,6 +444,7 @@ export default function ChessAppModule({ isKidMode = false }) {
             </div>
           </div>
         </div>
+        )}
 
         {/* 3. Right Column: Studio Panel (Switch according to active mode) */}
         {chessMode === 'study' && (
@@ -484,8 +486,8 @@ export default function ChessAppModule({ isKidMode = false }) {
         )}
 
         {chessMode === 'play_ai' && (
-          <div className="w-80 lg:w-96 bg-[#0c0f17] border-l border-[#202636] flex flex-col h-full z-20 shrink-0">
-            <PlayAiPanel />
+          <div className="flex-1 bg-[#07090e] flex flex-col h-full z-20 w-full overflow-y-auto">
+            <PlayAiPanel boardTheme={boardTheme} />
           </div>
         )}
       </div>
