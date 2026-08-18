@@ -68,7 +68,7 @@ function uciToSan(fen, uciMoves) {
   } catch (e) { return null; }
 }
 
-function makeTitle(catKey, themes, lichessId) {
+function makeTitle(catKey, themes, itemId) {
   const themeNames = {
     mateIn1: 'Chiếu Bí 1 Nước', mateIn2: 'Chiếu Bí 2 Nước',
     mateIn3: 'Chiếu Bí 3 Nước', mateIn4: 'Chiếu Bí 4 Nước',
@@ -77,10 +77,11 @@ function makeTitle(catKey, themes, lichessId) {
     queenSacrifice: 'Thí Hậu Kinh Điển', sacrifice: 'Thí Quân', endgame: 'Cờ Tàn'
   };
   const all = [catKey, ...themes];
+  const numId = itemId.split('_')[1] || '';
   for (const t of all) {
-    if (themeNames[t]) return `${themeNames[t]} - Lichess ${lichessId}`;
+    if (themeNames[t]) return `${themeNames[t]} - Thế Số ${numId}`;
   }
-  return `Bài Tập Cờ Vua - ${lichessId}`;
+  return `Bài Tập Cờ Vua - Thế Số ${numId}`;
 }
 
 const rl = readline.createInterface({
@@ -172,7 +173,7 @@ rl.on('line', (line) => {
   t.items.push({
     id: itemId,
     lichessId: lichessId,
-    title: makeTitle(matchedCatKey, themes, lichessId),
+    title: makeTitle(matchedCatKey, themes, itemId),
     category: t.cat,
     subcategory: getSubcat(matchedCatKey, themes),
     folderPath: [t.cat, getSubcat(matchedCatKey, themes)],
@@ -182,7 +183,7 @@ rl.on('line', (line) => {
     rating,
     difficulty: getDiff(rating),
     themes,
-    description: `Bài tập Lichess ${lichessId}. Chủ đề: ${themes.slice(0, 3).join(', ')}.`
+    description: `Thế cờ thực chiến số ${itemId.split('_')[1] || ''}. Chủ đề: ${themes.slice(0, 3).join(', ')}.`
   });
   
   t.count++;
