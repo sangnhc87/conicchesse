@@ -179,11 +179,11 @@ export default function ChessBoard({
   const rankLabels = ['8', '7', '6', '5', '4', '3', '2', '1'];
 
   return (
-    <div className="relative select-none flex flex-col items-center justify-center p-2">
+    <div className="relative select-none flex flex-col items-center justify-center w-full h-full">
       {/* Board Container */}
       <div 
         ref={boardRef}
-        className="relative w-full max-w-[560px] aspect-square rounded-xl shadow-2xl overflow-hidden border-4"
+        className="relative w-full aspect-square rounded-2xl shadow-2xl overflow-hidden border-4"
         style={{ borderColor: theme.border }}
       >
         <div className="grid grid-cols-8 grid-rows-8 w-full h-full">

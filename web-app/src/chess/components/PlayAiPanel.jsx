@@ -137,13 +137,13 @@ export default function PlayAiPanel({ boardTheme }) {
   };
 
   return (
-    <div className="flex-1 flex flex-col lg:flex-row gap-6 p-4 lg:p-6 max-w-7xl mx-auto w-full items-start">
+    <div className="flex-1 flex flex-col xl:flex-row gap-8 p-4 md:p-8 max-w-7xl mx-auto w-full items-center xl:items-start justify-center overflow-y-auto">
       {/* Board & Eval Bar Area */}
-      <div className="flex-1 flex flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center w-full max-w-[540px] shrink-0">
         {/* Top Info Bar */}
-        <div className="w-full max-w-[560px] flex items-center justify-between px-2 mb-2">
+        <div className="w-full flex items-center justify-between px-2 mb-2">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30">
+            <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30 shadow-sm">
               <Bot className="w-4 h-4" />
             </div>
             <div>
@@ -153,26 +153,28 @@ export default function PlayAiPanel({ boardTheme }) {
           </div>
 
           {isAiThinking && (
-            <div className="flex items-center gap-2 text-xs text-amber-400 font-semibold animate-pulse">
+            <div className="flex items-center gap-2 text-xs text-amber-400 font-semibold animate-pulse bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
               <Sparkles className="w-4 h-4" /> AI đang tính nước đi...
             </div>
           )}
         </div>
 
         {/* Board Component */}
-        <ChessBoard
-          fen={fen}
-          onMove={handlePlayerMove}
-          isFlipped={playerColor === 'b'}
-          lastMove={lastMove}
-          boardTheme={boardTheme}
-          disabled={gameStatus !== 'playing' || isAiThinking}
-        />
+        <div className="w-full aspect-square max-w-[540px]">
+          <ChessBoard
+            fen={fen}
+            onMove={handlePlayerMove}
+            isFlipped={playerColor === 'b'}
+            lastMove={lastMove}
+            boardTheme={boardTheme}
+            disabled={gameStatus !== 'playing' || isAiThinking}
+          />
+        </div>
 
         {/* Player Info Bottom Bar */}
-        <div className="w-full max-w-[560px] flex items-center justify-between px-2 mt-2">
+        <div className="w-full flex items-center justify-between px-2 mt-2">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30 font-bold text-xs">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30 font-bold text-xs shadow-sm">
               👤
             </div>
             <span className="text-xs font-bold text-slate-200">
@@ -181,14 +183,14 @@ export default function PlayAiPanel({ boardTheme }) {
           </div>
 
           {/* Eval score */}
-          <div className="text-xs font-mono font-bold text-slate-300">
+          <div className="text-xs font-mono font-bold text-slate-300 bg-slate-900/80 px-3 py-1 rounded-xl border border-slate-800">
             Điểm thế trận: <span className={evalScore >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{evalScore > 0 ? `+${evalScore.toFixed(1)}` : evalScore.toFixed(1)}</span>
           </div>
         </div>
       </div>
 
       {/* Control Panel & Move List */}
-      <div className="w-full lg:w-96 flex flex-col gap-4">
+      <div className="w-full max-w-[460px] xl:w-96 flex flex-col gap-4 shrink-0">
         {/* Game Status Banner */}
         {gameStatus !== 'playing' && (
           <div className={`p-4 rounded-2xl border shadow-xl flex items-center gap-3 animate-in fade-in ${

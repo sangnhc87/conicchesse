@@ -344,18 +344,20 @@ export default function ChessAppModule({ isKidMode = false }) {
 
       {/* Main Studio Body (3-Column Layout) */}
       <div className="flex-1 flex overflow-hidden">
-        {/* 1. Left Column: CÂY DỮ LIỆU KỲ PHỔ */}
-        <ChessSidebar
-          catalog={catalogData}
-          currentPuzzleId={currentPuzzle?.id}
-          onSelectPuzzle={handleSelectPuzzle}
-          favorites={favorites}
-          onToggleFavorite={handleToggleFavorite}
-          completedIds={completedIds}
-          onToggleComplete={handleToggleComplete}
-          isCollapsed={isSidebarCollapsed}
-          onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-        />
+        {/* 1. Left Column: CÂY DỮ LIỆU KỲ PHỔ (Ẩn khi Đấu AI) */}
+        {chessMode !== 'play_ai' && (
+          <ChessSidebar
+            catalog={catalogData}
+            currentPuzzleId={currentPuzzle?.id}
+            onSelectPuzzle={handleSelectPuzzle}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            completedIds={completedIds}
+            onToggleComplete={handleToggleComplete}
+            isCollapsed={isSidebarCollapsed}
+            onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+          />
+        )}
 
         {/* 2. Center Column: Board + Eval Bar + Top Controls (Only for Study/Analysis) */}
         {chessMode !== 'play_ai' && (
