@@ -46,7 +46,8 @@ export default function ChessBoard({
   boardTheme = 'tournament',
   disabled = false,
   showCoordinates = true,
-  hintMove = null
+  hintMove = null,
+  arrows = []
 }) {
   const [selectedSquare, setSelectedSquare] = useState(null);
   const [draggedSquare, setDraggedSquare] = useState(null);
@@ -54,6 +55,18 @@ export default function ChessBoard({
   const boardRef = useRef(null);
 
   const theme = BOARD_THEMES[boardTheme] || BOARD_THEMES.tournament;
+
+  // Helper to compute center coordinates of a square (0-100% relative)
+  const getSquareCenter = (sq) => {
+    const coords = squareToCoords(sq);
+    if (!coords) return { x: 50, y: 50 };
+    const c = isFlipped ? 7 - coords.col : coords.col;
+    const r = isFlipped ? 7 - coords.row : coords.row;
+    return {
+      x: (c + 0.5) * 12.5,
+      y: (r + 0.5) * 12.5
+    };
+  };
 
   // Initialize a chess instance for calculating legal moves
   const game = useMemo(() => createChessGame(fen), [fen]);
@@ -271,6 +284,41 @@ export default function ChessBoard({
               );
             });
           })}
+          {/* SVG Arrow Overlay Layer for Best Moves & MultiPV */}
+          {arrows && arrows.length > 0 && (
+            <svg className="absolute inset-0 w-full h-full pointer-events-none z-20">
+              <defs>
+                <marker id="arrowhead-green" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+                  <polygon points="0 0, 6 3, 0 6" fill="#10b981" />
+                </marker>
+                <marker id="arrowhead-blue" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+                  <polygon points="0 0, 6 3, 0 6" fill="#3b82f6" />
+                </marker>
+                <marker id="arrowhead-amber" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+                  <polygon points="0 0, 6 3, 0 6" fill="#f59e0b" />
+                </marker>
+              </defs>
+              {arrows.map((arr, aIdx) => {
+                const start = getSquareCenter(arr.from);
+                const end = getSquareCenter(arr.to);
+                const markerId = arr.color === '#10b981' ? 'arrowhead-green' : arr.color === '#3b82f6' ? 'arrowhead-blue' : 'arrowhead-amber';
+                return (
+                  <line
+                    key={aIdx}
+                    x1={`${start.x}%`}
+                    y1={`${start.y}%`}
+                    x2={`${end.x}%`}
+                    y2={`${end.y}%`}
+                    stroke={arr.color || '#10b981'}
+                    strokeWidth="4.5"
+                    strokeLinecap="round"
+                    opacity="0.85"
+                    markerEnd={`url(#${markerId})`}
+                  />
+                );
+              })}
+            </svg>
+          )}
         </div>
 
         {/* Pawn Promotion Modal Overlay */}
