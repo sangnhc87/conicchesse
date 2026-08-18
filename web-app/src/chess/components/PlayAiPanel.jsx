@@ -337,17 +337,54 @@ export default function PlayAiPanel({ boardTheme }) {
           )}
         </div>
 
-        {/* Master Chess Board with Visual Arrows */}
-        <div className="w-full aspect-square max-w-[540px] shadow-2xl rounded-2xl overflow-hidden border-2 border-[#232a3d]">
-          <ChessBoard
-            fen={fen}
-            onMove={handlePlayerMove}
-            isFlipped={playerColor === 'b'}
-            lastMove={lastMove}
-            arrows={boardArrows}
-            boardTheme={boardTheme}
-            disabled={gameStatus !== 'playing' || isAiThinking}
-          />
+        {/* Master Chess Board & Tournament Vertical Eval Bar Side-by-Side */}
+        <div className="flex items-center justify-center gap-2.5 w-full max-w-[580px]">
+          
+          {/* TOURNAMENT VERTICAL EVALUATION BAR (Chess.com / Lichess Standard) */}
+          <div 
+            className="w-6 md:w-7 h-[420px] md:h-[500px] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
+            title={`Điểm thế trận: ${evalScore > 0 ? `+${evalScore.toFixed(1)} Trắng` : `${evalScore.toFixed(1)} Đen`}`}
+          >
+            {/* Center Balance Equilibrium Marker (0.0) */}
+            <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-amber-400/70 z-20 pointer-events-none" />
+
+            {/* Black Advantage Score (Top) */}
+            <div className="absolute top-2 left-0 right-0 flex justify-center z-20 pointer-events-none">
+              {(playerColor === 'w' ? evalScore < -0.3 : evalScore > 0.3) && (
+                <span className="text-[10px] font-mono font-black text-white px-1 py-0.5 rounded bg-black/70 shadow border border-white/10">
+                  {Math.abs(evalScore).toFixed(1)}
+                </span>
+              )}
+            </div>
+
+            {/* White Fill Bar (Bottom or Dynamic based on playerColor) */}
+            <div 
+              className="w-full bg-slate-100 transition-all duration-500 ease-out flex flex-col justify-end items-center pb-2 relative z-10"
+              style={{ 
+                height: `${Math.max(5, Math.min(95, 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * Math.max(-1200, Math.min(1200, (playerColor === 'w' ? evalScore : -evalScore) * 100)))) - 1)))}%` 
+              }}
+            >
+              {/* White Advantage Score (Bottom) */}
+              {(playerColor === 'w' ? evalScore > 0.3 : evalScore < -0.3) && (
+                <span className="text-[10px] font-mono font-black text-slate-950 px-1 py-0.5 rounded bg-white/90 shadow border border-black/10">
+                  +{Math.abs(evalScore).toFixed(1)}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Master Chess Board with Visual Arrows */}
+          <div className="flex-1 aspect-square max-w-[500px] shadow-2xl rounded-2xl overflow-hidden border-2 border-[#232a3d]">
+            <ChessBoard
+              fen={fen}
+              onMove={handlePlayerMove}
+              isFlipped={playerColor === 'b'}
+              lastMove={lastMove}
+              arrows={boardArrows}
+              boardTheme={boardTheme}
+              disabled={gameStatus !== 'playing' || isAiThinking}
+            />
+          </div>
         </div>
 
         {/* Bottom Bar: Player Info & Eval Score */}
