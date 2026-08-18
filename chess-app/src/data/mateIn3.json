@@ -1,0 +1,3308 @@
+[
+  {
+    "id": "M3_001",
+    "title": "Thí Hậu kinh điển Opera House - Bài 1",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_002",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 2",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_003",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 3",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_004",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 4",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_005",
+    "title": "Thí Hậu kinh điển Opera House - Bài 5",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_006",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 6",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_007",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 7",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_008",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 8",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_009",
+    "title": "Thí Hậu kinh điển Opera House - Bài 9",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_010",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 10",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_011",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 11",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_012",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 12",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_013",
+    "title": "Thí Hậu kinh điển Opera House - Bài 13",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_014",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 14",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_015",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 15",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_016",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 16",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_017",
+    "title": "Thí Hậu kinh điển Opera House - Bài 17",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_018",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 18",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_019",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 19",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_020",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 20",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_021",
+    "title": "Thí Hậu kinh điển Opera House - Bài 21",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_022",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 22",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_023",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 23",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_024",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 24",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_025",
+    "title": "Thí Hậu kinh điển Opera House - Bài 25",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_026",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 26",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_027",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 27",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_028",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 28",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_029",
+    "title": "Thí Hậu kinh điển Opera House - Bài 29",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_030",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 30",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_031",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 31",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_032",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 32",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_033",
+    "title": "Thí Hậu kinh điển Opera House - Bài 33",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_034",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 34",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_035",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 35",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_036",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 36",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_037",
+    "title": "Thí Hậu kinh điển Opera House - Bài 37",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_038",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 38",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_039",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 39",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_040",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 40",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_041",
+    "title": "Thí Hậu kinh điển Opera House - Bài 41",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_042",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 42",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_043",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 43",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_044",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 44",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_045",
+    "title": "Thí Hậu kinh điển Opera House - Bài 45",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_046",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 46",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_047",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 47",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_048",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 48",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_049",
+    "title": "Thí Hậu kinh điển Opera House - Bài 49",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_050",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 50",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_051",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 51",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_052",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 52",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_053",
+    "title": "Thí Hậu kinh điển Opera House - Bài 53",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_054",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 54",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_055",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 55",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_056",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 56",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_057",
+    "title": "Thí Hậu kinh điển Opera House - Bài 57",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_058",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 58",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_059",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 59",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_060",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 60",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_061",
+    "title": "Thí Hậu kinh điển Opera House - Bài 61",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_062",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 62",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_063",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 63",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_064",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 64",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_065",
+    "title": "Thí Hậu kinh điển Opera House - Bài 65",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_066",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 66",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_067",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 67",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_068",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 68",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_069",
+    "title": "Thí Hậu kinh điển Opera House - Bài 69",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_070",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 70",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_071",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 71",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_072",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 72",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_073",
+    "title": "Thí Hậu kinh điển Opera House - Bài 73",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_074",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 74",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_075",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 75",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_076",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 76",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_077",
+    "title": "Thí Hậu kinh điển Opera House - Bài 77",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_078",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 78",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_079",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 79",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_080",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 80",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_081",
+    "title": "Thí Hậu kinh điển Opera House - Bài 81",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_082",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 82",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_083",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 83",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_084",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 84",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_085",
+    "title": "Thí Hậu kinh điển Opera House - Bài 85",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_086",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 86",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_087",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 87",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_088",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 88",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_089",
+    "title": "Thí Hậu kinh điển Opera House - Bài 89",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_090",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 90",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_091",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 91",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_092",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 92",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_093",
+    "title": "Thí Hậu kinh điển Opera House - Bài 93",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_094",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 94",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_095",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 95",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_096",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 96",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_097",
+    "title": "Thí Hậu kinh điển Opera House - Bài 97",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_098",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 98",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_099",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 99",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_100",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 100",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_101",
+    "title": "Thí Hậu kinh điển Opera House - Bài 101",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_102",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 102",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_103",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 103",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_104",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 104",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_105",
+    "title": "Thí Hậu kinh điển Opera House - Bài 105",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_106",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 106",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_107",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 107",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_108",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 108",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_109",
+    "title": "Thí Hậu kinh điển Opera House - Bài 109",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_110",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 110",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_111",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 111",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_112",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 112",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_113",
+    "title": "Thí Hậu kinh điển Opera House - Bài 113",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_114",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 114",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_115",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 115",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_116",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 116",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_117",
+    "title": "Thí Hậu kinh điển Opera House - Bài 117",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_118",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 118",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_119",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 119",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_120",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 120",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_121",
+    "title": "Thí Hậu kinh điển Opera House - Bài 121",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_122",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 122",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_123",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 123",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_124",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 124",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_125",
+    "title": "Thí Hậu kinh điển Opera House - Bài 125",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_126",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 126",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_127",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 127",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_128",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 128",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_129",
+    "title": "Thí Hậu kinh điển Opera House - Bài 129",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_130",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 130",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_131",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 131",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_132",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 132",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_133",
+    "title": "Thí Hậu kinh điển Opera House - Bài 133",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_134",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 134",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_135",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 135",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_136",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 136",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_137",
+    "title": "Thí Hậu kinh điển Opera House - Bài 137",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_138",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 138",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_139",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 139",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_140",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 140",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_141",
+    "title": "Thí Hậu kinh điển Opera House - Bài 141",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_142",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 142",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_143",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 143",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_144",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 144",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_145",
+    "title": "Thí Hậu kinh điển Opera House - Bài 145",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_146",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 146",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_147",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 147",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_148",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 148",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_149",
+    "title": "Thí Hậu kinh điển Opera House - Bài 149",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_150",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 150",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_151",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 151",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_152",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 152",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_153",
+    "title": "Thí Hậu kinh điển Opera House - Bài 153",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_154",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 154",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_155",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 155",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_156",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 156",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_157",
+    "title": "Thí Hậu kinh điển Opera House - Bài 157",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_158",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 158",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_159",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 159",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_160",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 160",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_161",
+    "title": "Thí Hậu kinh điển Opera House - Bài 161",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_162",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 162",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_163",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 163",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_164",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 164",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_165",
+    "title": "Thí Hậu kinh điển Opera House - Bài 165",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_166",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 166",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_167",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 167",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_168",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 168",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_169",
+    "title": "Thí Hậu kinh điển Opera House - Bài 169",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_170",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 170",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_171",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 171",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_172",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 172",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_173",
+    "title": "Thí Hậu kinh điển Opera House - Bài 173",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_174",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 174",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_175",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 175",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_176",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 176",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_177",
+    "title": "Thí Hậu kinh điển Opera House - Bài 177",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_178",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 178",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_179",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 179",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_180",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 180",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_181",
+    "title": "Thí Hậu kinh điển Opera House - Bài 181",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_182",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 182",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_183",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 183",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_184",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 184",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_185",
+    "title": "Thí Hậu kinh điển Opera House - Bài 185",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_186",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 186",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_187",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 187",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_188",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 188",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_189",
+    "title": "Thí Hậu kinh điển Opera House - Bài 189",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_190",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 190",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_191",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 191",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_192",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 192",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_193",
+    "title": "Thí Hậu kinh điển Opera House - Bài 193",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_194",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 194",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_195",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 195",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_196",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 196",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_197",
+    "title": "Thí Hậu kinh điển Opera House - Bài 197",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_198",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 198",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_199",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 199",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_200",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 200",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_201",
+    "title": "Thí Hậu kinh điển Opera House - Bài 201",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_202",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 202",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_203",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 203",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_204",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 204",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_205",
+    "title": "Thí Hậu kinh điển Opera House - Bài 205",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_206",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 206",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  },
+  {
+    "id": "M3_207",
+    "title": "Đòn Greek Gift (Thí Tượng h7) - Bài 207",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn Greek Gift (Thí Tượng h7)",
+    "fen": "r1bq1rk1/ppp2ppp/2n1pn2/8/3P4/2NB1N2/PPP2PPP/R1BQK2R w KQ - 0 8",
+    "turn": "w",
+    "moves": [
+      "Bxh7+",
+      "Kxh7",
+      "Ng5+",
+      "Kg8",
+      "Qh5"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Bxh7+! Kxh7 2. Ng5+ Kg8 3. Qh5 đe dọa Qh7# không thể chống đỡ."
+  },
+  {
+    "id": "M3_208",
+    "title": "Tổ hợp sát chiêu 3 nước cánh Vua - Bài 208",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Tổ hợp sát chiêu 3 nước cánh Vua",
+    "fen": "r2q1rk1/1pp1bppp/p1np1n2/4p3/2B1P1b1/2NP1N2/PPP2PPP/R1BQR1K1 w - - 0 9",
+    "turn": "w",
+    "moves": [
+      "h3",
+      "Bh5",
+      "g4",
+      "Bg6"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chuỗi nước đi khai thác điểm yếu thành trì đối phương."
+  },
+  {
+    "id": "M3_209",
+    "title": "Thí Hậu kinh điển Opera House - Bài 209",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Thí Hậu kinh điển Opera House",
+    "fen": "4kb1r/p2n1ppp/4q3/4p1B1/4P3/1Q6/PPP2PPP/2KR4 w k - 1 17",
+    "turn": "w",
+    "moves": [
+      "Qb8+",
+      "Nxb8",
+      "Rd8#"
+    ],
+    "difficulty": "Thử thách",
+    "description": "1. Qb8+! Nxb8 2. Rd8#! Đòn thí Hậu chấn động lịch sử cờ vua của Paul Morphy."
+  },
+  {
+    "id": "M3_210",
+    "title": "Đòn cối xay gió sát thủ (Windmill) - Bài 210",
+    "category": "Tập 3: Chiếu bí 3 - 4 nước (Mate in 3-4)",
+    "subcategory": "Đòn cối xay gió sát thủ (Windmill)",
+    "fen": "5rk1/1b3ppp/8/8/8/8/5PPP/R1B1R1K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Re7",
+      "Bc6",
+      "Raa7"
+    ],
+    "difficulty": "Thử thách",
+    "description": "Chiếu rút liên hoàn kết hợp Xe và Tượng quét sạch quân đối phương."
+  }
+]
