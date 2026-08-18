@@ -43,6 +43,20 @@ export default function ChessAppModule({ isKidMode = false }) {
   const [isAssistantEnabled, setIsAssistantEnabled] = useState(true);
   const [isPracticeMode, setIsPracticeMode] = useState(false);
 
+  // Analysis state
+  const [currentAnalysis, setCurrentAnalysis] = useState(null);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        const depth = chessMode === 'analysis' ? 3 : 2;
+        setCurrentAnalysis(ChessAnalysisEngine.analyze(currentFen, depth));
+      } catch (e) {
+        console.error("Eval error", e);
+      }
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [currentFen, chessMode]);
+
   // Analysis custom moves history
   const [analysisHistory, setAnalysisHistory] = useState([]);
 
@@ -262,16 +276,11 @@ export default function ChessAppModule({ isKidMode = false }) {
     if (hintMove) {
       return [{ from: hintMove.from, to: hintMove.to, color: '#f59e0b' }];
     }
-    if (chessMode === 'analysis') {
-      try {
-        const analysis = ChessAnalysisEngine.analyze(currentFen, 2);
-        if (analysis?.lines) {
-          return analysis.lines.map(l => ({ from: l.from, to: l.to, color: l.color }));
-        }
-      } catch (e) {}
+    if (chessMode === 'analysis' && currentAnalysis?.lines) {
+      return currentAnalysis.lines.map(l => ({ from: l.from, to: l.to, color: l.color }));
     }
     return [];
-  }, [hintMove, chessMode, currentFen]);
+  }, [hintMove, chessMode, currentAnalysis]);
 
   const nextMovePrompt = currentPuzzle?.moves?.[currentMoveIndex] 
     ? translateSanToVi(currentPuzzle.moves[currentMoveIndex])
@@ -284,7 +293,7 @@ export default function ChessAppModule({ isKidMode = false }) {
     setAnalysisHistory([]);
     setLastMove(null);
     setHintMove(null);
-    setCurrentPuzzle(null);
+    // Note: currentPuzzle is derived (not state), no setter needed
   };
 
   return (
@@ -427,7 +436,7 @@ export default function ChessAppModule({ isKidMode = false }) {
             {/* Tournament Vertical Evaluation Bar */}
             <div 
               className="w-6 md:w-7 h-[420px] md:h-[500px] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
-              title={`Điểm thế trận: ${currentPuzzle ? '+6.4' : (ChessAnalysisEngine.analyze(currentFen, 2)?.evalScore || '0.00')}`}
+              title={`Điểm thế trận: ${currentAnalysis?.evalScore || '0.00'}`}
             >
               {/* Equilibrium Line */}
               <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-amber-400/70 z-20 pointer-events-none" />
@@ -436,7 +445,7 @@ export default function ChessAppModule({ isKidMode = false }) {
               <div 
                 className="w-full bg-slate-100 transition-all duration-500 ease-out flex flex-col justify-end items-center pb-2 relative z-10"
                 style={{ 
-                  height: `${Math.max(5, Math.min(95, 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * Math.max(-1200, Math.min(1200, (!isFlipped ? (ChessAnalysisEngine.analyze(currentFen, 2)?.scorePawn || 0) : -(ChessAnalysisEngine.analyze(currentFen, 2)?.scorePawn || 0)) * 100)))) - 1)))}%` 
+                  height: `${Math.max(5, Math.min(95, 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * Math.max(-1200, Math.min(1200, (!isFlipped ? (currentAnalysis?.scorePawn || 0) : -(currentAnalysis?.scorePawn || 0)) * 100)))) - 1)))}%` 
                 }}
               />
             </div>
@@ -496,6 +505,7 @@ export default function ChessAppModule({ isKidMode = false }) {
               handlePlayerMove(line.from, line.to);
             }}
             onOpenMateSolver={() => setIsMateSolverOpen(true)}
+            onOpenEditor={() => setIsEditorOpen(true)}
             onOpenAiTutor={() => {}}
             onUndoMove={handleUndoAnalysis}
             canUndo={analysisHistory.length > 0}

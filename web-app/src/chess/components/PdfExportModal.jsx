@@ -25,7 +25,7 @@ export default function PdfExportModal({
   currentPuzzle
 }) {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
-  const [layoutMode, setLayoutMode] = useState('6'); // '2', '4', '6', '9'
+  const [layoutMode, setLayoutMode] = useState('9'); // '2', '4', '6', '9'
   const [colorMode, setColorMode] = useState('bw'); // 'bw' or 'color'
   const [includeMainCover, setIncludeMainCover] = useState(true);
   const [includeToc, setIncludeToc] = useState(true);
@@ -137,56 +137,53 @@ export default function PdfExportModal({
     // 1. GRAND MASTER BOOK COVER PAGE (Bìa Sách Hoàng Gia)
     if (includeMainCover) {
       masterCoverHtml = `
-        <div class="book-cover-page" style="page-break-after:always;break-after:page;min-height:980px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;border:6px double #1e3a8a;padding:35px 25px;background:#fffdf9;box-sizing:border-box;margin-bottom:30px;">
-          
-          <!-- Top Header Banner -->
-          <div style="border-bottom:2px solid #b45309;padding-bottom:10px;width:100%;">
-            <div style="font-size:13px;font-weight:900;color:#b45309;letter-spacing:4px;text-transform:uppercase;">
-              👑 KỲ ĐÀI CONIC • TỦ SÁCH CỜ VUA QUỐC TẾ 👑
+        <div class="print-page book-cover-page" style="display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;padding:40mm 20mm;background-color:#ffffff;position:relative;">
+          <!-- Khung viền hoành tráng -->
+          <div style="position:absolute;top:10mm;left:10mm;right:10mm;bottom:10mm;border:4px solid #1e3a8a;border-radius:12px;pointer-events:none;"></div>
+          <div style="position:absolute;top:12mm;left:12mm;right:12mm;bottom:12mm;border:1px solid #1e3a8a;border-radius:10px;pointer-events:none;"></div>
+
+          <!-- Header / Series Name -->
+          <div style="z-index:1; width:100%; margin-bottom: 20px;">
+            <div style="font-size:16pt;font-weight:900;color:#b45309;letter-spacing:6px;text-transform:uppercase;">
+              👑 KỲ ĐÀI CONIC • TỦ SÁCH CỜ VUA 👑
             </div>
-            <div style="font-size:10px;color:#64748b;margin-top:3px;letter-spacing:1.5px;font-weight:600;">
-              BÁCH KHOA TOÀN THƯ SÁT CỤC · CHIẾN THUẬT & TÀN CUỘC ĐỈNH CAO
+            <div style="font-size:11pt;color:#64748b;margin-top:6px;letter-spacing:2px;font-weight:700;">
+              BÁCH KHOA TOÀN THƯ KHAI CUỘC · TRUNG CUỘC · TÀN CUỘC & SÁT CỤC
             </div>
+            <div style="width:120px;height:2px;background:#b45309;margin:15px auto;"></div>
           </div>
 
-          <!-- Center Showcase with Master Icons & Title -->
-          <div style="padding:15px 10px;">
-            <!-- Authentic Chess King Badges: Pure White King & Ebony King -->
-            <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:14px;">
-              <div style="width:54px;height:54px;border-radius:50%;background:#ffffff;border:2.5px solid #b45309;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 3px 8px rgba(180,83,9,0.2);">
-                ♔
-              </div>
-              <div style="font-size:24px;color:#b45309;font-weight:bold;">⚔️</div>
-              <div style="width:54px;height:54px;border-radius:50%;background:#18181b;border:2.5px solid #000000;display:flex;align-items:center;justify-content:center;font-size:30px;color:#ffffff;box-shadow:0 3px 8px rgba(0,0,0,0.3);">
-                ♚
-              </div>
+          <!-- Main Title -->
+          <div style="z-index:1; padding: 20px 0; width: 100%;">
+            <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:20px;">
+              <div style="width:70px;height:70px;border-radius:50%;background:#ffffff;border:3px solid #b45309;display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 4px 12px rgba(180,83,9,0.2);">♔</div>
+              <div style="font-size:30px;color:#b45309;font-weight:bold;">⚔️</div>
+              <div style="width:70px;height:70px;border-radius:50%;background:#18181b;border:3px solid #000000;display:flex;align-items:center;justify-content:center;font-size:40px;color:#ffffff;box-shadow:0 4px 12px rgba(0,0,0,0.3);">♚</div>
             </div>
 
-            <h1 style="font-size:26px;font-weight:900;color:#1e3a8a;text-transform:uppercase;letter-spacing:1px;line-height:1.25;margin:0 0 8px 0;font-family:'Times New Roman', serif;">
+            <h1 style="font-size:32pt;font-weight:900;color:#1e3a8a;text-transform:uppercase;letter-spacing:2px;line-height:1.3;margin:0 0 15px 0;font-family:'Times New Roman', serif;">
               ${bookTitle}
             </h1>
             
-            <div style="font-size:13px;color:#475569;font-style:italic;max-width:600px;margin:0 auto 12px auto;line-height:1.4;">
+            <div style="font-size:14pt;color:#475569;font-style:italic;max-width:80%;margin:0 auto;line-height:1.5;">
               ${bookSubtitle}
             </div>
 
-            <!-- Dad's Loving Message to Conic: Balanced 2 Centered Lines -->
-            <div style="margin:14px 0 16px 0;padding:12px 32px;background:#fff5f5;border:2px solid #ef4444;border-radius:12px;display:inline-block;box-shadow:0 2px 8px rgba(239,68,68,0.12);text-align:center;">
-              <div style="font-size:14px;font-weight:900;color:#991b1b;letter-spacing:0.5px;font-family:'Times New Roman', serif;">
+            <div style="margin:30px 0;padding:15px 40px;background:#fff5f5;border:2px solid #ef4444;border-radius:12px;display:inline-block;box-shadow:0 4px 12px rgba(239,68,68,0.15);">
+              <div style="font-size:16pt;font-weight:900;color:#991b1b;letter-spacing:1px;font-family:'Times New Roman', serif;">
                 ❤️ TÀI LIỆU DÀNH CHO CONIC HỌC CỜ VUA ❤️
               </div>
-              <div style="font-size:13px;font-weight:900;color:#b91c1c;letter-spacing:1.5px;font-family:'Times New Roman', serif;margin-top:4px;">
+              <div style="font-size:14pt;font-weight:900;color:#b91c1c;letter-spacing:2px;font-family:'Times New Roman', serif;margin-top:6px;">
                 ✨ CON TRAI YÊU CỦA BA ✨
               </div>
             </div>
             
-            <!-- Category Tag Box -->
-            <div style="display:block;margin-top:6px;">
-              <div style="display:inline-block;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:8px;padding:8px 22px;">
-                <div style="font-size:12px;font-weight:900;color:#1e293b;text-transform:uppercase;letter-spacing:1px;">
+            <div style="margin-top: 10px;">
+              <div style="display:inline-block;background:#f8fafc;border:2px solid #cbd5e1;border-radius:10px;padding:12px 30px;">
+                <div style="font-size:14pt;font-weight:900;color:#1e293b;text-transform:uppercase;letter-spacing:1px;">
                   📁 CHUYÊN ĐỀ: ${selectedCategory === 'ALL' ? 'TOÀN BỘ KHO BÀI TẬP' : selectedCategory.toUpperCase()}
                 </div>
-                <div style="font-size:11px;color:#64748b;font-weight:700;margin-top:3px;">
+                <div style="font-size:12pt;color:#64748b;font-weight:700;margin-top:5px;">
                   Tuyển chọn ${itemsToExport.length} Thế Trận Tiêu Biểu (${chapters.length} Phân Chương)
                 </div>
               </div>
@@ -194,12 +191,12 @@ export default function PdfExportModal({
           </div>
 
           <!-- Bottom Footer -->
-          <div style="border-top:2px solid #b45309;padding-top:12px;width:100%;font-size:10.5px;color:#475569;line-height:1.5;">
-            <div style="font-weight:900;color:#1e293b;font-size:11.5px;margin-bottom:2px;letter-spacing:0.5px;">
+          <div style="z-index:1; border-top:2px solid #b45309;padding-top:15px;width:100%;font-size:11pt;color:#475569;line-height:1.6;">
+            <div style="font-weight:900;color:#1e293b;font-size:12pt;margin-bottom:4px;letter-spacing:1px;">
               BAN BIÊN SOẠN CHUYÊN MÔN KỲ ĐÀI CONIC
             </div>
             <div>Sách In Vector Chuẩn Xuất Bản A4 • Bố Cục ${layoutMode} Bàn Cờ / Trang</div>
-            <div style="color:#64748b;font-size:9.5px;margin-top:2px;">
+            <div style="color:#64748b;font-size:10pt;margin-top:4px;">
               Xuất bản: ${new Date().toLocaleDateString('vi-VN')} • Bản quyền © Kỳ Đài Conic
             </div>
           </div>
@@ -295,9 +292,11 @@ export default function PdfExportModal({
             const showFile = r === 7;
             const rankLabel = 8 - r;
             const fileLabel = String.fromCharCode(97 + c);
+            const topPercent = r * 12.5;
+            const leftPercent = c * 12.5;
 
             squaresHtml += `
-              <div class="square" style="background-color: ${bg}; position:relative;">
+              <div class="square" style="top: ${topPercent}%; left: ${leftPercent}%; background-color: ${bg};">
                 ${showRank ? `<span class="coord coord-rank" style="color:${isLight ? darkSquareBg : lightSquareBg}">${rankLabel}</span>` : ''}
                 ${showFile ? `<span class="coord coord-file" style="color:${isLight ? darkSquareBg : lightSquareBg}">${fileLabel}</span>` : ''}
                 ${pieceSvg ? `<div class="piece-box">${pieceSvg}</div>` : ''}
@@ -500,30 +499,31 @@ export default function PdfExportModal({
           }
 
           .board-frame {
+            position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
             max-height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border-radius: 4px;
             overflow: hidden;
             background: #000;
           }
           .board-grid {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            grid-template-rows: repeat(8, 1fr);
+            position: relative;
             width: 100%;
             height: 100%;
           }
           .square {
-            position: relative;
+            position: absolute;
+            width: 12.5%;
+            height: 12.5%;
             display: flex;
             align-items: center;
             justify-content: center;
           }
           .piece-box {
+            position: absolute;
+            top: 6%;
+            left: 6%;
             width: 88%;
             height: 88%;
             display: flex;

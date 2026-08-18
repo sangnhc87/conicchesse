@@ -11,6 +11,7 @@ export default function ChessDualAnalysisPanel({
   fen,
   onSelectCandidateMove,
   onOpenMateSolver,
+  onOpenEditor,
   onOpenAiTutor,
   onUndoMove,
   canUndo,
@@ -93,34 +94,40 @@ export default function ChessDualAnalysisPanel({
           </div>
         </div>
 
-        {/* Action Buttons: Ván Mới Tự Đánh, Dò Sát Cục, Đi Lại */}
-        <div className="grid grid-cols-3 gap-1.5">
+        {/* Action Buttons: Ván Mới Tự Đánh, Xếp Cờ Mới, Dò Sát Cục */}
+        <div className="grid grid-cols-4 gap-1.5">
           <button
             onClick={onResetToStart}
-            className="py-2 px-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-[11px] shadow-md transition flex items-center justify-center gap-1 active:scale-95"
-            title="Xếp lại 32 quân cờ từ đầu để tự đánh"
+            className="py-2 px-1 rounded-xl bg-[#141824] hover:bg-[#1a2030] text-slate-300 font-bold text-[10px] border border-[#232a3d] transition flex items-center justify-center gap-1 active:scale-95"
+            title="Đưa bàn cờ về vị trí ban đầu của Ván Cờ Tiêu Chuẩn"
           >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Ván Mới</span>
+            <RotateCcw className="w-3 h-3" />
+            Ván Mới
           </button>
-
           <button
-            onClick={onOpenMateSolver}
-            className="py-2 px-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-[11px] shadow-md transition flex items-center justify-center gap-1 active:scale-95"
-            title="Dò nước sát cục chiếu bí từ thế cờ hiện tại"
+            onClick={onOpenEditor}
+            className="py-2 px-1 rounded-xl bg-[#141824] hover:bg-[#1a2030] text-slate-300 font-bold text-[10px] border border-[#232a3d] transition flex items-center justify-center gap-1 active:scale-95"
+            title="Xếp cờ thủ công theo ý muốn"
           >
-            <Zap className="w-3.5 h-3.5 fill-current text-slate-950" />
-            <span>Dò Sát Cục</span>
+            <ListOrdered className="w-3 h-3 text-indigo-400" />
+            Xếp Cờ
           </button>
-
           <button
             onClick={onUndoMove}
             disabled={!canUndo}
-            className="py-2 px-2 rounded-xl bg-[#141824] hover:bg-[#1a2030] text-slate-300 disabled:opacity-30 font-bold text-[11px] border border-[#232a3d] transition flex items-center justify-center gap-1 active:scale-95"
+            className="py-2 px-1 rounded-xl bg-[#141824] hover:bg-[#1a2030] text-slate-300 disabled:opacity-30 font-bold text-[10px] border border-[#232a3d] transition flex items-center justify-center gap-1 active:scale-95"
             title="Hoàn tác nước đi vừa rồi"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
-            <span>Đi Lại</span>
+            <ChevronLeft className="w-3 h-3 text-amber-400" />
+            Đi Lại
+          </button>
+          <button
+            onClick={onOpenMateSolver}
+            className="py-2 px-1 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-[10px] shadow-md transition flex items-center justify-center gap-1 active:scale-95"
+            title="Dò tìm đường chiếu bí ép buộc"
+          >
+            <Zap className="w-3 h-3 fill-current" />
+            Sát Cục
           </button>
         </div>
       </div>

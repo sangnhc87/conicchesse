@@ -2,9 +2,52 @@ import React, { useState, useEffect } from 'react';
 import { 
   Bot, Swords, Lightbulb, Printer, CheckCircle2, ChevronLeft, ChevronRight,
   Play, Pause, RotateCcw, FastForward, Rewind, Sparkles, BookOpen, FileText,
-  Check, Volume2, VolumeX, Eye
+  Check, Volume2, VolumeX, Eye, AlertTriangle
 } from 'lucide-react';
 import { translateSanToVi } from '../lib/chessLogic';
+
+/**
+ * Tính thực tế bên tấn công đi bao nhiêu nước (Mate in N).
+ * - turn='w' → Trắng tấn công: nước 0,2,4... là của Trắng → N = ceil(total/2)
+ * - turn='b' → Đen tấn công: nước 0,2,4... là của Đen → N = ceil(total/2)
+ * - Nếu nước cuối kết thúc bằng '#' → là chiếu bí thật
+ * - Nếu không có '#' → là đòn tấn công cưỡng bức (forcing combination)
+ */
+function computeMateInfo(puzzle) {
+  if (!puzzle || !puzzle.moves || puzzle.moves.length === 0) return null;
+  const moves = puzzle.moves;
+  const turn = puzzle.turn || (puzzle.fen ? puzzle.fen.split(' ')[1] : 'w');
+  const total = moves.length;
+  // Attacker always starts at index 0 and plays every 2 moves
+  const attackerMoves = Math.ceil(total / 2);
+  const lastMove = moves[total - 1];
+  const isCheckmate = lastMove.endsWith('#');
+  const isCheck = lastMove.endsWith('+');
+  const isForcingCombination = !isCheckmate && !isCheck;
+
+  return {
+    n: attackerMoves,
+    turn,
+    isCheckmate,
+    isForcingCombination,
+    label: isCheckmate
+      ? `Mate in ${attackerMoves}`
+      : `Đòn ${attackerMoves} Nước`,
+    labelVi: isCheckmate
+      ? `Chiếu Bí ${attackerMoves} Nước`
+      : `Tổ Hợp ${attackerMoves} Nước`,
+    color: attackerMoves === 1 ? '#f59e0b'
+         : attackerMoves === 2 ? '#10b981'
+         : attackerMoves === 3 ? '#3b82f6'
+         : attackerMoves === 4 ? '#8b5cf6'
+         : '#ef4444',
+    bgClass: attackerMoves === 1 ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+           : attackerMoves === 2 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+           : attackerMoves === 3 ? 'bg-blue-500/20 text-blue-300 border-blue-500/40'
+           : attackerMoves === 4 ? 'bg-violet-500/20 text-violet-300 border-violet-500/40'
+           : 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+  };
+}
 
 export default function ChessStudyStudioPanel({
   currentPuzzle,
@@ -30,6 +73,8 @@ export default function ChessStudyStudioPanel({
   if (!currentPuzzle) return null;
 
   const totalMoves = currentPuzzle.moves?.length || 0;
+  const mateInfo = computeMateInfo(currentPuzzle);
+  const puzzleTurn = currentPuzzle.turn || (currentPuzzle.fen ? currentPuzzle.fen.split(' ')[1] : 'w');
 
   return (
     <div className="w-80 lg:w-96 bg-[#0c0f17] border-l border-[#202636] flex flex-col h-full z-20 shrink-0 select-none">
@@ -39,11 +84,28 @@ export default function ChessStudyStudioPanel({
           <div className="text-[10px] text-amber-400 font-bold truncate flex items-center gap-1.5">
             <span>📁 {currentPuzzle.subcategory || currentPuzzle.category}</span>
           </div>
-          <div className="flex items-center gap-2 mt-0.5">
+          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
             <span className="font-mono text-xs font-bold text-slate-100">{currentPuzzle.id}</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-bold border border-amber-500/30">
-              {currentPuzzle.difficulty || 'Thế Cờ Sát Cục'}
+            {/* Mate-in-N badge computed from actual moves */}
+            {mateInfo && (
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-black border ${mateInfo.bgClass}`}>
+                {mateInfo.isCheckmate ? '♟️ ' : '⚔️ '}{mateInfo.labelVi}
+              </span>
+            )}
+            {/* Turn side badge */}
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold border ${
+              puzzleTurn === 'w'
+                ? 'bg-slate-100/10 text-slate-200 border-slate-400/30'
+                : 'bg-slate-900/60 text-slate-300 border-slate-600/40'
+            }`}>
+              {puzzleTurn === 'w' ? '⚪ Trắng đi' : '⚫ Đen đi'}
             </span>
+            {/* Warning if forcing combination, not literal checkmate on last move */}
+            {mateInfo?.isForcingCombination && (
+              <span className="text-[10px] text-orange-400 flex items-center gap-0.5">
+                <AlertTriangle className="w-3 h-3" /> Cưỡng Bức
+              </span>
+            )}
           </div>
         </div>
 
@@ -210,11 +272,26 @@ export default function ChessStudyStudioPanel({
         {/* Moves Tab */}
         {activeTab === 'moves' && (
           <div className="space-y-1 font-mono">
+            {/* Mate-in-N summary row */}
+            {mateInfo && (
+              <div className={`p-2 rounded-xl border text-xs font-bold text-center mb-2 ${mateInfo.bgClass}`}>
+                {puzzleTurn === 'w' ? '⚪ Trắng' : '⚫ Đen'} cần <strong>{mateInfo.n} nước</strong> để {mateInfo.isCheckmate ? 'chiếu bí' : 'tấn công cưỡng bức'}
+                {' '}({totalMoves} nước tổng)
+              </div>
+            )}
             {currentPuzzle.moves?.map((m, idx) => {
               const isActive = currentMoveIndex === idx + 1;
               const moveVi = translateSanToVi(m);
-              const turnNum = Math.floor(idx / 2) + 1;
-              const isWhiteTurn = idx % 2 === 0;
+              // Fix: if White starts (turn='w'), White is at even indices (0,2,4...)
+              // if Black starts (turn='b'), Black is at even indices (0,2,4...)
+              const isAttackerMove = idx % 2 === 0; // attacker always at even indices
+              const isWhiteAttacking = puzzleTurn === 'w';
+              const isWhiteMove = isWhiteAttacking ? isAttackerMove : !isAttackerMove;
+              // Turn number: count of full moves from start
+              const turnNum = isWhiteAttacking
+                ? Math.floor(idx / 2) + 1
+                : (idx === 0 ? 1 : Math.floor((idx + 1) / 2) + 1);
+              const showTurnNum = isWhiteMove; // show turn number on White moves
 
               return (
                 <div
@@ -223,16 +300,25 @@ export default function ChessStudyStudioPanel({
                   className={`p-2 rounded-xl cursor-pointer transition flex items-center justify-between ${
                     isActive
                       ? 'bg-amber-500 text-slate-950 font-bold shadow-md'
-                      : 'bg-[#141824]/60 text-slate-300 hover:bg-[#161a24]'
+                      : isAttackerMove
+                        ? 'bg-[#141824]/60 text-slate-200 hover:bg-[#161a24]'
+                        : 'bg-[#0c0f17]/80 text-slate-400 hover:bg-[#10141e]'
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="opacity-60 text-[10px] w-6">
-                      {isWhiteTurn ? `${turnNum}.` : ''}
+                    <span className={`opacity-60 text-[10px] w-6 ${isAttackerMove ? 'font-black' : 'font-normal'}`}>
+                      {showTurnNum ? `${turnNum}.` : '...'}
                     </span>
-                    <span className="font-bold">{m}</span>
+                    <span className={isAttackerMove ? 'font-black' : 'font-normal italic'}>{m}</span>
+                    {isAttackerMove && (
+                      <span className={`text-[9px] px-1 rounded font-bold ${
+                        isActive ? 'bg-slate-900/30 text-slate-900' : 'bg-amber-500/10 text-amber-400'
+                      }`}>
+                        {isWhiteAttacking ? '⚪' : '⚫'}
+                      </span>
+                    )}
                   </div>
-                  <span className={`text-[11px] ${isActive ? 'text-slate-900' : 'text-slate-400'}`}>
+                  <span className={`text-[11px] ${isActive ? 'text-slate-900' : isAttackerMove ? 'text-slate-300' : 'text-slate-500'}`}>
                     {moveVi}
                   </span>
                 </div>

@@ -3,15 +3,44 @@ import confetti from 'canvas-confetti';
 import { 
   Trophy, RotateCcw, Lightbulb, ArrowRight, ArrowLeft, CheckCircle2, 
   XCircle, Flame, Sparkles, Volume2, VolumeX, Eye, Bookmark, HelpCircle,
-  Award, Star, CheckSquare, ListFilter
+  Award, Star, CheckSquare, ListFilter, AlertTriangle
 } from 'lucide-react';
 import ChessBoard from './ChessBoard';
 import { createChessGame, translateSanToVi } from '../lib/chessLogic';
 import { audioEngine } from './AudioEngine';
 
+/**
+ * Tính số nước thực tế của bên tấn công (Mate in N).
+ * Attacker luôn đi trước (index 0,2,4...) → N = ceil(total / 2)
+ */
+function computeMateInfo(puzzle) {
+  if (!puzzle || !puzzle.moves || puzzle.moves.length === 0) return null;
+  const moves = puzzle.moves;
+  const turn = puzzle.turn || (puzzle.fen ? puzzle.fen.split(' ')[1] : 'w');
+  const total = moves.length;
+  const attackerMoves = Math.ceil(total / 2);
+  const lastMove = moves[total - 1];
+  const isCheckmate = lastMove.endsWith('#');
+  const isForcingCombination = !isCheckmate && !lastMove.endsWith('+');
+  return {
+    n: attackerMoves,
+    turn,
+    isCheckmate,
+    isForcingCombination,
+    labelVi: isCheckmate ? `Chiếu Bí ${attackerMoves} Nước` : `Tổ Hợp ${attackerMoves} Nước`,
+    bgClass: attackerMoves === 1 ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+           : attackerMoves === 2 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+           : attackerMoves === 3 ? 'bg-blue-500/20 text-blue-300 border-blue-500/40'
+           : attackerMoves === 4 ? 'bg-violet-500/20 text-violet-300 border-violet-500/40'
+           : 'bg-rose-500/20 text-rose-300 border-rose-500/40',
+  };
+}
+
 const STORAGE_KEY_SOLVED = 'conic_chess_solved_ids';
 const STORAGE_KEY_WRONG = 'conic_chess_wrong_ids';
 const STORAGE_KEY_BOOKMARKS = 'conic_chess_bookmarked_ids';
+
+
 
 export default function PuzzlePracticePanel({
   catalog,
@@ -270,6 +299,7 @@ export default function PuzzlePracticePanel({
   const turnLabel = turn === 'w' ? '⚪ Quân Trắng đi' : '⚫ Quân Đen đi';
   const isBookmarked = bookmarkedIds.includes(currentPuzzle.id);
   const isSolved = solvedIds.includes(currentPuzzle.id);
+  const mateInfo = computeMateInfo(currentPuzzle);
 
   // Badge calculations
   const totalSolved = solvedIds.length;
@@ -383,15 +413,42 @@ export default function PuzzlePracticePanel({
         {/* Puzzle Info Box */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
           <div>
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider">
-                {currentPuzzle.subcategory || currentPuzzle.category}
+            {/* Mate-in-N badge row */}
+            <div className="flex items-center gap-1.5 flex-wrap mb-1.5">
+              {mateInfo && (
+                <span className={`text-[11px] px-2.5 py-0.5 rounded-full font-black border ${mateInfo.bgClass}`}>
+                  {mateInfo.isCheckmate ? '♟ ' : '⚔ '}{mateInfo.labelVi}
+                </span>
+              )}
+              <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold border ${
+                (mateInfo?.turn || 'w') === 'w'
+                  ? 'bg-slate-100/10 text-slate-200 border-slate-400/30'
+                  : 'bg-slate-900/60 text-slate-300 border-slate-600/40'
+              }`}>
+                {(mateInfo?.turn || 'w') === 'w' ? '⚪ Trắng tấn công' : '⚫ Đen tấn công'}
               </span>
-              <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-semibold">
-                Độ khó: {currentPuzzle.difficulty || 'Căn bản'}
+              {mateInfo?.isForcingCombination && (
+                <span className="text-[10px] text-orange-400 flex items-center gap-0.5 font-bold">
+                  <AlertTriangle className="w-3 h-3" /> Cưỡng Bức
+                </span>
+              )}
+              <span className="ml-auto text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-semibold">
+                {currentPuzzle.difficulty || 'Căn bản'}
               </span>
             </div>
-            <h2 className="text-lg font-bold text-slate-100">{currentPuzzle.title}</h2>
+            {/* Nước tấn công count info */}
+            {mateInfo && (
+              <div className="text-[11px] text-slate-400 mb-1.5 font-medium">
+                Bên {mateInfo.turn === 'w' ? 'Trắng' : 'Đen'} dùng{' '}
+                <strong className="text-slate-200">{mateInfo.n} nước</strong> để{' '}
+                {mateInfo.isCheckmate ? 'chiếu bí' : 'tấn công cưỡng bức'}
+                {' '}({currentPuzzle.moves.length} nước tổng cộng kể cả phòng thủ)
+              </div>
+            )}
+            <div className="text-[10px] text-amber-400 font-bold uppercase tracking-wider mb-0.5">
+              {currentPuzzle.subcategory || currentPuzzle.category}
+            </div>
+            <h2 className="text-base font-bold text-slate-100">{currentPuzzle.title}</h2>
           </div>
 
           {/* Description & Instruction */}
@@ -500,10 +557,10 @@ export default function PuzzlePracticePanel({
               }}
               className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100 font-semibold focus:outline-none focus:border-amber-400"
             >
-              <option value="ALL">📚 Toàn Bộ 1.250+ Bài Tập</option>
-              {Object.keys(catalog?.categories || {}).map((cat) => (
+              <option value="ALL">📚 Toàn Bộ {allPuzzles.length} Bài Tập</option>
+              {Object.entries(catalog?.categories || {}).map(([cat, info]) => (
                 <option key={cat} value={cat}>
-                  {cat} ({catalog.categories[cat].count} bài)
+                  {cat} ({typeof info === 'object' ? info.count : info} bài)
                 </option>
               ))}
             </select>
