@@ -297,11 +297,17 @@ export default function ChessBoard({
                 <marker id="arrowhead-amber" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
                   <polygon points="0 0, 6 3, 0 6" fill="#f59e0b" />
                 </marker>
+                <marker id="arrowhead-red" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+                  <polygon points="0 0, 6 3, 0 6" fill="#ef4444" />
+                </marker>
               </defs>
               {arrows.map((arr, aIdx) => {
                 const start = getSquareCenter(arr.from);
                 const end = getSquareCenter(arr.to);
-                const markerId = arr.color === '#10b981' ? 'arrowhead-green' : arr.color === '#3b82f6' ? 'arrowhead-blue' : 'arrowhead-amber';
+                const markerId = arr.color === '#10b981' ? 'arrowhead-green' 
+                  : arr.color === '#ef4444' ? 'arrowhead-red'
+                  : arr.color === '#3b82f6' ? 'arrowhead-blue' 
+                  : 'arrowhead-amber';
                 return (
                   <line
                     key={aIdx}
