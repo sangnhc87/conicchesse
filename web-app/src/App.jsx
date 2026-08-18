@@ -1388,24 +1388,24 @@ export default function App() {
           </div>
 
           {/* Game Switcher: Cờ Tướng vs Cờ Vua */}
-          <div className="hidden sm:flex items-center p-0.5 bg-[#141824] border border-amber-500/30 rounded-xl ml-2 shadow-inner">
+          <div className="flex items-center p-0.5 bg-[#141824] border border-amber-500/40 rounded-xl shadow-lg">
             <button
               onClick={() => handleSwitchGameType('xiangqi')}
-              className="px-2.5 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-sm"
+              className="px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-sm"
             >
               <span>🔴 CỜ TƯỚNG</span>
             </button>
             <button
               onClick={() => handleSwitchGameType('chess')}
-              className="px-2.5 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 text-gray-400 hover:text-amber-300 hover:bg-white/5"
+              className="px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 text-amber-300 hover:text-amber-200 hover:bg-amber-500/20 animate-pulse"
             >
-              <span>👑 CỜ VUA</span>
+              <span>👑 CỜ VUA (MỚI)</span>
             </button>
           </div>
         </div>
 
-        {/* Center: Clean Segmented Mode Selector (3 Modes) */}
-        <div className="hidden md:flex items-center p-1 rounded-xl bg-[#141824] border border-[#232a3d] shadow-inner gap-0.5">
+        {/* Center: Clean Segmented Mode Selector + Direct Chess Tab */}
+        <div className="hidden md:flex items-center p-1 rounded-xl bg-[#141824] border border-[#232a3d] shadow-inner gap-1">
           <button
             onClick={() => setAppMode('study')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
@@ -1440,6 +1440,13 @@ export default function App() {
           >
             <Swords className="w-3.5 h-3.5" />
             <span>Đấu AI</span>
+          </button>
+
+          <button
+            onClick={() => handleSwitchGameType('chess')}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 shadow-md shadow-amber-500/30 transition-all active:scale-95"
+          >
+            <span>👑 SÁT CỤC CỜ VUA</span>
           </button>
         </div>
 
