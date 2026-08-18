@@ -1,10 +1,22 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   Printer, X, BookOpen, Layers, Eye, FileText, CheckCircle, Sparkles, LayoutGrid,
-  Hash, Sliders, ChevronDown, Check, ArrowRight, CheckCircle2, Download
+  Hash, Sliders, ChevronDown, Check, ArrowRight, CheckCircle2, Download, FileDown,
+  RefreshCw, Award, Heart, HelpCircle
 } from 'lucide-react';
 import { fenToBoard, translateSanToVi } from '../lib/chessLogic';
 import { getPieceSvgString } from '../lib/chessPieces';
+import { invoke as tauriInvoke, isTauri as checkIsTauri } from '@tauri-apps/api/core';
+
+const CHESS_QUOTES = [
+  "✨ Mỗi Đại Kiện Tướng cờ vua thế giới đều từng là một người mới bắt đầu. Hãy kiên trì mỗi ngày con nhé!",
+  "🎯 Chiến thuật là biết phải làm gì khi có việc cần làm. Chiến lược là biết phải làm gì khi chẳng có việc gì để làm.",
+  "💡 Cờ vua là phòng tập thể dục cho trí não. Mỗi nước cờ rèn luyện tính kiên nhẫn và tầm nhìn sâu rộng.",
+  "🏆 Hãy nhìn xa hơn một nước đi - người chiến thắng là người có kế hoạch rõ ràng và bình tĩnh thực hiện.",
+  "🌟 Trong cờ vua cũng như cuộc sống, sai lầm lớn nhất là vội vàng hành động mà không suy nghĩ.",
+  "⚔️ Tốt là linh hồn của ván cờ. Dù là quân cờ nhỏ bé nhất, một khi tiến bước không lùi sẽ trở thành Hậu vĩ đại!",
+  "❤️ Conic hãy luôn tự tin, tôn trọng đối thủ và tận hưởng niềm vui trong từng nước cờ nhé!"
+];
 
 export default function PdfExportModal({
   isOpen,
@@ -13,24 +25,42 @@ export default function PdfExportModal({
   currentPuzzle
 }) {
   const [selectedCategory, setSelectedCategory] = useState('ALL');
-  const [layoutMode, setLayoutMode] = useState('6'); // '4', '6', '9', '12'
+  const [layoutMode, setLayoutMode] = useState('6'); // '2', '4', '6', '9'
   const [colorMode, setColorMode] = useState('bw'); // 'bw' or 'color'
-  const [includeCover, setIncludeCover] = useState(true);
+  const [includeMainCover, setIncludeMainCover] = useState(true);
   const [includeToc, setIncludeToc] = useState(true);
   const [includeAnswerLines, setIncludeAnswerLines] = useState(true);
   const [includeAnswersAtEnd, setIncludeAnswersAtEnd] = useState(true);
-  const [bookTitle, setBookTitle] = useState('TUYỂN TẬP BÀI TẬP CỜ VUA CONIC');
-  const [studentName, setStudentName] = useState('Bé Yêu');
-  const [quantityMode, setQuantityMode] = useState('all'); // 'all', '12', '24', '36', 'custom'
+  const [bookTitle, setBookTitle] = useState('KỲ PHỔ CỜ VUA CONIC');
+  const [bookSubtitle, setBookSubtitle] = useState('Tuyển Tập Nghiên Cứu & Luyện Tập Sát Cục - Khai Cuộc - Tàn Cuộc');
+  const [studentName, setStudentName] = useState('Conic - Con Trai Yêu Của Ba');
+  const [quantityMode, setQuantityMode] = useState('all'); // 'all', '12', '24', '36', '48', 'custom'
   const [customStart, setCustomStart] = useState(1);
   const [customEnd, setCustomEnd] = useState(24);
 
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [progressStepText, setProgressStepText] = useState('Đang khởi tạo...');
+  const [toastMsg, setToastMsg] = useState(null);
+
   const allItems = catalog?.items || [];
+
+  // Categories list with count
+  const categoryList = useMemo(() => {
+    const counts = {};
+    allItems.forEach(it => {
+      const cat = it.category || 'Bài Tập Tổng Hợp';
+      counts[cat] = (counts[cat] || 0) + 1;
+    });
+    return Object.keys(counts).map(cat => ({
+      name: cat,
+      count: counts[cat]
+    }));
+  }, [allItems]);
 
   // Filter items by category
   const filteredItems = useMemo(() => {
     if (selectedCategory === 'ALL') return allItems;
-    return allItems.filter(item => item.category === selectedCategory);
+    return allItems.filter(item => (item.category || 'Bài Tập Tổng Hợp') === selectedCategory);
   }, [allItems, selectedCategory]);
 
   // Sliced items based on quantity
@@ -44,6 +74,19 @@ export default function PdfExportModal({
     const count = parseInt(quantityMode, 10) || 24;
     return filteredItems.slice(0, count);
   }, [filteredItems, quantityMode, customStart, customEnd]);
+
+  // Update book title automatically when category changes
+  useEffect(() => {
+    if (selectedCategory === 'ALL') {
+      setBookTitle('KỲ PHỔ CỜ VUA CONIC');
+      setBookSubtitle('Bách Khoa Toàn Thư Sát Cục & Chiến Thuật Tinh Hoa (5.530+ Thế Cờ)');
+    } else {
+      setBookTitle(`KỲ PHỔ CỜ VUA CONIC • ${selectedCategory.toUpperCase()}`);
+      setBookSubtitle(`Chuyên Đề Huấn Luyện & Bài Tập Thực Chiến Tuyển Chọn`);
+    }
+    setCustomStart(1);
+    setCustomEnd(Math.min(filteredItems.length, 36));
+  }, [selectedCategory, filteredItems.length]);
 
   // Close on Escape
   useEffect(() => {
@@ -63,98 +106,182 @@ export default function PdfExportModal({
   const puzzlesPerPage = parseInt(layoutMode, 10);
   const totalPages = Math.ceil(itemsToExport.length / puzzlesPerPage);
 
-  // Generate HTML for printing
-  const handlePrint = () => {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Vui lòng cho phép popup trình duyệt để mở cửa sổ in ấn!');
-      return;
+  // Group items into chapters for TOC
+  const chapters = [];
+  const catMap = new Map();
+  itemsToExport.forEach((it, idx) => {
+    const cat = it.category || 'Bài Tập Tổng Hợp';
+    if (!catMap.has(cat)) {
+      catMap.set(cat, {
+        name: cat,
+        startIdx: idx + 1,
+        startPage: Math.floor(idx / puzzlesPerPage) + 1,
+        count: 0
+      });
+      chapters.push(catMap.get(cat));
     }
+    catMap.get(cat).count++;
+    catMap.get(cat).endIdx = idx + 1;
+    catMap.get(cat).endPage = Math.floor(idx / puzzlesPerPage) + 1;
+  });
 
-    const printHtml = generateFullPrintDocumentHtml();
-    printWindow.document.open();
-    printWindow.document.write(printHtml);
-    printWindow.document.close();
-
-    // Auto trigger print after loading images/SVGs
-    setTimeout(() => {
-      printWindow.focus();
-      printWindow.print();
-    }, 500);
-  };
-
-  const handleDownloadHtml = () => {
-    const printHtml = generateFullPrintDocumentHtml();
-    const blob = new Blob([printHtml], { type: 'text/html;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${bookTitle.replace(/\s+/g, '_')}_A4.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
+  // Generate full HTML document for book
   const generateFullPrintDocumentHtml = () => {
     const isBw = colorMode === 'bw';
     const lightSquareBg = isBw ? '#ffffff' : '#f0d9b5';
     const darkSquareBg = isBw ? '#e2e8f0' : '#b58863';
     const boardBorder = isBw ? '#0f172a' : '#8c603b';
 
-    let pagesHtml = '';
+    let masterCoverHtml = '';
 
-    // 1. Cover Page
-    if (includeCover) {
-      pagesHtml += `
-        <div class="print-page cover-page">
-          <div class="cover-border">
-            <div class="cover-badge">★ TÀI LIỆU HUẤN LUYỆN ĐẶC BIỆT ★</div>
-            <h1 class="cover-title">${bookTitle}</h1>
-            <div class="cover-subtitle">${selectedCategory === 'ALL' ? 'Toàn Bộ Tuyển Tập Sát Cục & Chiến Thuật Tinh Hoa' : selectedCategory}</div>
+    // 1. GRAND MASTER BOOK COVER PAGE (Bìa Sách Hoàng Gia)
+    if (includeMainCover) {
+      masterCoverHtml = `
+        <div class="book-cover-page" style="page-break-after:always;break-after:page;min-height:980px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center;border:6px double #1e3a8a;padding:35px 25px;background:#fffdf9;box-sizing:border-box;margin-bottom:30px;">
+          
+          <!-- Top Header Banner -->
+          <div style="border-bottom:2px solid #b45309;padding-bottom:10px;width:100%;">
+            <div style="font-size:13px;font-weight:900;color:#b45309;letter-spacing:4px;text-transform:uppercase;">
+              👑 KỲ ĐÀI CONIC • TỦ SÁCH CỜ VUA QUỐC TẾ 👑
+            </div>
+            <div style="font-size:10px;color:#64748b;margin-top:3px;letter-spacing:1.5px;font-weight:600;">
+              BÁCH KHOA TOÀN THƯ SÁT CỤC · CHIẾN THUẬT & TÀN CUỘC ĐỈNH CAO
+            </div>
+          </div>
+
+          <!-- Center Showcase with Master Icons & Title -->
+          <div style="padding:15px 10px;">
+            <!-- Authentic Chess King Badges: Pure White King & Ebony King -->
+            <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:14px;">
+              <div style="width:54px;height:54px;border-radius:50%;background:#ffffff;border:2.5px solid #b45309;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 3px 8px rgba(180,83,9,0.2);">
+                ♔
+              </div>
+              <div style="font-size:24px;color:#b45309;font-weight:bold;">⚔️</div>
+              <div style="width:54px;height:54px;border-radius:50%;background:#18181b;border:2.5px solid #000000;display:flex;align-items:center;justify-content:center;font-size:30px;color:#ffffff;box-shadow:0 3px 8px rgba(0,0,0,0.3);">
+                ♚
+              </div>
+            </div>
+
+            <h1 style="font-size:26px;font-weight:900;color:#1e3a8a;text-transform:uppercase;letter-spacing:1px;line-height:1.25;margin:0 0 8px 0;font-family:'Times New Roman', serif;">
+              ${bookTitle}
+            </h1>
             
-            <div class="cover-icon-box">
-              <svg viewBox="0 0 100 100" class="cover-chess-icon">
-                <circle cx="50" cy="50" r="45" fill="#f8fafc" stroke="#0f172a" stroke-width="4"/>
-                <path d="M50 20 L55 30 L66 30 L57 37 L61 47 L50 40 L39 47 L43 37 L34 30 L45 30 Z" fill="#0f172a" />
-                <path d="M35 50 C35 44, 65 44, 65 50 L68 74 C68 78, 32 78, 32 74 Z" fill="#0f172a" />
-                <rect x="28" y="76" width="44" height="8" rx="4" fill="#0f172a" />
-              </svg>
+            <div style="font-size:13px;color:#475569;font-style:italic;max-width:600px;margin:0 auto 12px auto;line-height:1.4;">
+              ${bookSubtitle}
             </div>
 
-            <div class="cover-meta-grid">
-              <div class="meta-item">
-                <span class="meta-label">Dành cho Học Viên:</span>
-                <span class="meta-val">${studentName || 'Học Viên Cờ Vua'}</span>
+            <!-- Dad's Loving Message to Conic: Balanced 2 Centered Lines -->
+            <div style="margin:14px 0 16px 0;padding:12px 32px;background:#fff5f5;border:2px solid #ef4444;border-radius:12px;display:inline-block;box-shadow:0 2px 8px rgba(239,68,68,0.12);text-align:center;">
+              <div style="font-size:14px;font-weight:900;color:#991b1b;letter-spacing:0.5px;font-family:'Times New Roman', serif;">
+                ❤️ TÀI LIỆU DÀNH CHO CONIC HỌC CỜ VUA ❤️
               </div>
-              <div class="meta-item">
-                <span class="meta-label">Tổng số bài tập:</span>
-                <span class="meta-val">${itemsToExport.length} Thế cờ</span>
-              </div>
-              <div class="meta-item">
-                <span class="meta-label">Tiêu chuẩn:</span>
-                <span class="meta-val">FIDE Standard Diagrams A4</span>
+              <div style="font-size:13px;font-weight:900;color:#b91c1c;letter-spacing:1.5px;font-family:'Times New Roman', serif;margin-top:4px;">
+                ✨ CON TRAI YÊU CỦA BA ✨
               </div>
             </div>
+            
+            <!-- Category Tag Box -->
+            <div style="display:block;margin-top:6px;">
+              <div style="display:inline-block;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:8px;padding:8px 22px;">
+                <div style="font-size:12px;font-weight:900;color:#1e293b;text-transform:uppercase;letter-spacing:1px;">
+                  📁 CHUYÊN ĐỀ: ${selectedCategory === 'ALL' ? 'TOÀN BỘ KHO BÀI TẬP' : selectedCategory.toUpperCase()}
+                </div>
+                <div style="font-size:11px;color:#64748b;font-weight:700;margin-top:3px;">
+                  Tuyển chọn ${itemsToExport.length} Thế Trận Tiêu Biểu (${chapters.length} Phân Chương)
+                </div>
+              </div>
+            </div>
+          </div>
 
-            <div class="cover-footer">KỲ ĐÀI CONIC • PHẦN MỀM HUẤN LUYỆN CỜ VUA ĐỈNH CAO</div>
+          <!-- Bottom Footer -->
+          <div style="border-top:2px solid #b45309;padding-top:12px;width:100%;font-size:10.5px;color:#475569;line-height:1.5;">
+            <div style="font-weight:900;color:#1e293b;font-size:11.5px;margin-bottom:2px;letter-spacing:0.5px;">
+              BAN BIÊN SOẠN CHUYÊN MÔN KỲ ĐÀI CONIC
+            </div>
+            <div>Sách In Vector Chuẩn Xuất Bản A4 • Bố Cục ${layoutMode} Bàn Cờ / Trang</div>
+            <div style="color:#64748b;font-size:9.5px;margin-top:2px;">
+              Xuất bản: ${new Date().toLocaleDateString('vi-VN')} • Bản quyền © Kỳ Đài Conic
+            </div>
           </div>
         </div>
       `;
     }
 
-    // 2. Puzzle Pages
+    // 2. TABLE OF CONTENTS PAGE (Mục Lục Sách)
+    let tocHtml = '';
+    if (includeToc && (chapters.length > 1 || itemsToExport.length >= 18)) {
+      let tocRows = '';
+      chapters.forEach((chap, cIdx) => {
+        tocRows += `
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #e2e8f0;font-size:11px;">
+            <div style="font-weight:bold;color:#1e293b;display:flex;align-items:baseline;gap:6px;max-width:75%;">
+              <span style="color:#b45309;font-weight:900;flex-shrink:0;">Chương ${cIdx + 1}:</span>
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${chap.name}</span>
+              <span style="color:#64748b;font-size:9px;font-weight:normal;flex-shrink:0;">(${chap.count} bài • #${chap.startIdx} - #${chap.endIdx})</span>
+            </div>
+            <div style="flex:1;border-bottom:1px dotted #cbd5e1;margin:0 8px;"></div>
+            <div style="font-weight:900;color:#1e3a8a;font-size:11px;flex-shrink:0;">Trang ${chap.startPage}</div>
+          </div>
+        `;
+      });
+
+      if (includeAnswersAtEnd) {
+        tocRows += `
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding:7px 0;border-top:1.5px solid #b45309;margin-top:8px;font-size:11px;">
+            <div style="font-weight:bold;color:#991b1b;display:flex;align-items:baseline;gap:6px;">
+              <span>🔑 PHẦN ĐÁP ÁN & LỜI GIẢI CHI TIẾT</span>
+            </div>
+            <div style="flex:1;border-bottom:1px dotted #cbd5e1;margin:0 8px;"></div>
+            <div style="font-weight:900;color:#991b1b;font-size:11px;">Trang ${totalPages + 1}</div>
+          </div>
+        `;
+      }
+
+      tocHtml = `
+        <div class="print-page toc-page" style="page-break-inside:avoid;break-inside:avoid;page-break-before:always;break-before:page;page-break-after:always;break-after:page;min-height:980px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;margin-bottom:24px;background:#ffffff;padding:25px 28px;border:1px solid #e2e8f0;border-radius:8px;">
+          <div>
+            <div style="text-align:center;border-bottom:2px double #b45309;padding-bottom:12px;margin-bottom:18px;">
+              <div style="font-size:11px;font-weight:900;color:#b45309;letter-spacing:3px;text-transform:uppercase;">
+                👑 KỲ ĐÀI CONIC • MỤC LỤC TỔNG QUAN 👑
+              </div>
+              <h2 style="font-size:20px;font-weight:900;color:#1e3a8a;margin:4px 0 0 0;font-family:'Times New Roman', serif;letter-spacing:1px;">
+                MỤC LỤC NỘI DUNG SÁCH
+              </h2>
+              <div style="font-size:10.5px;color:#64748b;margin-top:2px;font-style:italic;">
+                Tổng hợp ${chapters.length} phân chương • ${itemsToExport.length} thế cờ FIDE Standard
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              ${tocRows}
+            </div>
+          </div>
+
+          <div style="border-top:1.5px solid #e2e8f0;padding-top:8px;display:flex;justify-content:space-between;align-items:center;font-size:9.5px;color:#475569;">
+            <div style="font-style:italic;color:#991b1b;font-weight:700;">
+              ❤️ Conic hãy luyện tập đều đặn và giải từng thế cờ theo thứ tự nhé!
+            </div>
+            <div style="font-weight:bold;color:#64748b;">Mục lục</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 3. PUZZLE DIAGRAM PAGES
+    let pagesHtml = '';
     for (let pIndex = 0; pIndex < totalPages; pIndex++) {
       const pageItems = itemsToExport.slice(pIndex * puzzlesPerPage, (pIndex + 1) * puzzlesPerPage);
       const gridClass = `grid-${layoutMode}`;
+      const quote = CHESS_QUOTES[pIndex % CHESS_QUOTES.length];
 
       let puzzlesHtml = pageItems.map((item, idx) => {
         const itemNumber = pIndex * puzzlesPerPage + idx + 1;
         const board = fenToBoard(item.fen);
         const turn = item.fen.split(' ')[1] || 'w';
-        const turnText = turn === 'w' ? '⚪ Trắng đi trước' : '⚫ Đen đi trước';
+        const turnText = turn === 'w' ? '⚪ TRẮNG ĐI TRƯỚC SÁT CỤC' : '⚫ ĐEN ĐI TRƯỚC SÁT CỤC';
+        const turnColor = turn === 'w' ? '#0284c7' : '#e11d48';
 
-        // Render 8x8 squares HTML
+        // Render 8x8 squares HTML with coordinates
         let squaresHtml = '';
         for (let r = 0; r < 8; r++) {
           for (let c = 0; c < 8; c++) {
@@ -163,8 +290,16 @@ export default function PdfExportModal({
             const bg = isLight ? lightSquareBg : darkSquareBg;
             const pieceSvg = piece ? getPieceSvgString(piece.code, isBw) : '';
 
+            // Coordinates labels (rank 8-1 on left, file a-h on bottom)
+            const showRank = c === 0;
+            const showFile = r === 7;
+            const rankLabel = 8 - r;
+            const fileLabel = String.fromCharCode(97 + c);
+
             squaresHtml += `
-              <div class="square" style="background-color: ${bg};">
+              <div class="square" style="background-color: ${bg}; position:relative;">
+                ${showRank ? `<span class="coord coord-rank" style="color:${isLight ? darkSquareBg : lightSquareBg}">${rankLabel}</span>` : ''}
+                ${showFile ? `<span class="coord coord-file" style="color:${isLight ? darkSquareBg : lightSquareBg}">${fileLabel}</span>` : ''}
                 ${pieceSvg ? `<div class="piece-box">${pieceSvg}</div>` : ''}
               </div>
             `;
@@ -175,16 +310,19 @@ export default function PdfExportModal({
           <div class="puzzle-card">
             <div class="puzzle-header">
               <span class="puzzle-num">Bài ${itemNumber}</span>
-              <span class="puzzle-turn">${turnText}</span>
+              <span class="puzzle-turn" style="color:${turnColor}; font-weight:800;">${turnText}</span>
             </div>
-            <div class="board-frame" style="border-color: ${boardBorder};">
+
+            <div class="board-frame" style="border: 2px solid ${boardBorder}; box-shadow: 0 2px 5px rgba(0,0,0,0.08);">
               <div class="board-grid">
                 ${squaresHtml}
               </div>
             </div>
+
             <div class="puzzle-prompt">
               <strong>${item.title}</strong>
             </div>
+
             ${includeAnswerLines ? `
               <div class="answer-lines">
                 <div class="line">Lời giải: ................................................................</div>
@@ -197,45 +335,57 @@ export default function PdfExportModal({
 
       pagesHtml += `
         <div class="print-page">
+          <!-- Page Header -->
           <div class="page-header">
             <span>${bookTitle}</span>
             <span>Trang ${pIndex + 1} / ${totalPages}</span>
           </div>
+
+          <!-- Main Grid -->
           <div class="puzzles-container ${gridClass}">
             ${puzzlesHtml}
           </div>
+
+          <!-- Page Footer with Inspiring Quote -->
           <div class="page-footer">
-            <span>Học viên: ${studentName}</span>
-            <span>Kỳ Đài Conic • Sát Cục & Chiến Thuật Cờ Vua</span>
+            <span style="color:#991b1b; font-style:italic; font-weight:600;">${quote}</span>
+            <span style="font-weight:700; color:#64748b;">Trang ${pIndex + 1}</span>
           </div>
         </div>
       `;
     }
 
-    // 3. Answer Key at End
+    // 4. ANSWER KEY AT END (Trang Đáp Án & Lời Giải Chi Tiết)
+    let answersHtml = '';
     if (includeAnswersAtEnd) {
       let answersListHtml = itemsToExport.map((item, idx) => {
         const movesVi = item.moves.map(m => translateSanToVi(m)).join(' ➔ ');
         return `
           <div class="answer-item">
-            <strong>Bài ${idx + 1} (${item.title}):</strong>
-            <span class="ans-moves">${item.moves.join(' ')}</span>
-            <span class="ans-vi">(${movesVi})</span>
-            <p class="ans-desc">${item.description || ''}</p>
+            <div class="ans-head">
+              <strong>Bài ${idx + 1} (${item.title}):</strong>
+            </div>
+            <div class="ans-moves">${item.moves.join(' ')}</div>
+            <div class="ans-vi">(${movesVi})</div>
+            ${item.description ? `<div class="ans-desc">${item.description}</div>` : ''}
           </div>
         `;
       }).join('');
 
-      pagesHtml += `
+      answersHtml = `
         <div class="print-page answers-page">
           <div class="page-header">
-            <span>ĐÁP ÁN & LỜI GIẢI CHI TIẾT</span>
+            <span>🔑 ĐÁP ÁN & LỜI GIẢI CHI TIẾT</span>
             <span>Kỳ Đài Conic</span>
           </div>
           <h2 class="answers-title">🔑 BẢNG ĐÁP ÁN & LỜI GIẢI CHI TIẾT</h2>
           <p class="answers-desc">Dành cho phụ huynh & huấn luyện viên đối chiếu, chấm điểm cho học viên:</p>
           <div class="answers-grid">
             ${answersListHtml}
+          </div>
+          <div class="page-footer">
+            <span>Học viên: ${studentName}</span>
+            <span>Kỳ Đài Conic • Đáp Án Sát Cục & Chiến Thuật</span>
           </div>
         </div>
       `;
@@ -258,7 +408,7 @@ export default function PdfExportModal({
             padding: 0;
           }
           body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Times New Roman", Arial, sans-serif;
             color: #0f172a;
             background: #fff;
             -webkit-print-color-adjust: exact !important;
@@ -267,21 +417,22 @@ export default function PdfExportModal({
           .print-page {
             width: 210mm;
             height: 297mm;
-            padding: 12mm 15mm;
+            padding: 10mm 14mm;
             page-break-after: always;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            background: #fff;
           }
           .page-header {
             display: flex;
             justify-content: space-between;
-            font-size: 9pt;
+            font-size: 8.5pt;
             color: #64748b;
             border-bottom: 1px solid #cbd5e1;
-            padding-bottom: 3mm;
-            margin-bottom: 4mm;
+            padding-bottom: 2mm;
+            margin-bottom: 3mm;
             font-weight: 600;
           }
           .page-footer {
@@ -290,33 +441,36 @@ export default function PdfExportModal({
             font-size: 8pt;
             color: #64748b;
             border-top: 1px solid #cbd5e1;
-            padding-top: 3mm;
-            margin-top: 4mm;
+            padding-top: 2mm;
+            margin-top: 3mm;
           }
 
           /* Grid layouts */
           .puzzles-container {
             display: grid;
-            gap: 6mm;
+            gap: 5mm;
             flex: 1;
+            align-content: stretch;
           }
-          .grid-4 {
+          .puzzles-container.grid-2 {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(2, 1fr);
+            gap: 8mm;
+          }
+          .puzzles-container.grid-4 {
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
+            gap: 6mm;
           }
-          .grid-6 {
+          .puzzles-container.grid-6 {
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(3, 1fr);
+            gap: 4.5mm;
           }
-          .grid-9 {
+          .puzzles-container.grid-9 {
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
-            gap: 4mm;
-          }
-          .grid-12 {
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 3mm;
+            gap: 3.5mm;
           }
 
           .puzzle-card {
@@ -327,34 +481,34 @@ export default function PdfExportModal({
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
+            background: #ffffff;
           }
           .puzzle-header {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 9pt;
-            font-weight: 700;
-            margin-bottom: 2mm;
+            font-size: 8pt;
+            margin-bottom: 1.5mm;
           }
           .puzzle-num {
-            background: #0f172a;
-            color: #fff;
-            padding: 1px 6px;
-            border-radius: 4px;
+            font-weight: 900;
+            color: #1e3a8a;
           }
           .puzzle-turn {
-            font-size: 8pt;
-            color: #334155;
+            font-size: 7.5pt;
           }
 
           .board-frame {
-            width: 90%;
+            width: 100%;
             aspect-ratio: 1 / 1;
-            border: 2px solid #0f172a;
-            border-radius: 3px;
-            overflow: hidden;
+            max-height: 100%;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #000;
           }
           .board-grid {
             display: grid;
@@ -364,220 +518,259 @@ export default function PdfExportModal({
             height: 100%;
           }
           .square {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
           }
           .piece-box {
-            width: 90%;
-            height: 90%;
+            width: 88%;
+            height: 88%;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2;
+          }
+          .coord {
+            position: absolute;
+            font-size: 5pt;
+            font-weight: 800;
+            font-family: sans-serif;
+            pointer-events: none;
+            z-index: 1;
+          }
+          .coord-rank {
+            top: 1px;
+            left: 1.5px;
+          }
+          .coord-file {
+            bottom: 1px;
+            right: 1.5px;
           }
 
           .puzzle-prompt {
-            font-size: 8pt;
+            font-size: 7.5pt;
+            color: #334155;
+            margin-top: 1.5mm;
             text-align: center;
-            margin-top: 2mm;
-            color: #1e293b;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           .answer-lines {
             width: 100%;
-            margin-top: 2mm;
-            font-size: 7.5pt;
-            color: #64748b;
-          }
-          .answer-lines .line {
-            line-height: 1.5;
-            white-space: nowrap;
-            overflow: hidden;
-          }
-
-          /* Cover Page Styles */
-          .cover-page {
-            justify-content: center;
-            align-items: center;
-            padding: 20mm;
-          }
-          .cover-border {
-            width: 100%;
-            height: 100%;
-            border: 4px double #0f172a;
-            border-radius: 12px;
-            padding: 15mm;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            text-align: center;
-          }
-          .cover-badge {
-            background: #0f172a;
-            color: #fff;
-            font-size: 11pt;
-            font-weight: 700;
-            padding: 4px 16px;
-            border-radius: 20px;
-            letter-spacing: 1px;
-          }
-          .cover-title {
-            font-size: 26pt;
-            font-weight: 900;
-            color: #0f172a;
-            line-height: 1.2;
-            margin-top: 10mm;
-          }
-          .cover-subtitle {
-            font-size: 14pt;
-            color: #475569;
-            font-weight: 600;
-            margin-top: 3mm;
-          }
-          .cover-chess-icon {
-            width: 45mm;
-            height: 45mm;
-            margin: 10mm 0;
-          }
-          .cover-meta-grid {
-            border-top: 2px solid #e2e8f0;
-            border-bottom: 2px solid #e2e8f0;
-            padding: 8mm 0;
-            width: 80%;
-            display: flex;
-            flex-direction: column;
-            gap: 4mm;
-            font-size: 12pt;
-          }
-          .meta-item {
-            display: flex;
-            justify-content: space-between;
-          }
-          .meta-label {
-            color: #64748b;
-            font-weight: 500;
-          }
-          .meta-val {
-            font-weight: 800;
-            color: #0f172a;
-          }
-          .cover-footer {
-            font-size: 9pt;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #64748b;
+            font-size: 7pt;
+            color: #94a3b8;
+            margin-top: 1.5mm;
+            line-height: 1.4;
           }
 
           /* Answers Page */
           .answers-title {
-            font-size: 16pt;
-            font-weight: 800;
+            font-size: 15pt;
+            font-weight: 900;
+            color: #1e3a8a;
             margin-bottom: 2mm;
             text-align: center;
           }
           .answers-desc {
-            font-size: 9pt;
+            font-size: 8.5pt;
             color: #64748b;
             text-align: center;
-            margin-bottom: 6mm;
+            margin-bottom: 4mm;
           }
           .answers-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 4mm;
-            font-size: 8.5pt;
+            gap: 3mm;
+            font-size: 8pt;
+            flex: 1;
+            overflow: hidden;
           }
           .answer-item {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 4px;
-            padding: 3mm;
+            padding: 2.5mm;
+          }
+          .ans-head {
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 1mm;
           }
           .ans-moves {
             font-family: monospace;
-            font-weight: 700;
+            font-weight: 800;
             color: #0284c7;
+            font-size: 8.5pt;
           }
           .ans-vi {
             color: #16a34a;
-            font-size: 8pt;
+            font-size: 7.5pt;
+            margin-top: 0.5mm;
           }
           .ans-desc {
-            font-size: 7.5pt;
+            font-size: 7pt;
             color: #64748b;
             margin-top: 1mm;
           }
         </style>
       </head>
       <body>
+        ${masterCoverHtml}
+        ${tocHtml}
         ${pagesHtml}
+        ${answersHtml}
       </body>
       </html>
     `;
   };
 
+  // Direct PDF export via Tauri (on Desktop) or standard print
+  const handleExportPdfDirect = async () => {
+    setIsGenerating(true);
+    setProgressStepText('Đang nạp công cụ kết xuất PDF A4...');
+    try {
+      const fullHtml = generateFullPrintDocumentHtml();
+      const filename = `Ky_Pho_Co_Vua_Conic_${selectedCategory === 'ALL' ? 'Toan_Bo' : selectedCategory.replace(/\s+/g, '_')}_A4.pdf`;
+
+      let isTauriEnv = false;
+      try {
+        isTauriEnv = checkIsTauri();
+      } catch (e) {
+        isTauriEnv = false;
+      }
+
+      if (isTauriEnv) {
+        setProgressStepText('Đang kết xuất file PDF Vector độ nét cao...');
+        let savedPath = null;
+        try {
+          savedPath = await tauriInvoke('export_pdf_direct', {
+            htmlContent: fullHtml,
+            suggestedName: filename
+          });
+        } catch (err) {
+          savedPath = await tauriInvoke('exportPdfDirect', {
+            htmlContent: fullHtml,
+            suggestedName: filename
+          });
+        }
+
+        setIsGenerating(false);
+        setToastMsg(`📕 Đã xuất thành công file PDF chuẩn NXB sạch 100%:\n${savedPath}\n(Đang mở trong Xem Trước / Preview)`);
+      } else {
+        // In browser: open print dialog
+        setIsGenerating(false);
+        handlePrint();
+      }
+    } catch (e) {
+      console.error('Export PDF error:', e);
+      setIsGenerating(false);
+      setToastMsg(`❌ Lỗi khi xuất PDF: ${e?.message || e}`);
+    }
+  };
+
+  // Standard Print Trigger
+  const handlePrint = () => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('Vui lòng cho phép popup trình duyệt để mở cửa sổ in ấn!');
+      return;
+    }
+
+    const printHtml = generateFullPrintDocumentHtml();
+    printWindow.document.open();
+    printWindow.document.write(printHtml);
+    printWindow.document.close();
+
+    setTimeout(() => {
+      printWindow.focus();
+      printWindow.print();
+    }, 500);
+  };
+
+  const handleDownloadHtml = () => {
+    const printHtml = generateFullPrintDocumentHtml();
+    const blob = new Blob([printHtml], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${bookTitle.replace(/\s+/g, '_')}_A4.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-in fade-in">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-4xl max-h-[90vh] shadow-2xl flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-in fade-in select-none">
+      <div className="bg-[#0e121c] border border-[#232a3d] rounded-2xl w-full max-w-4xl max-h-[92vh] shadow-2xl flex flex-col overflow-hidden">
+        
         {/* Header */}
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+        <div className="p-4 border-b border-[#232a3d] flex items-center justify-between bg-[#141824]/90">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 border border-amber-400/40 flex items-center justify-center text-slate-950 font-black shadow-md">
               <Printer className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
-                Xuất Sách & In Ấn Bài Tập A4 Cho Bé
-                <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
-                  Chuẩn Sách Quốc Tế
+              <h2 className="text-base font-black text-slate-100 flex items-center gap-2">
+                XUẤT SÁCH & IN ẤN BÀI TẬP CỜ VUA A4 CHO BÉ
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono font-bold">
+                  BÌA HOÀNG GIA & FIDE STANDARD
                 </span>
               </h2>
-              <p className="text-xs text-slate-400">Tạo sách bài tập thế cờ sắc nét, kèm dòng kẻ chấm cho bé viết và trang đáp án</p>
+              <p className="text-xs text-slate-400">
+                Tạo cuốn sách bài tập hoàn chỉnh có bìa đề tặng, mục lục phân chương, bàn cờ sắc nét và trang đáp án chi tiết
+              </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition"
+            className="p-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-[#1f2638] transition"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Body Settings */}
-        <div className="p-6 overflow-y-auto flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+        <div className="p-5 overflow-y-auto flex-1 grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-300 custom-scrollbar">
+          
           {/* Left Column: Scope & Content */}
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                1. Chọn Tuyển Tập Bài Tập
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                1. Chọn Tuyển Tập / Chuyên Đề:
               </label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-slate-100 focus:outline-none focus:border-amber-400 font-medium"
+                className="w-full bg-[#141824] border border-[#232a3d] rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-amber-400 font-medium"
               >
                 <option value="ALL">📚 Toàn bộ kho bài tập ({allItems.length} thế cờ)</option>
-                {Object.keys(catalog?.categories || {}).map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat} ({catalog.categories[cat].count} bài)
+                {categoryList.map((cat) => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name} ({cat.count} bài)
                   </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                2. Số Lượng Bài Tập Xuất
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Hash className="w-3.5 h-3.5 text-blue-400" />
+                2. Số Lượng Bài Tập Xuất Sách:
               </label>
-              <div className="grid grid-cols-4 gap-2 mb-2">
-                {['12', '24', '36', 'all'].map((mode) => (
+              <div className="grid grid-cols-5 gap-1.5 mb-2">
+                {['12', '24', '36', '48', 'all'].map((mode) => (
                   <button
                     key={mode}
                     onClick={() => setQuantityMode(mode)}
-                    className={`py-2 rounded-lg text-xs font-bold transition border ${
+                    className={`py-1.5 rounded-lg text-xs font-bold transition border ${
                       quantityMode === mode
-                        ? 'bg-amber-500 text-slate-950 border-amber-400'
-                        : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                        ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-sm'
+                        : 'bg-[#141824] text-slate-300 border-[#232a3d] hover:bg-[#1a2030]'
                     }`}
                   >
                     {mode === 'all' ? 'Tất cả' : `${mode} bài`}
@@ -587,50 +780,54 @@ export default function PdfExportModal({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                3. Tên Học Viên / Bé Yêu
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Heart className="w-3.5 h-3.5 text-rose-400" />
+                3. Lời Đề Tặng Cho Bé (Trên Bìa Sách):
               </label>
               <input
                 type="text"
                 value={studentName}
                 onChange={(e) => setStudentName(e.target.value)}
-                placeholder="Ví dụ: Bé An, Conic..."
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-amber-400"
+                placeholder="Ví dụ: Conic - Con Trai Yêu Của Ba..."
+                className="w-full bg-[#141824] border border-[#232a3d] rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-amber-400 font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                4. Tiêu Đề Bìa Sách
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5 text-amber-400" />
+                4. Tiêu Đề Bìa Sách:
               </label>
               <input
                 type="text"
                 value={bookTitle}
                 onChange={(e) => setBookTitle(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-amber-400"
+                className="w-full bg-[#141824] border border-[#232a3d] rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:border-amber-400 font-medium"
               />
             </div>
           </div>
 
           {/* Right Column: Layout & Print Options */}
-          <div className="space-y-4">
+          <div className="space-y-3.5">
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                5. Bố Cục Trang In A4
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <LayoutGrid className="w-3.5 h-3.5 text-cyan-400" />
+                5. Bố Cục Trang In A4:
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-4 gap-1.5">
                 {[
-                  { id: '4', label: '4 Bài / Trang', sub: 'Hình rất to (Mẫu giáo/Lớp 1)' },
-                  { id: '6', label: '6 Bài / Trang', sub: 'Chuẩn quốc tế (Đề xuất)' },
-                  { id: '9', label: '9 Bài / Trang', sub: 'Tiết kiệm giấy in' }
+                  { id: '2', label: '2 Bài / Trang', sub: 'Cỡ đại' },
+                  { id: '4', label: '4 Bài / Trang', sub: '2x2 Rõ' },
+                  { id: '6', label: '6 Bài / Trang', sub: 'Chuẩn NXB' },
+                  { id: '9', label: '9 Bài / Trang', sub: 'Tiết kiệm' }
                 ].map((l) => (
                   <button
                     key={l.id}
                     onClick={() => setLayoutMode(l.id)}
-                    className={`p-2.5 rounded-xl text-left transition border ${
+                    className={`p-2 rounded-xl text-center transition border ${
                       layoutMode === l.id
-                        ? 'bg-amber-500/20 border-amber-400 text-amber-300'
-                        : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'
+                        ? 'bg-amber-500/20 border-amber-400 text-amber-300 shadow-sm'
+                        : 'bg-[#141824] border-[#232a3d] text-slate-400 hover:bg-[#1a2030]'
                     }`}
                   >
                     <div className="font-bold text-xs text-slate-200">{l.label}</div>
@@ -641,97 +838,127 @@ export default function PdfExportModal({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                6. Chế Độ Màu Sắc
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <Sliders className="w-3.5 h-3.5 text-indigo-400" />
+                6. Chế Độ Màu Sắc:
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => setColorMode('bw')}
-                  className={`p-2.5 rounded-xl text-left border transition ${
+                  className={`p-2 rounded-xl text-left border transition ${
                     colorMode === 'bw'
                       ? 'bg-amber-500/20 border-amber-400 text-amber-300'
-                      : 'bg-slate-800 border-slate-700 text-slate-400'
+                      : 'bg-[#141824] border-[#232a3d] text-slate-400'
                   }`}
                 >
                   <div className="font-bold text-xs text-slate-200">Trắng Đen Sách In (B&W)</div>
-                  <div className="text-[10px] text-slate-400">Tối ưu in photocopy, cực nét</div>
+                  <div className="text-[10px] text-slate-400">Tối ưu in photocopy, siêu nét</div>
                 </button>
                 <button
                   onClick={() => setColorMode('color')}
-                  className={`p-2.5 rounded-xl text-left border transition ${
+                  className={`p-2 rounded-xl text-left border transition ${
                     colorMode === 'color'
                       ? 'bg-amber-500/20 border-amber-400 text-amber-300'
-                      : 'bg-slate-800 border-slate-700 text-slate-400'
+                      : 'bg-[#141824] border-[#232a3d] text-slate-400'
                   }`}
                 >
-                  <div className="font-bold text-xs text-slate-200">Màu Sắc Cao Cấp (Color)</div>
-                  <div className="text-[10px] text-slate-400">Bàn cờ gỗ sang trọng</div>
+                  <div className="font-bold text-xs text-slate-200">Màu Sắc Sang Trọng</div>
+                  <div className="text-[10px] text-slate-400">Bàn cờ gỗ & quân cờ sắc nét</div>
                 </button>
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                7. Tùy Chọn Bổ Sung
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                7. Cấu Trúc Sách Đầy Đủ:
               </label>
-              <div className="space-y-2">
+              <div className="space-y-2 bg-[#141824] border border-[#232a3d] p-3 rounded-xl">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={includeCover}
-                    onChange={(e) => setIncludeCover(e.target.checked)}
-                    className="rounded border-slate-700 text-amber-500 focus:ring-0"
+                    checked={includeMainCover}
+                    onChange={(e) => setIncludeMainCover(e.target.checked)}
+                    className="rounded border-slate-700 text-amber-500 focus:ring-0 cursor-pointer"
                   />
-                  <span className="text-xs">Kèm Bìa Sách Chuyên Nghiệp (Có tên bé)</span>
+                  <span className="text-xs text-slate-200 font-medium">
+                    👑 <strong>Bìa Sách Hoàng Gia</strong> (Có biểu tượng Vua & Lời đề tặng của Ba)
+                  </span>
                 </label>
+
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={includeToc}
+                    onChange={(e) => setIncludeToc(e.target.checked)}
+                    className="rounded border-slate-700 text-amber-500 focus:ring-0 cursor-pointer"
+                  />
+                  <span className="text-xs text-slate-200 font-medium">
+                    📑 <strong>Mục Lục Tổng Quan</strong> (Phân chương & số trang)
+                  </span>
+                </label>
+
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={includeAnswerLines}
                     onChange={(e) => setIncludeAnswerLines(e.target.checked)}
-                    className="rounded border-slate-700 text-amber-500 focus:ring-0"
+                    className="rounded border-slate-700 text-amber-500 focus:ring-0 cursor-pointer"
                   />
-                  <span className="text-xs">Kèm 2 dòng kẻ chấm dưới mỗi bàn cờ (cho bé viết lời giải)</span>
+                  <span className="text-xs text-slate-200 font-medium">
+                    ✏️ <strong>2 Dòng kẻ chấm</strong> dưới mỗi bàn cờ cho bé viết lời giải
+                  </span>
                 </label>
+
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={includeAnswersAtEnd}
                     onChange={(e) => setIncludeAnswersAtEnd(e.target.checked)}
-                    className="rounded border-slate-700 text-amber-500 focus:ring-0"
+                    className="rounded border-slate-700 text-amber-500 focus:ring-0 cursor-pointer"
                   />
-                  <span className="text-xs">Kèm Trang Đáp Án & Lời Giải Chi Tiết ở cuối sách</span>
+                  <span className="text-xs text-slate-200 font-medium">
+                    🔑 <strong>Trang Đáp Án & Lời Giải Chi Tiết</strong> ở cuối sách
+                  </span>
                 </label>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Footer Actions */}
-        <div className="p-4 border-t border-slate-800 bg-slate-950/70 flex items-center justify-between">
-          <div className="text-xs text-slate-400">
-            Dự kiến: <strong className="text-slate-100">{itemsToExport.length}</strong> bài tập • <strong className="text-slate-100">{totalPages + (includeCover ? 1 : 0) + (includeAnswersAtEnd ? 1 : 0)}</strong> trang A4
+        {/* Toast notification message */}
+        {toastMsg && (
+          <div className="px-5 py-2.5 bg-amber-500/20 border-t border-amber-500/40 text-amber-300 text-xs flex items-center justify-between">
+            <span className="whitespace-pre-line font-medium">{toastMsg}</span>
+            <button onClick={() => setToastMsg(null)} className="text-amber-400 hover:text-white font-bold">✕</button>
           </div>
-          <div className="flex items-center gap-3">
+        )}
+
+        {/* Footer Actions */}
+        <div className="p-4 border-t border-[#232a3d] bg-[#0c0f17] flex items-center justify-between">
+          <div className="text-xs text-slate-400">
+            Sách gồm: <strong className="text-slate-100">{itemsToExport.length}</strong> bài tập • <strong className="text-slate-100">{totalPages + (includeMainCover ? 1 : 0) + (includeToc ? 1 : 0) + (includeAnswersAtEnd ? 1 : 0)}</strong> trang A4
+          </div>
+          <div className="flex items-center gap-2.5">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 transition"
+              className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:bg-[#1a2030] hover:text-slate-200 transition"
             >
               Đóng
             </button>
             <button
               onClick={handleDownloadHtml}
-              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs flex items-center gap-2 transition"
+              className="px-3.5 py-2 rounded-xl bg-[#141824] hover:bg-[#1a2030] text-slate-200 border border-[#232a3d] font-bold text-xs flex items-center gap-1.5 transition"
             >
-              <Download className="w-4 h-4 text-amber-400" />
-              Tải File Sách (.html)
+              <Download className="w-3.5 h-3.5 text-amber-400" />
+              Tải File (.html)
             </button>
             <button
-              onClick={handlePrint}
-              className="px-5 py-2.5 rounded-xl bg-linear-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 flex items-center gap-2 transition active:scale-95"
+              onClick={handleExportPdfDirect}
+              disabled={isGenerating}
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/20 flex items-center gap-1.5 transition active:scale-95 disabled:opacity-50"
             >
-              <Printer className="w-4 h-4" />
-              Mở Cửa Sổ In & Xuất PDF A4
+              <FileDown className="w-4 h-4 text-slate-950 fill-current" />
+              <span>{isGenerating ? progressStepText : '📕 Xuất Sách PDF / In A4'}</span>
             </button>
           </div>
         </div>
