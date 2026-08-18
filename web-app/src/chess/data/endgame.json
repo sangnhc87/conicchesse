@@ -1,0 +1,2252 @@
+[
+  {
+    "id": "END_001",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 1",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_002",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 2",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_003",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 3",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_004",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 4",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_005",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 5",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_006",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 6",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_007",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 7",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_008",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 8",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_009",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 9",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_010",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 10",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_011",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 11",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_012",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 12",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_013",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 13",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_014",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 14",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_015",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 15",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_016",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 16",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_017",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 17",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_018",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 18",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_019",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 19",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_020",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 20",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_021",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 21",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_022",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 22",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_023",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 23",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_024",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 24",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_025",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 25",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_026",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 26",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_027",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 27",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_028",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 28",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_029",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 29",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_030",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 30",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_031",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 31",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_032",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 32",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_033",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 33",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_034",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 34",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_035",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 35",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_036",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 36",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_037",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 37",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_038",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 38",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_039",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 39",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_040",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 40",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_041",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 41",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_042",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 42",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_043",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 43",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_044",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 44",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_045",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 45",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_046",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 46",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_047",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 47",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_048",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 48",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_049",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 49",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_050",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 50",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_051",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 51",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_052",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 52",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_053",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 53",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_054",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 54",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_055",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 55",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_056",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 56",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_057",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 57",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_058",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 58",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_059",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 59",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_060",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 60",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_061",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 61",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_062",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 62",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_063",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 63",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_064",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 64",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_065",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 65",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_066",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 66",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_067",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 67",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_068",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 68",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_069",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 69",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_070",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 70",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_071",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 71",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_072",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 72",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_073",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 73",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_074",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 74",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_075",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 75",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_076",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 76",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_077",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 77",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_078",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 78",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_079",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 79",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_080",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 80",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_081",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 81",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_082",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 82",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_083",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 83",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_084",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 84",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_085",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 85",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_086",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 86",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_087",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 87",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_088",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 88",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_089",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 89",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_090",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 90",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_091",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 91",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_092",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 92",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_093",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 93",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_094",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 94",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_095",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 95",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_096",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 96",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_097",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 97",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_098",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 98",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_099",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 99",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_100",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 100",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_101",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 101",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_102",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 102",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_103",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 103",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_104",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 104",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_105",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 105",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_106",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 106",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_107",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 107",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_108",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 108",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_109",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 109",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_110",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 110",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_111",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 111",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_112",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 112",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_113",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 113",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_114",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 114",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_115",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 115",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_116",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 116",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_117",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 117",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_118",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 118",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_119",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 119",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_120",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 120",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_121",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 121",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_122",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 122",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_123",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 123",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_124",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 124",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_125",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 125",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_126",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 126",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_127",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 127",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_128",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 128",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_129",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 129",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_130",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 130",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_131",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 131",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_132",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 132",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_133",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 133",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_134",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 134",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_135",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 135",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_136",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 136",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_137",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 137",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_138",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 138",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_139",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 139",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_140",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 140",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_141",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 141",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_142",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 142",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_143",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 143",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_144",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 144",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_145",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 145",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_146",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 146",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  },
+  {
+    "id": "END_147",
+    "title": "Quy tắc Ô Vuông Tốt (Square Rule) - Bài 147",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Tốt",
+    "fen": "8/4P3/8/8/8/8/3k4/4K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q",
+      "Kc3",
+      "Qd7"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Đẩy Tốt phong Hậu khi Vua đối phương nằm ngoài ô vuông của Tốt."
+  },
+  {
+    "id": "END_148",
+    "title": "Thế Vua Đối Diện (Opposition) - Bài 148",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Kỹ thuật cờ tàn Tốt",
+    "fen": "8/8/4k3/8/8/4K3/4P3/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ke4",
+      "Kd6",
+      "Kf5"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật chiếm thế đối diện (Opposition) đưa Vua lên trước mở đường cho Tốt phong cấp."
+  },
+  {
+    "id": "END_149",
+    "title": "Chiếu bí Vua + Hậu chống Vua đơn độc - Bài 149",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Hậu",
+    "fen": "8/8/8/4k3/8/8/8/4K2Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe4+",
+      "Kd6",
+      "Qc6+"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Dùng Hậu ép Vua đối phương vào mép bàn cờ, sau đó Vua ta tiến lên hỗ trợ chiếu bí."
+  },
+  {
+    "id": "END_150",
+    "title": "Chiếu bí Vua + Xe (Hộp giam cầm) - Bài 150",
+    "category": "Tập 5: Cờ Tàn Căn Bản (Endgame)",
+    "subcategory": "Tàn cuộc Vua + Xe",
+    "fen": "8/8/8/3k4/8/8/8/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ra5+",
+      "Kd6",
+      "Ke2"
+    ],
+    "difficulty": "Cờ tàn",
+    "description": "Kỹ thuật co hẹp hình chữ nhật giam Vua đối phương về hàng biên."
+  }
+]

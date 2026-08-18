@@ -13,7 +13,7 @@ export default defineConfig({
   // Tauri dùng WebKit trên macOS/Linux — phải nhắm đúng target Safari để JS
   // parse được trong WKWebView (không bị lỗi cú pháp → màn hình trống).
   build: {
-    target: process.env.TAURI_ENV_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
+    target: process.env.TAURI_ENV_PLATFORM === 'windows' ? 'chrome105' : 'safari15',
     minify: false,
     sourcemap: true,
   },

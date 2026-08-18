@@ -1,0 +1,4162 @@
+[
+  {
+    "id": "M1_001",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 1",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_002",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 2",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_003",
+    "title": "Hậu áp sát Vua e7 - Bài 3",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_004",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 4",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_005",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 5",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_006",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 6",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_007",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 7",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_008",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 8",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_009",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 9",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_010",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 10",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_011",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 11",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_012",
+    "title": "Hậu a8 dồn Vua d8 - Bài 12",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_013",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 13",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_014",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 14",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_015",
+    "title": "Xe Đen phản công hàng 1 - Bài 15",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_016",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 16",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_017",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 17",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_018",
+    "title": "Hậu áp sát Vua e7 - Bài 18",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_019",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 19",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_020",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 20",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_021",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 21",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_022",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 22",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_023",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 23",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_024",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 24",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_025",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 25",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_026",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 26",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_027",
+    "title": "Hậu a8 dồn Vua d8 - Bài 27",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_028",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 28",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_029",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 29",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_030",
+    "title": "Xe Đen phản công hàng 1 - Bài 30",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_031",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 31",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_032",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 32",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_033",
+    "title": "Hậu áp sát Vua e7 - Bài 33",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_034",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 34",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_035",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 35",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_036",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 36",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_037",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 37",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_038",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 38",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_039",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 39",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_040",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 40",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_041",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 41",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_042",
+    "title": "Hậu a8 dồn Vua d8 - Bài 42",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_043",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 43",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_044",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 44",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_045",
+    "title": "Xe Đen phản công hàng 1 - Bài 45",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_046",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 46",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_047",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 47",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_048",
+    "title": "Hậu áp sát Vua e7 - Bài 48",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_049",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 49",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_050",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 50",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_051",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 51",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_052",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 52",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_053",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 53",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_054",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 54",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_055",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 55",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_056",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 56",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_057",
+    "title": "Hậu a8 dồn Vua d8 - Bài 57",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_058",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 58",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_059",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 59",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_060",
+    "title": "Xe Đen phản công hàng 1 - Bài 60",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_061",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 61",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_062",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 62",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_063",
+    "title": "Hậu áp sát Vua e7 - Bài 63",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_064",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 64",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_065",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 65",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_066",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 66",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_067",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 67",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_068",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 68",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_069",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 69",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_070",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 70",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_071",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 71",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_072",
+    "title": "Hậu a8 dồn Vua d8 - Bài 72",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_073",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 73",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_074",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 74",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_075",
+    "title": "Xe Đen phản công hàng 1 - Bài 75",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_076",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 76",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_077",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 77",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_078",
+    "title": "Hậu áp sát Vua e7 - Bài 78",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_079",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 79",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_080",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 80",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_081",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 81",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_082",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 82",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_083",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 83",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_084",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 84",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_085",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 85",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_086",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 86",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_087",
+    "title": "Hậu a8 dồn Vua d8 - Bài 87",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_088",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 88",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_089",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 89",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_090",
+    "title": "Xe Đen phản công hàng 1 - Bài 90",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_091",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 91",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_092",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 92",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_093",
+    "title": "Hậu áp sát Vua e7 - Bài 93",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_094",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 94",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_095",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 95",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_096",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 96",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_097",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 97",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_098",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 98",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_099",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 99",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_100",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 100",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_101",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 101",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_102",
+    "title": "Hậu a8 dồn Vua d8 - Bài 102",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_103",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 103",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_104",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 104",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_105",
+    "title": "Xe Đen phản công hàng 1 - Bài 105",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_106",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 106",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_107",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 107",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_108",
+    "title": "Hậu áp sát Vua e7 - Bài 108",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_109",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 109",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_110",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 110",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_111",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 111",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_112",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 112",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_113",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 113",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_114",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 114",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_115",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 115",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_116",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 116",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_117",
+    "title": "Hậu a8 dồn Vua d8 - Bài 117",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_118",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 118",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_119",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 119",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_120",
+    "title": "Xe Đen phản công hàng 1 - Bài 120",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_121",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 121",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_122",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 122",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_123",
+    "title": "Hậu áp sát Vua e7 - Bài 123",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_124",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 124",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_125",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 125",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_126",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 126",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_127",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 127",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_128",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 128",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_129",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 129",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_130",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 130",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_131",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 131",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_132",
+    "title": "Hậu a8 dồn Vua d8 - Bài 132",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_133",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 133",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_134",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 134",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_135",
+    "title": "Xe Đen phản công hàng 1 - Bài 135",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_136",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 136",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_137",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 137",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_138",
+    "title": "Hậu áp sát Vua e7 - Bài 138",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_139",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 139",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_140",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 140",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_141",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 141",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_142",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 142",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_143",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 143",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_144",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 144",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_145",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 145",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_146",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 146",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_147",
+    "title": "Hậu a8 dồn Vua d8 - Bài 147",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_148",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 148",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_149",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 149",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_150",
+    "title": "Xe Đen phản công hàng 1 - Bài 150",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_151",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 151",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_152",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 152",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_153",
+    "title": "Hậu áp sát Vua e7 - Bài 153",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_154",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 154",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_155",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 155",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_156",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 156",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_157",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 157",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_158",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 158",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_159",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 159",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_160",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 160",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_161",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 161",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_162",
+    "title": "Hậu a8 dồn Vua d8 - Bài 162",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_163",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 163",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_164",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 164",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_165",
+    "title": "Xe Đen phản công hàng 1 - Bài 165",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_166",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 166",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_167",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 167",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_168",
+    "title": "Hậu áp sát Vua e7 - Bài 168",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_169",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 169",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_170",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 170",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_171",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 171",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_172",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 172",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_173",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 173",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_174",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 174",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_175",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 175",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_176",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 176",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_177",
+    "title": "Hậu a8 dồn Vua d8 - Bài 177",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_178",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 178",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_179",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 179",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_180",
+    "title": "Xe Đen phản công hàng 1 - Bài 180",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_181",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 181",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_182",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 182",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_183",
+    "title": "Hậu áp sát Vua e7 - Bài 183",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_184",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 184",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_185",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 185",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_186",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 186",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_187",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 187",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_188",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 188",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_189",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 189",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_190",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 190",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_191",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 191",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_192",
+    "title": "Hậu a8 dồn Vua d8 - Bài 192",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_193",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 193",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_194",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 194",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_195",
+    "title": "Xe Đen phản công hàng 1 - Bài 195",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_196",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 196",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_197",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 197",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_198",
+    "title": "Hậu áp sát Vua e7 - Bài 198",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_199",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 199",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_200",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 200",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_201",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 201",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_202",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 202",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_203",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 203",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_204",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 204",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_205",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 205",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_206",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 206",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_207",
+    "title": "Hậu a8 dồn Vua d8 - Bài 207",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_208",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 208",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_209",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 209",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_210",
+    "title": "Xe Đen phản công hàng 1 - Bài 210",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_211",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 211",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_212",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 212",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_213",
+    "title": "Hậu áp sát Vua e7 - Bài 213",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_214",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 214",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_215",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 215",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_216",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 216",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_217",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 217",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_218",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 218",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_219",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 219",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_220",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 220",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_221",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 221",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_222",
+    "title": "Hậu a8 dồn Vua d8 - Bài 222",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_223",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 223",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_224",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 224",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_225",
+    "title": "Xe Đen phản công hàng 1 - Bài 225",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_226",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 226",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_227",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 227",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_228",
+    "title": "Hậu áp sát Vua e7 - Bài 228",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_229",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 229",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_230",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 230",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_231",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 231",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_232",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 232",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_233",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 233",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_234",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 234",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_235",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 235",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_236",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 236",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_237",
+    "title": "Hậu a8 dồn Vua d8 - Bài 237",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_238",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 238",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_239",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 239",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_240",
+    "title": "Xe Đen phản công hàng 1 - Bài 240",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_241",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 241",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_242",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 242",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_243",
+    "title": "Hậu áp sát Vua e7 - Bài 243",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_244",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 244",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_245",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 245",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_246",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 246",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_247",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 247",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_248",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 248",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_249",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 249",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_250",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 250",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_251",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 251",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_252",
+    "title": "Hậu a8 dồn Vua d8 - Bài 252",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_253",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 253",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_254",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 254",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_255",
+    "title": "Xe Đen phản công hàng 1 - Bài 255",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_256",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 256",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_257",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 257",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_258",
+    "title": "Hậu áp sát Vua e7 - Bài 258",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_259",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 259",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_260",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 260",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_261",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 261",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_262",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 262",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_263",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 263",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_264",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 264",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_265",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 265",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_266",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 266",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_267",
+    "title": "Hậu a8 dồn Vua d8 - Bài 267",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_268",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 268",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_269",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 269",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_270",
+    "title": "Xe Đen phản công hàng 1 - Bài 270",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_271",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 271",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_272",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 272",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_273",
+    "title": "Hậu áp sát Vua e7 - Bài 273",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_274",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 274",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_275",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 275",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_276",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 276",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_277",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 277",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_278",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 278",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_279",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 279",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_280",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 280",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_281",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 281",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_282",
+    "title": "Hậu a8 dồn Vua d8 - Bài 282",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_283",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 283",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_284",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 284",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_285",
+    "title": "Xe Đen phản công hàng 1 - Bài 285",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_286",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 286",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_287",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 287",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_288",
+    "title": "Hậu áp sát Vua e7 - Bài 288",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_289",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 289",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_290",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 290",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_291",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 291",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_292",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 292",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_293",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 293",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_294",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 294",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_295",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 295",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_296",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 296",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_297",
+    "title": "Hậu a8 dồn Vua d8 - Bài 297",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_298",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 298",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_299",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 299",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_300",
+    "title": "Xe Đen phản công hàng 1 - Bài 300",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_301",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 301",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_302",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 302",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_303",
+    "title": "Hậu áp sát Vua e7 - Bài 303",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_304",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 304",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_305",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 305",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  },
+  {
+    "id": "M1_306",
+    "title": "Đòn Mã thắt góc (Smothered Mate) - Bài 306",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Mã",
+    "fen": "6rk/6pp/7N/8/8/8/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Mã f7 chiếu bí! Vua Đen bị chính Xe và Tốt của mình vây kín trong góc."
+  },
+  {
+    "id": "M1_307",
+    "title": "Đòn Arabian Mate (Xe h8 + Mã f7) - Bài 307",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Arabian",
+    "fen": "7k/5N1p/8/8/8/8/8/6KR w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rh8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe h8 chiếu bí! Mã f7 vừa bảo vệ Xe vừa chặn ô thoát g8 của Vua."
+  },
+  {
+    "id": "M1_308",
+    "title": "Đòn Boden's Mate (Song Tượng chéo) - Bài 308",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Boden's",
+    "fen": "2kr4/ppp2p1p/8/8/8/8/2B5/3K2B1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bf5#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng f5 chiếu bí khi đường chéo kia đã bị Tượng g1 kiểm soát hoàn hảo."
+  },
+  {
+    "id": "M1_309",
+    "title": "Đòn Dovetail Mate (Hậu góc) - Bài 309",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Dovetail",
+    "fen": "6k1/5p1p/6p1/8/8/5Q2/8/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qf6"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu phong tỏa các ô thoát của Vua."
+  },
+  {
+    "id": "M1_310",
+    "title": "Đòn Tốt phong cấp chiếu bí - Bài 310",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Tốt",
+    "fen": "5k2/4P3/5K2/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "e8=Q#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tốt e7 tiến lên e8 phong Hậu chiếu bí ngay lập tức."
+  },
+  {
+    "id": "M1_311",
+    "title": "Xe g8 có Tốt f7 bảo vệ - Bài 311",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe g8",
+    "fen": "7k/5P1p/8/8/8/8/8/6RK w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g8 chiếu bí có Tốt f7 bảo vệ chắc chắn."
+  },
+  {
+    "id": "M1_312",
+    "title": "Hậu a8 dồn Vua d8 - Bài 312",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu a8",
+    "fen": "3k4/3P4/3K4/8/8/8/8/7Q w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qa8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu a8 chiếu bí hàng đáy khi Vua Đen bị giam cầm."
+  },
+  {
+    "id": "M1_313",
+    "title": "Đòn Xe g2 dọc cột mở - Bài 313",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Xe",
+    "fen": "r5k1/5p1p/8/8/8/8/1R6/1R4K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rg2#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe g2 chiếu cắt đứt mọi lối thoát của Vua Đen trên cột g."
+  },
+  {
+    "id": "M1_314",
+    "title": "Tượng ăn f7 chiếu bí thần tốc - Bài 314",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Tượng ăn",
+    "fen": "r1bq1rk1/pppp1ppp/2n5/4N3/2B1n3/8/PPPP1PPP/RNBQK2R w KQ - 0 6",
+    "turn": "w",
+    "moves": [
+      "Bxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Tượng ăn f7 chiếu bắt Vua đối phương."
+  },
+  {
+    "id": "M1_315",
+    "title": "Xe Đen phản công hàng 1 - Bài 315",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Xe Đen",
+    "fen": "6k1/8/8/8/8/8/5PPP/4r1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Re1#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Đen lao xuống hàng 1 hạ gục Vua Trắng."
+  },
+  {
+    "id": "M1_316",
+    "title": "Chiếu bí hàng đáy Xe d8 - Bài 316",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/8/3R2K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rd8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Xe Trắng lao xuống hàng 8 chiếu bí vì Vua Đen bị 3 Tốt của mình chặn đường thoát."
+  },
+  {
+    "id": "M1_317",
+    "title": "Chiếu bí hàng đáy Hậu e8 - Bài 317",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Chiếu bí",
+    "fen": "6k1/5ppp/8/8/8/8/4Q3/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe8#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu Trắng lao xuống hàng đáy dứt điểm khi Vua không có lỗ thông gió (Luft)."
+  },
+  {
+    "id": "M1_318",
+    "title": "Hậu áp sát Vua e7 - Bài 318",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Hậu áp",
+    "fen": "4k3/4Q3/4K3/8/8/8/8/8 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qe7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu e7 có Vua e6 hỗ trợ chiếu bí ngay trước mặt Vua Đen."
+  },
+  {
+    "id": "M1_319",
+    "title": "Đòn Scholar's Mate (Hậu ăn f7) - Bài 319",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Scholar's",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4p3/2B1P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qxf7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn f7 có Tượng c4 hỗ trợ, đòn sát cục 4 nước kinh điển của người mới chơi."
+  },
+  {
+    "id": "M1_320",
+    "title": "Đòn Hậu ăn h7 có Mã g5 - Bài 320",
+    "category": "Tập 1: Chiếu bí 1 nước (Mate in 1)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1b2rk1/pp1p1ppp/2n1p3/6N1/8/3Q4/PPP2PPP/R3KB1R w KQ - 1 11",
+    "turn": "w",
+    "moves": [
+      "Qxh7#"
+    ],
+    "difficulty": "Căn bản",
+    "description": "Hậu ăn h7 chiếu bí với sự bảo vệ của Mã g5."
+  }
+]

@@ -16,6 +16,7 @@
   "dependencies": {
     "@tauri-apps/api": "^2.11.1",
     "canvas-confetti": "^1.9.4",
+    "chess.js": "^1.4.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "lucide-react": "^1.31.0",

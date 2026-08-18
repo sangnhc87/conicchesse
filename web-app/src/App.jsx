@@ -20,6 +20,7 @@ import DatabaseImportModal from './components/DatabaseImportModal';
 import EngineSettingsModal from './components/EngineSettingsModal';
 import CheckmateSolverModal from './components/CheckmateSolverModal';
 import TrainingPanel from './components/TrainingPanel';
+import ChessAppModule from './chess/ChessAppModule';
 import { PuzzlesData } from './data/PuzzlesData';
 
 import {
@@ -35,6 +36,16 @@ import { storageGet, storageSet } from './lib/safeStorage.js';
 import { safeFetchJson } from './lib/dataLoader.js';
 
 export default function App() {
+  // Top-Level Game Platform: 'xiangqi' (Cờ Tướng) | 'chess' (Cờ Vua)
+  const [gameType, setGameType] = useState(() => {
+    return storageGet('conic_active_game_type', 'xiangqi');
+  });
+
+  const handleSwitchGameType = (type) => {
+    setGameType(type);
+    storageSet('conic_active_game_type', type);
+  };
+
   // App Mode: 'study' (Nghiên cứu kỳ phổ 4.230 bài) | 'analysis' (Phân tích 2 bên & Pikafish) | 'play_ai' (Đấu cờ với AI)
   const [appMode, setAppMode] = useState('study');
   const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
@@ -1301,13 +1312,59 @@ export default function App() {
     ? lastMove
     : (isAnalysis ? (analysisPreviewMove || analysisLastMove) : playAiLastMove);
 
+  if (gameType === 'chess') {
+    return (
+      <div className="flex flex-col h-screen bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
+        {/* Top Header with Game Platform Switcher */}
+        <header className="px-4 md:px-6 bg-[#0c0f17]/95 backdrop-blur-xl border-b border-[#202636] flex items-center justify-between shadow-2xl z-30 h-14 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center font-black text-white shadow-md text-base border border-amber-300/30">
+              ♞
+            </div>
+            <div>
+              <h1 className="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 tracking-wide flex items-center gap-2">
+                Conic Chess
+                <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 font-bold tracking-normal">
+                  Cờ Vua 1.250+ Sát Cục
+                </span>
+              </h1>
+            </div>
+          </div>
+
+          {/* Game Switcher: Cờ Tướng vs Cờ Vua */}
+          <div className="flex items-center p-1 bg-[#141824] border border-amber-500/40 rounded-xl shadow-lg gap-1">
+            <button
+              onClick={() => handleSwitchGameType('xiangqi')}
+              className="px-3.5 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 text-gray-400 hover:text-gray-200 hover:bg-white/5"
+            >
+              <span>🔴 CỜ TƯỚNG</span>
+              <span className="hidden sm:inline-block text-[10px] opacity-75 font-normal">4.400+</span>
+            </button>
+            <button
+              onClick={() => handleSwitchGameType('chess')}
+              className="px-3.5 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/30"
+            >
+              <span>👑 CỜ VUA</span>
+              <span className="hidden sm:inline-block text-[10px] opacity-90 font-bold">1.250+</span>
+            </button>
+          </div>
+        </header>
+
+        {/* Embedded Chess Module */}
+        <div className="flex-1 overflow-y-auto flex flex-col">
+          <ChessAppModule />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-screen bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
       {/* Top Imperial App Header Bar (Clean, Minimalist Luxury) */}
       <header className={`px-4 md:px-6 bg-[#0c0f17]/95 backdrop-blur-xl border-b border-[#202636] flex items-center justify-between shadow-2xl z-30 no-print transition-all duration-300 ease-in-out ${
         isTopHeaderCollapsed ? '-translate-y-full h-0 p-0 overflow-hidden opacity-0 pointer-events-none' : 'h-14 opacity-100'
       }`}>
-        {/* Left: Royal Brand */}
+        {/* Left: Royal Brand & Game Switcher */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsSidebarOpen(true)}
@@ -1328,6 +1385,22 @@ export default function App() {
                 </span>
               </h1>
             </div>
+          </div>
+
+          {/* Game Switcher: Cờ Tướng vs Cờ Vua */}
+          <div className="hidden sm:flex items-center p-0.5 bg-[#141824] border border-amber-500/30 rounded-xl ml-2 shadow-inner">
+            <button
+              onClick={() => handleSwitchGameType('xiangqi')}
+              className="px-2.5 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-sm"
+            >
+              <span>🔴 CỜ TƯỚNG</span>
+            </button>
+            <button
+              onClick={() => handleSwitchGameType('chess')}
+              className="px-2.5 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 text-gray-400 hover:text-amber-300 hover:bg-white/5"
+            >
+              <span>👑 CỜ VUA</span>
+            </button>
           </div>
         </div>
 

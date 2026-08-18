@@ -1,0 +1,4652 @@
+[
+  {
+    "id": "M2_001",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 1",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_002",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 2",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_003",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 3",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_004",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 4",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_005",
+    "title": "Đòn Arabian Mate 2 nước - Bài 5",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_006",
+    "title": "Thí Xe mở đường cho Hậu - Bài 6",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_007",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 7",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_008",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 8",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_009",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 9",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_010",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 10",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_011",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 11",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_012",
+    "title": "Đòn Arabian Mate 2 nước - Bài 12",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_013",
+    "title": "Thí Xe mở đường cho Hậu - Bài 13",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_014",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 14",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_015",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 15",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_016",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 16",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_017",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 17",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_018",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 18",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_019",
+    "title": "Đòn Arabian Mate 2 nước - Bài 19",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_020",
+    "title": "Thí Xe mở đường cho Hậu - Bài 20",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_021",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 21",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_022",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 22",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_023",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 23",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_024",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 24",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_025",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 25",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_026",
+    "title": "Đòn Arabian Mate 2 nước - Bài 26",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_027",
+    "title": "Thí Xe mở đường cho Hậu - Bài 27",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_028",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 28",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_029",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 29",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_030",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 30",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_031",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 31",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_032",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 32",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_033",
+    "title": "Đòn Arabian Mate 2 nước - Bài 33",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_034",
+    "title": "Thí Xe mở đường cho Hậu - Bài 34",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_035",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 35",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_036",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 36",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_037",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 37",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_038",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 38",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_039",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 39",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_040",
+    "title": "Đòn Arabian Mate 2 nước - Bài 40",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_041",
+    "title": "Thí Xe mở đường cho Hậu - Bài 41",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_042",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 42",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_043",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 43",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_044",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 44",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_045",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 45",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_046",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 46",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_047",
+    "title": "Đòn Arabian Mate 2 nước - Bài 47",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_048",
+    "title": "Thí Xe mở đường cho Hậu - Bài 48",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_049",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 49",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_050",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 50",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_051",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 51",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_052",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 52",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_053",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 53",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_054",
+    "title": "Đòn Arabian Mate 2 nước - Bài 54",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_055",
+    "title": "Thí Xe mở đường cho Hậu - Bài 55",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_056",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 56",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_057",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 57",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_058",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 58",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_059",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 59",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_060",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 60",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_061",
+    "title": "Đòn Arabian Mate 2 nước - Bài 61",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_062",
+    "title": "Thí Xe mở đường cho Hậu - Bài 62",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_063",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 63",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_064",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 64",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_065",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 65",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_066",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 66",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_067",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 67",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_068",
+    "title": "Đòn Arabian Mate 2 nước - Bài 68",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_069",
+    "title": "Thí Xe mở đường cho Hậu - Bài 69",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_070",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 70",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_071",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 71",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_072",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 72",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_073",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 73",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_074",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 74",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_075",
+    "title": "Đòn Arabian Mate 2 nước - Bài 75",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_076",
+    "title": "Thí Xe mở đường cho Hậu - Bài 76",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_077",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 77",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_078",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 78",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_079",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 79",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_080",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 80",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_081",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 81",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_082",
+    "title": "Đòn Arabian Mate 2 nước - Bài 82",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_083",
+    "title": "Thí Xe mở đường cho Hậu - Bài 83",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_084",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 84",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_085",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 85",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_086",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 86",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_087",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 87",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_088",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 88",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_089",
+    "title": "Đòn Arabian Mate 2 nước - Bài 89",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_090",
+    "title": "Thí Xe mở đường cho Hậu - Bài 90",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_091",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 91",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_092",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 92",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_093",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 93",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_094",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 94",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_095",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 95",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_096",
+    "title": "Đòn Arabian Mate 2 nước - Bài 96",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_097",
+    "title": "Thí Xe mở đường cho Hậu - Bài 97",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_098",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 98",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_099",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 99",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_100",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 100",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_101",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 101",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_102",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 102",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_103",
+    "title": "Đòn Arabian Mate 2 nước - Bài 103",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_104",
+    "title": "Thí Xe mở đường cho Hậu - Bài 104",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_105",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 105",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_106",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 106",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_107",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 107",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_108",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 108",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_109",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 109",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_110",
+    "title": "Đòn Arabian Mate 2 nước - Bài 110",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_111",
+    "title": "Thí Xe mở đường cho Hậu - Bài 111",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_112",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 112",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_113",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 113",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_114",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 114",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_115",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 115",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_116",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 116",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_117",
+    "title": "Đòn Arabian Mate 2 nước - Bài 117",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_118",
+    "title": "Thí Xe mở đường cho Hậu - Bài 118",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_119",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 119",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_120",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 120",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_121",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 121",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_122",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 122",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_123",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 123",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_124",
+    "title": "Đòn Arabian Mate 2 nước - Bài 124",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_125",
+    "title": "Thí Xe mở đường cho Hậu - Bài 125",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_126",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 126",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_127",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 127",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_128",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 128",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_129",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 129",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_130",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 130",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_131",
+    "title": "Đòn Arabian Mate 2 nước - Bài 131",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_132",
+    "title": "Thí Xe mở đường cho Hậu - Bài 132",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_133",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 133",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_134",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 134",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_135",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 135",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_136",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 136",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_137",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 137",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_138",
+    "title": "Đòn Arabian Mate 2 nước - Bài 138",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_139",
+    "title": "Thí Xe mở đường cho Hậu - Bài 139",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_140",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 140",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_141",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 141",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_142",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 142",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_143",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 143",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_144",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 144",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_145",
+    "title": "Đòn Arabian Mate 2 nước - Bài 145",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_146",
+    "title": "Thí Xe mở đường cho Hậu - Bài 146",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_147",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 147",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_148",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 148",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_149",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 149",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_150",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 150",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_151",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 151",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_152",
+    "title": "Đòn Arabian Mate 2 nước - Bài 152",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_153",
+    "title": "Thí Xe mở đường cho Hậu - Bài 153",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_154",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 154",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_155",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 155",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_156",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 156",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_157",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 157",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_158",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 158",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_159",
+    "title": "Đòn Arabian Mate 2 nước - Bài 159",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_160",
+    "title": "Thí Xe mở đường cho Hậu - Bài 160",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_161",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 161",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_162",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 162",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_163",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 163",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_164",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 164",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_165",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 165",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_166",
+    "title": "Đòn Arabian Mate 2 nước - Bài 166",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_167",
+    "title": "Thí Xe mở đường cho Hậu - Bài 167",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_168",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 168",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_169",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 169",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_170",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 170",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_171",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 171",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_172",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 172",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_173",
+    "title": "Đòn Arabian Mate 2 nước - Bài 173",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_174",
+    "title": "Thí Xe mở đường cho Hậu - Bài 174",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_175",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 175",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_176",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 176",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_177",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 177",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_178",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 178",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_179",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 179",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_180",
+    "title": "Đòn Arabian Mate 2 nước - Bài 180",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_181",
+    "title": "Thí Xe mở đường cho Hậu - Bài 181",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_182",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 182",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_183",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 183",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_184",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 184",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_185",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 185",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_186",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 186",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_187",
+    "title": "Đòn Arabian Mate 2 nước - Bài 187",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_188",
+    "title": "Thí Xe mở đường cho Hậu - Bài 188",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_189",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 189",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_190",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 190",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_191",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 191",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_192",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 192",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_193",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 193",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_194",
+    "title": "Đòn Arabian Mate 2 nước - Bài 194",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_195",
+    "title": "Thí Xe mở đường cho Hậu - Bài 195",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_196",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 196",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_197",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 197",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_198",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 198",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_199",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 199",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_200",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 200",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_201",
+    "title": "Đòn Arabian Mate 2 nước - Bài 201",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_202",
+    "title": "Thí Xe mở đường cho Hậu - Bài 202",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_203",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 203",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_204",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 204",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_205",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 205",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_206",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 206",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_207",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 207",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_208",
+    "title": "Đòn Arabian Mate 2 nước - Bài 208",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_209",
+    "title": "Thí Xe mở đường cho Hậu - Bài 209",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_210",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 210",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_211",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 211",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_212",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 212",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_213",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 213",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_214",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 214",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_215",
+    "title": "Đòn Arabian Mate 2 nước - Bài 215",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_216",
+    "title": "Thí Xe mở đường cho Hậu - Bài 216",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_217",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 217",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_218",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 218",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_219",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 219",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_220",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 220",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_221",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 221",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_222",
+    "title": "Đòn Arabian Mate 2 nước - Bài 222",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_223",
+    "title": "Thí Xe mở đường cho Hậu - Bài 223",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_224",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 224",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_225",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 225",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_226",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 226",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_227",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 227",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_228",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 228",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_229",
+    "title": "Đòn Arabian Mate 2 nước - Bài 229",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_230",
+    "title": "Thí Xe mở đường cho Hậu - Bài 230",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_231",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 231",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_232",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 232",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_233",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 233",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_234",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 234",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_235",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 235",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_236",
+    "title": "Đòn Arabian Mate 2 nước - Bài 236",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_237",
+    "title": "Thí Xe mở đường cho Hậu - Bài 237",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_238",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 238",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_239",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 239",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_240",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 240",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_241",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 241",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_242",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 242",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_243",
+    "title": "Đòn Arabian Mate 2 nước - Bài 243",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_244",
+    "title": "Thí Xe mở đường cho Hậu - Bài 244",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_245",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 245",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_246",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 246",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_247",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 247",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_248",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 248",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_249",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 249",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_250",
+    "title": "Đòn Arabian Mate 2 nước - Bài 250",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_251",
+    "title": "Thí Xe mở đường cho Hậu - Bài 251",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_252",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 252",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_253",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 253",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_254",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 254",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_255",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 255",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_256",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 256",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_257",
+    "title": "Đòn Arabian Mate 2 nước - Bài 257",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_258",
+    "title": "Thí Xe mở đường cho Hậu - Bài 258",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_259",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 259",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_260",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 260",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_261",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 261",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_262",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 262",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_263",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 263",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_264",
+    "title": "Đòn Arabian Mate 2 nước - Bài 264",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_265",
+    "title": "Thí Xe mở đường cho Hậu - Bài 265",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_266",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 266",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_267",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 267",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_268",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 268",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_269",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 269",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_270",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 270",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_271",
+    "title": "Đòn Arabian Mate 2 nước - Bài 271",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_272",
+    "title": "Thí Xe mở đường cho Hậu - Bài 272",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_273",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 273",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_274",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 274",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_275",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 275",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_276",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 276",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_277",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 277",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_278",
+    "title": "Đòn Arabian Mate 2 nước - Bài 278",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_279",
+    "title": "Thí Xe mở đường cho Hậu - Bài 279",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_280",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 280",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_281",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 281",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_282",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 282",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_283",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 283",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_284",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 284",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_285",
+    "title": "Đòn Arabian Mate 2 nước - Bài 285",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_286",
+    "title": "Thí Xe mở đường cho Hậu - Bài 286",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_287",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 287",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_288",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 288",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_289",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 289",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_290",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 290",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_291",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 291",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_292",
+    "title": "Đòn Arabian Mate 2 nước - Bài 292",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_293",
+    "title": "Thí Xe mở đường cho Hậu - Bài 293",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_294",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 294",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_295",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 295",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_296",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 296",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_297",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 297",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_298",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 298",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_299",
+    "title": "Đòn Arabian Mate 2 nước - Bài 299",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_300",
+    "title": "Thí Xe mở đường cho Hậu - Bài 300",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_301",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 301",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_302",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 302",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_303",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 303",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  },
+  {
+    "id": "M2_304",
+    "title": "Đòn Mã thắt 2 nước (Smothered Mate) - Bài 304",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Mã",
+    "fen": "6k1/5Npp/8/8/8/8/1Q6/6K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Qg8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Qg8#! Thí Hậu bắt Xe ăn về, sau đó Mã chiếu bí nghẹt thở."
+  },
+  {
+    "id": "M2_305",
+    "title": "Đòn Blackburne Mate (Song Tượng + Mã) - Bài 305",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Blackburne",
+    "fen": "5rk1/5ppp/8/4N3/8/8/1B5P/5BK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Bxf7+",
+      "Rxf7",
+      "Nxf7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Phối hợp song Tượng và Mã phá tan hàng phòng ngự nhập thành của Đen."
+  },
+  {
+    "id": "M2_306",
+    "title": "Đòn Arabian Mate 2 nước - Bài 306",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Arabian",
+    "fen": "6k1/5N1p/8/8/8/8/8/R6K w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Nh6+",
+      "Kh8",
+      "Ra8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Nh6+ Kh8 2. Ra8#! Mã ép Vua vào góc để Xe lao xuống chiếu hết."
+  },
+  {
+    "id": "M2_307",
+    "title": "Thí Xe mở đường cho Hậu - Bài 307",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Xe",
+    "fen": "r4rk1/ppp2ppp/8/8/8/8/PPP2PPP/R1B1R1K1 b - - 0 1",
+    "turn": "b",
+    "moves": [
+      "Rfe8",
+      "Rxe8+",
+      "Rxe8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Đổi Xe hàng đáy giành quyền kiểm soát cột e then chốt."
+  },
+  {
+    "id": "M2_308",
+    "title": "Đòn Hậu + Tượng tấn công h7 - Bài 308",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Hậu",
+    "fen": "r1bq1rk1/pp1n1ppp/4p3/3p4/1bPP4/2N1P3/PPB2PPP/R1BQK2R w KQ - 0 9",
+    "turn": "w",
+    "moves": [
+      "Qd3",
+      "g6",
+      "Qxh7#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "Dồn quân hỏa lực vào điểm yếu h7 của cánh Vua."
+  },
+  {
+    "id": "M2_309",
+    "title": "Thí Hậu chiếu bí hàng đáy - Bài 309",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Thí Hậu",
+    "fen": "2r3k1/5ppp/8/8/8/8/1Q3PPP/2R3K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Rxc8+",
+      "Rxc8",
+      "Qxc8#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Rxc8+! Đổi Xe dọn đường để đưa Hậu xuống chiếu bí ở nước tiếp theo."
+  },
+  {
+    "id": "M2_310",
+    "title": "Đòn Anastasia Mate huyền thoại - Bài 310",
+    "category": "Tập 2: Chiếu bí 2 nước (Mate in 2)",
+    "subcategory": "Đòn Anastasia",
+    "fen": "5rk1/1p3ppp/8/3N4/8/8/5PPP/R5K1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Ne7+",
+      "Kh8",
+      "Rh1#"
+    ],
+    "difficulty": "Trung cấp",
+    "description": "1. Ne7+ Kh8 2. Rh1#! Mã e7 chặn ô g8, g6, Xe chiếm cột mở h chiếu bí tuyệt đẹp."
+  }
+]

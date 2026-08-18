@@ -1,0 +1,3902 @@
+[
+  {
+    "id": "TAC_001",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 1",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_002",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 2",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_003",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 3",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_004",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 4",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_005",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 5",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_006",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 6",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_007",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 7",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_008",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 8",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_009",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 9",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_010",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 10",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_011",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 11",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_012",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 12",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_013",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 13",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_014",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 14",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_015",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 15",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_016",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 16",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_017",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 17",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_018",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 18",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_019",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 19",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_020",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 20",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_021",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 21",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_022",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 22",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_023",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 23",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_024",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 24",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_025",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 25",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_026",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 26",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_027",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 27",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_028",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 28",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_029",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 29",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_030",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 30",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_031",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 31",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_032",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 32",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_033",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 33",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_034",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 34",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_035",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 35",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_036",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 36",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_037",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 37",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_038",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 38",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_039",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 39",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_040",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 40",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_041",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 41",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_042",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 42",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_043",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 43",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_044",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 44",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_045",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 45",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_046",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 46",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_047",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 47",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_048",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 48",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_049",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 49",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_050",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 50",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_051",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 51",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_052",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 52",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_053",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 53",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_054",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 54",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_055",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 55",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_056",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 56",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_057",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 57",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_058",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 58",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_059",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 59",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_060",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 60",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_061",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 61",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_062",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 62",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_063",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 63",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_064",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 64",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_065",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 65",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_066",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 66",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_067",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 67",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_068",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 68",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_069",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 69",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_070",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 70",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_071",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 71",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_072",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 72",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_073",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 73",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_074",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 74",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_075",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 75",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_076",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 76",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_077",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 77",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_078",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 78",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_079",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 79",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_080",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 80",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_081",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 81",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_082",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 82",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_083",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 83",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_084",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 84",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_085",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 85",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_086",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 86",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_087",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 87",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_088",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 88",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_089",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 89",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_090",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 90",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_091",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 91",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_092",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 92",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_093",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 93",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_094",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 94",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_095",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 95",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_096",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 96",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_097",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 97",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_098",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 98",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_099",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 99",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_100",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 100",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_101",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 101",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_102",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 102",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_103",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 103",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_104",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 104",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_105",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 105",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_106",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 106",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_107",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 107",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_108",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 108",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_109",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 109",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_110",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 110",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_111",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 111",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_112",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 112",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_113",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 113",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_114",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 114",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_115",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 115",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_116",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 116",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_117",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 117",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_118",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 118",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_119",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 119",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_120",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 120",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_121",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 121",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_122",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 122",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_123",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 123",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_124",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 124",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_125",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 125",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_126",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 126",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_127",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 127",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_128",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 128",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_129",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 129",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_130",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 130",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_131",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 131",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_132",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 132",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_133",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 133",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_134",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 134",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_135",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 135",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_136",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 136",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_137",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 137",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_138",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 138",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_139",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 139",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_140",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 140",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_141",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 141",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_142",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 142",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_143",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 143",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_144",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 144",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_145",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 145",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_146",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 146",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_147",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 147",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_148",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 148",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_149",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 149",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_150",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 150",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_151",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 151",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_152",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 152",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_153",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 153",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_154",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 154",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_155",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 155",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_156",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 156",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_157",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 157",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_158",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 158",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_159",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 159",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_160",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 160",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_161",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 161",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_162",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 162",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_163",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 163",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_164",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 164",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_165",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 165",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_166",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 166",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_167",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 167",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_168",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 168",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_169",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 169",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_170",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 170",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_171",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 171",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_172",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 172",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_173",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 173",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_174",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 174",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_175",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 175",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_176",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 176",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_177",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 177",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_178",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 178",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_179",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 179",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_180",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 180",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_181",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 181",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_182",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 182",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_183",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 183",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_184",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 184",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_185",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 185",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_186",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 186",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_187",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 187",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_188",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 188",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_189",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 189",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_190",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 190",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_191",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 191",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_192",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 192",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_193",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 193",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_194",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 194",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_195",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 195",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_196",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 196",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_197",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 197",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_198",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 198",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_199",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 199",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_200",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 200",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_201",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 201",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_202",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 202",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_203",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 203",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_204",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 204",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_205",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 205",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_206",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 206",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_207",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 207",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_208",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 208",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_209",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 209",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_210",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 210",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_211",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 211",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_212",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 212",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_213",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 213",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_214",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 214",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_215",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 215",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_216",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 216",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_217",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 217",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_218",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 218",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_219",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 219",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_220",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 220",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_221",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 221",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_222",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 222",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_223",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 223",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_224",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 224",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_225",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 225",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_226",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 226",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_227",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 227",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_228",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 228",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_229",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 229",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_230",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 230",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_231",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 231",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_232",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 232",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_233",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 233",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_234",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 234",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_235",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 235",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_236",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 236",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_237",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 237",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_238",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 238",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_239",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 239",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_240",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 240",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_241",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 241",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_242",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 242",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_243",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 243",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_244",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 244",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_245",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 245",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_246",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 246",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_247",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 247",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_248",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 248",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_249",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 249",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_250",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 250",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_251",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 251",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_252",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 252",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_253",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 253",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_254",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 254",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  },
+  {
+    "id": "TAC_255",
+    "title": "Đòn Xiên (Skewer) của Xe - Bài 255",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Xiên (Skewer)",
+    "fen": "4k3/8/8/8/8/8/4r3/R3K3 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Kd1",
+      "Rh2",
+      "Ra8+"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tấn công mục tiêu có giá trị cao phía trước, khi đối phương chạy thì bắt quân phía sau."
+  },
+  {
+    "id": "TAC_256",
+    "title": "Đòn Chiếu Mở (Discovered Check) - Bài 256",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Chiếu Mở (Discovered Attack)",
+    "fen": "r1bqkb1r/pppp1ppp/2n5/4n3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxe5",
+      "Nxe5",
+      "Bb3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Di chuyển 1 quân mở đường cho quân tầm xa phía sau chiếu Vua đối phương."
+  },
+  {
+    "id": "TAC_257",
+    "title": "Đòn Đánh Lạc Hướng (Deflection) - Bài 257",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Đánh Lạc Hướng (Deflection)",
+    "fen": "3r2k1/5ppp/8/8/8/8/1Q3PPP/5RK1 w - - 0 1",
+    "turn": "w",
+    "moves": [
+      "Qb6",
+      "Re8",
+      "Qc6"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Dụ quân phòng thủ rời khỏi vị trí bảo vệ then chốt."
+  },
+  {
+    "id": "TAC_258",
+    "title": "Đòn Phá Vỡ Phòng Ngự (Removing Defender) - Bài 258",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Phá Vỡ Phòng Thủ",
+    "fen": "r1bq1rk1/ppp2ppp/2n2n2/4p3/1bB1P3/2NP1N2/PPP2PPP/R1BQK2R w KQ - 1 6",
+    "turn": "w",
+    "moves": [
+      "O-O",
+      "Bxc3",
+      "bxc3"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Tiêu diệt quân bảo vệ then chốt để đoạt quân hoặc mở đường tấn công."
+  },
+  {
+    "id": "TAC_259",
+    "title": "Đòn Bắt Đôi (Fork) của Mã c7 - Bài 259",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Bắt Đôi (Fork)",
+    "fen": "r1bqk2r/pppp1ppp/2n5/4N3/1b2n3/2N5/PPPP1PPP/R1BQKB1R w KQkq - 0 5",
+    "turn": "w",
+    "moves": [
+      "Nxc6",
+      "dxc6",
+      "Nxe4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Mã tấn công đồng thời 2 mục tiêu lớn (Vua và Xe hoặc Vua và Hậu)."
+  },
+  {
+    "id": "TAC_260",
+    "title": "Đòn Ghim Quân (Pin) của Tượng - Bài 260",
+    "category": "Tập 4: Các Đòn Chiến Thuật (Tactics)",
+    "subcategory": "Đòn Ghim / Giằng Quân (Pin)",
+    "fen": "r1bqk2r/ppppbppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+    "turn": "w",
+    "moves": [
+      "d4",
+      "exd4",
+      "Nxd4"
+    ],
+    "difficulty": "Chiến thuật",
+    "description": "Ghim chặt quân không cho di chuyển vì phía sau là Vua hoặc Hậu."
+  }
+]
