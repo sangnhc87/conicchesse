@@ -18,10 +18,12 @@ export default function ChessSidebar({
 }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedNodes, setExpandedNodes] = useState({
-    'Tuyển Tập Sát Cục & Chiến Thuật Cờ Vua': true,
-    'Tuyển Tập Sát Cục & Chiến Thuật Cờ Vua/Tập 1: Chiếu bí 1 nước (Mate in 1)': true,
-    'Tuyển Tập Sát Cục & Chiến Thuật Cờ Vua/Tập 2: Chiếu bí 2 nước (Mate in 2)': true,
-    'Tuyển Tập Sát Cục & Chiến Thuật Cờ Vua/Tập 4: Các Đòn Chiến Thuật (Tactics)': true
+    'Kho Tàng Sát Cục & Chiến Thuật Cờ Vua Conic (5530 Bài)': true,
+    'Kho Tàng Sát Cục & Chiến Thuật Cờ Vua Conic (5530 Bài)/01. Tuyển Tập Chiếu Bí 1 Nước (Mate in 1)': true,
+    'Kho Tàng Sát Cục & Chiến Thuật Cờ Vua Conic (5530 Bài)/02. Tuyển Tập Chiếu Bí 2 Nước (Mate in 2)': true,
+    'Kho Tàng Sát Cục & Chiến Thuật Cờ Vua Conic (5530 Bài)/03. Tuyển Tập Chiếu Bí 3 Nước (Mate in 3)': true,
+    'Kho Tàng Sát Cục & Chiến Thuật Cờ Vua Conic (5530 Bài)/04. Tuyển Tập Chiếu Bí 4 Nước (Mate in 4)': true,
+    'Kho Tàng Sát Cục & Chiến Thuật Cờ Vua Conic (5530 Bài)/05. Tuyển Tập Chiếu Bí 5 Nước (Mate in 5)': true
   });
   const [filterMode, setFilterMode] = useState('all'); // 'all', 'unsolved', 'completed', 'favorites'
 

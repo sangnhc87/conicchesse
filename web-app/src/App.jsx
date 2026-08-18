@@ -1325,7 +1325,7 @@ export default function App() {
               <h1 className="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 tracking-wide flex items-center gap-2">
                 Conic Chess
                 <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 font-bold tracking-normal">
-                  Cờ Vua 1.250+ Sát Cục
+                  5.530+ Sát Cục (Mate in 1-5) & In Sách
                 </span>
               </h1>
             </div>
@@ -1345,7 +1345,7 @@ export default function App() {
               className="px-3.5 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/30"
             >
               <span>👑 CỜ VUA</span>
-              <span className="hidden sm:inline-block text-[10px] opacity-90 font-bold">1.250+</span>
+              <span className="hidden sm:inline-block text-[10px] opacity-90 font-bold">5.530+</span>
             </button>
           </div>
         </header>
