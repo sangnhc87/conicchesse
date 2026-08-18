@@ -277,6 +277,16 @@ export default function ChessAppModule({ isKidMode = false }) {
     ? translateSanToVi(currentPuzzle.moves[currentMoveIndex])
     : 'Đã hoàn thành thế cờ!';
 
+  // Reset to initial standard chess position for 2-sided free self-play
+  const handleResetToStart = () => {
+    const startFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+    setCurrentFen(startFen);
+    setAnalysisHistory([]);
+    setLastMove(null);
+    setHintMove(null);
+    setCurrentPuzzle(null);
+  };
+
   return (
     <div className="flex-1 flex flex-col h-full bg-[#07090e] select-none overflow-hidden">
       {/* Top Chess Mode Selector Bar */}
@@ -294,19 +304,20 @@ export default function ChessAppModule({ isKidMode = false }) {
             <span>Nghiên Cứu Kỳ Phổ (5.530+ Bài)</span>
           </button>
 
-          {!isKidMode && (
-            <button
-              onClick={() => setChessMode('analysis')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition ${
-                chessMode === 'analysis'
-                  ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <Compass className="w-3.5 h-3.5" />
-              <span>Phân Tích 2 Bên & Stockfish</span>
-            </button>
-          )}
+          <button
+            onClick={() => {
+              setChessMode('analysis');
+              if (!currentPuzzle) handleResetToStart();
+            }}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition ${
+              chessMode === 'analysis'
+                ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>🔍 Tự Đánh & Phân Tích 2 Bên</span>
+          </button>
 
           <button
             onClick={() => setChessMode('play_ai')}
@@ -344,8 +355,8 @@ export default function ChessAppModule({ isKidMode = false }) {
 
       {/* Main Studio Body (3-Column Layout) */}
       <div className="flex-1 flex overflow-hidden">
-        {/* 1. Left Column: CÂY DỮ LIỆU KỲ PHỔ (Ẩn khi Đấu AI) */}
-        {chessMode !== 'play_ai' && (
+        {/* 1. Left Column: CÂY DỮ LIỆU KỲ PHỔ (Chỉ hiện khi ở chế độ Nghiên Cứu Kỳ Phổ) */}
+        {chessMode === 'study' && (
           <ChessSidebar
             catalog={catalogData}
             currentPuzzleId={currentPuzzle?.id}
@@ -411,14 +422,22 @@ export default function ChessAppModule({ isKidMode = false }) {
             </div>
           </div>
 
-          {/* Board & Vertical Eval Bar Container */}
-          <div className="relative flex items-center justify-center gap-3 w-full max-w-[580px]">
-            {/* Vertical Evaluation Bar */}
-            <div className="w-4 h-[440px] md:h-[500px] bg-slate-900 rounded-full border border-slate-700/80 overflow-hidden flex flex-col justify-end p-0.5 shadow-inner shrink-0">
+          {/* Board & Tournament Vertical Eval Bar Container */}
+          <div className="relative flex items-center justify-center gap-2.5 w-full max-w-[580px]">
+            {/* Tournament Vertical Evaluation Bar */}
+            <div 
+              className="w-6 md:w-7 h-[420px] md:h-[500px] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
+              title={`Điểm thế trận: ${currentPuzzle ? '+6.4' : (ChessAnalysisEngine.analyze(currentFen, 2)?.evalScore || '0.00')}`}
+            >
+              {/* Equilibrium Line */}
+              <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-amber-400/70 z-20 pointer-events-none" />
+
+              {/* White Fill Bar (Dynamic) */}
               <div 
-                className="w-full bg-gradient-to-t from-amber-500 to-amber-300 rounded-full transition-all duration-300"
-                style={{ height: '85%' }}
-                title="Điểm ưu thế thế trận (+6.4 Trắng)"
+                className="w-full bg-slate-100 transition-all duration-500 ease-out flex flex-col justify-end items-center pb-2 relative z-10"
+                style={{ 
+                  height: `${Math.max(5, Math.min(95, 50 + 50 * (2 / (1 + Math.exp(-0.00368208 * Math.max(-1200, Math.min(1200, (!isFlipped ? (ChessAnalysisEngine.analyze(currentFen, 2)?.scorePawn || 0) : -(ChessAnalysisEngine.analyze(currentFen, 2)?.scorePawn || 0)) * 100)))) - 1)))}%` 
+                }}
               />
             </div>
 
@@ -439,10 +458,10 @@ export default function ChessAppModule({ isKidMode = false }) {
           {/* Bottom Quick Bar */}
           <div className="w-full max-w-[580px] flex items-center justify-between mt-2 px-2 text-xs text-slate-400">
             <div className="flex items-center gap-2 font-mono truncate max-w-[320px]">
-              <span>FEN: {currentFen}</span>
+              <span>Lượt đi: {currentFen.split(' ')[1] === 'w' ? '⚪ Quân Trắng' : '⚫ Quân Đen'}</span>
             </div>
             <div className="font-bold text-amber-400">
-              {currentMoveIndex} / {currentPuzzle?.moves?.length || 0} nước
+              {chessMode === 'analysis' ? `${analysisHistory.length} nước tự đánh` : `${currentMoveIndex} / ${currentPuzzle?.moves?.length || 0} nước`}
             </div>
           </div>
         </div>
@@ -484,6 +503,8 @@ export default function ChessAppModule({ isKidMode = false }) {
               if (currentPuzzle) setCurrentFen(currentPuzzle.fen);
               setAnalysisHistory([]);
             }}
+            onResetToStart={handleResetToStart}
+            analysisHistory={analysisHistory}
           />
         )}
 
