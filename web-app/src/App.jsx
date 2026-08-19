@@ -1853,22 +1853,22 @@ export default function App() {
 
             {/* Nước Đi Gợi Ý AI (Đã tách riêng lên trên) */}
             {isEngineAssistantEnabled && bestMoveSuggestion && (
-              <div className="w-full max-w-[500px] mx-auto mt-2 mb-1 px-4 py-2 bg-gradient-to-r from-[#121520] via-[#1a2035] to-[#121520] rounded-xl border border-cyan-500/30 flex justify-center items-center gap-2 text-sm shadow-xl backdrop-blur-md animate-fadeIn">
-                <Flame className="w-4 h-4 text-amber-400 animate-pulse" />
-                <span className="font-bold text-cyan-300">
+              <div className="w-full max-w-[min(100%,560px)] mx-auto my-1 px-3 py-1.5 bg-gradient-to-r from-[#121520] via-[#1a2035] to-[#121520] rounded-xl border border-cyan-500/30 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-md backdrop-blur-md animate-fadeIn">
+                <Flame className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
+                <span className="font-bold text-cyan-300 shrink-0">
                   {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:')}
                 </span>
-                <span className="font-sans text-white font-black text-base px-2 py-0.5 bg-cyan-950/80 rounded-md border border-cyan-500/50">
+                <span className="font-sans text-white font-black text-sm sm:text-base px-2 py-0.5 bg-cyan-950/80 rounded-md border border-cyan-500/50">
                   {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
                     (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
                 </span>
               </div>
             )}
 
-          <div className="relative flex items-start justify-center gap-2.5 w-full max-w-[620px] mx-auto mt-3">
+          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-120px)*0.9+80px))] lg:max-w-[700px] xl:max-w-[760px] 2xl:max-w-[840px] mx-auto mt-1">
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
-            <div className="w-10 flex flex-col items-center justify-start gap-2 shrink-0">
+            <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
                 <button
                   onClick={() => setIsEngineAssistantEnabled(prev => !prev)}
                   className={`p-2 rounded-xl border transition-all shadow-sm flex items-center justify-center ${
@@ -1915,7 +1915,7 @@ export default function App() {
             {/* Tournament Vertical Evaluation Bar (Xiangqi) */}
             {(showEvalBar || isTraining) && isEngineAssistantEnabled && (
               <div 
-                className="w-6 md:w-7 h-[420px] md:h-[500px] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
+                className="w-5 sm:w-6 md:w-7 h-[min(540px,calc(100vh-180px))] md:h-[min(620px,calc(100vh-160px))] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none mt-1"
                 title={`Điểm thế trận: ${currentEvalScore || '0.00'}`}
               >
                 {/* Equilibrium Line */}
@@ -1931,8 +1931,8 @@ export default function App() {
               </div>
             )}
 
-            <div className="flex-1 max-w-[500px]">
-              <div className="relative mb-6">
+            <div className="flex-1 w-full max-w-[min(100%,calc((100vh-130px)*0.9))] lg:max-w-[640px] xl:max-w-[700px] 2xl:max-w-[780px] flex flex-col items-center">
+              <div className="relative w-full mb-1.5 sm:mb-2">
                 <XiangqiBoard
                   board={activeBoard}
                   turn={activeTurn}
@@ -1956,18 +1956,17 @@ export default function App() {
               </div>
 
               {/* Bottom Navigation Toolbar */}
-            <div className="w-full max-w-[500px] flex flex-col gap-3 mt-4">
-              <div className="flex items-center justify-center gap-3">
+              <div className="w-full max-w-[460px] flex items-center justify-center gap-2 sm:gap-3 mt-1 sm:mt-2">
                 <button 
                   onClick={() => {
                     if (isAnalysis) handleAnalysisReset();
                     else if (isTraining) handlePlayAiReset();
                     else if (isStudy) handleFirstMove();
                   }}
-                  className="p-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95"
+                  className="p-2 sm:p-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95"
                   title="Về ban đầu"
                 >
-                  <ChevronsLeft className="w-5 h-5" />
+                  <ChevronsLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
                 <button 
                   onClick={() => {
@@ -1975,25 +1974,24 @@ export default function App() {
                     else if (isTraining) handlePlayAiUndo();
                     else if (isStudy) handlePrevMove();
                   }}
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95 font-medium text-sm"
+                  className="flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95 font-semibold text-xs sm:text-sm"
                   title="Lùi 1 nước (Undo)"
                 >
-                  <Undo2 className="w-5 h-5" /> Đi lại (Undo)
+                  <Undo2 className="w-4 h-4 sm:w-5 sm:h-5" /> Đi lại (Undo)
                 </button>
                 <button 
                   onClick={() => {
                     if (isStudy) handleNextMove();
                   }}
-                  className={`p-2.5 rounded-xl border transition-all ${isStudy ? 'bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border-[#2e333e] hover:scale-105 active:scale-95' : 'bg-[#1c1f26]/50 text-slate-600 border-[#1c1f26] cursor-not-allowed'}`}
+                  className={`p-2 sm:p-2.5 rounded-xl border transition-all ${isStudy ? 'bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border-[#2e333e] hover:scale-105 active:scale-95' : 'bg-[#1c1f26]/50 text-slate-600 border-[#1c1f26] cursor-not-allowed'}`}
                   title={isStudy ? "Tới 1 nước" : "Tới 1 nước (Chỉ dùng trong Học)"}
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
             </div>
           </div>
-          </div>
-          </div>
+        </div>
 
           {/* Right Panel: Study Panel, Analysis Panel, or Play AI Panel (Collapsible) */}
           {!isRightPanelCollapsed && (

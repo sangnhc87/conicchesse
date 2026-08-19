@@ -421,7 +421,7 @@ export default function ChessAppModule({ isKidMode = false, onSwitchGame }) {
         {chessMode !== 'play_ai' && (
           <div className="flex-1 flex flex-col items-center justify-between p-3 md:p-5 overflow-y-auto bg-transparent">
             {/* Top Control Bar Above Board */}
-          <div className="w-full max-w-[580px] flex items-center justify-between gap-2 mb-2">
+          <div className="w-full max-w-[min(100%,calc(100vh-140px))] xl:max-w-[680px] 2xl:max-w-[760px] flex items-center justify-between gap-2 mb-2">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setIsAssistantEnabled(!isAssistantEnabled)}
@@ -470,10 +470,10 @@ export default function ChessAppModule({ isKidMode = false, onSwitchGame }) {
           </div>
 
           {/* Board & Tournament Vertical Eval Bar Container */}
-          <div className="relative flex items-center justify-center gap-2.5 w-full max-w-[580px]">
+          <div className="relative flex items-center justify-center gap-2.5 w-full max-w-[min(100%,calc(100vh-140px))] xl:max-w-[680px] 2xl:max-w-[760px]">
             {/* Tournament Vertical Evaluation Bar */}
             <div 
-              className="w-6 md:w-7 h-[420px] md:h-[500px] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
+              className="w-5 sm:w-6 md:w-7 h-[min(500px,calc(100vh-200px))] md:h-[min(580px,calc(100vh-180px))] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
               title={`Điểm thế trận: ${currentAnalysis?.evalScore || '0.00'}`}
             >
               {/* Equilibrium Line */}
@@ -489,7 +489,7 @@ export default function ChessAppModule({ isKidMode = false, onSwitchGame }) {
             </div>
 
             {/* Master 8x8 Chess Board with Visual Arrows */}
-            <div className="flex-1 max-w-[500px]">
+            <div className="flex-1 w-full max-w-[min(100%,calc(100vh-160px))] xl:max-w-[640px] 2xl:max-w-[720px]">
               <ChessBoard
                 fen={currentFen}
                 onMove={handlePlayerMove}
@@ -503,7 +503,7 @@ export default function ChessAppModule({ isKidMode = false, onSwitchGame }) {
           </div>
 
           {/* Bottom Navigation Toolbar */}
-          <div className="w-full max-w-[580px] flex flex-col gap-3 mt-3">
+          <div className="w-full max-w-[480px] flex flex-col gap-2 mt-2">
             <div className="flex items-center justify-center gap-3">
               <button 
                 onClick={handleResetToStart}

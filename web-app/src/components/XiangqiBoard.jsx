@@ -195,7 +195,7 @@ export default function XiangqiBoard({
   }
 
   return (
-    <div className="relative select-none w-full max-w-[530px] lg:max-w-[570px] xl:max-w-[620px] 2xl:max-w-[670px] mx-auto flex items-center justify-center gap-2">
+    <div className="relative select-none w-full mx-auto flex items-center justify-center gap-2">
       {/* Pikafish Real-Time Evaluation Bar */}
       {showEvalBar && (
         <div className="hidden sm:flex flex-col items-center justify-between w-6 h-[440px] rounded-xl bg-[#0f1218] border border-[#2a3143] shadow-[0_4px_15px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex-shrink-0">
@@ -220,9 +220,9 @@ export default function XiangqiBoard({
       )}
 
       {/* Main Board Container */}
-      <div className="relative flex-1 w-full">
+      <div className="relative flex-1 w-full max-w-full">
         {/* Outer Handcrafted Imperial Rosewood Frame */}
-        <div className="relative p-2.5 sm:p-3.5 rounded-3xl bg-gradient-to-br from-[#54280d] via-[#3d1c07] to-[#200e03] border-4 border-[#7c4419] shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
+        <div className="relative p-2 sm:p-3 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#54280d] via-[#3d1c07] to-[#200e03] border-2 sm:border-4 border-[#7c4419] shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
           {/* Brass Inlaid Ornamental Corner Accents */}
           <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#e6b86a] rounded-tl-sm opacity-80" />
           <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#e6b86a] rounded-tr-sm opacity-80" />
@@ -230,9 +230,9 @@ export default function XiangqiBoard({
           <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#e6b86a] rounded-br-sm opacity-80" />
 
           {/* Inner Gold Wire Inlay Ring */}
-          <div className="p-1 rounded-2xl bg-gradient-to-br from-[#d4a04d] via-[#8c591b] to-[#402305] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
+          <div className="p-1 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#d4a04d] via-[#8c591b] to-[#402305] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
             {/* Main Playing Surface (Sandalwood Wood Canvas) */}
-            <div className="relative bg-[#edd5a8] rounded-xl border border-[#6b3c12] shadow-inner overflow-hidden">
+            <div className="relative bg-[#edd5a8] rounded-lg sm:rounded-xl border border-[#6b3c12] shadow-inner overflow-hidden">
               <svg
                 ref={svgRef}
                 viewBox="0 0 450 500"
@@ -605,15 +605,16 @@ export default function XiangqiBoard({
                         strokeOpacity="0.8"
                       />
 
-                      {/* Traditional Calligraphic Inscription */}
+                      {/* Traditional Calligraphic Inscription (Bolder & Sharper) */}
                       <text
                         x={0}
-                        y={pieceLanguage === 'cn' ? 6 : 4.5}
-                        fontSize={pieceLanguage === 'cn' ? "18" : (text?.length > 4 ? "9.5" : "11.5")}
-                        fontFamily={pieceLanguage === 'cn' ? "serif" : "sans-serif"}
+                        y={pieceLanguage === 'cn' ? 6.5 : 4.5}
+                        fontSize={pieceLanguage === 'cn' ? "20" : (text?.length > 4 ? "10.5" : "12.5")}
+                        fontFamily={pieceLanguage === 'cn' ? "'Noto Serif TC', serif" : "system-ui, sans-serif"}
                         fontWeight="900"
                         textAnchor="middle"
                         fill={isRedP ? "#b91c1c" : "#0f172a"}
+                        letterSpacing={pieceLanguage === 'cn' ? "0" : "-0.5px"}
                       >
                         {text}
                       </text>
