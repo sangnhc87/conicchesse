@@ -1850,7 +1850,6 @@ export default function App() {
             </span>
           </button>
         )}
-
         {/* Floating Quick Tab to Reopen Right Panel when Collapsed */}
         {isRightPanelCollapsed && (
           <button
@@ -1865,17 +1864,46 @@ export default function App() {
           </button>
         )}
 
-        {/* Center & Right Research Workbench */}
-        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-transparent min-h-0">
-          {/* Center Master Xiangqi Board column */}
-          <div className="flex-1 min-w-0 flex flex-col items-center justify-start h-full max-h-full min-h-0 overflow-y-auto">
+        {/* Center & Right Research Workbench - 3 panel layout */}
+        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch bg-transparent min-h-0">
 
-            {/* Board + side toolbars row - items-stretch so eval bar matches board height */}
-            <div className="relative flex items-stretch justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,min(calc((100vh-160px)*450/500+60px),740px))] mx-auto flex-shrink-0">
+          {/* ===== CENTER: Board Column ===== */}
+          <div className="flex-1 min-w-0 flex flex-col items-center justify-start min-h-0">
 
-            
-            {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
-            <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
+            {/* AI Suggestion + Coach - FIXED HEIGHT so board never shifts */}
+            <div className="w-full max-w-[600px] h-8 flex items-center justify-center mb-1 flex-shrink-0">
+              {isEngineAssistantEnabled && bestMoveSuggestion ? (
+                <div className="px-3 py-1 bg-gradient-to-r from-[#121520]/95 via-[#1a2035]/95 to-[#121520]/95 rounded-xl border border-cyan-500/40 flex items-center gap-2 text-xs sm:text-sm shadow-lg whitespace-nowrap">
+                  <Flame className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
+                  <span className="font-bold text-cyan-300 shrink-0">
+                    {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish:' : 'AI Gợi Ý:')}
+                  </span>
+                  <span className="font-sans text-white font-black px-2 py-0.5 bg-cyan-950/80 rounded-md border border-cyan-500/50">
+                    {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
+                      (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
+                  </span>
+                </div>
+              ) : isStudy && coachFeedback ? (
+                <div className={`px-3 py-1 rounded-xl text-xs flex items-center gap-2 border shadow-lg ${coachFeedback.type === 'mistake'
+                  ? 'bg-red-950/95 border-red-500/60 text-red-200'
+                  : 'bg-emerald-950/95 border-emerald-500/60 text-emerald-200'
+                }`}>
+                  {coachFeedback.type === 'mistake' ? <AlertTriangle className="w-3.5 h-3.5 text-red-400 shrink-0" /> : <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
+                  <span className="font-bold">{coachFeedback.message}</span>
+                  {coachFeedback.type === 'mistake' && (
+                    <button onClick={handleResetTrial} className="ml-1 px-2 py-0.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] flex items-center gap-1">
+                      <Undo2 className="w-3 h-3" /> Thử lại
+                    </button>
+                  )}
+                </div>
+              ) : null}
+            </div>
+
+            {/* Board row: left toolbar + eval bar + board */}
+            <div className="flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,min(calc((100vh-160px)*9/10+55px),760px))] flex-shrink-0">
+
+              {/* Toolbar Dọc bên TRÁI */}
+              <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
                 <button
                   onClick={() => setIsEngineAssistantEnabled(prev => !prev)}
                   className={`p-2 rounded-xl border transition-all shadow-sm flex items-center justify-center ${
@@ -1909,32 +1937,27 @@ export default function App() {
                 >
                   <Shuffle className="w-4 h-4" />
                 </button>
-            </div>
-
-            {/* Tournament Vertical Evaluation Bar (Xiangqi) */}
-            {(showEvalBar || isTraining) && isEngineAssistantEnabled && (
-              <div 
-                className="w-5 sm:w-6 md:w-7 self-stretch bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none mt-1"
-                title={`Điểm thế trận: ${currentEvalScore || '0.00'}`}
-              >
-                {/* Equilibrium Line */}
-                <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-amber-400/70 z-20 pointer-events-none" />
-
-                {/* Red Fill Bar (Dynamic) */}
-                <div 
-                  className="w-full bg-rose-500 transition-all duration-500 ease-out flex flex-col justify-end items-center pb-2 relative z-10"
-                  style={{ 
-                    height: `${Math.max(5, Math.min(95, 50 + 50 * (2 / (1 + Math.exp(-0.002 * Math.max(-2000, Math.min(2000, !flipped ? (currentEvalScore || 0) : -(currentEvalScore || 0))))) - 1)))}%` 
-                  }}
-                />
               </div>
-            )}
 
-            {/* Board center column: w-full, SVG aspect-ratio handles height, nav below */}
-            <div className="flex-1 min-w-0 max-w-[min(100%,760px)] flex flex-col items-center justify-start">
+              {/* Eval Bar */}
+              {(showEvalBar || isTraining) && isEngineAssistantEnabled && (
+                <div
+                  className="w-5 sm:w-6 md:w-7 bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
+                  style={{ alignSelf: 'stretch' }}
+                  title={`Điểm thế trận: ${currentEvalScore || '0.00'}`}
+                >
+                  <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-amber-400/70 z-20 pointer-events-none" />
+                  <div
+                    className="w-full bg-rose-500 transition-all duration-500 ease-out relative z-10"
+                    style={{
+                      height: `${Math.max(5, Math.min(95, 50 + 50 * (2 / (1 + Math.exp(-0.002 * Math.max(-2000, Math.min(2000, !flipped ? (currentEvalScore || 0) : -(currentEvalScore || 0))))) - 1)))}%`
+                    }}
+                  />
+                </div>
+              )}
 
-              {/* Board wrapper - SVG uses w-full h-auto naturally */}
-              <div className="relative w-full">
+              {/* Board */}
+              <div className="flex-1 min-w-0">
                 <XiangqiBoard
                   board={activeBoard}
                   turn={activeTurn}
@@ -1955,82 +1978,6 @@ export default function App() {
                   showMoveArrow={true}
                   showHeatmap={showHeatmap}
                 />
-
-                {/* AI Suggestion Banner - floats over board at bottom, no layout impact */}
-                {isEngineAssistantEnabled && bestMoveSuggestion && (
-                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 px-3 py-1 bg-gradient-to-r from-[#121520]/95 via-[#1a2035]/95 to-[#121520]/95 rounded-xl border border-cyan-500/40 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-xl backdrop-blur-md pointer-events-none whitespace-nowrap">
-                    <Flame className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
-                    <span className="font-bold text-cyan-300 shrink-0">
-                      {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish:' : 'AI Gợi Ý:')}
-                    </span>
-                    <span className="font-sans text-white font-black px-2 py-0.5 bg-cyan-950/80 rounded-md border border-cyan-500/50">
-                      {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
-                        (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
-                    </span>
-                  </div>
-                )}
-
-                {/* Coach Feedback - floats over board at top, no layout impact */}
-                {isStudy && coachFeedback && (
-                  <div className={`absolute top-2 left-1/2 -translate-x-1/2 z-20 px-3 py-2 rounded-xl text-xs flex items-center gap-2 border shadow-xl backdrop-blur-md pointer-events-none ${coachFeedback.type === 'mistake'
-                    ? 'bg-red-950/95 border-red-500/60 text-red-200'
-                    : 'bg-emerald-950/95 border-emerald-500/60 text-emerald-200'
-                  }`}>
-                    {coachFeedback.type === 'mistake' ? (
-                      <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
-                    ) : (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    )}
-                    <div>
-                      <div className="font-bold">{coachFeedback.message}</div>
-                      {coachFeedback.sub && <div className="text-[10px] text-gray-300 opacity-90">{coachFeedback.sub}</div>}
-                    </div>
-                    {coachFeedback.type === 'mistake' && (
-                      <button
-                        onClick={handleResetTrial}
-                        className="ml-2 px-2 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] flex items-center gap-1 pointer-events-auto"
-                      >
-                        <Undo2 className="w-3 h-3" /> Thử lại
-                      </button>
-                    )}
-                  </div>
-                )}
-              </div>
-
-              {/* Bottom Navigation Toolbar - ALWAYS BELOW board, never overlapping */}
-              <div className="w-full max-w-[460px] flex items-center justify-center gap-2 sm:gap-3 mt-1.5 shrink-0">
-                <button 
-                  onClick={() => {
-                    if (isAnalysis) handleAnalysisReset();
-                    else if (isTraining) handlePlayAiReset();
-                    else if (isStudy) handleFirstMove();
-                  }}
-                  className="p-2 sm:p-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95"
-                  title="Về ban đầu"
-                >
-                  <ChevronsLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
-                <button 
-                  onClick={() => {
-                    if (isAnalysis) handleAnalysisUndo();
-                    else if (isTraining) handlePlayAiUndo();
-                    else if (isStudy) handlePrevMove();
-                  }}
-                  className="flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95 font-semibold text-xs sm:text-sm"
-                  title="Lùi 1 nước (Undo)"
-                >
-                  <Undo2 className="w-4 h-4 sm:w-5 sm:h-5" /> Đi lại (Undo)
-                </button>
-                <button 
-                  onClick={() => {
-                    if (isStudy) handleNextMove();
-                  }}
-                  className={`p-2 sm:p-2.5 rounded-xl border transition-all ${isStudy ? 'bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border-[#2e333e] hover:scale-105 active:scale-95' : 'bg-[#1c1f26]/50 text-slate-600 border-[#1c1f26] cursor-not-allowed'}`}
-                  title={isStudy ? "Tới 1 nước" : "Tới 1 nước (Chỉ dùng trong Học)"}
-                >
-                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
-              </div>
             </div>
           </div>
 
