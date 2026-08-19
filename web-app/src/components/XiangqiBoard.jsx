@@ -198,7 +198,7 @@ export default function XiangqiBoard({
     <div className="relative select-none w-full mx-auto flex items-center justify-center gap-2">
       {/* Pikafish Real-Time Evaluation Bar */}
       {showEvalBar && (
-        <div className="hidden sm:flex flex-col items-center justify-between w-6 h-[440px] rounded-xl bg-[#0f1218] border border-[#2a3143] shadow-[0_4px_15px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex-shrink-0">
+        <div className="hidden sm:flex flex-col items-center justify-between w-6 self-stretch rounded-xl bg-[#0f1218] border border-[#2a3143] shadow-[0_4px_15px_rgba(0,0,0,0.5)] overflow-hidden py-2 flex-shrink-0">
           <div className="text-[10px] font-black text-gray-500">Đen</div>
           
           <div className="w-2.5 flex-1 bg-[#171b26] rounded-full relative overflow-hidden my-2 flex flex-col justify-end shadow-inner border border-[#1e2433]">
@@ -862,13 +862,7 @@ export default function XiangqiBoard({
           </div>
         </div>
 
-        {/* Board Coordinate Numbering (Lộ 1 - 9) */}
-        <div className="flex justify-between px-7 pt-1 text-[11px] font-bold text-amber-500/80 font-mono">
-          {Array.from({ length: 9 }).map((_, i) => {
-            const colNum = flipped ? (i + 1) : (9 - i);
-            return <span key={`coord-${i}`}>{colNum}</span>;
-          })}
-        </div>
+        {/* Board Coordinate Numbering hidden - numbers shown inside SVG */}
       </div>
     </div>
   );

@@ -1914,7 +1914,7 @@ export default function App() {
             {/* Tournament Vertical Evaluation Bar (Xiangqi) */}
             {(showEvalBar || isTraining) && isEngineAssistantEnabled && (
               <div 
-                className="w-5 sm:w-6 md:w-7 h-[min(560px,calc(100vh-160px))] md:h-[min(650px,calc(100vh-140px))] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none mt-1"
+                className="w-5 sm:w-6 md:w-7 self-stretch bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none mt-1"
                 title={`Điểm thế trận: ${currentEvalScore || '0.00'}`}
               >
                 {/* Equilibrium Line */}
