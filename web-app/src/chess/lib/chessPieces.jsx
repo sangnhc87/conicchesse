@@ -1,265 +1,64 @@
 import React from 'react';
 
-/**
- * Premium Cburnett & Neo Vector Chess Set (Tournament / Lichess / Chess.com standard)
- * Enhanced with deep luxury contrasts, crisp outlines, and smooth shadows.
- */
-
 export const PIECE_SVGS = {
-  // White King
   wK: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="none" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 22.5,11.63 L 22.5,6 M 20,8 L 25,8" strokeLinejoin="miter" />
-        <path d="M 22.5,25 C 22.5,25 27,17.5 25.5,14.5 C 25.5,14.5 24.5,12 22.5,12 C 20.5,12 19.5,14.5 19.5,14.5 C 18,17.5 22.5,25 22.5,25" fill="#ffffff" strokeLinecap="butt" strokeLinejoin="miter" />
-        <path d="M 11.5,37 C 17,40.5 27,40.5 32.5,37 L 32.5,30 C 32.5,30 41.5,25.5 38.5,19.5 C 34.5,13 25,16 22.5,23.5 L 22.5,27 C 20,19.5 10.5,16.5 6.5,23 C 3.5,29 12.5,30 12.5,30 L 12.5,37" fill="#ffffff" />
-        <path d="M 11.5,30 C 17,27 27,27 32.5,30" />
-        <path d="M 11.5,33.5 C 17,30.5 27,30.5 32.5,33.5" />
-        <path d="M 11.5,37 C 17,34 27,34 32.5,37" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="none" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path strokeLinejoin="miter" d="M22.5 11.63V6M20 8h5"/><path fill="#fff" strokeLinecap="butt" strokeLinejoin="miter" d="M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5"/><path fill="#fff" d="M11.5 37c5.5 3.5 15.5 3.5 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V27v-3.5c-3.5-7.5-13-10.5-16-4-3 6 5 10 5 10z"/><path d="M11.5 30c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0"/></g>
     </svg>
   ),
-
-  // White Queen
   wQ: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="#ffffff" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 9,26 C 17.5,24.5 30,24.5 36,26 L 38.5,13.5 L 31,25 L 22.5,10 L 14,25 L 6.5,13.5 L 9,26 z" strokeLinecap="butt" />
-        <path d="M 9,26 C 9,28 10.5,28 11.5,30 C 12.5,31.5 12.5,31 12,33.5 C 10.5,34.5 11,36 11,36 C 9.5,37.5 11,38.5 11,38.5 C 17.5,39.5 27.5,39.5 34,38.5 C 34,38.5 35.5,37.5 34,36 C 34,36 34.5,34.5 33,33.5 C 32.5,31 32.5,31.5 33.5,30 C 34.5,28 36,28 36,26 C 27.5,24.5 17.5,24.5 9,26 z" strokeLinecap="butt" />
-        <path d="M 11.5,30 C 15,29 30,29 33.5,30" fill="none" />
-        <path d="M 12,33.5 C 18,32.5 27,32.5 33,33.5" fill="none" />
-        <circle cx="6" cy="12" r="2" />
-        <circle cx="14" cy="9" r="2" />
-        <circle cx="22.5" cy="8" r="2" />
-        <circle cx="31" cy="9" r="2" />
-        <circle cx="39" cy="12" r="2" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="#fff" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path d="M8 12a2 2 0 1 1-4 0 2 2 0 1 1 4 0m16.5-4.5a2 2 0 1 1-4 0 2 2 0 1 1 4 0M41 12a2 2 0 1 1-4 0 2 2 0 1 1 4 0M16 8.5a2 2 0 1 1-4 0 2 2 0 1 1 4 0M33 9a2 2 0 1 1-4 0 2 2 0 1 1 4 0"/><path strokeLinecap="butt" d="M9 26c8.5-1.5 21-1.5 27 0l2-12-7 11V11l-5.5 13.5-3-15-3 15-5.5-14V25L7 14z"/><path strokeLinecap="butt" d="M9 26c0 2 1.5 2 2.5 4 1 1.5 1 1 .5 3.5-1.5 1-1.5 2.5-1.5 2.5-1.5 1.5.5 2.5.5 2.5 6.5 1 16.5 1 23 0 0 0 1.5-1 0-2.5 0 0 .5-1.5-1-2.5-.5-2.5-.5-2 .5-3.5 1-2 2.5-2 2.5-4-8.5-1.5-18.5-1.5-27 0z"/><path fill="none" d="M11.5 30c3.5-1 18.5-1 22 0M12 33.5c6-1 15-1 21 0"/></g>
     </svg>
   ),
-
-  // White Rook
   wR: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="#ffffff" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 9,39 L 36,39 L 36,36 L 9,36 L 9,39 z" strokeLinejoin="miter" />
-        <path d="M 12,36 L 12,32 L 33,32 L 33,36 L 12,36 z" strokeLinejoin="miter" />
-        <path d="M 11,14 L 11,9 L 15,9 L 15,11 L 20,11 L 20,9 L 25,9 L 25,11 L 30,11 L 30,9 L 34,9 L 34,14" strokeLinejoin="miter" />
-        <path d="M 34,14 L 31,17 L 14,17 L 11,14" />
-        <path d="M 31,17 L 31,29.5 L 14,29.5 L 14,17" strokeLinejoin="miter" />
-        <path d="M 31,29.5 L 32.5,32 L 12.5,32 L 14,29.5" />
-        <path d="M 11,14 L 34,14" fill="none" stroke="#1c1917" strokeLinejoin="miter" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="#fff" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path strokeLinecap="butt" d="M9 39h27v-3H9zm3-3v-4h21v4zm-1-22V9h4v2h5V9h5v2h5V9h4v5"/><path d="m34 14-3 3H14l-3-3"/><path strokeLinecap="butt" strokeLinejoin="miter" d="M31 17v12.5H14V17"/><path d="m31 29.5 1.5 2.5h-20l1.5-2.5"/><path fill="none" strokeLinejoin="miter" d="M11 14h23"/></g>
     </svg>
   ),
-
-  // White Bishop
   wB: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="none" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <g fill="#ffffff" strokeLinecap="butt">
-          <path d="M 9,36 C 12.39,35.03 19.11,36.43 22.5,34 C 25.89,36.43 32.61,35.03 36,36 C 36,36 37.65,36.54 39,38 C 38.32,38.97 37.35,38.99 36,38.5 C 32.61,37.53 25.89,38.96 22.5,37 C 19.11,38.96 12.39,37.53 9,38.5 C 7.65,38.97 6.68,38.99 6,38 C 7.35,36.54 9,36 9,36 z" />
-          <path d="M 12,36 C 13,32 15,31 16.5,30 C 18,29 19.5,29 22.5,29 C 25.5,29 27,29 28.5,30 C 30,31 32,32 33,36 z" />
-          <path d="M 15,32 C 17.5,34.5 27.5,34.5 30,32 C 30.5,30.5 30,30 30,30 C 30,27.5 27.5,26 27.5,26 C 33,24.5 33.5,14.5 22.5,10.5 C 11.5,14.5 12,24.5 17.5,26 C 17.5,26 15,27.5 15,30 C 15,30 14.5,30.5 15,32 z" />
-          <path d="M 25 8 A 2.5 2.5 0 1 1 20,8 A 2.5 2.5 0 1 1 25 8 z" />
-        </g>
-        <path d="M 17.5,26 L 27.5,26 M 15,30 L 30,30 M 22.5,15.5 L 22.5,20.5 M 20,18 L 25,18" strokeLinejoin="miter" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="none" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><g fill="#fff" strokeLinecap="butt"><path d="M9 36c3.39-.97 10.11.43 13.5-2 3.39 2.43 10.11 1.03 13.5 2 0 0 1.65.54 3 2-.68.97-1.65.99-3 .5-3.39-.97-10.11.46-13.5-1-3.39 1.46-10.11.03-13.5 1-1.35.49-2.32.47-3-.5 1.35-1.94 3-2 3-2z"/><path d="M15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2z"/><path d="M25 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 1 1 5 0z"/></g><path strokeLinejoin="miter" d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5"/></g>
     </svg>
   ),
-
-  // White Knight
   wN: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="none" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 22,10 C 32.5,11 38.5,18 38,39 L 15,39 C 15,30 25,32.5 23,18" fill="#ffffff" />
-        <path d="M 24,18 C 24.38,20.91 18.45,25.37 16,27 C 13,29 13.18,31.34 11,31 C 9.958,30.06 12.41,27.96 11,28 C 10,28 11.19,29.23 10,31 C 9,32.08 7.69,32.01 7.5,30 C 6.5,31 5,31 4.5,29.5 C 4,28 5.5,27 6,25.5 C 5,26 4,24.5 4.5,23 C 5,21.5 6,20 6.5,18 C 7,16 6,15 6,15 C 7.5,13.5 8.5,13.5 10.5,13.5 C 12,13.5 13,13 13.5,12 C 14,11 14.5,9.5 16,8.5 C 17.5,7.5 20,7 22,7.5 C 24,8 25,10 25,11 C 25,12 24.5,13 24.5,14.5 C 24.5,16 25.5,17 26.5,18 z" fill="#ffffff" />
-        <path d="M 9.5 25.5 A 0.5 0.5 0 1 1 8.5,25.5 A 0.5 0.5 0 1 1 9.5 25.5 z" fill="#1c1917" />
-        <path d="M 15 15.5 A 0.5 1.5 0 1 1 14,15.5 A 0.5 1.5 0 1 1 15 15.5 z" transform="matrix(0.866,0.5,-0.5,0.866,9.693,-5.173)" fill="#1c1917" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="none" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path fill="#fff" d="M22 10c10.5 1 16.5 8 16 29H15c0-9 10-6.5 8-21"/><path fill="#fff" d="M24 18c.38 2.91-5.55 7.37-8 9-3 2-2.82 4.34-5 4-1.042-.94 1.41-3.04 0-3-1 0 .19 1.23-1 2-1 0-4.003 1-4-4 0-2 6-12 6-12s1.89-1.9 2-3.5c-.73-.994-.5-2-.5-3 1-1 3 2.5 3 2.5h2s.78-1.992 2.5-3c1 0 1 3 1 3"/><path fill="#000" d="M9.5 25.5a.5.5 0 1 1-1 0 .5.5 0 1 1 1 0m5.433-9.75a.5 1.5 30 1 1-.866-.5.5 1.5 30 1 1 .866.5"/></g>
     </svg>
   ),
-
-  // White Pawn
   wP: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <path d="M 22.5,9 C 20.29,9 18.5,10.79 18.5,13 C 18.5,13.89 18.79,14.71 19.28,15.38 C 17.33,16.5 16,18.59 16,21 C 16,23.03 16.94,24.84 18.41,26.03 C 15.41,27.09 11,31.58 11,39.5 L 34,39.5 C 34,31.58 29.59,27.09 26.59,26.03 C 28.06,24.84 29,23.03 29,21 C 29,18.59 27.67,16.5 25.72,15.38 C 26.21,14.71 26.5,13.89 26.5,13 C 26.5,10.79 24.71,9 22.5,9 z" fill="#ffffff" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" />
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <path fill="#fff" stroke="#000" strokeLinecap="round" strokeWidth="1.5" d="M22.5 9c-2.21 0-4 1.79-4 4 0 .89.29 1.71.78 2.38C17.33 16.5 16 18.59 16 21c0 2.03.94 3.84 2.41 5.03-3 1.06-7.41 5.55-7.41 13.47h23c0-7.92-4.41-12.41-7.41-13.47 1.47-1.19 2.41-3 2.41-5.03 0-2.41-1.33-4.5-3.28-5.62.49-.67.78-1.49.78-2.38 0-2.21-1.79-4-4-4z"/>
     </svg>
   ),
-
-  // Black King
   bK: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="none" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 22.5,11.63 L 22.5,6 M 20,8 L 25,8" strokeLinejoin="miter" />
-        <path d="M 22.5,25 C 22.5,25 27,17.5 25.5,14.5 C 25.5,14.5 24.5,12 22.5,12 C 20.5,12 19.5,14.5 19.5,14.5 C 18,17.5 22.5,25 22.5,25" fill="#262421" stroke="#1c1917" strokeLinecap="butt" strokeLinejoin="miter" />
-        <path d="M 11.5,37 C 17,40.5 27,40.5 32.5,37 L 32.5,30 C 32.5,30 41.5,25.5 38.5,19.5 C 34.5,13 25,16 22.5,23.5 L 22.5,27 C 20,19.5 10.5,16.5 6.5,23 C 3.5,29 12.5,30 12.5,30 L 12.5,37" fill="#262421" stroke="#1c1917" />
-        <path d="M 11.5,30 C 17,27 27,27 32.5,30" stroke="#ffffff" strokeWidth="1.2" />
-        <path d="M 11.5,33.5 C 17,30.5 27,30.5 32.5,33.5" stroke="#ffffff" strokeWidth="1.2" />
-        <path d="M 11.5,37 C 17,34 27,34 32.5,37" stroke="#ffffff" strokeWidth="1.2" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="none" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path strokeLinejoin="miter" d="M22.5 11.6V6"/><path fill="#000" strokeLinecap="butt" strokeLinejoin="miter" d="M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5"/><path fill="#000" d="M11.5 37a22.3 22.3 0 0 0 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V27v-3.5c-3.5-7.5-13-10.5-16-4-3 6 5 10 5 10z"/><path strokeLinejoin="miter" d="M20 8h5"/><path stroke="#ececec" d="M32 29.5s8.5-4 6-9.7C34.1 14 25 18 22.5 24.6v2.1-2.1C20 18 9.9 14 7 19.9c-2.5 5.6 4.8 9 4.8 9"/><path stroke="#ececec" d="M11.5 30c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0"/></g>
     </svg>
   ),
-
-  // Black Queen
   bQ: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="#262421" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 9,26 C 17.5,24.5 30,24.5 36,26 L 38.5,13.5 L 31,25 L 22.5,10 L 14,25 L 6.5,13.5 L 9,26 z" strokeLinecap="butt" />
-        <path d="M 9,26 C 9,28 10.5,28 11.5,30 C 12.5,31.5 12.5,31 12,33.5 C 10.5,34.5 11,36 11,36 C 9.5,37.5 11,38.5 11,38.5 C 17.5,39.5 27.5,39.5 34,38.5 C 34,38.5 35.5,37.5 34,36 C 34,36 34.5,34.5 33,33.5 C 32.5,31 32.5,31.5 33.5,30 C 34.5,28 36,28 36,26 C 27.5,24.5 17.5,24.5 9,26 z" strokeLinecap="butt" />
-        <path d="M 11.5,30 C 15,29 30,29 33.5,30" fill="none" stroke="#ffffff" strokeWidth="1.2" />
-        <path d="M 12,33.5 C 18,32.5 27,32.5 33,33.5" fill="none" stroke="#ffffff" strokeWidth="1.2" />
-        <circle cx="6" cy="12" r="2" />
-        <circle cx="14" cy="9" r="2" />
-        <circle cx="22.5" cy="8" r="2" />
-        <circle cx="31" cy="9" r="2" />
-        <circle cx="39" cy="12" r="2" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><g stroke="none"><circle cx="6" cy="12" r="2.75"/><circle cx="14" cy="9" r="2.75"/><circle cx="22.5" cy="8" r="2.75"/><circle cx="31" cy="9" r="2.75"/><circle cx="39" cy="12" r="2.75"/></g><path strokeLinecap="butt" d="M9 26c8.5-1.5 21-1.5 27 0l2.5-12.5L31 25l-.3-14.1-5.2 13.6-3-14.5-3 14.5-5.2-13.6L14 25 6.5 13.5z"/><path strokeLinecap="butt" d="M9 26c0 2 1.5 2 2.5 4 1 1.5 1 1 .5 3.5-1.5 1-1.5 2.5-1.5 2.5-1.5 1.5.5 2.5.5 2.5 6.5 1 16.5 1 23 0 0 0 1.5-1 0-2.5 0 0 .5-1.5-1-2.5-.5-2.5-.5-2 .5-3.5 1-2 2.5-2 2.5-4-8.5-1.5-18.5-1.5-27 0z"/><path fill="none" strokeLinecap="butt" d="M11 38.5a35 35 1 0 0 23 0"/><path fill="none" stroke="#ececec" d="M11 29a35 35 1 0 1 23 0m-21.5 2.5h20m-21 3a35 35 1 0 0 22 0m-23 3a35 35 1 0 0 24 0"/></g>
     </svg>
   ),
-
-  // Black Rook
   bR: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="#262421" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 9,39 L 36,39 L 36,36 L 9,36 L 9,39 z" strokeLinejoin="miter" />
-        <path d="M 12,36 L 12,32 L 33,32 L 33,36 L 12,36 z" strokeLinejoin="miter" />
-        <path d="M 11,14 L 11,9 L 15,9 L 15,11 L 20,11 L 20,9 L 25,9 L 25,11 L 30,11 L 30,9 L 34,9 L 34,14" strokeLinejoin="miter" />
-        <path d="M 34,14 L 31,17 L 14,17 L 11,14" />
-        <path d="M 31,17 L 31,29.5 L 14,29.5 L 14,17" strokeLinejoin="miter" />
-        <path d="M 31,29.5 L 32.5,32 L 12.5,32 L 14,29.5" />
-        <path d="M 12,36 L 33,36 M 11,14 L 34,14" fill="none" stroke="#ffffff" strokeWidth="1.2" strokeLinejoin="miter" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path strokeLinecap="butt" d="M9 39h27v-3H9zm3.5-7 1.5-2.5h17l1.5 2.5zm-.5 4v-4h21v4z"/><path strokeLinecap="butt" strokeLinejoin="miter" d="M14 29.5v-13h17v13z"/><path strokeLinecap="butt" d="M14 16.5 11 14h23l-3 2.5zM11 14V9h4v2h5V9h5v2h5V9h4v5z"/><path fill="none" stroke="#ececec" strokeLinejoin="miter" strokeWidth="1" d="M12 35.5h21m-20-4h19m-18-2h17m-17-13h17M11 14h23"/></g>
     </svg>
   ),
-
-  // Black Bishop
   bB: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="none" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <g fill="#262421" stroke="#1c1917" strokeLinecap="butt">
-          <path d="M 9,36 C 12.39,35.03 19.11,36.43 22.5,34 C 25.89,36.43 32.61,35.03 36,36 C 36,36 37.65,36.54 39,38 C 38.32,38.97 37.35,38.99 36,38.5 C 32.61,37.53 25.89,38.96 22.5,37 C 19.11,38.96 12.39,37.53 9,38.5 C 7.65,38.97 6.68,38.99 6,38 C 7.35,36.54 9,36 9,36 z" />
-          <path d="M 12,36 C 13,32 15,31 16.5,30 C 18,29 19.5,29 22.5,29 C 25.5,29 27,29 28.5,30 C 30,31 32,32 33,36 z" />
-          <path d="M 15,32 C 17.5,34.5 27.5,34.5 30,32 C 30.5,30.5 30,30 30,30 C 30,27.5 27.5,26 27.5,26 C 33,24.5 33.5,14.5 22.5,10.5 C 11.5,14.5 12,24.5 17.5,26 C 17.5,26 15,27.5 15,30 C 15,30 14.5,30.5 15,32 z" />
-          <path d="M 25 8 A 2.5 2.5 0 1 1 20,8 A 2.5 2.5 0 1 1 25 8 z" />
-        </g>
-        <path d="M 17.5,26 L 27.5,26 M 15,30 L 30,30 M 22.5,15.5 L 22.5,20.5 M 20,18 L 25,18" stroke="#ffffff" strokeWidth="1.2" strokeLinejoin="miter" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="none" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><g fill="#000" strokeLinecap="butt"><path d="M9 36c3.4-1 10.1.4 13.5-2 3.4 2.4 10.1 1 13.5 2 0 0 1.6.5 3 2-.7 1-1.6 1-3 .5-3.4-1-10.1.5-13.5-1-3.4 1.5-10.1 0-13.5 1-1.4.5-2.3.5-3-.5 1.4-2 3-2 3-2z"/><path d="M15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2z"/><path d="M25 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 1 1 5 0z"/></g><path stroke="#ececec" strokeLinejoin="miter" d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5"/></g>
     </svg>
   ),
-
-  // Black Knight
   bN: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <g fill="none" fillRule="evenodd" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M 22,10 C 32.5,11 38.5,18 38,39 L 15,39 C 15,30 25,32.5 23,18" fill="#262421" />
-        <path d="M 24,18 C 24.38,20.91 18.45,25.37 16,27 C 13,29 13.18,31.34 11,31 C 9.958,30.06 12.41,27.96 11,28 C 10,28 11.19,29.23 10,31 C 9,32.08 7.69,32.01 7.5,30 C 6.5,31 5,31 4.5,29.5 C 4,28 5.5,27 6,25.5 C 5,26 4,24.5 4.5,23 C 5,21.5 6,20 6.5,18 C 7,16 6,15 6,15 C 7.5,13.5 8.5,13.5 10.5,13.5 C 12,13.5 13,13 13.5,12 C 14,11 14.5,9.5 16,8.5 C 17.5,7.5 20,7 22,7.5 C 24,8 25,10 25,11 C 25,12 24.5,13 24.5,14.5 C 24.5,16 25.5,17 26.5,18 z" fill="#262421" />
-        <path d="M 9.5 25.5 A 0.5 0.5 0 1 1 8.5,25.5 A 0.5 0.5 0 1 1 9.5 25.5 z" fill="#ffffff" stroke="#ffffff" />
-        <path d="M 15 15.5 A 0.5 1.5 0 1 1 14,15.5 A 0.5 1.5 0 1 1 15 15.5 z" transform="matrix(0.866,0.5,-0.5,0.866,9.693,-5.173)" fill="#ffffff" stroke="#ffffff" />
-        <path d="M 24.55,10.4 C 24.19,10 23.3,9.5 22,9.5 C 20,9.5 18.5,10.5 17.5,11.5 C 16.5,12.5 15.5,14 15.5,15.5" stroke="#ffffff" strokeWidth="1.2" />
-      </g>
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <g fill="none" fillRule="evenodd" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"><path fill="#000" d="M22 10c10.5 1 16.5 8 16 29H15c0-9 10-6.5 8-21"/><path fill="#000" d="M24 18c.38 2.91-5.55 7.37-8 9-3 2-2.82 4.34-5 4-1.04-.94 1.41-3.04 0-3-1 0 .19 1.23-1 2-1 0-4 1-4-4 0-2 6-12 6-12s1.89-1.9 2-3.5c-.73-1-.5-2-.5-3 1-1 3 2.5 3 2.5h2s.78-2 2.5-3c1 0 1 3 1 3"/><path fill="#ececec" stroke="#ececec" d="M9.5 25.5a.5.5 0 1 1-1 0 .5.5 0 1 1 1 0m5.43-9.75a.5 1.5 30 1 1-.86-.5.5 1.5 30 1 1 .86.5"/><path fill="#ececec" stroke="none" d="m24.55 10.4-.45 1.45.5.15c3.15 1 5.65 2.49 7.9 6.75S35.75 29.06 35.25 39l-.05.5h2.25l.05-.5c.5-10.06-.88-16.85-3.25-21.34s-5.79-6.64-9.19-7.16z"/></g>
     </svg>
   ),
-
-  // Black Pawn
   bP: (
-    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-md select-none pointer-events-none transition-transform">
-      <path d="M 22.5,9 C 20.29,9 18.5,10.79 18.5,13 C 18.5,13.89 18.79,14.71 19.28,15.38 C 17.33,16.5 16,18.59 16,21 C 16,23.03 16.94,24.84 18.41,26.03 C 15.41,27.09 11,31.58 11,39.5 L 34,39.5 C 34,31.58 29.59,27.09 26.59,26.03 C 28.06,24.84 29,23.03 29,21 C 29,18.59 27.67,16.5 25.72,15.38 C 26.21,14.71 26.5,13.89 26.5,13 C 26.5,10.79 24.71,9 22.5,9 z" fill="#262421" stroke="#1c1917" strokeWidth="1.5" strokeLinecap="round" />
+    <svg viewBox="0 0 45 45" className="w-full h-full drop-shadow-sm select-none pointer-events-none transition-transform">
+      <path stroke="#000" strokeLinecap="round" strokeWidth="1.5" d="M22.5 9a4 4 0 0 0-3.22 6.38 6.48 6.48 0 0 0-.87 10.65c-3 1.06-7.41 5.55-7.41 13.47h23c0-7.92-4.41-12.41-7.41-13.47a6.46 6.46 0 0 0-.87-10.65A4.01 4.01 0 0 0 22.5 9z"/>
     </svg>
-  )
+  ),
 };
-
-/**
- * Pure SVG Raw String generator for PDF Canvas / HTML Export
- */
-export function getPieceSvgString(pieceCode, isPrintBw = false) {
-  const isWhite = pieceCode.startsWith('w');
-  const type = pieceCode.substring(1).toUpperCase();
-  const fillColor = isPrintBw ? (isWhite ? '#ffffff' : '#000000') : (isWhite ? '#ffffff' : '#262421');
-  const strokeColor = '#1c1917';
-  const innerDetailColor = isWhite ? '#1c1917' : '#ffffff';
-
-  if (type === 'P') {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width="100%" height="100%">
-      <path d="M 22.5,9 C 20.29,9 18.5,10.79 18.5,13 C 18.5,13.89 18.79,14.71 19.28,15.38 C 17.33,16.5 16,18.59 16,21 C 16,23.03 16.94,24.84 18.41,26.03 C 15.41,27.09 11,31.58 11,39.5 L 34,39.5 C 34,31.58 29.59,27.09 26.59,26.03 C 28.06,24.84 29,23.03 29,21 C 29,18.59 27.67,16.5 25.72,15.38 C 26.21,14.71 26.5,13.89 26.5,13 C 26.5,10.79 24.71,9 22.5,9 z" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" />
-    </svg>`;
-  }
-
-  if (type === 'R') {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width="100%" height="100%">
-      <g fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 9,39 L 36,39 L 36,36 L 9,36 L 9,39 z" />
-        <path d="M 12,36 L 12,32 L 33,32 L 33,36 L 12,36 z" />
-        <path d="M 11,14 L 11,9 L 15,9 L 15,11 L 20,11 L 20,9 L 25,9 L 25,11 L 30,11 L 30,9 L 34,9 L 34,14" />
-        <path d="M 34,14 L 31,17 L 14,17 L 11,14" />
-        <path d="M 31,17 L 31,29.5 L 14,29.5 L 14,17" />
-        <path d="M 31,29.5 L 32.5,32 L 12.5,32 L 14,29.5" />
-        <path d="M 12,36 L 33,36 M 11,14 L 34,14" fill="none" stroke="${innerDetailColor}" />
-      </g>
-    </svg>`;
-  }
-
-  if (type === 'N') {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width="100%" height="100%">
-      <g fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 22,10 C 32.5,11 38.5,18 38,39 L 15,39 C 15,30 25,32.5 23,18" />
-        <path d="M 24,18 C 24.38,20.91 18.45,25.37 16,27 C 13,29 13.18,31.34 11,31 C 9.958,30.06 12.41,27.96 11,28 C 10,28 11.19,29.23 10,31 C 9,32.08 7.69,32.01 7.5,30 C 6.5,31 5,31 4.5,29.5 C 4,28 5.5,27 6,25.5 C 5,26 4,24.5 4.5,23 C 5,21.5 6,20 6.5,18 C 7,16 6,15 6,15 C 7.5,13.5 8.5,13.5 10.5,13.5 C 12,13.5 13,13 13.5,12 C 14,11 14.5,9.5 16,8.5 C 17.5,7.5 20,7 22,7.5 C 24,8 25,10 25,11 C 25,12 24.5,13 24.5,14.5 C 24.5,16 25.5,17 26.5,18 z" />
-        <circle cx="9.5" cy="25.5" r="0.8" fill="${innerDetailColor}" stroke="none" />
-        <circle cx="15" cy="18" r="1.2" fill="${innerDetailColor}" stroke="none" />
-      </g>
-    </svg>`;
-  }
-
-  if (type === 'B') {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width="100%" height="100%">
-      <g fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 9,36 C 12.39,35.03 19.11,36.43 22.5,34 C 25.89,36.43 32.61,35.03 36,36 C 36,36 37.65,36.54 39,38 C 38.32,38.97 37.35,38.99 36,38.5 C 32.61,37.53 25.89,38.96 22.5,37 C 19.11,38.96 12.39,37.53 9,38.5 C 7.65,38.97 6.68,38.99 6,38 C 7.35,36.54 9,36 9,36 z" />
-        <path d="M 12,36 C 13,32 15,31 16.5,30 C 18,29 19.5,29 22.5,29 C 25.5,29 27,29 28.5,30 C 30,31 32,32 33,36 z" />
-        <path d="M 15,32 C 17.5,34.5 27.5,34.5 30,32 C 30.5,30.5 30,30 30,30 C 30,27.5 27.5,26 27.5,26 C 33,24.5 33.5,14.5 22.5,10.5 C 11.5,14.5 12,24.5 17.5,26 C 17.5,26 15,27.5 15,30 C 15,30 14.5,30.5 15,32 z" />
-        <circle cx="22.5" cy="8" r="2.5" />
-        <path d="M 17.5,26 L 27.5,26 M 15,30 L 30,30 M 22.5,15.5 L 22.5,20.5 M 20,18 L 25,18" fill="none" stroke="${innerDetailColor}" />
-      </g>
-    </svg>`;
-  }
-
-  if (type === 'Q') {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width="100%" height="100%">
-      <g fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="6" cy="12" r="2" />
-        <circle cx="14" cy="9" r="2" />
-        <circle cx="22.5" cy="8" r="2" />
-        <circle cx="31" cy="9" r="2" />
-        <circle cx="39" cy="12" r="2" />
-        <path d="M 9,26 C 17.5,24.5 30,24.5 36,26 L 38.5,13.5 L 31,25 L 22.5,10 L 14,25 L 6.5,13.5 L 9,26 z" />
-        <path d="M 9,26 C 9,28 10.5,28 11.5,30 C 12.5,31.5 12.5,31 12,33.5 C 10.5,34.5 11,36 11,36 C 9.5,37.5 11,38.5 11,38.5 C 17.5,39.5 27.5,39.5 34,38.5 C 34,38.5 35.5,37.5 34,36 C 34,36 34.5,34.5 33,33.5 C 32.5,31 32.5,31.5 33.5,30 C 34.5,28 36,28 36,26 C 27.5,24.5 17.5,24.5 9,26 z" />
-        <path d="M 11.5,30 C 15,29 30,29 33.5,30" fill="none" stroke="${innerDetailColor}" />
-        <path d="M 12,33.5 C 18,32.5 27,32.5 33,33.5" fill="none" stroke="${innerDetailColor}" />
-      </g>
-    </svg>`;
-  }
-
-  if (type === 'K') {
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 45 45" width="100%" height="100%">
-      <g fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M 22.5,11.63 L 22.5,6 M 20,8 L 25,8" stroke="${strokeColor}" stroke-linecap="round" />
-        <path d="M 22.5,25 C 22.5,25 27,17.5 25.5,14.5 C 25.5,14.5 24.5,12 22.5,12 C 20.5,12 19.5,14.5 19.5,14.5 C 18,17.5 22.5,25 22.5,25" />
-        <path d="M 11.5,37 C 17,40.5 27,40.5 32.5,37 L 32.5,30 C 32.5,30 41.5,25.5 38.5,19.5 C 34.5,13 25,16 22.5,23.5 L 22.5,27 C 20,19.5 10.5,16.5 6.5,23 C 3.5,29 12.5,30 12.5,30 L 12.5,37" />
-        <path d="M 11.5,30 C 17,27 27,27 32.5,30" fill="none" stroke="${innerDetailColor}" />
-        <path d="M 11.5,33.5 C 17,30.5 27,30.5 32.5,33.5" fill="none" stroke="${innerDetailColor}" />
-        <path d="M 11.5,37 C 17,34 27,34 32.5,37" fill="none" stroke="${innerDetailColor}" />
-      </g>
-    </svg>`;
-  }
-
-  return '';
-}
-
-export const PIECE_NAMES_VI = {
-  K: 'Vua',
-  Q: 'Hậu',
-  R: 'Xe',
-  B: 'Tượng',
-  N: 'Mã',
-  P: 'Tốt'
-};
-
-export default PIECE_SVGS;

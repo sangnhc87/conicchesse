@@ -84,6 +84,21 @@ export default function BoardEditorModal({
   };
 
   const handleStartPlay = () => {
+    let whiteKing = 0;
+    let blackKing = 0;
+    for (let r = 0; r < 8; r++) {
+      for (let c = 0; c < 8; c++) {
+        const p = boardMatrix[r][c];
+        if (p) {
+          if (p.type === 'k' && p.color === 'w') whiteKing++;
+          if (p.type === 'k' && p.color === 'b') blackKing++;
+        }
+      }
+    }
+    if (whiteKing !== 1 || blackKing !== 1) {
+      alert("Bàn cờ không hợp lệ! Bắt buộc phải có đúng 1 Vua Trắng và 1 Vua Đen trên bàn cờ.");
+      return;
+    }
     onLoadCustomPosition(fenInput);
     onClose();
   };
