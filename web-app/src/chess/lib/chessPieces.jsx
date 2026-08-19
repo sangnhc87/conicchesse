@@ -62,3 +62,14 @@ export const PIECE_SVGS = {
     </svg>
   ),
 };
+
+export const PIECE_NAMES_VI = {
+  K: 'Vua',
+  Q: 'Hậu',
+  R: 'Xe',
+  B: 'Tượng',
+  N: 'Mã',
+  P: 'Tốt'
+};
+
+export default PIECE_SVGS;

@@ -5,7 +5,8 @@ import {
   RefreshCw, Award, Heart, HelpCircle
 } from 'lucide-react';
 import { fenToBoard, translateSanToVi } from '../lib/chessLogic';
-import { getPieceSvgString } from '../lib/chessPieces';
+import { PIECE_SVGS } from '../lib/chessPieces';
+import ReactDOMServer from 'react-dom/server';
 import { invoke as tauriInvoke, isTauri as checkIsTauri } from '@tauri-apps/api/core';
 
 const CHESS_QUOTES = [
@@ -285,7 +286,7 @@ export default function PdfExportModal({
             const piece = board[r][c];
             const isLight = (r + c) % 2 === 0;
             const bg = isLight ? lightSquareBg : darkSquareBg;
-            const pieceSvg = piece ? getPieceSvgString(piece.code, isBw) : '';
+            const pieceSvg = piece ? ReactDOMServer.renderToStaticMarkup(PIECE_SVGS[piece.code]) : '';
 
             // Coordinates labels (rank 8-1 on left, file a-h on bottom)
             const showRank = c === 0;
