@@ -1430,15 +1430,17 @@ export default function App() {
             <Menu className="w-4 h-4" />
           </button>
 
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center font-black text-white shadow-md text-base border border-amber-300/30">
-              👑
+          {/* Logo & Title */}
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-600 via-yellow-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-900/30 border border-amber-400/30 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-20 mix-blend-overlay"></div>
+              <Sparkles className="w-6 h-6 text-amber-100 relative z-10" />
             </div>
             <div>
-              <h1 className="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 tracking-wide flex items-center gap-2">
-                Conic
-                <span className="hidden sm:inline-block text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 font-bold tracking-normal">
-                  {catalog?.items?.length || 4230} Bài Cờ
+              <h1 className="text-xl md:text-2xl font-black bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 text-transparent bg-clip-text font-['Noto_Serif_TC'] tracking-wide drop-shadow-md flex items-center gap-2">
+                Kỳ Đài Conic
+                <span className="text-[10px] bg-red-500/20 text-red-300 px-2 py-0.5 rounded-full border border-red-500/30 uppercase tracking-widest font-sans align-top relative top-[-4px]">
+                  v2.1
                 </span>
               </h1>
             </div>
