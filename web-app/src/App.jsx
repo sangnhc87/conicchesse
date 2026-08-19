@@ -1867,12 +1867,11 @@ export default function App() {
 
         {/* Center & Right Research Workbench */}
         <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-transparent min-h-0">
-          {/* Center Master Xiangqi Board - FIXED HEIGHT, ZERO SHIFT */}
-          <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full max-h-full min-h-0">
+          {/* Center Master Xiangqi Board column */}
+          <div className="flex-1 min-w-0 flex flex-col items-center justify-start h-full max-h-full min-h-0 overflow-y-auto">
 
-            {/* Board + side toolbars - fixed height row that never shifts */}
-            <div className="relative flex items-stretch justify-center gap-2 sm:gap-3 w-full flex-1 min-h-0">
-
+            {/* Board + side toolbars row */}
+            <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,min(calc((100vh-148px)*450/500+60px),760px))] mx-auto flex-shrink-0">
 
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
@@ -1931,11 +1930,11 @@ export default function App() {
               </div>
             )}
 
-            {/* Board center column: flex-col, board grows, nav sits below */}
-            <div className="flex-1 min-w-0 max-w-[min(100%,760px)] flex flex-col items-center justify-start h-full min-h-0">
+            {/* Board center column: w-full, SVG aspect-ratio handles height, nav below */}
+            <div className="flex-1 min-w-0 max-w-[min(100%,760px)] flex flex-col items-center justify-start">
 
-              {/* Board wrapper - grows to fill, SVG handles its own aspect ratio */}
-              <div className="relative w-full flex-1 min-h-0 flex items-start justify-center overflow-hidden">
+              {/* Board wrapper - SVG uses w-full h-auto naturally */}
+              <div className="relative w-full">
                 <XiangqiBoard
                   board={activeBoard}
                   turn={activeTurn}
