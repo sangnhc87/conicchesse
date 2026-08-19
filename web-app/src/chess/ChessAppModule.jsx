@@ -308,9 +308,36 @@ export default function ChessAppModule({ isKidMode = false, onSwitchGame }) {
 
   return (
     <div className="flex-1 flex flex-col h-full bg-transparent select-none overflow-hidden">
-      {/* Top Chess Mode Selector Bar */}
-      <div className="px-4 py-2 bg-[#0a0d14]/80 backdrop-blur-md border-b border-[#202636] flex items-center justify-between gap-2 shrink-0">
-        <div className="flex items-center gap-1 bg-[#141824] p-1 rounded-xl border border-[#232a3d] shadow-inner">
+      {/* Top Chess Header Bar */}
+      <div className="px-4 py-2 bg-[#0a0d14]/90 backdrop-blur-md border-b border-[#202636] flex items-center justify-between gap-3 shrink-0">
+        {/* Left: Brand & Game Switcher */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center shadow-md shadow-amber-900/30 text-gray-950 font-black text-base">
+              👑
+            </div>
+            <h1 className="text-base md:text-lg font-black bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 text-transparent bg-clip-text hidden sm:block">
+              Kỳ Đài Cờ Vua
+            </h1>
+          </div>
+
+          <div className="flex items-center bg-[#141824] border border-[#2a344a] p-1 rounded-xl shadow-inner">
+            <button
+              onClick={onSwitchGame}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-black transition-all text-gray-400 hover:text-gray-200 hover:bg-white/5"
+            >
+              <span>🔴 Cờ Tướng</span>
+            </button>
+            <button
+              className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-black transition-all bg-gradient-to-r from-amber-500 to-yellow-600 text-gray-950 shadow-md shadow-amber-900/40"
+            >
+              <span>👑 Cờ Vua</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Center: Mode Selectors */}
+        <div className="hidden lg:flex items-center gap-1 bg-[#141824] p-1 rounded-xl border border-[#232a3d] shadow-inner">
           <button
             onClick={() => setChessMode('study')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition ${
@@ -353,14 +380,6 @@ export default function ChessAppModule({ isKidMode = false, onSwitchGame }) {
 
         {/* Quick Actions Right */}
         <div className="flex items-center gap-2">
-          {onSwitchGame && (
-            <button
-              onClick={onSwitchGame}
-              className="px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 bg-[#141824] hover:bg-[#1a2030] text-gray-400 hover:text-gray-200 border border-[#232a3d]"
-            >
-              <span>🔴 CỜ TƯỚNG</span>
-            </button>
-          )}
 
           <button
             onClick={() => setIsMateSolverOpen(true)}

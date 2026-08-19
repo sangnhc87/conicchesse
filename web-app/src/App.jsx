@@ -74,6 +74,27 @@ export default function App() {
     });
   };
 
+  // Fullscreen State & Handler
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
   // Modals & Panels
   const [isEngineModalOpen, setIsEngineModalOpen] = useState(false);
   const [trainingBoard, setTrainingBoard] = useState(null);
@@ -1444,6 +1465,30 @@ export default function App() {
                 </span>
               </h1>
             </div>
+          </div>
+
+          {/* Prominent Game Switcher Pill */}
+          <div className="flex items-center bg-[#141824] border border-[#2a344a] p-1 rounded-xl shadow-inner ml-2">
+            <button
+              onClick={() => handleSwitchGameType('xiangqi')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+                gameType === 'xiangqi'
+                  ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-md shadow-red-900/40'
+                  : 'text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              <span>🔴 Cờ Tướng</span>
+            </button>
+            <button
+              onClick={() => handleSwitchGameType('chess')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black transition-all ${
+                gameType === 'chess'
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-600 text-gray-950 shadow-md shadow-amber-900/40'
+                  : 'text-gray-400 hover:text-gray-200'
+              }`}
+            >
+              <span>👑 Cờ Vua</span>
+            </button>
           </div>
         </div>
 
