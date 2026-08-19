@@ -1870,8 +1870,8 @@ export default function App() {
           {/* Center Master Xiangqi Board column */}
           <div className="flex-1 min-w-0 flex flex-col items-center justify-start h-full max-h-full min-h-0 overflow-y-auto">
 
-            {/* Board + side toolbars row */}
-            <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,min(calc((100vh-148px)*450/500+60px),760px))] mx-auto flex-shrink-0">
+            {/* Board + side toolbars row - items-stretch so eval bar matches board height */}
+            <div className="relative flex items-stretch justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,min(calc((100vh-160px)*450/500+60px),740px))] mx-auto flex-shrink-0">
 
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
