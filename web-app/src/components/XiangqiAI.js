@@ -174,7 +174,7 @@ const repTable = new Map();
 
 function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
   searchNodeCount++;
-  if (searchNodeCount > 2000000) return evaluateBoard(board);
+  if (searchNodeCount > 15000) return evaluateBoard(board);
 
   const turn = isMaximizing ? 'red' : 'black';
   const hash = boardHash(board);
@@ -188,7 +188,7 @@ function alphaBeta(board, depth, alpha, beta, isMaximizing, maxDepth) {
   }
 
   if (depth <= 0) {
-    return qSearch(board, alpha, beta, isMaximizing, 4);
+    return evaluateBoard(board);
   }
 
   moves.sort((a, b) => {
@@ -389,6 +389,74 @@ export const GRANDMASTER_OPENING_MOVES = [
   { fromR: 9, fromC: 2, toR: 7, toC: 4, name: 'Tượng 3 tiến 5 (Phi Tượng Cuộc)' },
   { fromR: 9, fromC: 6, toR: 7, toC: 4, name: 'Tượng 7 tiến 5 (Phi Tượng Cuộc)' }
 ];
+
+export const OPENING_BOOK = [
+  // 1. Pháo 2 bình 5 / Pháo 8 bình 5 (Trung Pháo)
+  {
+    condition: (b) => b[7]?.[4] === 'C' && b[0]?.[7] === 'n' && b[0]?.[1] === 'n',
+    moves: [
+      { fromR: 0, fromC: 7, toR: 2, toC: 6, name: 'Mã 8 tiến 7 (Bình Phong Mã)' },
+      { fromR: 0, fromC: 1, toR: 2, toC: 2, name: 'Mã 2 tiến 3 (Khởi Mã)' },
+      { fromR: 2, fromC: 7, toR: 2, toC: 4, name: 'Pháo 8 bình 5 (Thuận Pháo)' },
+      { fromR: 2, fromC: 1, toR: 2, toC: 4, name: 'Pháo 2 bình 5 (Nghịch Pháo)' },
+      { fromR: 3, fromC: 6, toR: 4, toC: 6, name: 'Tốt 7 tiến 1' }
+    ]
+  },
+  // 2. Tiên Nhân Chỉ Lộ (Binh 7 tiến 1 / Binh 3 tiến 1)
+  {
+    condition: (b) => (b[5]?.[6] === 'P' || b[5]?.[2] === 'P') && b[0]?.[7] === 'n',
+    moves: [
+      { fromR: 3, fromC: 6, toR: 4, toC: 6, name: 'Tốt 7 tiến 1 (Đối Binh Cuộc)' },
+      { fromR: 2, fromC: 1, toR: 2, toC: 2, name: 'Pháo 2 bình 3 (Tốt Để Pháo)' },
+      { fromR: 2, fromC: 7, toR: 2, toC: 4, name: 'Pháo 8 bình 5 (Trung Pháo)' },
+      { fromR: 0, fromC: 7, toR: 2, toC: 6, name: 'Mã 8 tiến 7' }
+    ]
+  },
+  // 3. Khởi Mã Cuộc (Mã 2 tiến 3 / Mã 8 tiến 7)
+  {
+    condition: (b) => (b[7]?.[2] === 'N' || b[7]?.[6] === 'N') && b[0]?.[7] === 'n',
+    moves: [
+      { fromR: 3, fromC: 6, toR: 4, toC: 6, name: 'Tốt 7 tiến 1' },
+      { fromR: 2, fromC: 7, toR: 2, toC: 4, name: 'Pháo 8 bình 5' },
+      { fromR: 0, fromC: 7, toR: 2, toC: 6, name: 'Mã 8 tiến 7' }
+    ]
+  },
+  // 4. Phi Tượng Cuộc (Tượng 3 tiến 5 / Tượng 7 tiến 5)
+  {
+    condition: (b) => b[7]?.[4] === 'E' && b[0]?.[7] === 'n',
+    moves: [
+      { fromR: 2, fromC: 7, toR: 2, toC: 4, name: 'Pháo 8 bình 5 (Trung Pháo phá Phi Tượng)' },
+      { fromR: 3, fromC: 6, toR: 4, toC: 6, name: 'Tốt 7 tiến 1' },
+      { fromR: 0, fromC: 7, toR: 2, toC: 6, name: 'Mã 8 tiến 7' }
+    ]
+  },
+  // 5. Quá Cung Pháo (Pháo 2 bình 6 / Pháo 8 bình 4)
+  {
+    condition: (b) => (b[7]?.[5] === 'C' || b[7]?.[3] === 'C') && b[0]?.[7] === 'n',
+    moves: [
+      { fromR: 0, fromC: 7, toR: 2, toC: 6, name: 'Mã 8 tiến 7' },
+      { fromR: 2, fromC: 7, toR: 2, toC: 4, name: 'Pháo 8 bình 5' }
+    ]
+  }
+];
+
+export function getOpeningBookMove(board, turn = 'red') {
+  if (turn === 'red' && isStandardOpening(board)) {
+    return GRANDMASTER_OPENING_MOVES[Math.floor(Math.random() * 4)];
+  }
+  if (turn === 'black') {
+    for (const bookEntry of OPENING_BOOK) {
+      if (bookEntry.condition(board)) {
+        const legal = getLegalMoves(board, 'black');
+        for (const cand of bookEntry.moves) {
+          const matched = legal.find(m => m.fromR === cand.fromR && m.fromC === cand.fromC && m.toR === cand.toR && m.toC === cand.toC);
+          if (matched) return matched;
+        }
+      }
+    }
+  }
+  return null;
+}
 
 function countPieces(board) {
   let n = 0;
@@ -595,12 +663,9 @@ export function findMateWasm(board, turn = 'red', maxMoves = 10) {
 }
 
 export function getBestMove(board, turn = 'red', depth = 3) {
-  if (turn === 'red' && isStandardOpening(board) && board[7]?.[1] === 'C' && board[7]?.[7] === 'C') {
-    return { fromR: 7, fromC: 1, toR: 7, toC: 4, captured: null };
-  }
-  if (turn === 'black' && isBlackInitialDefense(board) && board[7]?.[4] === 'C') {
-    return { fromR: 0, fromC: 7, toR: 2, toC: 6, captured: null };
-  }
+  // 1. Check Grandmaster Opening Book first (0ms instant response)
+  const bookMove = getOpeningBookMove(board, turn);
+  if (bookMove) return bookMove;
 
   const moves = getLegalMoves(board, turn);
   if (moves.length === 0) return null;
@@ -608,8 +673,7 @@ export function getBestMove(board, turn = 'red', depth = 3) {
   moves.sort((a, b) => (PIECE_VALS[b.captured] || 0) - (PIECE_VALS[a.captured] || 0));
 
   const pc = countPieces(board);
-  const effectiveDepth = pc <= 6 ? 7 : pc <= 12 ? 5 : 3;
-  const searchDepth = Math.max(depth || 3, effectiveDepth);
+  const searchDepth = pc <= 6 ? 4 : 3;
 
   const isMaximizing = turn === 'red';
   let bestMove = moves[0];
@@ -629,6 +693,7 @@ export function getBestMove(board, turn = 'red', depth = 3) {
       if (score < bestScore) { bestScore = score; bestMove = move; }
       beta = Math.min(beta, score);
     }
+    if (searchNodeCount > 15000) break;
   }
 
   return bestMove;
