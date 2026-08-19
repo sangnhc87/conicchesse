@@ -60,6 +60,9 @@ export default function App() {
     return storageGet('conic_is_kid_mode', false);
   });
   
+  // Header Menu UI State
+  const [isTopMenuOpen, setIsTopMenuOpen] = useState(false);
+  
   const handleToggleKidMode = () => {
     setIsKidMode(prev => {
       const next = !prev;
@@ -1440,22 +1443,6 @@ export default function App() {
               </h1>
             </div>
           </div>
-
-          {/* Game Switcher: Cờ Tướng vs Cờ Vua */}
-          <div className="flex items-center p-0.5 bg-[#141824] border border-amber-500/40 rounded-xl shadow-lg">
-            <button
-              onClick={() => handleSwitchGameType('xiangqi')}
-              className="px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-sm"
-            >
-              <span>🔴 CỜ TƯỚNG</span>
-            </button>
-            <button
-              onClick={() => handleSwitchGameType('chess')}
-              className="px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 text-amber-300 hover:text-amber-200 hover:bg-amber-500/20 animate-pulse"
-            >
-              <span>👑 CỜ VUA (MỚI)</span>
-            </button>
-          </div>
         </div>
 
         {/* Center: Clean Segmented Mode Selector */}
@@ -1499,79 +1486,144 @@ export default function App() {
           </button>
         </div>
 
-        {/* Right: Actions & Themes */}
-        <div className="flex items-center gap-2 md:gap-3">
-
-
-          <button
-            onClick={handleToggleKidMode}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
-              isKidMode 
-                ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md shadow-green-500/30 animate-pulse' 
-                : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
-            }`}
-          >
-            <span className="text-sm">👶</span>
-            <span className="hidden sm:inline">Góc Trẻ Em</span>
-          </button>
+        {/* Right: Consolidated Tool Menu */}
+        <div className="flex items-center gap-3 relative">
           
           <button
-            onClick={() => setIsEngineModalOpen(true)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold bg-[#141824] hover:bg-[#1c2233] border border-[#262e42] text-amber-300 transition-all active:scale-95 shadow-sm"
-            title="Động cơ phân tích Pikafish / WASM"
+            onClick={() => setIsAiTutorOpen(true)}
+            className="p-1.5 px-2.5 bg-gradient-to-r from-amber-500/20 to-red-500/20 text-amber-300 hover:from-amber-500/30 hover:to-red-500/30 rounded-lg transition-all text-xs font-bold flex items-center gap-1 border border-amber-500/30"
+            title="Sư Phụ AI Khẩu Quyết"
           >
-            <Flame className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden lg:inline">{engineState.isNativeActive ? engineManager.getNativeLabel() : 'WASM Engine'}</span>
-            <Settings2 className="w-3 h-3 opacity-60" />
+            <Bot className="w-3.5 h-3.5 text-amber-400" />
+            <span className="hidden sm:inline">Sư Phụ AI</span>
           </button>
 
-          <div className="flex items-center bg-[#141824] border border-[#262e42] rounded-xl p-0.5">
-            <button
-              onClick={() => setIsEditorOpen(true)}
-              className="p-1.5 px-2 text-gray-400 hover:text-amber-300 hover:bg-white/5 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
-              title="Tự xếp thế cờ mới"
-            >
-              <Plus className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden xl:inline">Xếp Cờ</span>
-            </button>
+          <button
+            onClick={() => setIsTopMenuOpen(!isTopMenuOpen)}
+            className={`p-2 rounded-xl transition-all ${
+              isTopMenuOpen 
+                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' 
+                : 'bg-[#141824] text-gray-400 hover:text-amber-300 hover:bg-[#1c2233] border border-[#262e42]'
+            }`}
+            title="Cài đặt & Công cụ"
+          >
+            {isTopMenuOpen ? <Check className="w-5 h-5" /> : <Settings2 className="w-5 h-5" />}
+          </button>
 
-            <button
-              onClick={() => setIsImportModalOpen(true)}
-              className="p-1.5 px-2 text-gray-400 hover:text-cyan-300 hover:bg-white/5 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
-              title="Nạp thêm CSDL cờ"
-            >
-              <Database className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="hidden xl:inline">Nạp CSDL</span>
-            </button>
+          {/* Dropdown Menu */}
+          {isTopMenuOpen && (
+            <div className="absolute top-12 right-0 w-64 bg-[#141824] border border-[#262e42] rounded-xl shadow-2xl z-[60] overflow-hidden animate-slideUp">
+              
+              {/* Game Switcher */}
+              <div className="p-2 border-b border-[#262e42]">
+                <div className="text-[10px] text-gray-500 uppercase font-bold mb-2 px-2">CHỌN LOẠI CỜ</div>
+                <div className="flex bg-[#0f121b] rounded-lg p-1 border border-[#1c2233]">
+                  <button
+                    onClick={() => { handleSwitchGameType('xiangqi'); setIsTopMenuOpen(false); }}
+                    className={`flex-1 py-1.5 rounded-md text-xs font-bold transition-all ${
+                      gameType === 'xiangqi' ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-sm' : 'text-gray-400 hover:text-gray-200'
+                    }`}
+                  >
+                    🔴 Cờ Tướng
+                  </button>
+                  <button
+                    onClick={() => { handleSwitchGameType('chess'); setIsTopMenuOpen(false); }}
+                    className={`flex-1 py-1.5 rounded-md text-xs font-bold transition-all ${
+                      gameType === 'chess' ? 'bg-gradient-to-r from-amber-500 to-amber-700 text-white shadow-sm' : 'text-gray-400 hover:text-gray-200'
+                    }`}
+                  >
+                    👑 Cờ Vua
+                  </button>
+                </div>
+              </div>
 
-            <button
-              onClick={() => {
-                const pwd = prompt("Nhập mật khẩu quản trị viên để In Sách:");
-                if (pwd === "conic123") {
-                  setIsPdfModalOpen(true);
-                } else if (pwd !== null) {
-                  alert("Tính năng In Sách đang trong quá trình phát triển nội bộ. Vui lòng quay lại sau!");
-                }
-              }}
-              className="p-1.5 px-2 text-gray-400 hover:text-amber-300 hover:bg-white/5 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
-              title="Xuất sách PDF in ấn"
-            >
-              <Printer className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden xl:inline">Xuất PDF</span>
-            </button>
+              {/* Toggles */}
+              <div className="p-2 border-b border-[#262e42] space-y-1">
+                <button
+                  onClick={() => { handleToggleKidMode(); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-base">👶</span>
+                    <span className="text-sm font-semibold text-gray-300">Góc Trẻ Em</span>
+                  </div>
+                  <div className={`w-8 h-4 rounded-full relative transition-colors ${isKidMode ? 'bg-green-500' : 'bg-gray-700'}`}>
+                    <div className={`absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white transition-transform ${isKidMode ? 'translate-x-4' : ''}`} />
+                  </div>
+                </button>
+                
+                <button
+                  onClick={() => { setIsEngineModalOpen(true); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
+                >
+                  <Flame className="w-4 h-4 text-amber-400 group-hover:animate-pulse" />
+                  <span className="text-sm font-semibold text-gray-300">Cấu hình Động cơ AI</span>
+                </button>
+              </div>
 
-            <button
-              onClick={() => setIsAiTutorOpen(true)}
-              className="p-1.5 px-2.5 bg-gradient-to-r from-amber-500/20 to-red-500/20 text-amber-300 hover:from-amber-500/30 hover:to-red-500/30 rounded-lg transition-all text-xs font-bold flex items-center gap-1 border border-amber-500/30"
-              title="Sư Phụ AI Khẩu Quyết"
-            >
-              <Bot className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden sm:inline">Sư Phụ AI</span>
-            </button>
-          </div>
+              {/* Tools */}
+              <div className="p-2 border-b border-[#262e42] space-y-1">
+                <div className="text-[10px] text-gray-500 uppercase font-bold mb-2 px-2 mt-1">CÔNG CỤ HỖ TRỢ</div>
+                
+                <button
+                  onClick={() => { setIsEditorOpen(true); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
+                >
+                  <Plus className="w-4 h-4 text-emerald-400" />
+                  <span className="text-sm font-medium text-gray-300">Tự xếp thế cờ mới</span>
+                </button>
+                
+                <button
+                  onClick={() => { setIsImportModalOpen(true); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
+                >
+                  <Database className="w-4 h-4 text-cyan-400" />
+                  <span className="text-sm font-medium text-gray-300">Nạp thêm CSDL Cờ</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsTopMenuOpen(false);
+                    const pwd = prompt("Nhập mật khẩu quản trị viên để In Sách:");
+                    if (pwd === "conic123") {
+                      setIsPdfModalOpen(true);
+                    } else if (pwd !== null) {
+                      alert("Mật khẩu không đúng!");
+                    }
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
+                >
+                  <Printer className="w-4 h-4 text-purple-400" />
+                  <span className="text-sm font-medium text-gray-300">In Sách (PDF)</span>
+                </button>
+              </div>
+
+              {/* Display & Language */}
+              <div className="p-2 space-y-1 bg-[#0f121b]">
+                <button
+                  onClick={() => { toggleFullscreen(); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors"
+                >
+                  {isFullscreen ? <Minimize2 className="w-4 h-4 text-gray-400" /> : <Maximize2 className="w-4 h-4 text-gray-400" />}
+                  <span className="text-sm font-medium text-gray-400">{isFullscreen ? 'Thu nhỏ' : 'Toàn màn hình'}</span>
+                </button>
+                
+                <button
+                  onClick={() => { setLang(prev => prev === 'vi' ? 'cn' : 'vi'); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-base">{lang === 'vi' ? '🇻🇳' : '🇨🇳'}</span>
+                    <span className="text-sm font-medium text-gray-400">Ngôn ngữ ký hiệu</span>
+                  </div>
+                  <span className="text-[10px] bg-gray-800 text-gray-300 px-1.5 py-0.5 rounded">{lang.toUpperCase()}</span>
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* View Panels Layout Toggles (Clean Joined Pill) */}
-          <div className="hidden md:flex items-center bg-[#141824] border border-[#262e42] rounded-xl p-0.5">
+          <div className="hidden md:flex items-center bg-[#141824] border border-[#262e42] rounded-xl p-0.5 ml-2">
             <button
               onClick={() => setIsLeftSidebarCollapsed(p => !p)}
               className={`p-1.5 px-2 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
