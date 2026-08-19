@@ -67,9 +67,58 @@ class EngineManagerService {
       checking: false
     };
     this.subscribers = new Set();
+    this.initWorker();
     this.checkNativeBridge();
     // Periodic health check every 10s
     setInterval(() => this.checkNativeBridge(), 10000);
+  }
+
+  initWorker() {
+    if (typeof window === 'undefined') return;
+    try {
+      this.worker = new Worker(new URL('../workers/engineWorker.js', import.meta.url), { type: 'module' });
+      this.pendingRequests = new Map();
+      this.reqIdCounter = 1;
+
+      this.worker.onmessage = (e) => {
+        const { id, type, candidates, score, move, sequence, error } = e.data;
+        const req = this.pendingRequests.get(id);
+        if (req) {
+          this.pendingRequests.delete(id);
+          if (error) req.reject(new Error(error));
+          else if (type === 'analyze_result') req.resolve(candidates);
+          else if (type === 'evaluate_result') req.resolve(score);
+          else if (type === 'bestmove_result') req.resolve({ move, score });
+          else if (type === 'puzzle_result') req.resolve(sequence);
+          else req.resolve(e.data);
+        }
+      };
+
+      this.worker.onerror = (err) => {
+        console.warn('Engine Worker error:', err);
+      };
+    } catch (e) {
+      console.warn('Worker initialization fallback to synchronous engine:', e);
+      this.worker = null;
+    }
+  }
+
+  runWorkerTask(task) {
+    return new Promise((resolve, reject) => {
+      if (!this.worker) {
+        return resolve(null);
+      }
+      const id = ++this.reqIdCounter;
+      this.pendingRequests.set(id, { resolve, reject });
+      this.worker.postMessage({ ...task, id });
+
+      setTimeout(() => {
+        if (this.pendingRequests && this.pendingRequests.has(id)) {
+          this.pendingRequests.delete(id);
+          resolve(null);
+        }
+      }, 8000);
+    });
   }
 
   subscribe(callback) {
@@ -216,13 +265,38 @@ class EngineManagerService {
       }
     }
 
+    // Multi-threaded Web Worker Execution (Off-UI thread, 0% UI lag)
+    try {
+      const workerRes = await this.runWorkerTask({
+        type: 'bestmove',
+        board,
+        turn,
+        depth: Math.min(depth || 4, 6)
+      });
+      if (workerRes && workerRes.move) {
+        const wasmMove = workerRes.move;
+        return {
+          ...wasmMove,
+          score: workerRes.score || 0,
+          depth: Math.min(depth || 4, 6),
+          isNative: false,
+          engine: 'WASM AI (Đa Luồng)',
+          viFull: moveToVietnameseFull(board, wasmMove, turn),
+          viShort: moveToVietnamese(board, wasmMove, turn),
+          cnMove: moveToChinese(board, wasmMove, turn)
+        };
+      }
+    } catch (err) {
+      console.warn('Worker bestmove fallback:', err);
+    }
+
     // WASM Fallback
-    const wasmMove = getWasmBestMove(board, turn, Math.min(depth || 4, 6));
+    const wasmMove = getWasmBestMove(board, turn, Math.min(depth || 3, 4));
     if (wasmMove) {
       return {
         ...wasmMove,
         score: evaluateWasmBoard(board),
-        depth: Math.min(depth || 4, 6),
+        depth: Math.min(depth || 3, 4),
         isNative: false,
         engine: 'WASM (Trình duyệt)',
         viFull: moveToVietnameseFull(board, wasmMove, turn),
@@ -281,8 +355,27 @@ class EngineManagerService {
       }
     }
 
+    // Multi-threaded Web Worker Execution
+    try {
+      const candidates = await this.runWorkerTask({
+        type: 'analyze',
+        board,
+        turn,
+        depth: Math.min(depth || 3, 4)
+      });
+      if (candidates && candidates.length > 0) {
+        return candidates.map(item => ({
+          ...item,
+          engine: 'WASM AI (Đa Luồng)',
+          isNative: false
+        }));
+      }
+    } catch (err) {
+      console.warn('Worker analysis fallback:', err);
+    }
+
     // WASM Fallback
-    const wasmRes = analyzeWasmStrategic(board, turn, Math.min(depth || 4, 5));
+    const wasmRes = analyzeWasmStrategic(board, turn, Math.min(depth || 3, 4));
     return wasmRes.map(item => ({
       ...item,
       engine: 'WASM (Trình duyệt)',
