@@ -15,6 +15,7 @@ import {
   detectEndgamePattern,
   classifyEndgameCandidate
 } from './XiangqiLogic';
+import EvalGraph from './EvalGraph';
 
 export default function AnalysisPanel({
   board,
@@ -938,6 +939,22 @@ export default function AnalysisPanel({
         {/* ================= TAB 4: MOVE HISTORY ================= */}
         {activeTab === 'history' && (
           <div className="space-y-2.5">
+            {/* Eval Graph */}
+            {moveHistory.length > 1 && (
+              <div className="p-1 bg-[#141824] rounded-xl border border-[#232a3d] shadow-inner mb-2 overflow-hidden">
+                <div className="flex items-center gap-1.5 px-2 pt-1 pb-2">
+                  <BarChart3 className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Biểu đồ lợi thế</span>
+                </div>
+                <EvalGraph 
+                  history={moveHistory} 
+                  currentIndex={historyIndex} 
+                  onGoToHistoryIndex={onGoToHistoryIndex} 
+                  height={80} 
+                />
+              </div>
+            )}
+
             {/* FEN Bar */}
             <div className="p-2.5 rounded-xl bg-[#141824] border border-[#232a3d] space-y-1.5">
               <div className="flex items-center justify-between text-[10px] font-bold text-gray-400 uppercase">

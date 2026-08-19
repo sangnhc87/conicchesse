@@ -6,6 +6,7 @@ import {
 import { evaluateBoard } from './XiangqiAI';
 import { engineManager } from './EngineManager';
 import { storageGet, storageSet } from '../lib/safeStorage';
+import EvalGraph from './EvalGraph';
 
 export default function PlayAIPanel({
   board,
@@ -222,6 +223,23 @@ export default function PlayAIPanel({
 
       {/* Move History */}
       <div className="flex-1 overflow-y-auto p-3 space-y-1 bg-[#181a20]">
+        
+        {/* Eval Graph (if history > 1) */}
+        {moveHistory.length > 1 && (
+          <div className="p-1 bg-[#141824] rounded-xl border border-[#232a3d] shadow-inner mb-3 overflow-hidden">
+            <div className="flex items-center gap-1.5 px-2 pt-1 pb-2">
+              <BarChart3 className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Biểu đồ lợi thế</span>
+            </div>
+            <EvalGraph 
+              history={moveHistory} 
+              currentIndex={moveHistory.length} 
+              onGoToHistoryIndex={null} // Không cho phép nhảy nước trong lúc đấu AI
+              height={70} 
+            />
+          </div>
+        )}
+
         <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider pb-1.5 border-b border-gray-800 flex items-center justify-between">
           <span>Biên bản ván cờ ({moveHistory.length} nước)</span>
           <span className="text-[10px] text-gray-500 font-mono">
