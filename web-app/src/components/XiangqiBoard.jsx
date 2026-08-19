@@ -592,31 +592,28 @@ export default function XiangqiBoard({
                   />
                 )}
 
-                {/* 32 Physical Ivory/Ebony Xiangqi Pieces with Smooth Animation */}
-                {piecesMap.map((pInfoState) => {
-                  const { piece, r, c, id } = pInfoState;
-                  const coord = getSvgCoord(r, c);
-                  const isRedP = isRed(piece);
-                  const pInfo = PIECE_NAMES[piece];
-                  const text = pInfo?.cn || '';
+                {/* 32 Physical Ivory/Ebony Xiangqi Pieces - Rock Solid Crisp Rendering */}
+                {safeBoard.flatMap((row, r) =>
+                  row.map((piece, c) => {
+                    if (!piece) return null;
+                    const coord = getSvgCoord(r, c);
+                    const isRedP = isRed(piece);
+                    const pInfo = PIECE_NAMES[piece];
+                    const text = pInfo?.cn || '';
 
-                  const isKing = piece === 'K' || piece === 'k';
-                  const isKingChecked = (isKing && isRedP && redInCheck) || (isKing && !isRedP && blackInCheck);
+                    const isKing = piece === 'K' || piece === 'k';
+                    const isKingChecked = (isKing && isRedP && redInCheck) || (isKing && !isRedP && blackInCheck);
 
-                  return (
-                    <g
-                      key={id}
-                      className="cursor-pointer"
-                      style={{
-                        transform: `translate(${coord.x}px, ${coord.y}px)`,
-                        transition: 'transform 0.15s ease-out',
-                        willChange: 'transform'
-                      }}
-                    >
-                      {/* Inner scalable group for hover effect without fighting React transform */}
-                      <g className="transition-transform duration-150 ease-out origin-center hover:scale-105" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
-                        {/* Ultra-fast Fake Drop Shadow (no SVG filters) */}
-                        <circle cx="1.5" cy="2.5" r="20.5" fill="#1a0d02" opacity="0.4" />
+                    return (
+                      <g
+                        key={`pc-${r}-${c}`}
+                        className="cursor-pointer"
+                        transform={`translate(${coord.x}, ${coord.y})`}
+                      >
+                        {/* Inner scalable group for hover effect without layout shift */}
+                        <g className="transition-transform duration-150 ease-out origin-center hover:scale-105" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
+                          {/* Ultra-fast Fake Drop Shadow (no SVG filters) */}
+                          <circle cx="1.5" cy="2.5" r="20.5" fill="#1a0d02" opacity="0.4" />
 
                         {/* Checked King Warning Aura (Clean static ring) */}
                       {isKingChecked && (
@@ -676,7 +673,7 @@ export default function XiangqiBoard({
                       </g>
                     </g>
                   );
-                })}
+                }))}
 
                 {/* Last Move Path — Bold Solid Amber Arrow with Glow */}
                 {arrowStart && arrowEnd && (

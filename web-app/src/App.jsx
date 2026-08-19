@@ -1867,13 +1867,13 @@ export default function App() {
 
         {/* Center & Right Research Workbench */}
         <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-transparent min-h-0">
-          {/* Center Master Xiangqi Board (Expands dynamically to fill space) */}
-          <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full max-h-full min-h-0 space-y-1.5">
-            {/* Real-time Coach Feedback Banner in Practice Mode */}
+          {/* Center Master Xiangqi Board - Rock Solid Stationary Anchor */}
+          <div className="flex-1 min-w-0 flex flex-col items-center justify-start h-full max-h-full min-h-0 pt-0.5">
+            {/* Real-time Coach Feedback Banner in Practice Mode (Non-shifting overlay/bar) */}
             {isStudy && coachFeedback && (
-              <div className={`w-full max-w-[560px] xl:max-w-[620px] p-2.5 rounded-xl text-xs flex items-center justify-between border shadow-lg animate-fadeIn flex-shrink-0 ${coachFeedback.type === 'mistake'
-                  ? 'bg-red-950/80 border-red-500/60 text-red-200'
-                  : 'bg-emerald-950/80 border-emerald-500/60 text-emerald-200'
+              <div className={`w-full max-w-[min(100%,560px)] p-2 rounded-xl text-xs flex items-center justify-between border shadow-lg mb-1 flex-shrink-0 ${coachFeedback.type === 'mistake'
+                  ? 'bg-red-950/90 border-red-500/60 text-red-200'
+                  : 'bg-emerald-950/90 border-emerald-500/60 text-emerald-200'
                 }`}>
                 <div className="flex items-center gap-2">
                   {coachFeedback.type === 'mistake' ? (
@@ -1898,9 +1898,9 @@ export default function App() {
               </div>
             )}
 
-            {/* Nước Đi Gợi Ý AI (Đã tách riêng lên trên) */}
+            {/* Nước Đi Gợi Ý AI (Chỉ hiện khi bật trợ thủ) */}
             {isEngineAssistantEnabled && bestMoveSuggestion && (
-              <div className="w-full max-w-[min(100%,560px)] mx-auto my-1 px-3 py-1.5 bg-gradient-to-r from-[#121520] via-[#1a2035] to-[#121520] rounded-xl border border-cyan-500/30 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-md backdrop-blur-md animate-fadeIn">
+              <div className="w-full max-w-[min(100%,560px)] mx-auto mb-1 px-3 py-1 bg-gradient-to-r from-[#121520] via-[#1a2035] to-[#121520] rounded-xl border border-cyan-500/30 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-md backdrop-blur-md flex-shrink-0">
                 <Flame className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
                 <span className="font-bold text-cyan-300 shrink-0">
                   {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:')}
@@ -1912,7 +1912,7 @@ export default function App() {
               </div>
             )}
 
-          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-90px)*0.9+60px))] lg:max-w-[720px] xl:max-w-[780px] 2xl:max-w-[840px] mx-auto mt-0.5">
+          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-90px)*0.9+60px))] lg:max-w-[720px] xl:max-w-[780px] 2xl:max-w-[840px] mx-auto">
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
             <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
