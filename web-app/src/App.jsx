@@ -427,7 +427,7 @@ export default function App() {
   const [bestMoveSuggestion, setBestMoveSuggestion] = useState(null);
 
   useEffect(() => {
-    if (!activeBoard || !isEngineAssistantEnabled) {
+    if (!activeBoard || !isEngineAssistantEnabled || appMode === 'play_ai') {
       setBestMoveSuggestion(null);
       return;
     }
@@ -452,20 +452,20 @@ export default function App() {
     let isMounted = true;
     const timer = setTimeout(async () => {
       try {
-        const res = await engineManager.getBestMove(activeBoard, activeTurn, 14);
+        const res = await engineManager.getBestMove(activeBoard, activeTurn, 3);
         if (isMounted && res) {
           setBestMoveSuggestion(res);
         }
       } catch (e) {
         if (isMounted) setBestMoveSuggestion(null);
       }
-    }, 80);
+    }, 200);
 
     return () => {
       isMounted = false;
       clearTimeout(timer);
     };
-  }, [activeBoard, activeTurn, isEngineAssistantEnabled, isStudy, isTrialMode, nextLessonMove, isAnalysis, analysisCandidates, analysisPreviewMove]);
+  }, [activeBoard, activeTurn, isEngineAssistantEnabled, isStudy, isTrialMode, nextLessonMove, isAnalysis, analysisCandidates, analysisPreviewMove, appMode]);
 
   // Fast Instant Next & Previous Lesson Handlers
   const handleNextLesson = useCallback(() => {

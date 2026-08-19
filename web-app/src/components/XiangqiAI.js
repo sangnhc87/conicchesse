@@ -119,10 +119,9 @@ export function evaluateBoard(board) {
   return redScore - blackScore;
 }
 
-// Quiescence Search
 function qSearch(board, alpha, beta, isMaximizing, qDepth) {
   searchNodeCount++;
-  if (searchNodeCount > 2000000 || qDepth <= 0) return evaluateBoard(board);
+  if (searchNodeCount > 10000 || qDepth <= 0) return evaluateBoard(board);
 
   const standPat = evaluateBoard(board);
   if (isMaximizing) {
@@ -710,12 +709,12 @@ export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
   const isMaximizing = turn === 'red';
   const scoredMoves = [];
 
-  searchNodeCount = 0;
   repTable.clear();
 
-  for (const move of moves.slice(0, 25)) {
+  for (const move of moves.slice(0, 15)) {
+    searchNodeCount = 0;
     const nextBoard = makeMove(board, move);
-    const score = alphaBeta(nextBoard, searchDepth - 1, -Infinity, Infinity, !isMaximizing, searchDepth);
+    const score = alphaBeta(nextBoard, 2, -Infinity, Infinity, !isMaximizing, 2);
     const isCapture = !!move.captured;
     const causesCheck = isInCheck(nextBoard, turn === 'red' ? 'black' : 'red');
 
@@ -749,8 +748,9 @@ export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
   const topCandidates = scoredMoves.slice(0, 5);
 
   return topCandidates.map((cand, idx) => {
-    const pvDepth = idx === 0 ? 5 : idx <= 1 ? 4 : 3;
+    const pvDepth = idx === 0 ? 4 : idx <= 1 ? 3 : 2;
     const nextBoard = makeMove(board, cand.move);
+    searchNodeCount = 0;
     const pvLine = buildPvLine(nextBoard, turn === 'red' ? 'black' : 'red', pvDepth);
     const tacticalStyle = classifyTacticalStyle(cand, board, turn);
 
@@ -759,7 +759,7 @@ export function analyzeStrategicOptions(board, turn = 'red', depth = 3) {
       ...tacticalStyle,
       pv: pvLine,
       evalText: cand.scoreText,
-      evalDepth: searchDepth
+      evalDepth: 2
     };
   });
 }
