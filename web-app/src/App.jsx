@@ -11,6 +11,7 @@ import {
 
 import XiangqiBoard from './components/XiangqiBoard';
 import Sidebar from './components/Sidebar';
+import CoachFeedbackModal from './components/CoachFeedbackModal';
 import StudyPanel from './components/StudyPanel';
 import AnalysisPanel from './components/AnalysisPanel';
 import PlayAIPanel from './components/PlayAIPanel';
@@ -168,6 +169,20 @@ export default function App() {
   const [playAiSelectedSquare, setPlayAiSelectedSquare] = useState(null);
   const [playAiLegalDests, setPlayAiLegalDests] = useState([]);
   const [playAiLastMove, setPlayAiLastMove] = useState(null);
+  
+  // Super Teacher (Coach) States
+  const [isPlayAiCoachEnabled, setIsPlayAiCoachEnabled] = useState(() => {
+    try {
+      return JSON.parse(storageGet('xiangqi_coach_enabled', 'false'));
+    } catch {
+      return false;
+    }
+  });
+  const [playAiCoachFeedback, setPlayAiCoachFeedback] = useState(null);
+
+  useEffect(() => {
+    storageSet('xiangqi_coach_enabled', JSON.stringify(isPlayAiCoachEnabled));
+  }, [isPlayAiCoachEnabled]);
 
   // Favorites & Completed Lessons in localStorage
   const [favorites, setFavorites] = useState(() => {
@@ -1060,6 +1075,32 @@ export default function App() {
       return;
     }
 
+    // Hàm hỗ trợ thực thi nước đi
+    const executePlayAiMove = (move, capturedPiece, nextBoard, nextTurn) => {
+      setPlayAiBoard(nextBoard);
+      setPlayAiLastMove(move);
+      setPlayAiSelectedSquare(null);
+      setPlayAiLegalDests([]);
+      setBestMoveSuggestion(null);
+
+      const notationVi = moveToVietnameseFull(playAiBoard, move, playAiPlayerColor);
+      const notationCn = moveToChinese(playAiBoard, move, playAiPlayerColor);
+
+      setPlayAiHistory(prev => [
+        ...prev,
+        {
+          turn: playAiPlayerColor,
+          move,
+          notationVi,
+          notationCn,
+          captured: capturedPiece
+        }
+      ]);
+
+      setPlayAiTurn(nextTurn);
+      setPlayAiThinking(false);
+    };
+
     // 2. PLAY AI MODE
     if (appMode === 'play_ai') {
       if (playAiThinking || playAiTurn !== playAiPlayerColor) return;
@@ -1081,30 +1122,52 @@ export default function App() {
           if (clickedPiece) sound.playCapture();
           else sound.playMove();
 
+          if (isPlayAiCoachEnabled) {
+            setPlayAiThinking(true);
+            engineManager.analyzeStrategicOptions(playAiBoard, playAiPlayerColor, 12, 1).then(bestMoveCand => {
+              const scoreBefore = bestMoveCand.length > 0 ? bestMoveCand[0].score : 0;
+              const bestMoveObj = bestMoveCand.length > 0 ? bestMoveCand[0].move : null;
+              
+              const nextBoard = makeMove(playAiBoard, move);
+              const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
+              
+              engineManager.analyzeStrategicOptions(nextBoard, nextTurn, 12, 1).then(afterCand => {
+                const scoreAfter = afterCand.length > 0 ? afterCand[0].score : 0;
+                
+                const deltaRaw = scoreAfter - scoreBefore;
+                const playerAdvantageDelta = playAiPlayerColor === 'red' ? deltaRaw : -deltaRaw;
+                
+                if (playerAdvantageDelta <= -200) {
+                  // Sai lầm / Đại sai lầm
+                  setPlayAiThinking(false);
+                  const notationVi = moveToVietnameseFull(playAiBoard, move, playAiPlayerColor);
+                  setPlayAiCoachFeedback({
+                    type: playerAdvantageDelta <= -400 ? 'blunder' : 'mistake',
+                    title: playerAdvantageDelta <= -400 ? 'Đại Sai Lầm ❌' : 'Sai Lầm ⚠️',
+                    fenBefore: boardToFen(playAiBoard, playAiPlayerColor),
+                    playerMoveVi: notationVi,
+                    bestMoveVi: bestMoveObj ? moveToVietnameseFull(playAiBoard, bestMoveObj, playAiPlayerColor) : '',
+                    message: ''
+                  });
+                  return; // Chặn không đi tiếp
+                }
+                
+                // Không sai lầm, đi tiếp
+                executePlayAiMove(move, clickedPiece, nextBoard, nextTurn);
+              });
+            }).catch(err => {
+              console.error("Coach error:", err);
+              setPlayAiThinking(false);
+              const nextBoard = makeMove(playAiBoard, move);
+              const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
+              executePlayAiMove(move, clickedPiece, nextBoard, nextTurn);
+            });
+            return;
+          }
+
           const nextBoard = makeMove(playAiBoard, move);
-          setPlayAiBoard(nextBoard);
-          setPlayAiLastMove(move);
-          setPlayAiSelectedSquare(null);
-          setPlayAiLegalDests([]);
-          setBestMoveSuggestion(null);
-
-          const notationVi = moveToVietnameseFull(playAiBoard, move, playAiPlayerColor);
-          const notationCn = moveToChinese(playAiBoard, move, playAiPlayerColor);
-
-          setPlayAiHistory(prev => [
-            ...prev,
-            {
-              turn: playAiPlayerColor,
-              move,
-              notationVi,
-              notationCn,
-              captured: clickedPiece
-            }
-          ]);
-
           const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
-          setPlayAiTurn(nextTurn);
-          return;
+          executePlayAiMove(move, clickedPiece, nextBoard, nextTurn);
         }
       }
 
@@ -1947,6 +2010,8 @@ export default function App() {
                     setIsMuted(m);
                   }}
                   onOpenEngineSettings={() => setIsEngineModalOpen(true)}
+                  isCoachEnabled={isPlayAiCoachEnabled}
+                  onToggleCoach={() => setIsPlayAiCoachEnabled(!isPlayAiCoachEnabled)}
                 />
               )}
             </div>
@@ -1958,6 +2023,22 @@ export default function App() {
       <EngineSettingsModal
         isOpen={isEngineModalOpen}
         onClose={() => setIsEngineModalOpen(false)}
+      />
+
+      {/* Super Teacher Feedback Modal */}
+      <CoachFeedbackModal
+        isOpen={!!playAiCoachFeedback}
+        feedback={playAiCoachFeedback}
+        onUndo={() => {
+          handlePlayAiUndo();
+          setPlayAiCoachFeedback(null);
+        }}
+        onContinue={() => {
+          setPlayAiCoachFeedback(null);
+          // Resume AI Turn
+          const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
+          setPlayAiTurn(nextTurn);
+        }}
       />
 
       {/* AI Grandmaster Socratic Pedagogy Tutor Modal */}

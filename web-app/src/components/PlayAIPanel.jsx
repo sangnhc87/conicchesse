@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { evaluateBoard } from './XiangqiAI';
 import { engineManager } from './EngineManager';
+import { storageGet, storageSet } from '../lib/safeStorage';
 
 export default function PlayAIPanel({
   board,
@@ -23,9 +24,17 @@ export default function PlayAIPanel({
   onChangePieceLanguage,
   isMuted,
   onToggleMute,
-  onOpenEngineSettings
+  onOpenEngineSettings,
+  isCoachEnabled,
+  onToggleCoach
 }) {
   const [engineState, setEngineState] = useState(engineManager.getState());
+  const [showCoachSettings, setShowCoachSettings] = useState(false);
+  const [geminiKey, setGeminiKey] = useState(() => storageGet('gemini_api_key', ''));
+
+  useEffect(() => {
+    storageSet('gemini_api_key', geminiKey);
+  }, [geminiKey]);
 
   useEffect(() => {
     return engineManager.subscribe(setEngineState);
@@ -58,6 +67,18 @@ export default function PlayAIPanel({
 
         {/* Toolbar Settings */}
         <div className="flex items-center gap-1">
+          <button
+            onClick={() => setShowCoachSettings(!showCoachSettings)}
+            className={`p-1.5 rounded-lg border transition-colors ${
+              isCoachEnabled 
+                ? 'bg-blue-900/40 border-blue-500/50 text-blue-400' 
+                : 'bg-[#2b313d] hover:bg-[#373f4e] border-transparent text-gray-400'
+            }`}
+            title="Super Teacher (Cảnh báo sai lầm)"
+          >
+            <Bot className="w-3.5 h-3.5" />
+          </button>
+
           {onOpenEngineSettings && (
             <button
               onClick={onOpenEngineSettings}
@@ -93,6 +114,31 @@ export default function PlayAIPanel({
           </button>
         </div>
       </div>
+
+      {showCoachSettings && (
+        <div className="p-3.5 bg-[#1a1d24] border-b border-[#2e333e] space-y-3 animate-fadeIn">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+              <Bot className="w-4 h-4" /> SUPER TEACHER
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" className="sr-only peer" checked={isCoachEnabled} onChange={onToggleCoach} />
+              <div className="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
+            </label>
+          </div>
+          <div className="text-[11px] text-gray-400 leading-relaxed">
+            Hệ thống sẽ phân tích bằng Pikafish và cảnh báo ngay khi bé đi sai lầm. 
+            Cần cung cấp Gemini API Key để giải thích bằng tiếng Việt.
+          </div>
+          <input 
+            type="password"
+            value={geminiKey}
+            onChange={e => setGeminiKey(e.target.value)}
+            placeholder="Nhập Google Gemini API Key..."
+            className="w-full bg-[#111318] border border-[#2e333e] rounded-lg px-2.5 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-blue-500"
+          />
+        </div>
+      )}
 
       {/* Game Config & Advantage Meter */}
       <div className="p-3.5 bg-[#16181e] border-b border-[#2e333e] space-y-3">
