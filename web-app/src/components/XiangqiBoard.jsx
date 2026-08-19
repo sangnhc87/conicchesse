@@ -610,8 +610,8 @@ export default function XiangqiBoard({
                         className="cursor-pointer"
                         transform={`translate(${coord.x}, ${coord.y})`}
                       >
-                        {/* Inner scalable group for hover effect without layout shift */}
-                        <g className="transition-transform duration-150 ease-out origin-center hover:scale-105" style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
+                        {/* Inner group - no transition to prevent jitter */}
+                        <g style={{ transformBox: 'fill-box', transformOrigin: 'center' }}>
                           {/* Ultra-fast Fake Drop Shadow (no SVG filters) */}
                           <circle cx="1.5" cy="2.5" r="20.5" fill="#1a0d02" opacity="0.4" />
 

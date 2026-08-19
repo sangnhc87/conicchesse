@@ -1867,52 +1867,13 @@ export default function App() {
 
         {/* Center & Right Research Workbench */}
         <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-transparent min-h-0">
-          {/* Center Master Xiangqi Board - Rock Solid Stationary Anchor */}
-          <div className="flex-1 min-w-0 flex flex-col items-center justify-start h-full max-h-full min-h-0 pt-0.5">
-            {/* Real-time Coach Feedback Banner in Practice Mode (Non-shifting overlay/bar) */}
-            {isStudy && coachFeedback && (
-              <div className={`w-full max-w-[min(100%,560px)] p-2 rounded-xl text-xs flex items-center justify-between border shadow-lg mb-1 flex-shrink-0 ${coachFeedback.type === 'mistake'
-                  ? 'bg-red-950/90 border-red-500/60 text-red-200'
-                  : 'bg-emerald-950/90 border-emerald-500/60 text-emerald-200'
-                }`}>
-                <div className="flex items-center gap-2">
-                  {coachFeedback.type === 'mistake' ? (
-                    <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
-                  ) : (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  )}
-                  <div>
-                    <div className="font-bold">{coachFeedback.message}</div>
-                    {coachFeedback.sub && <div className="text-[10px] text-gray-300 opacity-90">{coachFeedback.sub}</div>}
-                  </div>
-                </div>
+          {/* Center Master Xiangqi Board - FIXED HEIGHT, ZERO SHIFT */}
+          <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full max-h-full min-h-0">
 
-                {coachFeedback.type === 'mistake' && (
-                  <button
-                    onClick={handleResetTrial}
-                    className="px-2 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] flex items-center gap-1 flex-shrink-0"
-                  >
-                    <Undo2 className="w-3 h-3" /> Thử lại
-                  </button>
-                )}
-              </div>
-            )}
+            {/* Board + side toolbars - fixed height row that never shifts */}
+            <div className="relative flex items-stretch justify-center gap-2 sm:gap-3 w-full flex-1 min-h-0">
 
-            {/* Nước Đi Gợi Ý AI (Chỉ hiện khi bật trợ thủ) */}
-            {isEngineAssistantEnabled && bestMoveSuggestion && (
-              <div className="w-full max-w-[min(100%,560px)] mx-auto mb-1 px-3 py-1 bg-gradient-to-r from-[#121520] via-[#1a2035] to-[#121520] rounded-xl border border-cyan-500/30 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-md backdrop-blur-md flex-shrink-0">
-                <Flame className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
-                <span className="font-bold text-cyan-300 shrink-0">
-                  {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:')}
-                </span>
-                <span className="font-sans text-white font-black text-sm sm:text-base px-2 py-0.5 bg-cyan-950/80 rounded-md border border-cyan-500/50">
-                  {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
-                    (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
-                </span>
-              </div>
-            )}
 
-          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,840px,calc((100vh-140px)*0.9+50px))] mx-auto">
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
             <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
@@ -1970,8 +1931,10 @@ export default function App() {
               </div>
             )}
 
-            <div className="flex-1 w-full max-w-[min(100%,calc((100vh-100px)*0.9))] lg:max-w-[720px] xl:max-w-[800px] 2xl:max-w-[880px] flex flex-col items-center">
-              <div className="relative w-full mb-1 sm:mb-1.5">
+            {/* Board center column - height-driven, max-width capped for collapse safety */}
+            <div className="flex-1 min-w-0 max-w-[min(100%,760px)] flex flex-col items-center justify-start h-full relative">
+              {/* Board area - fills height, SVG aspect ratio handles width naturally */}
+              <div className="relative w-full h-full flex items-start justify-center">
                 <XiangqiBoard
                   board={activeBoard}
                   turn={activeTurn}
@@ -1985,13 +1948,53 @@ export default function App() {
                   maxArrows={isAnalysis ? analysisMaxArrows : 1}
                   hoveredCandidateIndex={isAnalysis ? analysisHoveredCandidateIndex : null}
                   evalScore={currentEvalScore}
-                  showEvalBar={false} // Use external bar instead
+                  showEvalBar={false}
                   onSquareClick={handleSquareClick}
                   pieceLanguage={pieceLanguage}
                   interactive={true}
                   showMoveArrow={true}
                   showHeatmap={showHeatmap}
                 />
+
+                {/* AI Suggestion Banner - absolute overlay at BOTTOM, never shifts board */}
+                {isEngineAssistantEnabled && bestMoveSuggestion && (
+                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 px-3 py-1 bg-gradient-to-r from-[#121520]/95 via-[#1a2035]/95 to-[#121520]/95 rounded-xl border border-cyan-500/40 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-xl backdrop-blur-md pointer-events-none whitespace-nowrap">
+                    <Flame className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
+                    <span className="font-bold text-cyan-300 shrink-0">
+                      {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish:' : 'AI Gợi Ý:')}
+                    </span>
+                    <span className="font-sans text-white font-black px-2 py-0.5 bg-cyan-950/80 rounded-md border border-cyan-500/50">
+                      {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
+                        (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
+                    </span>
+                  </div>
+                )}
+
+                {/* Coach Feedback - absolute overlay at TOP, never shifts board */}
+                {isStudy && coachFeedback && (
+                  <div className={`absolute top-2 left-1/2 -translate-x-1/2 z-20 px-3 py-2 rounded-xl text-xs flex items-center gap-2 border shadow-xl backdrop-blur-md pointer-events-none ${coachFeedback.type === 'mistake'
+                    ? 'bg-red-950/95 border-red-500/60 text-red-200'
+                    : 'bg-emerald-950/95 border-emerald-500/60 text-emerald-200'
+                  }`}>
+                    {coachFeedback.type === 'mistake' ? (
+                      <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
+                    ) : (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    )}
+                    <div>
+                      <div className="font-bold">{coachFeedback.message}</div>
+                      {coachFeedback.sub && <div className="text-[10px] text-gray-300 opacity-90">{coachFeedback.sub}</div>}
+                    </div>
+                    {coachFeedback.type === 'mistake' && (
+                      <button
+                        onClick={handleResetTrial}
+                        className="ml-2 px-2 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] flex items-center gap-1 pointer-events-auto"
+                      >
+                        <Undo2 className="w-3 h-3" /> Thử lại
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Bottom Navigation Toolbar */}
@@ -2030,7 +2033,6 @@ export default function App() {
               </div>
             </div>
           </div>
-        </div>
 
           {/* Right Panel: Study Panel, Analysis Panel, or Play AI Panel (Collapsible) */}
           {!isRightPanelCollapsed && (
@@ -2146,6 +2148,7 @@ export default function App() {
               )}
             </div>
           )}
+          </div>{/* end center board flex-1 column */}
         </main>
       </div>
 
