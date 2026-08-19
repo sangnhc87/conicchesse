@@ -91,14 +91,6 @@ export default function PlayAIPanel({
           )}
 
           <button
-            onClick={() => onChangePieceLanguage(pieceLanguage === 'cn' ? 'vi' : 'cn')}
-            className="px-2 py-1 text-xs font-semibold rounded-lg bg-[#2b313d] hover:bg-[#373f4e] text-amber-400 border border-amber-500/30 transition-colors"
-            title="Đổi chữ quân cờ Hán / Việt"
-          >
-            {pieceLanguage === 'cn' ? 'Hán' : 'Việt'}
-          </button>
-
-          <button
             onClick={onToggleMute}
             className="p-1.5 rounded-lg bg-[#2b313d] hover:bg-[#373f4e] text-gray-300 transition-colors"
             title="Bật/Tắt âm thanh"

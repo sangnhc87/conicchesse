@@ -170,14 +170,6 @@ export default function AnalysisPanel({
           )}
 
           <button
-            onClick={() => onChangePieceLanguage(pieceLanguage === 'cn' ? 'vi' : 'cn')}
-            className="px-2 py-1 text-[11px] font-bold rounded-lg bg-[#222838] hover:bg-[#2e374d] text-amber-400 border border-amber-500/30 transition-colors"
-            title="Đổi chữ quân cờ Hán / Việt"
-          >
-            {pieceLanguage === 'cn' ? '🇨🇳 Hán' : '🇻🇳 Việt'}
-          </button>
-
-          <button
             onClick={onToggleMute}
             className="p-1.5 rounded-lg bg-[#222838] hover:bg-[#2e374d] text-gray-300 transition-colors"
             title="Bật/Tắt âm thanh"

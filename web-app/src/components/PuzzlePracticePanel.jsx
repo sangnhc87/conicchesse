@@ -50,12 +50,6 @@ export default function PuzzlePracticePanel({
 
         {/* Toolbar Settings */}
         <div className="flex items-center gap-1">
-          <button
-            onClick={() => onChangePieceLanguage(pieceLanguage === 'cn' ? 'vi' : 'cn')}
-            className="px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#2b313d] hover:bg-[#373f4e] text-amber-400 border border-amber-500/30 transition-colors"
-          >
-            {pieceLanguage === 'cn' ? 'Chữ Hán (帥)' : 'Chữ Việt (Tướng)'}
-          </button>
 
           <button
             onClick={onToggleMute}

@@ -1894,14 +1894,6 @@ export default function App() {
                 </button>
 
                 <button
-                  onClick={() => setPieceLanguage(prev => prev === 'cn' ? 'vi' : 'cn')}
-                  className="p-2 w-full h-9 rounded-xl bg-[#1c2230] hover:bg-[#252e40] text-amber-400 font-bold border border-amber-500/30 transition-all active:scale-95 shadow-sm flex items-center justify-center"
-                  title="Đổi chữ Hán / Việt"
-                >
-                  <span className="text-[12px] uppercase leading-none">{pieceLanguage === 'cn' ? '漢' : 'VN'}</span>
-                </button>
-
-                <button
                   onClick={() => setFlipped(prev => !prev)}
                   className={`p-2 rounded-xl border transition-all flex items-center justify-center ${
                     flipped ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-[#1c2230] border-gray-700 text-gray-400 hover:text-white'

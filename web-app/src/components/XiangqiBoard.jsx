@@ -542,7 +542,7 @@ export default function XiangqiBoard({
                   const coord = getSvgCoord(r, c);
                   const isRedP = isRed(piece);
                   const pInfo = PIECE_NAMES[piece];
-                  const text = pieceLanguage === 'cn' ? pInfo?.cn : pInfo?.vi;
+                  const text = pInfo?.cn || '';
 
                   const isKing = piece === 'K' || piece === 'k';
                   const isKingChecked = (isKing && isRedP && redInCheck) || (isKing && !isRedP && blackInCheck);
@@ -608,13 +608,12 @@ export default function XiangqiBoard({
                       {/* Traditional Calligraphic Inscription (Bolder & Sharper) */}
                       <text
                         x={0}
-                        y={pieceLanguage === 'cn' ? 6.5 : 4.5}
-                        fontSize={pieceLanguage === 'cn' ? "20" : (text?.length > 4 ? "10.5" : "12.5")}
-                        fontFamily={pieceLanguage === 'cn' ? "'Noto Serif TC', serif" : "system-ui, sans-serif"}
+                        y={6.5}
+                        fontSize="20"
+                        fontFamily="'Noto Serif TC', serif"
                         fontWeight="900"
                         textAnchor="middle"
                         fill={isRedP ? "#b91c1c" : "#0f172a"}
-                        letterSpacing={pieceLanguage === 'cn' ? "0" : "-0.5px"}
                       >
                         {text}
                       </text>
