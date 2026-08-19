@@ -1912,7 +1912,7 @@ export default function App() {
               </div>
             )}
 
-          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-90px)*0.9+60px))] lg:max-w-[720px] xl:max-w-[780px] 2xl:max-w-[840px] mx-auto">
+          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,840px,calc((100vh-140px)*0.9+50px))] mx-auto">
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
             <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
