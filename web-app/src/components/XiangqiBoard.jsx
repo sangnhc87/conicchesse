@@ -816,43 +816,6 @@ export default function XiangqiBoard({
             return <span key={`coord-${i}`}>{colNum}</span>;
           })}
         </div>
-
-        {/* Radar Tactical Briefing HUD Card */}
-        {showHeatmap && engineRadar && (
-          <div className="absolute top-3 right-3 left-3 sm:left-auto sm:w-64 p-3 bg-gradient-to-br from-[#121624]/95 via-[#1a2133]/95 to-[#121624]/95 border border-purple-500/50 rounded-2xl shadow-[0_0_25px_rgba(168,85,247,0.35)] text-xs z-[100] backdrop-blur-md pointer-events-none">
-            <div className="flex items-center justify-between gap-2 pb-2 border-b border-purple-500/30">
-              <div className="flex items-center gap-1.5 text-purple-300 font-black">
-                <Crosshair className="w-4 h-4 text-purple-400 animate-spin-slow" />
-                <span className="uppercase tracking-wider">Thấu Thị Trận Pháp</span>
-              </div>
-              <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-[10px] border border-cyan-500/30">
-                Trục: {engineRadar.attackFlank}
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-2 pt-2">
-              {engineRadar.focalTargets[0] && (
-                <div className="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/40 flex items-start gap-2">
-                  <span className="text-sm">🎯</span>
-                  <div>
-                    <div className="font-bold text-emerald-300 text-[11px]">{engineRadar.focalTargets[0].label}</div>
-                    <div className="text-[10px] text-gray-300 leading-tight">{engineRadar.focalTargets[0].desc}</div>
-                  </div>
-                </div>
-              )}
-
-              {engineRadar.vulnerabilities[0] && (
-                <div className="p-2 rounded-xl bg-rose-950/40 border border-rose-500/40 flex items-start gap-2">
-                  <span className="text-sm">⚡</span>
-                  <div>
-                    <div className="font-bold text-rose-300 text-[11px]">{engineRadar.vulnerabilities[0].label}</div>
-                    <div className="text-[10px] text-gray-300 leading-tight">{engineRadar.vulnerabilities[0].desc}</div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
