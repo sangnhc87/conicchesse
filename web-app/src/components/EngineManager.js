@@ -114,10 +114,19 @@ class EngineManagerService {
         this.notify();
         return;
       }
+
+      // If running on HTTPS (like conicchess.pages.dev), browsers block http:// localhost bridge as mixed content
+      if (typeof window !== 'undefined' && window.location.protocol === 'https:') {
+        this.nativeStatus.isAvailable = false;
+        this.nativeStatus.checking = false;
+        this.notify();
+        return;
+      }
+
       const res = await fetch(`${this.bridgeUrl}/api/status`, {
         method: 'GET',
         headers: { 'Accept': 'application/json' },
-        signal: AbortSignal.timeout(2000)
+        signal: AbortSignal.timeout(1000)
       });
       if (res.ok) {
         const data = await res.json();

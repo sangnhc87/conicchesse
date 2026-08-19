@@ -914,7 +914,19 @@ export default function App() {
 
       const computeAiMove = async () => {
         try {
-          const aiRes = await engineManager.getBestMove(playAiBoard, aiColor, playAiDifficulty);
+          // 1. Opening Book for instant 0ms response
+          let aiRes = null;
+          if (isStandardOpening(playAiBoard)) {
+            const gmMove = GRANDMASTER_OPENING_MOVES.find(m => {
+              const legal = getLegalMoves(playAiBoard, aiColor);
+              return legal.some(lm => lm.fromR === m.fromR && lm.fromC === m.fromC && lm.toR === m.toR && lm.toC === m.toC);
+            });
+            if (gmMove) aiRes = gmMove;
+          }
+          // 2. High-speed In-Memory Engine Fallback
+          if (!aiRes) {
+            aiRes = await engineManager.getBestMove(playAiBoard, aiColor, Math.min(playAiDifficulty || 3, 4));
+          }
           if (aiRes) {
             const nextB = makeMove(playAiBoard, aiRes);
             setPlayAiBoard(nextB);
@@ -1234,43 +1246,64 @@ export default function App() {
 
         // If in Practice Mode vs AI: Check if move is optimal or blunder
         if (isPracticeMode) {
-          const isOpening = isStandardOpening(activeBoard);
+          const movePairIndex = Math.floor(currentMoveIndex / 2);
+          const isRedTurn = currentMoveIndex % 2 === 0;
+          const currentPair = currentLesson?.moves?.[movePairIndex];
+
           let isOptimal = false;
           let bestMove = null;
+          let expectedOpponentMove = null;
 
-          if (isOpening) {
-            isOptimal = GRANDMASTER_OPENING_MOVES.some(m => 
-              m.fromR === selectedSquare.r && m.fromC === selectedSquare.c && m.toR === r && m.toC === c
-            );
-            bestMove = GRANDMASTER_OPENING_MOVES[0];
-          } else if (currentLesson?.moves && currentLesson.moves.length > 0) {
-            // Check against recorded lesson solution
-            const expectedChinese = currentLesson.moves[0];
-            if (expectedChinese) {
-              const expectedObj = parseChineseMove(expectedChinese, activeBoard, 'red');
-              if (expectedObj && expectedObj.fromR === selectedSquare.r && expectedObj.fromC === selectedSquare.c && expectedObj.toR === r && expectedObj.toC === c) {
+          // 1. Check against recorded master lesson solution first (0ms instant book lookup)
+          if (currentPair) {
+            const expectedMoveObj = isRedTurn
+              ? (currentPair.customMoveRed || (currentPair.red ? parseChineseMove(activeBoard, currentPair.red, 'red') : null))
+              : (currentPair.customMoveBlack || (currentPair.black ? parseChineseMove(activeBoard, currentPair.black, 'black') : null));
+
+            if (expectedMoveObj) {
+              bestMove = expectedMoveObj;
+              if (expectedMoveObj.fromR === move.fromR && expectedMoveObj.fromC === move.fromC && expectedMoveObj.toR === move.toR && expectedMoveObj.toC === move.toC) {
                 isOptimal = true;
+                // Opponent's textbook response is already in the lesson!
+                if (isRedTurn && (currentPair.black || currentPair.customMoveBlack)) {
+                  expectedOpponentMove = currentPair.customMoveBlack || parseChineseMove(makeMove(activeBoard, move), currentPair.black, 'black');
+                } else if (!isRedTurn) {
+                  const nextPair = currentLesson?.moves?.[movePairIndex + 1];
+                  if (nextPair && (nextPair.red || nextPair.customMoveRed)) {
+                    expectedOpponentMove = nextPair.customMoveRed || parseChineseMove(makeMove(activeBoard, move), nextPair.red, 'red');
+                  }
+                }
               }
             }
-            if (!isOptimal) {
-              bestMove = getWasmBestMove(activeBoard, 'red', 4);
-              if (bestMove && bestMove.fromR === selectedSquare.r && bestMove.fromC === selectedSquare.c && bestMove.toR === r && bestMove.toC === c) {
-                isOptimal = true;
-              }
-            }
-          } else {
-            bestMove = getWasmBestMove(activeBoard, 'red', 4);
-            isOptimal = bestMove && (bestMove.fromR === selectedSquare.r && bestMove.fromC === selectedSquare.c && bestMove.toR === r && bestMove.toC === c);
           }
 
-          const viPlayer = moveToVietnameseFull(activeBoard, move, 'red');
+          // 2. Check Opening Book if at start of game
+          if (!isOptimal && isStandardOpening(activeBoard)) {
+            const openingMatch = GRANDMASTER_OPENING_MOVES.find(m => 
+              m.fromR === move.fromR && m.fromC === move.fromC && m.toR === move.toR && m.toC === move.toC
+            );
+            if (openingMatch) {
+              isOptimal = true;
+              bestMove = openingMatch;
+            }
+          }
+
+          // 3. Fast In-Memory Fallback if user deviated
+          if (!bestMove) {
+            bestMove = getWasmBestMove(activeBoard, activeTurn, 3);
+            if (bestMove && bestMove.fromR === move.fromR && bestMove.fromC === move.fromC && bestMove.toR === move.toR && bestMove.toC === move.toC) {
+              isOptimal = true;
+            }
+          }
+
+          const viPlayer = moveToVietnameseFull(activeBoard, move, activeTurn);
 
           if (!isOptimal && bestMove) {
-            const viBest = moveToVietnameseFull(activeBoard, bestMove, 'red');
+            const viBest = moveToVietnameseFull(activeBoard, bestMove, activeTurn);
             setCoachFeedback({
               type: 'mistake',
-              message: `⚠️ Nước ${viPlayer} chưa tối ưu! Nước cao hơn nên là ${viBest}.`,
-              sub: 'Đen có thể chống cự. Bạn có thể bấm [Thử lại nước này] hoặc tiếp tục.'
+              message: `⚠️ Nước ${viPlayer} chưa tối ưu! Nước chuẩn sách nên là ${viBest}.`,
+              sub: 'Bạn có thể bấm [Thử lại] hoặc tiếp tục tìm cách phá giải.'
             });
           } else {
             setCoachFeedback({
@@ -1285,11 +1318,12 @@ export default function App() {
           setLastMove(move);
           setSelectedSquare(null);
           setLegalDestinations([]);
-          setTrialTurn('black');
+          const oppTurn = activeTurn === 'red' ? 'black' : 'red';
+          setTrialTurn(oppTurn);
 
-          // Check if Red just checkmated Black
-          const blackLegal = getLegalMoves(nextBoard, 'black');
-          if (blackLegal.length === 0) {
+          // Check if player just checkmated opponent
+          const oppLegal = getLegalMoves(nextBoard, oppTurn);
+          if (oppLegal.length === 0) {
             setPracticeSuccess(true);
             sound.playCheck();
             if (currentLesson?.id && !completedLessons.includes(currentLesson.id)) {
@@ -1298,22 +1332,37 @@ export default function App() {
             return;
           }
 
-          // AI computes Black defense after 350ms
+          // Super-fast Instant Opponent Response (from Lesson Book or fast in-memory AI in 200ms)
           setTimeout(async () => {
-            const aiResponse = await engineManager.getBestMove(nextBoard, 'black', 12);
+            let aiResponse = expectedOpponentMove;
+            if (!aiResponse) {
+              // Fast in-memory search (takes <15ms)
+              aiResponse = getWasmBestMove(nextBoard, oppTurn, 3);
+            }
             if (aiResponse) {
               const boardAfterAi = makeMove(nextBoard, aiResponse);
               setTrialBoard(boardAfterAi);
-              setTrialTurn('red');
+              setTrialTurn(activeTurn);
               setLastMove(aiResponse);
+              if (isOptimal && expectedOpponentMove) {
+                setCurrentMoveIndex(prev => prev + 2);
+              }
               if (aiResponse.captured) sound.playCapture();
               else sound.playMove();
 
-              if (isInCheck(boardAfterAi, 'red')) {
+              if (isInCheck(boardAfterAi, activeTurn)) {
                 sound.playCheck();
               }
+
+              // Check if player reached end of lesson
+              if (currentMoveIndex + 2 >= totalHalfMoves) {
+                setPracticeSuccess(true);
+                if (currentLesson?.id && !completedLessons.includes(currentLesson.id)) {
+                  setCompletedLessons(p => [...p, currentLesson.id]);
+                }
+              }
             }
-          }, 350);
+          }, 200);
           return;
         }
 
