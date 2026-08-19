@@ -1931,10 +1931,11 @@ export default function App() {
               </div>
             )}
 
-            {/* Board center column - height-driven, max-width capped for collapse safety */}
-            <div className="flex-1 min-w-0 max-w-[min(100%,760px)] flex flex-col items-center justify-start h-full relative">
-              {/* Board area - fills height, SVG aspect ratio handles width naturally */}
-              <div className="relative w-full h-full flex items-start justify-center">
+            {/* Board center column: flex-col, board grows, nav sits below */}
+            <div className="flex-1 min-w-0 max-w-[min(100%,760px)] flex flex-col items-center justify-start h-full min-h-0">
+
+              {/* Board wrapper - grows to fill, SVG handles its own aspect ratio */}
+              <div className="relative w-full flex-1 min-h-0 flex items-start justify-center overflow-hidden">
                 <XiangqiBoard
                   board={activeBoard}
                   turn={activeTurn}
@@ -1956,9 +1957,9 @@ export default function App() {
                   showHeatmap={showHeatmap}
                 />
 
-                {/* AI Suggestion Banner - absolute overlay at BOTTOM, never shifts board */}
+                {/* AI Suggestion Banner - floats over board at bottom, no layout impact */}
                 {isEngineAssistantEnabled && bestMoveSuggestion && (
-                  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 px-3 py-1 bg-gradient-to-r from-[#121520]/95 via-[#1a2035]/95 to-[#121520]/95 rounded-xl border border-cyan-500/40 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-xl backdrop-blur-md pointer-events-none whitespace-nowrap">
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 px-3 py-1 bg-gradient-to-r from-[#121520]/95 via-[#1a2035]/95 to-[#121520]/95 rounded-xl border border-cyan-500/40 flex justify-center items-center gap-2 text-xs sm:text-sm shadow-xl backdrop-blur-md pointer-events-none whitespace-nowrap">
                     <Flame className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
                     <span className="font-bold text-cyan-300 shrink-0">
                       {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish:' : 'AI Gợi Ý:')}
@@ -1970,7 +1971,7 @@ export default function App() {
                   </div>
                 )}
 
-                {/* Coach Feedback - absolute overlay at TOP, never shifts board */}
+                {/* Coach Feedback - floats over board at top, no layout impact */}
                 {isStudy && coachFeedback && (
                   <div className={`absolute top-2 left-1/2 -translate-x-1/2 z-20 px-3 py-2 rounded-xl text-xs flex items-center gap-2 border shadow-xl backdrop-blur-md pointer-events-none ${coachFeedback.type === 'mistake'
                     ? 'bg-red-950/95 border-red-500/60 text-red-200'
@@ -1997,8 +1998,8 @@ export default function App() {
                 )}
               </div>
 
-              {/* Bottom Navigation Toolbar */}
-              <div className="w-full max-w-[460px] flex items-center justify-center gap-2 sm:gap-3 mt-1 sm:mt-1.5">
+              {/* Bottom Navigation Toolbar - ALWAYS BELOW board, never overlapping */}
+              <div className="w-full max-w-[460px] flex items-center justify-center gap-2 sm:gap-3 mt-1.5 shrink-0">
                 <button 
                   onClick={() => {
                     if (isAnalysis) handleAnalysisReset();
