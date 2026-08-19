@@ -1804,73 +1804,67 @@ export default function App() {
               </div>
             )}
 
-            {/* Quick Smart Toolbar above Xiangqi Board */}
-            <div className="w-full h-[44px] max-w-[530px] lg:max-w-[570px] xl:max-w-[620px] 2xl:max-w-[670px] flex items-center justify-between px-3 py-1.5 bg-gradient-to-r from-[#141824] via-[#10131d] to-[#141824] rounded-2xl border border-[#2b3447] text-xs shadow-md no-print flex-shrink-0 overflow-hidden">
-              {/* Left: Engine Toggle & Real-time AI Indicator */}
-              <div className="flex items-center gap-2">
+            {/* Nước Đi Gợi Ý AI (Đã tách riêng lên trên) */}
+            {isEngineAssistantEnabled && bestMoveSuggestion && (
+              <div className="w-full max-w-[500px] mx-auto mt-2 mb-1 px-4 py-2 bg-gradient-to-r from-[#121520] via-[#1a2035] to-[#121520] rounded-xl border border-cyan-500/30 flex justify-center items-center gap-2 text-sm shadow-xl backdrop-blur-md animate-fadeIn">
+                <Flame className="w-4 h-4 text-amber-400 animate-pulse" />
+                <span className="font-bold text-cyan-300">
+                  {isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:')}
+                </span>
+                <span className="font-sans text-white font-black text-base px-2 py-0.5 bg-cyan-950/80 rounded-md border border-cyan-500/50">
+                  {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
+                    (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
+                </span>
+              </div>
+            )}
+
+          <div className="relative flex items-start justify-center gap-2.5 w-full max-w-[620px] mx-auto mt-3">
+            
+            {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
+            <div className="w-10 flex flex-col items-center justify-start gap-2 shrink-0">
                 <button
                   onClick={() => setIsEngineAssistantEnabled(prev => !prev)}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-xl font-bold transition-all border ${
+                  className={`p-2 rounded-xl border transition-all shadow-sm flex items-center justify-center ${
                     isEngineAssistantEnabled
-                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white border-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.4)]'
+                      ? 'bg-emerald-600/20 text-emerald-400 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
                       : 'bg-[#1c2230] text-gray-400 hover:text-gray-200 border-gray-700'
                   }`}
-                  title="Bật/Tắt Trợ Thủ Engine AI phân tích thế trận trực tiếp"
+                  title="Bật/Tắt Trợ Thủ Engine AI"
                 >
-                  <Zap className={`w-3.5 h-3.5 ${isEngineAssistantEnabled ? 'text-amber-300 fill-amber-300' : ''}`} />
-                  <span>{isEngineAssistantEnabled ? 'Trợ Thủ AI: BẬT' : 'Trợ Thủ AI: TẮT'}</span>
+                  <Zap className="w-4 h-4" />
                 </button>
 
-                {isEngineAssistantEnabled && bestMoveSuggestion && (
-                  <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-bold text-cyan-300 bg-cyan-950/80 px-2.5 py-0.5 rounded-xl border border-cyan-500/50 animate-fadeIn shadow-sm">
-                    <span className="text-amber-300 flex items-center gap-1">
-                      <Flame className="w-3 h-3 text-amber-400" />
-                      <span>{isStudy && !isTrialMode ? '📖 Nước Chuẩn Sách:' : (engineState.isNativeActive ? 'Pikafish Gợi Ý:' : 'AI Gợi Ý:')}</span>
-                    </span>
-                    <span className="font-sans text-white font-black">
-                      {moveToVietnameseFull(activeBoard, bestMoveSuggestion, activeTurn) ||
-                        (bestMoveSuggestion.fromR !== undefined ? `${PIECE_NAMES[activeBoard?.[bestMoveSuggestion.fromR]?.[bestMoveSuggestion.fromC]]?.vi || 'Quân'} ➔ Lộ ${flipped ? (bestMoveSuggestion.toC + 1) : (9 - bestMoveSuggestion.toC)}` : '')}
-                    </span>
-                  </span>
-                )}
-              </div>
-
-              {/* Right: Radar Heatmap, Piece Language & Flip Board quick toggles */}
-              <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => setShowHeatmap(prev => !prev)}
-                  className={`px-2.5 py-1 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 active:scale-95 shadow-sm ${
+                  className={`p-2 rounded-xl border transition-all shadow-sm flex items-center justify-center ${
                     showHeatmap
-                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.4)]'
-                      : 'bg-[#1c2230] hover:bg-[#252e40] text-purple-300 border-purple-500/30'
+                      ? 'bg-purple-600/20 text-purple-400 border-purple-500/50 shadow-[0_0_12px_rgba(168,85,247,0.3)]'
+                      : 'bg-[#1c2230] hover:bg-[#252e40] text-gray-400 border-gray-700'
                   }`}
-                  title="Bật/Tắt Thấu Thị Trận Pháp: Quét bản đồ nhiệt kiểm soát bàn cờ và phát hiện điểm yếu tử huyệt"
+                  title="Bật/Tắt Radar Điểm Yếu"
                 >
-                  <Radar className="w-3.5 h-3.5 text-purple-400" />
-                  <span className="hidden sm:inline">{showHeatmap ? 'Radar: BẬT' : 'Radar: TẮT'}</span>
+                  <Radar className="w-4 h-4" />
                 </button>
 
                 <button
                   onClick={() => setPieceLanguage(prev => prev === 'cn' ? 'vi' : 'cn')}
-                  className="px-2.5 py-1 rounded-xl bg-[#1c2230] hover:bg-[#252e40] text-amber-400 font-bold border border-amber-500/30 transition-all text-xs active:scale-95 shadow-sm"
-                  title="Đổi chữ quân cờ sang Chữ Hán / Chữ Việt"
+                  className="p-2 w-full h-9 rounded-xl bg-[#1c2230] hover:bg-[#252e40] text-amber-400 font-bold border border-amber-500/30 transition-all active:scale-95 shadow-sm flex items-center justify-center"
+                  title="Đổi chữ Hán / Việt"
                 >
-                  {pieceLanguage === 'cn' ? '🇨🇳 Chữ Hán' : '🇻🇳 Chữ Việt'}
+                  <span className="text-[12px] uppercase leading-none">{pieceLanguage === 'cn' ? '漢' : 'VN'}</span>
                 </button>
 
                 <button
                   onClick={() => setFlipped(prev => !prev)}
-                  className={`p-1.5 rounded-xl border transition-all ${
-                    flipped ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-[#1c2230] border-gray-700 text-gray-300 hover:text-white'
+                  className={`p-2 rounded-xl border transition-all flex items-center justify-center ${
+                    flipped ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-[#1c2230] border-gray-700 text-gray-400 hover:text-white'
                   }`}
                   title="Xoay bàn cờ 180 độ"
                 >
-                  <Shuffle className="w-3.5 h-3.5" />
+                  <Shuffle className="w-4 h-4" />
                 </button>
-              </div>
             </div>
 
-          <div className="relative flex items-center justify-center gap-2.5 w-full max-w-[580px] mx-auto mt-4">
             {/* Tournament Vertical Evaluation Bar (Xiangqi) */}
             {(showEvalBar || isTraining) && isEngineAssistantEnabled && (
               <div 
