@@ -29,9 +29,6 @@ export default function BoardEditorModal({
 
   const handleClearBoard = () => {
     const emptyBoard = Array.from({ length: 10 }, () => Array(9).fill(null));
-    // Place at least 2 kings
-    emptyBoard[9][4] = 'K';
-    emptyBoard[0][4] = 'k';
     setBoard(emptyBoard);
   };
 
@@ -43,8 +40,6 @@ export default function BoardEditorModal({
   const handleCellClick = (r, c) => {
     const newBoard = board.map(row => [...row]);
     if (selectedPieceToPlace === 'erase') {
-      // Don't erase king if it's the only one
-      if (newBoard[r][c] === 'K' || newBoard[r][c] === 'k') return;
       newBoard[r][c] = null;
     } else {
       // If placing a King, remove previous king of same color
@@ -71,7 +66,24 @@ export default function BoardEditorModal({
     }
   };
 
+  const validateBoard = () => {
+    let redKing = 0;
+    let blackKing = 0;
+    for (let r = 0; r < 10; r++) {
+      for (let c = 0; c < 9; c++) {
+        if (board[r][c] === 'K') redKing++;
+        if (board[r][c] === 'k') blackKing++;
+      }
+    }
+    if (redKing !== 1 || blackKing !== 1) {
+      alert("Bàn cờ không hợp lệ! Bắt buộc phải có đúng 1 Tướng Đỏ và 1 Tướng Đen trên bàn cờ.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSolveAndPlay = () => {
+    if (!validateBoard()) return;
     setIsSolving(true);
     setTimeout(() => {
       const solution = solvePuzzleSequence(currentFen, 5);
@@ -94,6 +106,7 @@ export default function BoardEditorModal({
   };
 
   const handleDirectToAnalysis = () => {
+    if (!validateBoard()) return;
     if (onOpenAnalysisWithPosition) {
       onOpenAnalysisWithPosition(board, turn);
     } else if (onLoadCustomPuzzle) {
