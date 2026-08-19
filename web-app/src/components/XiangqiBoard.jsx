@@ -222,17 +222,17 @@ export default function XiangqiBoard({
       {/* Main Board Container */}
       <div className="relative flex-1 w-full max-w-full">
         {/* Outer Handcrafted Imperial Rosewood Frame */}
-        <div className="relative p-2 sm:p-3 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#54280d] via-[#3d1c07] to-[#200e03] border-2 sm:border-4 border-[#7c4419] shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
+        <div className="relative p-1.5 sm:p-2 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#4a230b] via-[#331604] to-[#1c0c02] border sm:border-2 border-[#7c4419] shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
           {/* Brass Inlaid Ornamental Corner Accents */}
-          <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#e6b86a] rounded-tl-sm opacity-80" />
-          <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#e6b86a] rounded-tr-sm opacity-80" />
-          <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#e6b86a] rounded-bl-sm opacity-80" />
-          <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#e6b86a] rounded-br-sm opacity-80" />
+          <div className="absolute top-1.5 left-1.5 w-3.5 h-3.5 border-t-2 border-l-2 border-[#e6b86a] rounded-tl-sm opacity-80" />
+          <div className="absolute top-1.5 right-1.5 w-3.5 h-3.5 border-t-2 border-r-2 border-[#e6b86a] rounded-tr-sm opacity-80" />
+          <div className="absolute bottom-1.5 left-1.5 w-3.5 h-3.5 border-b-2 border-l-2 border-[#e6b86a] rounded-bl-sm opacity-80" />
+          <div className="absolute bottom-1.5 right-1.5 w-3.5 h-3.5 border-b-2 border-r-2 border-[#e6b86a] rounded-br-sm opacity-80" />
 
           {/* Inner Gold Wire Inlay Ring */}
-          <div className="p-1 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#d4a04d] via-[#8c591b] to-[#402305] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
+          <div className="p-0.5 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#d4a04d] via-[#8c591b] to-[#402305] shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
             {/* Main Playing Surface (Sandalwood Wood Canvas) */}
-            <div className="relative bg-[#edd5a8] rounded-lg sm:rounded-xl border border-[#6b3c12] shadow-inner overflow-hidden">
+            <div className="relative bg-[#edd5a8] rounded-md sm:rounded-lg border border-[#6b3c12] shadow-inner overflow-hidden">
               <svg
                 ref={svgRef}
                 viewBox="0 0 450 500"
