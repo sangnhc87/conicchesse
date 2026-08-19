@@ -30,7 +30,7 @@ import {
   moveToVietnameseFull, moveToVietnamese, moveToChinese, parseChineseMove, isRed,
   classifyMoveQuality, boardToFen
 } from './components/XiangqiLogic';
-import { getBestMove as getWasmBestMove, evaluateBoard, solvePuzzleSequence, isStandardOpening, GRANDMASTER_OPENING_MOVES } from './components/XiangqiAI';
+import { getBestMove as getWasmBestMove, evaluateBoard, solvePuzzleSequence, isStandardOpening, GRANDMASTER_OPENING_MOVES, getOpeningBookMove } from './components/XiangqiAI';
 import { engineManager } from './components/EngineManager';
 import { SatsucCache } from './lib/SatsucCache';
 import { sound } from './components/AudioEngine';
@@ -915,14 +915,8 @@ export default function App() {
       const computeAiMove = async () => {
         try {
           // 1. Opening Book for instant 0ms response
-          let aiRes = null;
-          if (isStandardOpening(playAiBoard)) {
-            const gmMove = GRANDMASTER_OPENING_MOVES.find(m => {
-              const legal = getLegalMoves(playAiBoard, aiColor);
-              return legal.some(lm => lm.fromR === m.fromR && lm.fromC === m.fromC && lm.toR === m.toR && lm.toC === m.toC);
-            });
-            if (gmMove) aiRes = gmMove;
-          }
+          let aiRes = getOpeningBookMove(playAiBoard, aiColor);
+
           // 2. High-speed In-Memory Engine Fallback
           if (!aiRes) {
             aiRes = await engineManager.getBestMove(playAiBoard, aiColor, Math.min(playAiDifficulty || 3, 4));
@@ -1583,8 +1577,17 @@ export default function App() {
         </div>
 
         {/* Right: Consolidated Tool Menu */}
-        <div className="flex items-center gap-3 relative">
+        <div className="flex items-center gap-2 sm:gap-3 relative">
           
+          <button
+            onClick={() => setIsPdfModalOpen(true)}
+            className="p-1.5 px-2.5 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 text-purple-300 hover:from-purple-600/30 hover:to-indigo-600/30 rounded-lg transition-all text-xs font-bold flex items-center gap-1 border border-purple-500/30 shadow-sm"
+            title="In Sách Cờ Tướng A4 / Xuất PDF Đầy Đủ"
+          >
+            <Printer className="w-3.5 h-3.5 text-purple-400" />
+            <span className="hidden sm:inline">In Sách (PDF)</span>
+          </button>
+
           <button
             onClick={() => setIsAiTutorOpen(true)}
             className="p-1.5 px-2.5 bg-gradient-to-r from-amber-500/20 to-red-500/20 text-amber-300 hover:from-amber-500/30 hover:to-red-500/30 rounded-lg transition-all text-xs font-bold flex items-center gap-1 border border-amber-500/30"
@@ -1680,12 +1683,7 @@ export default function App() {
                 <button
                   onClick={() => {
                     setIsTopMenuOpen(false);
-                    const pwd = prompt("Nhập mật khẩu quản trị viên để In Sách:");
-                    if (pwd === "conic123") {
-                      setIsPdfModalOpen(true);
-                    } else if (pwd !== null) {
-                      alert("Mật khẩu không đúng!");
-                    }
+                    setIsPdfModalOpen(true);
                   }}
                   className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
                 >
@@ -1914,7 +1912,7 @@ export default function App() {
               </div>
             )}
 
-          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-90px)*0.9+60px))] lg:max-w-[780px] xl:max-w-[860px] 2xl:max-w-[940px] mx-auto mt-0.5">
+          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-140px)*0.9))] mx-auto mt-0.5">
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
             <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
