@@ -215,7 +215,7 @@ export default function Sidebar({
       {/* Sidebar Container */}
       <aside
         className={`fixed md:static inset-y-0 left-0 z-50 flex flex-col bg-[#0b0d13] border-r border-[#202530] shadow-2xl transition-all duration-300 ease-in-out ${
-          isCollapsed ? 'hidden md:hidden' : 'w-80 md:w-96 flex'
+          isCollapsed ? 'hidden md:hidden' : 'w-72 lg:w-[270px] xl:w-72 flex-shrink-0 flex'
         } ${
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}

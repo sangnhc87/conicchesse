@@ -1865,7 +1865,7 @@ export default function App() {
               </div>
             )}
 
-          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-120px)*0.9+80px))] lg:max-w-[700px] xl:max-w-[760px] 2xl:max-w-[840px] mx-auto mt-1">
+          <div className="relative flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100vh-90px)*0.9+60px))] lg:max-w-[780px] xl:max-w-[860px] 2xl:max-w-[940px] mx-auto mt-0.5">
             
             {/* Toolbar Dọc bên TRÁI (Trợ thủ, Radar, Ngôn ngữ, Xoay) */}
             <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
@@ -1873,7 +1873,7 @@ export default function App() {
                   onClick={() => setIsEngineAssistantEnabled(prev => !prev)}
                   className={`p-2 rounded-xl border transition-all shadow-sm flex items-center justify-center ${
                     isEngineAssistantEnabled
-                      ? 'bg-emerald-600/20 text-emerald-400 border-emerald-500/50 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
+                      ? 'bg-emerald-600/20 text-emerald-400 border-emerald-500/50 shadow-[0_0_12px_rgba(168,85,247,0.3)]'
                       : 'bg-[#1c2230] text-gray-400 hover:text-gray-200 border-gray-700'
                   }`}
                   title="Bật/Tắt Trợ Thủ Engine AI"
@@ -1907,7 +1907,7 @@ export default function App() {
             {/* Tournament Vertical Evaluation Bar (Xiangqi) */}
             {(showEvalBar || isTraining) && isEngineAssistantEnabled && (
               <div 
-                className="w-5 sm:w-6 md:w-7 h-[min(540px,calc(100vh-180px))] md:h-[min(620px,calc(100vh-160px))] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none mt-1"
+                className="w-5 sm:w-6 md:w-7 h-[min(560px,calc(100vh-160px))] md:h-[min(650px,calc(100vh-140px))] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none mt-1"
                 title={`Điểm thế trận: ${currentEvalScore || '0.00'}`}
               >
                 {/* Equilibrium Line */}
@@ -1923,8 +1923,8 @@ export default function App() {
               </div>
             )}
 
-            <div className="flex-1 w-full max-w-[min(100%,calc((100vh-130px)*0.9))] lg:max-w-[640px] xl:max-w-[700px] 2xl:max-w-[780px] flex flex-col items-center">
-              <div className="relative w-full mb-1.5 sm:mb-2">
+            <div className="flex-1 w-full max-w-[min(100%,calc((100vh-100px)*0.9))] lg:max-w-[720px] xl:max-w-[800px] 2xl:max-w-[880px] flex flex-col items-center">
+              <div className="relative w-full mb-1 sm:mb-1.5">
                 <XiangqiBoard
                   board={activeBoard}
                   turn={activeTurn}
@@ -1948,7 +1948,7 @@ export default function App() {
               </div>
 
               {/* Bottom Navigation Toolbar */}
-              <div className="w-full max-w-[460px] flex items-center justify-center gap-2 sm:gap-3 mt-1 sm:mt-2">
+              <div className="w-full max-w-[460px] flex items-center justify-center gap-2 sm:gap-3 mt-1 sm:mt-1.5">
                 <button 
                   onClick={() => {
                     if (isAnalysis) handleAnalysisReset();
@@ -1987,7 +1987,7 @@ export default function App() {
 
           {/* Right Panel: Study Panel, Analysis Panel, or Play AI Panel (Collapsible) */}
           {!isRightPanelCollapsed && (
-            <div className="w-full lg:w-[420px] xl:w-[460px] 2xl:w-[500px] flex-shrink-0 flex flex-col h-[590px] lg:h-full min-h-0">
+            <div className="w-full lg:w-[350px] xl:w-[380px] 2xl:w-[410px] flex-shrink-0 flex flex-col h-[590px] lg:h-full min-h-0">
               {isStudy ? (
                 <StudyPanel
                   lesson={currentLesson}

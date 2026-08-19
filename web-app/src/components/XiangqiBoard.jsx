@@ -361,43 +361,99 @@ export default function XiangqiBoard({
                 <line x1="175" y1="375" x2="275" y2="475" stroke="#5c3008" strokeWidth="1.2" />
                 <line x1="275" y1="375" x2="175" y2="475" stroke="#5c3008" strokeWidth="1.2" />
 
-                {/* Vietnamese Elegant River Inscription */}
-                <g opacity="0.85">
+                {/* Classical Star Cross Marks (Tinh Vị 星位) */}
+                {[
+                  { r: 2, c: 1 }, { r: 2, c: 7 },
+                  { r: 7, c: 1 }, { r: 7, c: 7 },
+                  { r: 3, c: 0 }, { r: 3, c: 2 }, { r: 3, c: 4 }, { r: 3, c: 6 }, { r: 3, c: 8 },
+                  { r: 6, c: 0 }, { r: 6, c: 2 }, { r: 6, c: 4 }, { r: 6, c: 6 }, { r: 6, c: 8 },
+                ].map((pt, idx) => {
+                  const cx = 25 + pt.c * 50;
+                  const cy = 25 + pt.r * 50;
+                  const showLeft = pt.c > 0;
+                  const showRight = pt.c < 8;
+                  return (
+                    <g key={`star-${idx}`} stroke="#5c3008" strokeWidth="1.1" fill="none" opacity="0.85">
+                      {showLeft && <path d={`M ${cx - 7} ${cy - 3} L ${cx - 3} ${cy - 3} L ${cx - 3} ${cy - 7}`} />}
+                      {showRight && <path d={`M ${cx + 7} ${cy - 3} L ${cx + 3} ${cy - 3} L ${cx + 3} ${cy - 7}`} />}
+                      {showLeft && <path d={`M ${cx - 7} ${cy + 3} L ${cx - 3} ${cy + 3} L ${cx - 3} ${cy + 7}`} />}
+                      {showRight && <path d={`M ${cx + 7} ${cy + 3} L ${cx + 3} ${cy + 3} L ${cx + 3} ${cy + 7}`} />}
+                    </g>
+                  );
+                })}
+
+                {/* Top and Bottom Coordinates / Lộ Numbers (1 - 9) */}
+                <g className="select-none pointer-events-none" opacity="0.8">
+                  {Array.from({ length: 9 }).map((_, i) => {
+                    const x = 25 + i * 50;
+                    const topNum = flipped ? (9 - i) : (i + 1);
+                    const bottomNum = flipped ? (i + 1) : (9 - i);
+                    return (
+                      <React.Fragment key={`coord-${i}`}>
+                        <text
+                          x={x}
+                          y={16}
+                          fontSize="11"
+                          fontFamily="'Noto Serif TC', serif"
+                          fontWeight="bold"
+                          textAnchor="middle"
+                          fill="#6b3c12"
+                        >
+                          {topNum}
+                        </text>
+                        <text
+                          x={x}
+                          y={492}
+                          fontSize="11"
+                          fontFamily="'Noto Serif TC', serif"
+                          fontWeight="bold"
+                          textAnchor="middle"
+                          fill="#6b3c12"
+                        >
+                          {bottomNum}
+                        </text>
+                      </React.Fragment>
+                    );
+                  })}
+                </g>
+
+                {/* Classical Calligraphic River Inscription (楚河 - 漢界) */}
+                <g opacity="0.85" className="select-none pointer-events-none">
                   <text
                     x="105"
-                    y="258"
-                    fontSize="16"
-                    fontFamily="serif"
-                    fontWeight="bold"
+                    y="259"
+                    fontSize="21"
+                    fontFamily="'Noto Serif TC', serif"
+                    fontWeight="900"
                     textAnchor="middle"
-                    fill="#633207"
-                    letterSpacing="4"
+                    fill="#5c2e0b"
+                    letterSpacing="8"
                   >
-                    SỞ HÀ
+                    楚　河
                   </text>
                   <text
                     x="225"
                     y="256"
                     fontSize="10"
-                    fontFamily="sans-serif"
-                    fontWeight="800"
+                    fontFamily="'Noto Serif TC', serif"
+                    fontWeight="900"
                     textAnchor="middle"
                     fill="#874e1d"
-                    letterSpacing="3"
+                    letterSpacing="4"
                   >
-                    ⚔️ CONIC ⚔️
+                    ❖ CONIC ❖
                   </text>
                   <text
                     x="345"
-                    y="258"
-                    fontSize="16"
-                    fontFamily="serif"
-                    fontWeight="bold"
+                    y="259"
+                    fontSize="21"
+                    fontFamily="'Noto Serif TC', serif"
+                    fontWeight="900"
                     textAnchor="middle"
-                    fill="#633207"
-                    letterSpacing="4"
+                    fill="#5c2e0b"
+                    letterSpacing="8"
                   >
-                    HÁN GIỚI
+                    漢　界
                   </text>
                 </g>
 
