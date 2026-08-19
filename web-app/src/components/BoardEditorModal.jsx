@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   X, RotateCcw, Trash2, Plus, Play, Save, Copy, Check, 
-  Sparkles, Bot, Compass, CheckCircle2, ArrowRight
+  Sparkles, Bot, Compass, CheckCircle2, ArrowRight, MousePointer2
 } from 'lucide-react';
 import { parseFen, boardToFen, PIECE_NAMES, isRed } from './XiangqiLogic';
 import { solvePuzzleSequence } from './XiangqiAI';
@@ -17,7 +17,8 @@ export default function BoardEditorModal({
     return initial;
   });
   const [turn, setTurn] = useState('red');
-  const [selectedPieceToPlace, setSelectedPieceToPlace] = useState('P'); // piece char
+  const [selectedPieceToPlace, setSelectedPieceToPlace] = useState('pointer'); // 'pointer', 'erase', or piece char
+  const [movingPieceFrom, setMovingPieceFrom] = useState(null); // {r, c}
   const [puzzleTitle, setPuzzleTitle] = useState('Thế cờ tự tạo của tôi');
   const [fenInput, setFenInput] = useState('');
   const [copied, setCopied] = useState(false);
@@ -39,18 +40,38 @@ export default function BoardEditorModal({
 
   const handleCellClick = (r, c) => {
     const newBoard = board.map(row => [...row]);
-    if (selectedPieceToPlace === 'erase') {
-      newBoard[r][c] = null;
-    } else {
-      // If placing a King, remove previous king of same color
-      if (selectedPieceToPlace === 'K' || selectedPieceToPlace === 'k') {
-        for (let row = 0; row < 10; row++) {
-          for (let col = 0; col < 9; col++) {
-            if (newBoard[row][col] === selectedPieceToPlace) newBoard[row][col] = null;
-          }
+    
+    if (selectedPieceToPlace === 'pointer') {
+      if (movingPieceFrom) {
+        if (movingPieceFrom.r === r && movingPieceFrom.c === c) {
+          setMovingPieceFrom(null); // Deselect
+        } else {
+          // Execute Move
+          const piece = newBoard[movingPieceFrom.r][movingPieceFrom.c];
+          newBoard[movingPieceFrom.r][movingPieceFrom.c] = null;
+          newBoard[r][c] = piece;
+          setMovingPieceFrom(null);
+        }
+      } else {
+        if (newBoard[r][c]) {
+          setMovingPieceFrom({r, c});
         }
       }
-      newBoard[r][c] = selectedPieceToPlace;
+    } else {
+      setMovingPieceFrom(null);
+      if (selectedPieceToPlace === 'erase') {
+        newBoard[r][c] = null;
+      } else {
+        // If placing a King, remove previous king of same color
+        if (selectedPieceToPlace === 'K' || selectedPieceToPlace === 'k') {
+          for (let row = 0; row < 10; row++) {
+            for (let col = 0; col < 9; col++) {
+              if (newBoard[row][col] === selectedPieceToPlace) newBoard[row][col] = null;
+            }
+          }
+        }
+        newBoard[r][c] = selectedPieceToPlace;
+      }
     }
     setBoard(newBoard);
   };
@@ -197,6 +218,15 @@ export default function BoardEditorModal({
                   <line x1="175" y1="375" x2="275" y2="475" stroke="#5c3008" strokeWidth="1.2" />
                   <line x1="275" y1="375" x2="175" y2="475" stroke="#5c3008" strokeWidth="1.2" />
 
+                  {/* Highlight Selected Piece */}
+                  {movingPieceFrom && (
+                    <rect 
+                      x={25 + movingPieceFrom.c * 50 - 25} 
+                      y={25 + movingPieceFrom.r * 50 - 25} 
+                      width="50" height="50" fill="rgba(251, 191, 36, 0.4)" 
+                    />
+                  )}
+
                   {/* Placed Pieces */}
                   {board.map((row, r) =>
                     row.map((piece, c) => {
@@ -274,17 +304,28 @@ export default function BoardEditorModal({
                 ))}
               </div>
 
-              {/* Erase Tool */}
-              <button
-                onClick={() => setSelectedPieceToPlace('erase')}
-                className={`w-full py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 border transition-all ${
-                  selectedPieceToPlace === 'erase'
-                    ? 'bg-red-950 border-red-500 text-red-300 shadow-md'
-                    : 'bg-[#161a25] border-gray-700 text-gray-400 hover:text-white'
-                }`}
-              >
-                <Trash2 className="w-3.5 h-3.5" /> Chế độ xóa quân cờ
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => { setSelectedPieceToPlace('pointer'); setMovingPieceFrom(null); }}
+                  className={`flex-1 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 border transition-all ${
+                    selectedPieceToPlace === 'pointer'
+                      ? 'bg-blue-600/30 text-blue-300 border-blue-500 shadow-lg scale-105'
+                      : 'bg-[#1e2330] text-gray-400 border-gray-700 hover:bg-[#283042]'
+                  }`}
+                >
+                  <MousePointer2 className="w-4 h-4" /> Bàn tay di chuyển
+                </button>
+                <button
+                  onClick={() => { setSelectedPieceToPlace('erase'); setMovingPieceFrom(null); }}
+                  className={`flex-1 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 border transition-all ${
+                    selectedPieceToPlace === 'erase'
+                      ? 'bg-rose-600/30 text-rose-300 border-rose-500 shadow-lg scale-105'
+                      : 'bg-[#1e2330] text-gray-400 border-gray-700 hover:bg-[#283042]'
+                  }`}
+                >
+                  <Trash2 className="w-4 h-4" /> Cục Tẩy (Xóa)
+                </button>
+              </div>
             </div>
 
             {/* Quick Actions & Turn Selection */}

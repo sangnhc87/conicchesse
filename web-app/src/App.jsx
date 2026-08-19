@@ -6,7 +6,7 @@ import {
   Compass, ArrowLeft, Sparkles, Award, Swords, Bot, CheckCircle2,
   AlertTriangle, Undo2, Plus, Database, UploadCloud, Cpu, Zap, Flame, Settings2,
   FolderTree, Maximize2, Minimize2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen,
-  PanelTopClose, PanelTopOpen, ChevronDown, ChevronUp, Radar, Eye, Crosshair
+  PanelTopClose, PanelTopOpen, ChevronDown, ChevronUp, Radar, Eye, Crosshair, ChevronsLeft, ChevronsRight
 } from 'lucide-react';
 
 import XiangqiBoard from './components/XiangqiBoard';
@@ -37,6 +37,7 @@ import { storageGet, storageSet } from './lib/safeStorage.js';
 import { safeFetchJson } from './lib/dataLoader.js';
 
 export default function App() {
+
   // Top-Level Game Platform: 'xiangqi' (Cờ Tướng) | 'chess' (Cờ Vua)
   const [gameType, setGameType] = useState(() => {
     return storageGet('conic_active_game_type', 'xiangqi');
@@ -1343,45 +1344,7 @@ export default function App() {
   if (gameType === 'chess') {
     return (
       <div className="flex flex-col h-screen bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
-        {/* Top Header with Game Platform Switcher */}
-        <header className="px-4 md:px-6 bg-[#0c0f17]/95 backdrop-blur-xl border-b border-[#202636] flex items-center justify-between shadow-2xl z-30 h-14 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center font-black text-white shadow-md text-base border border-amber-300/30">
-              ♞
-            </div>
-            <div>
-              <h1 className="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-100 tracking-wide flex items-center gap-2">
-                Conic Chess
-                <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/40 font-bold tracking-normal">
-                  5.530+ Sát Cục (Mate in 1-5) & In Sách
-                </span>
-              </h1>
-            </div>
-          </div>
-
-          {/* Game Switcher: Cờ Tướng vs Cờ Vua */}
-          <div className="flex items-center p-1 bg-[#141824] border border-amber-500/40 rounded-xl shadow-lg gap-1">
-            <button
-              onClick={() => handleSwitchGameType('xiangqi')}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 text-gray-400 hover:text-gray-200 hover:bg-white/5"
-            >
-              <span>🔴 CỜ TƯỚNG</span>
-              <span className="hidden sm:inline-block text-[10px] opacity-75 font-normal">4.400+</span>
-            </button>
-            <button
-              onClick={() => handleSwitchGameType('chess')}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/30"
-            >
-              <span>👑 CỜ VUA</span>
-              <span className="hidden sm:inline-block text-[10px] opacity-90 font-bold">5.530+</span>
-            </button>
-          </div>
-        </header>
-
-        {/* Embedded Chess Module */}
-        <div className="flex-1 overflow-y-auto flex flex-col">
-          <ChessAppModule isKidMode={isKidMode} />
-        </div>
+        <ChessAppModule isKidMode={isKidMode} onSwitchGame={() => handleSwitchGameType('xiangqi')} />
       </div>
     );
   }
@@ -1432,7 +1395,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Center: Clean Segmented Mode Selector + Direct Chess Tab */}
+        {/* Center: Clean Segmented Mode Selector */}
         <div className="hidden md:flex items-center p-1 rounded-xl bg-[#141824] border border-[#232a3d] shadow-inner gap-1">
           <button
             onClick={() => setAppMode('study')}
@@ -1471,19 +1434,12 @@ export default function App() {
             <Swords className="w-3.5 h-3.5" />
             <span>Đấu AI</span>
           </button>
-
-          {!isKidMode && (
-            <button
-              onClick={() => handleSwitchGameType('chess')}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 shadow-md shadow-amber-500/30 transition-all active:scale-95"
-            >
-              <span>👑 SÁT CỤC CỜ VUA</span>
-            </button>
-          )}
         </div>
 
-        {/* Right: Unified Luxury Action Cluster */}
-        <div className="flex items-center gap-1.5">
+        {/* Right: Actions & Themes */}
+        <div className="flex items-center gap-2 md:gap-3">
+
+
           <button
             onClick={handleToggleKidMode}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
@@ -1495,7 +1451,7 @@ export default function App() {
             <span className="text-sm">👶</span>
             <span className="hidden sm:inline">Góc Trẻ Em</span>
           </button>
-          {/* Engine Status Pill */}
+          
           <button
             onClick={() => setIsEngineModalOpen(true)}
             className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold bg-[#141824] hover:bg-[#1c2233] border border-[#262e42] text-amber-300 transition-all active:scale-95 shadow-sm"
@@ -1506,7 +1462,6 @@ export default function App() {
             <Settings2 className="w-3 h-3 opacity-60" />
           </button>
 
-          {/* Quick Tools Icons Group (Joined Pill) */}
           <div className="flex items-center bg-[#141824] border border-[#262e42] rounded-xl p-0.5">
             <button
               onClick={() => setIsEditorOpen(true)}
@@ -1527,7 +1482,14 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setIsPdfModalOpen(true)}
+              onClick={() => {
+                const pwd = prompt("Nhập mật khẩu quản trị viên để In Sách:");
+                if (pwd === "conic123") {
+                  setIsPdfModalOpen(true);
+                } else if (pwd !== null) {
+                  alert("Tính năng In Sách đang trong quá trình phát triển nội bộ. Vui lòng quay lại sau!");
+                }
+              }}
               className="p-1.5 px-2 text-gray-400 hover:text-amber-300 hover:bg-white/5 rounded-lg transition-all text-xs font-medium flex items-center gap-1"
               title="Xuất sách PDF in ấn"
             >
@@ -1695,7 +1657,7 @@ export default function App() {
         )}
 
         {/* Center & Right Research Workbench */}
-        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-[#06080e] min-h-0">
+        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch justify-between bg-transparent min-h-0">
           {/* Center Master Xiangqi Board (Expands dynamically to fill space) */}
           <div className="flex-1 min-w-0 flex flex-col items-center justify-center h-full max-h-full min-h-0 space-y-1.5">
             {/* Real-time Coach Feedback Banner in Practice Mode */}
@@ -1793,26 +1755,88 @@ export default function App() {
               </div>
             </div>
 
-            <XiangqiBoard
-              board={activeBoard}
-              turn={activeTurn}
-              flipped={flipped}
-              selectedSquare={currentSelectedSquare}
-              legalDestinations={currentLegalDestinations}
-              lastMove={currentLastMove}
-              lastMoveGrade={isAnalysis ? (analysisHistory[analysisHistoryIndex - 1]?.grade || null) : null}
-              bestMoveArrow={bestMoveSuggestion}
-              candidateArrows={isAnalysis ? analysisCandidates : (bestMoveSuggestion ? [bestMoveSuggestion] : [])}
-              maxArrows={isAnalysis ? analysisMaxArrows : 1}
-              hoveredCandidateIndex={isAnalysis ? analysisHoveredCandidateIndex : null}
-              evalScore={currentEvalScore}
-              showEvalBar={showEvalBar && isEngineAssistantEnabled}
-              onSquareClick={handleSquareClick}
-              pieceLanguage={pieceLanguage}
-              interactive={true}
-              showMoveArrow={true}
-              showHeatmap={showHeatmap}
-            />
+          <div className="relative flex items-center justify-center gap-2.5 w-full max-w-[580px] mx-auto mt-4">
+            {/* Tournament Vertical Evaluation Bar (Xiangqi) */}
+            {(showEvalBar || isTraining) && isEngineAssistantEnabled && (
+              <div 
+                className="w-6 md:w-7 h-[420px] md:h-[500px] bg-[#18181b] rounded-xl overflow-hidden border border-[#2a3449] shadow-2xl flex flex-col justify-end relative shrink-0 select-none"
+                title={`Điểm thế trận: ${currentEvalScore || '0.00'}`}
+              >
+                {/* Equilibrium Line */}
+                <div className="absolute top-1/2 left-0 right-0 h-[1.5px] bg-amber-400/70 z-20 pointer-events-none" />
+
+                {/* Red Fill Bar (Dynamic) */}
+                <div 
+                  className="w-full bg-rose-500 transition-all duration-500 ease-out flex flex-col justify-end items-center pb-2 relative z-10"
+                  style={{ 
+                    height: `${Math.max(5, Math.min(95, 50 + 50 * (2 / (1 + Math.exp(-0.002 * Math.max(-2000, Math.min(2000, !flipped ? (currentEvalScore || 0) : -(currentEvalScore || 0))))) - 1)))}%` 
+                  }}
+                />
+              </div>
+            )}
+
+            <div className="flex-1 max-w-[500px]">
+              <div className="relative mb-6">
+                <XiangqiBoard
+                  board={activeBoard}
+                  turn={activeTurn}
+                  flipped={flipped}
+                  selectedSquare={currentSelectedSquare}
+                  legalDestinations={currentLegalDestinations}
+                  lastMove={currentLastMove}
+                  lastMoveGrade={isAnalysis ? (analysisHistory[analysisHistoryIndex - 1]?.grade || null) : null}
+                  bestMoveArrow={bestMoveSuggestion}
+                  candidateArrows={isAnalysis ? analysisCandidates : (bestMoveSuggestion ? [bestMoveSuggestion] : [])}
+                  maxArrows={isAnalysis ? analysisMaxArrows : 1}
+                  hoveredCandidateIndex={isAnalysis ? analysisHoveredCandidateIndex : null}
+                  evalScore={currentEvalScore}
+                  showEvalBar={false} // Use external bar instead
+                  onSquareClick={handleSquareClick}
+                  pieceLanguage={pieceLanguage}
+                  interactive={true}
+                  showMoveArrow={true}
+                  showHeatmap={showHeatmap}
+                />
+              </div>
+
+              {/* Bottom Navigation Toolbar */}
+            <div className="w-full max-w-[500px] flex flex-col gap-3 mt-4">
+              <div className="flex items-center justify-center gap-3">
+                <button 
+                  onClick={() => {
+                    if (isAnalysis) handleAnalysisReset();
+                    else if (isTraining) handlePlayAiReset();
+                    else if (isStudy) handleFirstMove();
+                  }}
+                  className="p-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95"
+                  title="Về ban đầu"
+                >
+                  <ChevronsLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={() => {
+                    if (isAnalysis) handleAnalysisUndo();
+                    else if (isTraining) handlePlayAiUndo();
+                    else if (isStudy) handlePrevMove();
+                  }}
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border border-[#2e333e] shadow-sm transition-all hover:scale-105 active:scale-95 font-medium text-sm"
+                  title="Lùi 1 nước (Undo)"
+                >
+                  <Undo2 className="w-5 h-5" /> Đi lại (Undo)
+                </button>
+                <button 
+                  onClick={() => {
+                    if (isStudy) handleNextMove();
+                  }}
+                  className={`p-2.5 rounded-xl border transition-all ${isStudy ? 'bg-[#2a303d]/80 hover:bg-[#373f4e] text-slate-300 border-[#2e333e] hover:scale-105 active:scale-95' : 'bg-[#1c1f26]/50 text-slate-600 border-[#1c1f26] cursor-not-allowed'}`}
+                  title={isStudy ? "Tới 1 nước" : "Tới 1 nước (Chỉ dùng trong Học)"}
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+          </div>
           </div>
 
           {/* Right Panel: Study Panel, Analysis Panel, or Play AI Panel (Collapsible) */}

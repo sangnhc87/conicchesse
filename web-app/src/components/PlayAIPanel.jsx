@@ -115,19 +115,24 @@ export default function PlayAIPanel({
             >
               {isNative ? (
                   <>
-                  <option value={2}>Sơ cấp (D2)</option>
-                  <option value={4}>Nghiệp dư (D4)</option>
-                  <option value={6}>Phong trào (D6)</option>
-                  <option value={10}>Kỳ nghệ (D10)</option>
-                  <option value={14}>Kiện tướng (D14)</option>
-                  <option value={18}>Đặc cấp Đại sư (D18)</option>
-                  <option value={24}>Siêu Đại Sư ELO 4000+ (D24)</option>
+                  <option value={1}>Tập Sự (D1)</option>
+                  <option value={2}>Người Mới (D2)</option>
+                  <option value={4}>Nghiệp Dư (D4)</option>
+                  <option value={6}>Phong Trào (D6)</option>
+                  <option value={8}>Cao Thủ (D8)</option>
+                  <option value={10}>Kỳ Nghệ (D10)</option>
+                  <option value={14}>Kiện Tướng (D14)</option>
+                  <option value={18}>Đại Sư (D18)</option>
+                  <option value={24}>Siêu Đại Sư 4000+ (D24)</option>
                 </>
               ) : (
                 <>
-                  <option value={1}>Dễ (Tập sự D2)</option>
-                  <option value={2}>Trung bình (Kỳ thủ D4)</option>
-                  <option value={3}>Cao thủ (Chuyên gia D6)</option>
+                  <option value={1}>Sơ Cấp (D1)</option>
+                  <option value={2}>Người Mới (D2)</option>
+                  <option value={3}>Nghiệp Dư (D3)</option>
+                  <option value={4}>Trung Bình (D4)</option>
+                  <option value={5}>Khá (D5)</option>
+                  <option value={6}>Cao Thủ (D6 - Tối Đa)</option>
                 </>
               )}
             </select>

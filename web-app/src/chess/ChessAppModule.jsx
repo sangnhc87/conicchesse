@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti';
 import { 
   Bot, Swords, Lightbulb, Printer, CheckCircle2, ChevronLeft, ChevronRight,
   Play, Pause, RotateCcw, Sparkles, Volume2, VolumeX, Eye, Edit3, Shield,
-  Layers, Trophy, Flame, Compass, Zap, BookOpen
+  Layers, Trophy, Flame, Compass, Zap, BookOpen, ChevronsLeft, ChevronsRight, Undo2
 } from 'lucide-react';
 import catalogData from './data/catalog.json';
 import ChessSidebar from './components/ChessSidebar';
@@ -20,7 +20,8 @@ import { audioEngine } from './components/AudioEngine';
 
 const STORAGE_KEY_CHESS_SOLVED = 'conic_chess_solved_ids';
 const STORAGE_KEY_CHESS_FAVS = "conic_chess_fav_ids";
-export default function ChessAppModule({ isKidMode = false }) {
+
+export default function ChessAppModule({ isKidMode = false, onSwitchGame }) {
   const allPuzzles = useMemo(() => catalogData?.items || [], []);
 
   // Top Module Mode: 'study' | 'analysis' | 'play_ai'
@@ -62,6 +63,15 @@ export default function ChessAppModule({ isKidMode = false }) {
 
   // Modals
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  
+  const handleOpenPdfModal = () => {
+    const pwd = prompt("Nhập mật khẩu quản trị viên để In Sách:");
+    if (pwd === "conic123") {
+      setIsPdfModalOpen(true);
+    } else if (pwd !== null) {
+      alert("Tính năng In Sách đang trong quá trình phát triển nội bộ. Vui lòng quay lại sau!");
+    }
+  };
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isMateSolverOpen, setIsMateSolverOpen] = useState(false);
 
@@ -297,9 +307,9 @@ export default function ChessAppModule({ isKidMode = false }) {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#07090e] select-none overflow-hidden">
+    <div className="flex-1 flex flex-col h-full bg-transparent select-none overflow-hidden">
       {/* Top Chess Mode Selector Bar */}
-      <div className="px-4 py-2 bg-[#0a0d14] border-b border-[#202636] flex items-center justify-between gap-2 shrink-0">
+      <div className="px-4 py-2 bg-[#0a0d14]/80 backdrop-blur-md border-b border-[#202636] flex items-center justify-between gap-2 shrink-0">
         <div className="flex items-center gap-1 bg-[#141824] p-1 rounded-xl border border-[#232a3d] shadow-inner">
           <button
             onClick={() => setChessMode('study')}
@@ -343,6 +353,15 @@ export default function ChessAppModule({ isKidMode = false }) {
 
         {/* Quick Actions Right */}
         <div className="flex items-center gap-2">
+          {onSwitchGame && (
+            <button
+              onClick={onSwitchGame}
+              className="px-3 py-1 rounded-lg text-xs font-black transition-all flex items-center gap-1 bg-[#141824] hover:bg-[#1a2030] text-gray-400 hover:text-gray-200 border border-[#232a3d]"
+            >
+              <span>🔴 CỜ TƯỚNG</span>
+            </button>
+          )}
+
           <button
             onClick={() => setIsMateSolverOpen(true)}
             className="flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black bg-gradient-to-r from-amber-500 to-red-600 text-white hover:from-amber-400 hover:to-red-500 shadow-md shadow-amber-500/20 transition active:scale-95"
@@ -353,7 +372,7 @@ export default function ChessAppModule({ isKidMode = false }) {
           </button>
 
           <button
-            onClick={() => setIsPdfModalOpen(true)}
+            onClick={handleOpenPdfModal}
             className="flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold bg-[#141824] hover:bg-[#1a2030] border border-[#232a3d] text-amber-300 transition active:scale-95"
           >
             <Printer className="w-3.5 h-3.5" />
@@ -379,9 +398,9 @@ export default function ChessAppModule({ isKidMode = false }) {
           />
         )}
 
-        {/* 2. Center Column: Board + Eval Bar + Top Controls (Only for Study/Analysis) */}
+        {/* 2. Middle Column: CỜ VÀ ĐIỀU KHIỂN */}
         {chessMode !== 'play_ai' && (
-          <div className="flex-1 flex flex-col items-center justify-between p-3 md:p-5 overflow-y-auto bg-[#07090e]">
+          <div className="flex-1 flex flex-col items-center justify-between p-3 md:p-5 overflow-y-auto bg-transparent">
             {/* Top Control Bar Above Board */}
           <div className="w-full max-w-[580px] flex items-center justify-between gap-2 mb-2">
             <div className="flex items-center gap-2">
@@ -464,19 +483,44 @@ export default function ChessAppModule({ isKidMode = false }) {
             </div>
           </div>
 
-          {/* Bottom Quick Bar */}
-          <div className="w-full max-w-[580px] flex items-center justify-between mt-2 px-2 text-xs text-slate-400">
-            <div className="flex items-center gap-2 font-mono truncate max-w-[320px]">
-              <span>Lượt đi: {currentFen.split(' ')[1] === 'w' ? '⚪ Quân Trắng' : '⚫ Quân Đen'}</span>
+          {/* Bottom Navigation Toolbar */}
+          <div className="w-full max-w-[580px] flex flex-col gap-3 mt-3">
+            <div className="flex items-center justify-center gap-3">
+              <button 
+                onClick={handleResetToStart}
+                className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/50 shadow-sm transition-all hover:scale-105 active:scale-95"
+                title="Về ban đầu"
+              >
+                <ChevronsLeft className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={handleUndoAnalysis}
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700/50 shadow-sm transition-all hover:scale-105 active:scale-95 font-medium text-sm"
+                title="Lùi 1 nước (Undo)"
+              >
+                <Undo2 className="w-5 h-5" /> Đi lại (Undo)
+              </button>
+              <button 
+                className="p-2.5 rounded-xl bg-slate-800/30 text-slate-600 border border-slate-800 cursor-not-allowed"
+                title="Tới 1 nước"
+              >
+                <ChevronsRight className="w-5 h-5" />
+              </button>
             </div>
-            <div className="font-bold text-amber-400">
-              {chessMode === 'analysis' ? `${analysisHistory.length} nước tự đánh` : `${currentMoveIndex} / ${currentPuzzle?.moves?.length || 0} nước`}
+            
+            <div className="flex items-center justify-between px-2 text-xs text-slate-400">
+              <div className="flex items-center gap-2 font-mono truncate max-w-[320px]">
+                <span>Lượt đi: {currentFen.split(' ')[1] === 'w' ? '⚪ Quân Trắng' : '⚫ Quân Đen'}</span>
+              </div>
+              <div className="font-bold text-amber-400">
+                {chessMode === 'analysis' ? `${analysisHistory.length} nước tự đánh` : `${currentMoveIndex} / ${currentPuzzle?.moves?.length || 0} nước`}
+              </div>
             </div>
           </div>
         </div>
         )}
 
-        {/* 3. Right Column: Studio Panel (Switch according to active mode) */}
+        {/* 3. Right Column: PANEL CHỨC NĂNG (Bên phải bàn cờ) */}
         {chessMode === 'study' && (
           <ChessStudyStudioPanel
             currentPuzzle={currentPuzzle}
@@ -493,7 +537,7 @@ export default function ChessAppModule({ isKidMode = false }) {
             isPracticeMode={isPracticeMode}
             onTogglePracticeMode={() => setIsPracticeMode(!isPracticeMode)}
             onOpenAiTutor={() => {}}
-            onOpenPdfExport={() => setIsPdfModalOpen(true)}
+            onOpenPdfExport={handleOpenPdfModal}
             onHint={handleSmartHint}
           />
         )}
@@ -519,7 +563,7 @@ export default function ChessAppModule({ isKidMode = false }) {
         )}
 
         {chessMode === 'play_ai' && (
-          <div className="flex-1 bg-[#07090e] flex flex-col h-full z-20 w-full overflow-y-auto">
+          <div className="flex-1 bg-transparent flex flex-col h-full z-20 w-full overflow-y-auto">
             <PlayAiPanel boardTheme={boardTheme} />
           </div>
         )}
@@ -549,7 +593,7 @@ export default function ChessAppModule({ isKidMode = false }) {
           };
           playNext();
         }}
-        onOpenPdfExport={() => setIsPdfModalOpen(true)}
+        onOpenPdfExport={handleOpenPdfModal}
       />
 
       {/* PDF Export Modal */}

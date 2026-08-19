@@ -72,6 +72,27 @@ export default function PdfExportModal({
       const end = Math.min(filteredItems.length, customEnd);
       return filteredItems.slice(start, end);
     }
+    if (quantityMode === 'split_half_1' || quantityMode === 'split_half_2') {
+      const isFirstHalf = quantityMode === 'split_half_1';
+      const grouped = {};
+      filteredItems.forEach(item => {
+        const path = (item.category || 'root') + '/' + (item.subcategory || 'root');
+        if (!grouped[path]) grouped[path] = [];
+        grouped[path].push(item);
+      });
+      
+      const result = [];
+      Object.values(grouped).forEach(group => {
+        const halfCount = Math.ceil(group.length / 2);
+        if (isFirstHalf) {
+          result.push(...group.slice(0, halfCount));
+        } else {
+          result.push(...group.slice(halfCount));
+        }
+      });
+      return result;
+    }
+
     const count = parseInt(quantityMode, 10) || 24;
     return filteredItems.slice(0, count);
   }, [filteredItems, quantityMode, customStart, customEnd]);
@@ -634,7 +655,13 @@ export default function PdfExportModal({
     setProgressStepText('Đang nạp công cụ kết xuất PDF A4...');
     try {
       const fullHtml = generateFullPrintDocumentHtml();
-      const filename = `Ky_Pho_Co_Vua_Conic_${selectedCategory === 'ALL' ? 'Toan_Bo' : selectedCategory.replace(/\s+/g, '_')}_A4.pdf`;
+      let rangeTag = quantityMode === 'all' ? 'Toan_Bo' : `Tap_${quantityMode}`;
+      if (quantityMode === 'split_half_1') rangeTag = 'Cuon_1_Nua_Dau';
+      else if (quantityMode === 'split_half_2') rangeTag = 'Cuon_2_Nua_Sau';
+      else if (quantityMode === 'custom') rangeTag = `Bai_${customStart}_${customEnd}`;
+
+      const cleanCat = selectedCategory === 'ALL' ? '' : `_${selectedCategory.replace(/\s+/g, '_')}`;
+      const filename = `Ky_Pho_Co_Vua_Conic${cleanCat}_${rangeTag}_A4.pdf`;
 
       let isTauriEnv = false;
       try {
@@ -777,6 +804,32 @@ export default function PdfExportModal({
                     {mode === 'all' ? 'Tất cả' : `${mode} bài`}
                   </button>
                 ))}
+              </div>
+
+              {/* Book Splitting Options */}
+              <div className="grid grid-cols-2 gap-1.5 mb-2">
+                <button
+                  onClick={() => setQuantityMode('split_half_1')}
+                  className={`p-1.5 rounded-lg border text-center font-bold text-[11px] transition ${
+                    quantityMode === 'split_half_1'
+                      ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-sm'
+                      : 'bg-[#141824] text-slate-300 border-[#232a3d] hover:bg-[#1a2030]'
+                  }`}
+                  title="Chia đôi sách: Lấy 50% số bài của MỖI thư mục con để tạo thành Cuốn 1"
+                >
+                  Cuốn 1 (Nửa đầu MỖI mục)
+                </button>
+                <button
+                  onClick={() => setQuantityMode('split_half_2')}
+                  className={`p-1.5 rounded-lg border text-center font-bold text-[11px] transition ${
+                    quantityMode === 'split_half_2'
+                      ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-sm'
+                      : 'bg-[#141824] text-slate-300 border-[#232a3d] hover:bg-[#1a2030]'
+                  }`}
+                  title="Chia đôi sách: Lấy 50% số bài còn lại của MỖI thư mục con để tạo thành Cuốn 2"
+                >
+                  Cuốn 2 (Nửa sau MỖI mục)
+                </button>
               </div>
             </div>
 

@@ -14,11 +14,14 @@ const TARGETS = {
   fork:    { cat: '06. Các Đòn Chiến Thuật Trung Cục (Tactics)', prefix: 'TAC', target: 200, count: 0, items: [] },
   pin:     { cat: '06. Các Đòn Chiến Thuật Trung Cục (Tactics)', prefix: 'TAC', target: 150, count: 0, items: [] },
   skewer:  { cat: '06. Các Đòn Chiến Thuật Trung Cục (Tactics)', prefix: 'TAC', target: 100, count: 0, items: [] },
+  opening: { cat: '07. Khai Cục Mở & Khai Cục Đóng', prefix: 'OPE', target: 200, count: 0, items: [] },
   endgame: { cat: '08. Cờ Tàn Thực Dụng Căn Bản & Nâng Cao', prefix: 'END', target: 150, count: 0, items: [] },
+  trappedPiece: { cat: '09. Cạm Bẫy Khai Cục & Trung Cục (Traps)', prefix: 'TRP', target: 150, count: 0, items: [] },
+  master:  { cat: '10. Tinh Hoa Kỳ Nghệ Danh Thủ', prefix: 'MAS', target: 150, count: 0, items: [] },
 };
 
 const seenFens = new Set();
-let counters = { M1: 1, M2: 1, M3: 1, M4: 1, M5: 1, TAC: 1, END: 1 };
+let counters = { M1: 1, M2: 1, M3: 1, M4: 1, M5: 1, TAC: 1, OPE: 1, END: 1, TRP: 1, MAS: 1 };
 
 function getSubcat(catKey, themes) {
   if (catKey === 'mateIn1') {
@@ -42,6 +45,18 @@ function getSubcat(catKey, themes) {
   if (catKey === 'endgame') {
     if (themes.includes('rookEndgame')) return '02. Tàn Cuộc Xe Cơ Bản';
     return '01. Vua + Hậu Chiếu Bí Vua Đơn Độc';
+  }
+  if (catKey === 'opening') {
+    if (themes.includes('advantage')) return '02. Chiếm Ưu Thế Khai Cục';
+    return '01. Nguyên Tắc Ra Quân Cơ Bản';
+  }
+  if (catKey === 'trappedPiece') {
+    if (themes.includes('opening')) return '01. Cạm Bẫy Khai Cục Bắt Quân';
+    return '02. Bẫy Rập Trung Cục';
+  }
+  if (catKey === 'master') {
+    if (themes.includes('sacrifice')) return '01. Các Pha Thí Quân Thần Thánh';
+    return '02. Xử Lý Tình Huống Tinh Tế';
   }
   return '01. Bài Tập Căn Bản';
 }
@@ -74,7 +89,8 @@ function makeTitle(catKey, themes, itemId) {
     mateIn3: 'Chiếu Bí 3 Nước', mateIn4: 'Chiếu Bí 4 Nước',
     mateIn5: 'Chiếu Bí 5 Nước', fork: 'Đòn Bắt Đôi', pin: 'Đòn Ghim',
     skewer: 'Đòn Xiên', backRankMate: 'Chiếu Bí Hàng Đáy',
-    queenSacrifice: 'Thí Hậu Kinh Điển', sacrifice: 'Thí Quân', endgame: 'Cờ Tàn'
+    queenSacrifice: 'Thí Hậu Kinh Điển', sacrifice: 'Thí Quân', endgame: 'Cờ Tàn',
+    opening: 'Khai Cục', trappedPiece: 'Cạm Bẫy', master: 'Thế Cờ Danh Thủ'
   };
   const all = [catKey, ...themes];
   const numId = itemId.split('_')[1] || '';

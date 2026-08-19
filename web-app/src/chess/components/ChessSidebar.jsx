@@ -83,7 +83,17 @@ export default function ChessSidebar({
     const hasChildren = node.children && node.children.length > 0;
     const hasItems = node.items && node.items.length > 0;
 
-    const totalCount = node.items?.length || 0;
+    const getTotalItemsCount = (n) => {
+      let count = n.items?.length || 0;
+      if (n.children) {
+        n.children.forEach(child => {
+          count += getTotalItemsCount(child);
+        });
+      }
+      return count;
+    };
+
+    const totalCount = getTotalItemsCount(node);
 
     return (
       <div key={nodePath} className="select-none text-xs">

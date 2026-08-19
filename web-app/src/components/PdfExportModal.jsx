@@ -136,11 +136,12 @@ export default function PdfExportModal({
         .replace(/[^a-zA-Z0-9_-]+/g, '_')
         .replace(/^_+|_+$/g, '');
     }
-    const rangeTag = quantityPreset === 'all' 
-      ? `Full_${exportLessons.length}` 
-      : quantityPreset === 'custom' 
-      ? `Bai_${rangeStart}_${rangeEnd}` 
-      : `Tap_${quantityPreset}`;
+    let rangeTag = `Tap_${quantityPreset}`;
+    if (quantityPreset === 'all') rangeTag = `Full_${exportLessons.length}`;
+    else if (quantityPreset === 'custom') rangeTag = `Bai_${rangeStart}_${rangeEnd}`;
+    else if (quantityPreset === 'split_half_1') rangeTag = `Cuon_1_Nua_Dau`;
+    else if (quantityPreset === 'split_half_2') rangeTag = `Cuon_2_Nua_Sau`;
+    
     return `Ky_Pho_Conic_${cleanFolder || 'Tap'}_${rangeTag}`;
   };
 
@@ -154,6 +155,27 @@ export default function PdfExportModal({
       const start = Math.max(1, Math.min(rangeStart, itemsInSelectedFolder.length)) - 1;
       const end = Math.max(start + 1, Math.min(rangeEnd, itemsInSelectedFolder.length));
       return itemsInSelectedFolder.slice(start, end);
+    }
+
+    if (quantityPreset === 'split_half_1' || quantityPreset === 'split_half_2') {
+      const isFirstHalf = quantityPreset === 'split_half_1';
+      const grouped = {};
+      itemsInSelectedFolder.forEach(item => {
+        const path = item.folderPath ? item.folderPath.join('/') : 'root';
+        if (!grouped[path]) grouped[path] = [];
+        grouped[path].push(item);
+      });
+      
+      const result = [];
+      Object.values(grouped).forEach(group => {
+        const halfCount = Math.ceil(group.length / 2);
+        if (isFirstHalf) {
+          result.push(...group.slice(0, halfCount));
+        } else {
+          result.push(...group.slice(halfCount));
+        }
+      });
+      return result;
     }
 
     if (quantityPreset === 'all') {
@@ -596,13 +618,39 @@ export default function PdfExportModal({
                       </button>
                       <button
                         onClick={() => setQuantityPreset('custom')}
-                        className={`p-1.5 rounded-lg border text-center font-bold text-[11px] col-span-2 sm:col-span-1 ${
+                        className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
                           quantityPreset === 'custom'
                             ? 'bg-amber-500/20 border-amber-500 text-amber-300 shadow-sm'
                             : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
                         }`}
                       >
-                        ⚙️ Tùy chọn khoảng
+                        Tùy chỉnh
+                      </button>
+                    </div>
+
+                    {/* Book Splitting Options */}
+                    <div className="grid grid-cols-2 gap-1.5 mb-2">
+                      <button
+                        onClick={() => setQuantityPreset('split_half_1')}
+                        className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
+                          quantityPreset === 'split_half_1'
+                            ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-sm'
+                            : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
+                        }`}
+                        title="Chia đôi sách: Lấy 50% số bài của MỖI thư mục con để tạo thành Cuốn 1"
+                      >
+                        Cuốn 1 (Nửa đầu MỖI mục)
+                      </button>
+                      <button
+                        onClick={() => setQuantityPreset('split_half_2')}
+                        className={`p-1.5 rounded-lg border text-center font-bold text-[11px] ${
+                          quantityPreset === 'split_half_2'
+                            ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300 shadow-sm'
+                            : 'bg-[#151924] border-gray-800 text-gray-400 hover:text-white'
+                        }`}
+                        title="Chia đôi sách: Lấy 50% số bài còn lại của MỖI thư mục con để tạo thành Cuốn 2"
+                      >
+                        Cuốn 2 (Nửa sau MỖI mục)
                       </button>
                     </div>
 

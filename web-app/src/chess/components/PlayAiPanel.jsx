@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Bot, RotateCcw, Swords, Flag, Settings2, Sparkles, Volume2, VolumeX,
   ChevronRight, Trophy, Lightbulb, CheckCircle2, AlertTriangle, AlertOctagon,
-  Award, HelpCircle, ArrowRight
+  Award, HelpCircle, ArrowRight, BrainCircuit
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import ChessBoard from './ChessBoard';
@@ -23,7 +23,7 @@ export default function PlayAiPanel({ boardTheme }) {
   const [fen, setFen] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
   const [playerColor, setPlayerColor] = useState('w'); // 'w' or 'b'
   const [aiLevel, setAiLevel] = useState(AI_LEVELS[0]);
-  const [gameStatus, setGameStatus] = useState('playing'); // 'playing', 'won', 'lost', 'draw'
+  const [gameStatus, setGameStatus] = useState('playing'); // 'playing', 'paused_for_coach', 'won', 'lost', 'draw'
   const [moveHistory, setMoveHistory] = useState([]); // Array of { san, from, to, evalType, fenBefore, fenAfter }
   const [lastMove, setLastMove] = useState(null);
   const [evalScore, setEvalScore] = useState(0); // centipawns (+100 = White +1.0)
@@ -195,14 +195,29 @@ export default function PlayAiPanel({ boardTheme }) {
         return;
       }
 
-      // Trigger AI Move
-      setIsAiThinking(true);
-      setTimeout(() => {
-        makeAiMove(nextFen, aiLevel);
-      }, 600);
+      if (evalType === 'mistake' || evalType === 'blunder') {
+        // Intercept bad moves for AI Coach
+        setGameStatus('paused_for_coach');
+        return;
+      }
+
+      // Trigger AI Move normally if good move
+      triggerAiMove(nextFen, aiLevel);
     } catch (e) {
-      console.warn('Player move error:', e);
+      console.error(e);
     }
+  };
+
+  const triggerAiMove = (currentFen, level) => {
+    setIsAiThinking(true);
+    setTimeout(() => {
+      makeAiMove(currentFen, level);
+    }, 500);
+  };
+
+  const handleForceMove = () => {
+    setGameStatus('playing');
+    triggerAiMove(fen, aiLevel);
   };
 
   const makeAiMove = (currentFen, level) => {
@@ -269,10 +284,11 @@ export default function PlayAiPanel({ boardTheme }) {
     setLastMove(null);
     setBoardArrows([]);
     setGameStatus('playing');
+    setIsAiThinking(false);
     setCoachFeedback({
       type: 'info',
-      title: 'Đã Đi Lại ↩️',
-      message: 'Bé hãy bình tĩnh suy nghĩ và chọn nước cờ tối ưu hơn nhé!'
+      title: 'Đã quay lại!',
+      message: 'Bé hãy thử tìm một nước đi tốt hơn nhé!'
     });
   };
 
@@ -385,6 +401,23 @@ export default function PlayAiPanel({ boardTheme }) {
               disabled={gameStatus !== 'playing' || isAiThinking}
             />
           </div>
+
+          {/* Quick Action Board Toolbar */}
+          <div className="w-full max-w-[500px] flex items-center justify-center gap-4 mt-4">
+            <button
+              onClick={handleTakeback}
+              disabled={moveHistory.length === 0}
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/50 shadow-sm font-bold text-sm transition-all hover:scale-105 active:scale-95 disabled:opacity-40 disabled:hover:scale-100"
+            >
+              <RotateCcw className="w-5 h-5 text-amber-400" /> Lùi Nước (Undo)
+            </button>
+            <button
+              onClick={() => startNewGame(playerColor, aiLevel)}
+              className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm transition-all hover:scale-105 active:scale-95 shadow-md shadow-amber-500/20"
+            >
+              <Swords className="w-5 h-5" /> Ván Mới
+            </button>
+          </div>
         </div>
 
         {/* Bottom Bar: Player Info & Eval Score */}
@@ -470,22 +503,7 @@ export default function PlayAiPanel({ boardTheme }) {
             ))}
           </div>
 
-          {/* Quick Action Buttons */}
-          <div className="grid grid-cols-2 gap-2 pt-1 border-t border-[#232a3d]">
-            <button
-              onClick={() => startNewGame(playerColor, aiLevel)}
-              className="py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition active:scale-95 shadow-md shadow-amber-500/20"
-            >
-              <Swords className="w-3.5 h-3.5" /> Ván Mới
-            </button>
-            <button
-              onClick={handleTakeback}
-              disabled={moveHistory.length === 0}
-              className="py-2 rounded-xl bg-[#1a2030] hover:bg-[#232b40] text-slate-200 border border-[#2d374d] font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-40 disabled:pointer-events-none"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-amber-400" /> Đi Lại (Undo)
-            </button>
-          </div>
+          {/* Empty space since Quick Action Buttons moved to board */}
         </div>
 
         {/* 3. AI COACH FEEDBACK CARD (CENTRAL PEDAGOGICAL FEATURE) */}
@@ -527,9 +545,35 @@ export default function PlayAiPanel({ boardTheme }) {
               )}
             </div>
 
-            <p className="text-xs leading-relaxed opacity-95">
+            <div className="text-sm font-medium leading-relaxed opacity-90 mt-1">
               {coachFeedback.message}
-            </p>
+            </div>
+            
+            {gameStatus === 'paused_for_coach' && (
+              <div className="mt-4 flex gap-2">
+                <button
+                  onClick={handleTakeback}
+                  className="flex-1 py-2.5 bg-slate-100 hover:bg-white text-slate-900 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                >
+                  <RotateCcw className="w-4 h-4" /> Lùi Lại Sửa Sai
+                </button>
+                <button
+                  onClick={handleForceMove}
+                  className="px-4 py-2.5 bg-black/30 hover:bg-black/50 text-white rounded-xl font-medium text-xs border border-white/10 transition-all"
+                >
+                  Bỏ Qua Cảnh Báo
+                </button>
+              </div>
+            )}
+
+            {(coachFeedback.type === 'blunder' || coachFeedback.type === 'mistake') && (
+              <button
+                onClick={() => alert("Chức năng Giải Thích Bằng Tiếng Việt (Gemini AI) đang được kết nối trong bản cập nhật kế tiếp!")}
+                className="mt-3 w-full py-2 bg-rose-900/50 hover:bg-rose-800 text-rose-100 rounded-lg text-xs font-bold border border-rose-500/30 transition flex items-center justify-center gap-1.5"
+              >
+                <BrainCircuit className="w-4 h-4" /> Hỏi Sư Phụ AI (Vì sao nước này sai?)
+              </button>
+            )}
 
             {coachFeedback.bestMove && (
               <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold bg-black/30 px-2.5 py-1 rounded-lg border border-white/10">
