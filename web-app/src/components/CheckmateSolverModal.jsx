@@ -67,6 +67,22 @@ function isTrueCheckmateTree(node) {
 }
 
 // Convert a PV array from formatPvLine into a linear tree
+function normalizePvToStringArray(pv) {
+  if (!pv) return [];
+  if (typeof pv === 'string') return pv.trim().split(/\s+/);
+  if (Array.isArray(pv)) {
+    return pv.map(item => {
+      if (typeof item === 'object') {
+        if (item.uci) return item.uci;
+        if (item.move) return moveObjToUci(item.move);
+        return moveObjToUci(item);
+      }
+      return item;
+    }).filter(Boolean);
+  }
+  return [];
+}
+
 function buildPvTree(pvLineItems, initialBoard, initialTurn) {
   if (!pvLineItems || pvLineItems.length === 0) return { note: "Không thể trích xuất Tuyến Chính" };
   
@@ -458,7 +474,7 @@ const FlowchartNode = ({
                   )}
                 </div>
 
-                {resp.red_reply && !isCollapsed && (
+                {isNodeActive && resp.red_reply && !isCollapsed && (
                   <div className="pl-3 ml-2 border-l-2 border-[#263145] pt-1 animate-in fade-in slide-in-from-top-1">
                     <FlowchartNode
                       node={resp.red_reply}
@@ -876,8 +892,12 @@ export default function CheckmateSolverModal({
     );
 
     if (!abortRef.current && tree) {
-      console.log("SOLVE TREE RESULT:", JSON.stringify(tree)); const isCheckmate = isTrueCheckmateTree(tree);
-      if (isCheckmate) {
+      console.log("SOLVE TREE RESULT:", JSON.stringify(tree));
+      const isCheckmate = isTrueCheckmateTree(tree);
+
+      // Nếu tree có nút gốc (có turn === 'red'), ta luôn hiển thị nó!
+      // Không vứt bỏ công sức dò của engine chỉ vì nó chưa tìm thấy Sát Cục 100%.
+      if (tree && tree.turn === 'red') {
         const finalTree = {
           root_fen: boardToFen(initialBoard, initialTurn),
           tree
@@ -886,18 +906,29 @@ export default function CheckmateSolverModal({
         setNoCheckmateError(false);
         SatsucCache.addTree(finalTree);
         loadLibrary();
-        setProgressMsg('🎯 Đã tìm ra toàn bộ chuỗi Sát Cục Tất Thắng 100%!');
+        
+        if (isCheckmate) {
+          setProgressMsg('🎯 Đã tìm ra toàn bộ chuỗi Sát Cục Tất Thắng 100%!');
+          showToast('🏆 Tuyệt tác! Đã giải xong chuỗi Sát Cục Tất Thắng!');
+        } else {
+          setProgressMsg('⚠️ Không tìm thấy nhánh Tất Thắng cho mọi biến, hiển thị Sơ đồ sâu nhất có thể.');
+          showToast('⚠️ Sát cục chưa hoàn hảo, nhưng đã vẽ sơ đồ tham khảo.');
+        }
+        
+        setPath(Array(20).fill(0)); // Auto-expand main variation up to 20 plies
         setActiveTab('dashboard');
-        showToast('🏆 Tuyệt tác! Đã giải xong chuỗi Sát Cục Tất Thắng!');
       } else {
-        setProgressMsg('⚠️ Đang xây dựng Sơ đồ Tuyến Chính (Nhiều nhánh)...');
+        setProgressMsg('⚠️ Sát cục gãy ngay từ đầu. Đang thử xây dựng Sơ đồ Gợi ý (1 nhánh)...');
         let fallbackTree = null;
         try {
           if (initialTurn === 'red') {
             const redData = await engineManager.analyzeStrategicOptions(initialBoard, 'red', 20, 1);
-            if (redData && redData.length > 0 && redData[0].pv) {
-              const redStr = redData[0].pv[0];
-              const redPvItems = formatPvLine(initialBoard, redData[0].pv, 'red', engineManager.engineFamily);
+            if (redData && redData.length > 0) {
+              let redPv = normalizePvToStringArray(redData[0].pv);
+              const fallbackMove = typeof redData[0].move === 'string' ? redData[0].move : moveObjToUci(redData[0].move);
+              redPv = (redPv.length > 0) ? redPv : [fallbackMove];
+              const redStr = redPv[0];
+              const redPvItems = formatPvLine(initialBoard, redPv, 'red', engineManager.engineFamily);
               const uciMoveObj = uciToMove(redStr);
               const boardAfterRed = makeMove(initialBoard, uciMoveObj);
               
@@ -905,14 +936,17 @@ export default function CheckmateSolverModal({
               if (blackData && blackData.length > 0) {
                 fallbackTree = {
                   turn: 'red',
-                  move: redPvItems[0].viShort,
-                  viFull: redPvItems[0].viFull,
-                  uci: redPvItems[0].uci,
+                  move: redPvItems[0]?.viShort || '',
+                  viFull: redPvItems[0]?.viFull || '',
+                  uci: redPvItems[0]?.uci || '',
                   score: redData[0].scoreText || '?',
                   reply: {
                     turn: 'black',
                     responses: blackData.map(opt => {
-                      const bPvItems = formatPvLine(boardAfterRed, opt.pv, 'black', engineManager.engineFamily);
+                      let bPv = normalizePvToStringArray(opt.pv);
+                      const bFallbackMove = typeof opt.move === 'string' ? opt.move : moveObjToUci(opt.move);
+                      bPv = (bPv.length > 0) ? bPv : [bFallbackMove];
+                      const bPvItems = formatPvLine(boardAfterRed, bPv, 'black', engineManager.engineFamily);
                       const linearTree = buildPvTree(bPvItems, boardAfterRed, 'black');
                       const respObj = linearTree.responses && linearTree.responses.length > 0 ? linearTree.responses[0] : null;
                       if (!respObj) {
@@ -941,7 +975,10 @@ export default function CheckmateSolverModal({
               fallbackTree = {
                 turn: 'black',
                 responses: blackData.map(opt => {
-                  const bPvItems = formatPvLine(initialBoard, opt.pv, 'black', engineManager.engineFamily);
+                  let bPv = normalizePvToStringArray(opt.pv);
+                  const bFallbackMove = typeof opt.move === 'string' ? opt.move : moveObjToUci(opt.move);
+                  bPv = (bPv.length > 0) ? bPv : [bFallbackMove];
+                  const bPvItems = formatPvLine(initialBoard, bPv, 'black', engineManager.engineFamily);
                   const linearTree = buildPvTree(bPvItems, initialBoard, 'black');
                   const respObj = linearTree.responses && linearTree.responses.length > 0 ? linearTree.responses[0] : null;
                   if (!respObj) {
@@ -975,6 +1012,7 @@ export default function CheckmateSolverModal({
           SatsucCache.addTree(finalTree);
           loadLibrary();
           setProgressMsg('⚠️ Thế trận điều quân Tàn Cuộc. Trình bày Tuyến Chính (Gợi ý)!');
+          setPath(Array(20).fill(0)); // Auto-expand main variation up to 20 plies
           setActiveTab('dashboard');
           showToast(`Không có Sát Cục cưỡng bức, hiển thị Tuyến Chính (${maxBlack} nhánh).`);
         } else {
