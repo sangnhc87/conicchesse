@@ -14,7 +14,6 @@ import Sidebar from './components/Sidebar';
 import CoachFeedbackModal from './components/CoachFeedbackModal';
 import StudyPanel from './components/StudyPanel';
 import AnalysisPanel from './components/AnalysisPanel';
-import PlayAIPanel from './components/PlayAIPanel';
 import PdfExportModal from './components/PdfExportModal';
 import AiTutorModal from './components/AiTutorModal';
 import BoardEditorModal from './components/BoardEditorModal';
@@ -138,6 +137,14 @@ export default function App() {
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isSolverModalOpen, setIsSolverModalOpen] = useState(false);
 
+  const handleOpenSolver = () => {
+    if (!engineState.isNativeActive) {
+      toast.error('Tính năng Dò Sát Cục cần kết nối Native Engine trên máy (App). Bản Web WASM hiện đang được phát triển vì quá trình tính toán đệ quy sâu dễ gây treo trình duyệt. Bạn có thể sử dụng các tính năng khác bình thường!', { duration: 6000 });
+      return;
+    }
+    setIsSolverModalOpen(true);
+  };
+
   // Board View Controls (Con cờ giữ chữ Hán truyền thống theo yêu cầu)
   const [flipped, setFlipped] = useState(false);
   const [pieceLanguage, setPieceLanguage] = useState('cn'); // 'cn' (default) | 'vi'
@@ -184,31 +191,6 @@ export default function App() {
   const [analysisPreviewMove, setAnalysisPreviewMove] = useState(null);
 
   // Play vs AI Mode States
-  const [playAiBoard, setPlayAiBoard] = useState(() => parseFen().board);
-  const [playAiTurn, setPlayAiTurn] = useState('red');
-  const [playAiPlayerColor, setPlayAiPlayerColor] = useState('red');
-  const [playAiDifficulty, setPlayAiDifficulty] = useState(14);
-  const [playAiThinking, setPlayAiThinking] = useState(false);
-  const [playAiHistory, setPlayAiHistory] = useState([]);
-  const [playAiSelectedSquare, setPlayAiSelectedSquare] = useState(null);
-  const [playAiLegalDests, setPlayAiLegalDests] = useState([]);
-  const [playAiLastMove, setPlayAiLastMove] = useState(null);
-  
-  // Super Teacher (Coach) States
-  const [isPlayAiCoachEnabled, setIsPlayAiCoachEnabled] = useState(() => {
-    try {
-      return JSON.parse(storageGet('xiangqi_coach_enabled', 'false'));
-    } catch {
-      return false;
-    }
-  });
-  const [playAiCoachFeedback, setPlayAiCoachFeedback] = useState(null);
-
-  useEffect(() => {
-    storageSet('xiangqi_coach_enabled', JSON.stringify(isPlayAiCoachEnabled));
-  }, [isPlayAiCoachEnabled]);
-
-  // Favorites & Completed Lessons in localStorage
   const [favorites, setFavorites] = useState(() => {
     try {
       return JSON.parse(storageGet('xiangqi_favorites', '[]'));
@@ -383,17 +365,15 @@ export default function App() {
   // Active board is either trial board or study board, analysis board, or play AI board
   const isStudy = appMode === 'study';
   const isAnalysis = appMode === 'analysis';
-  const isPlayAi = appMode === 'play_ai';
-  const isTraining = appMode === 'training';
 
   const activeBoard = isStudy
     ? (trialBoard || currentStudyBoard)
-    : (isAnalysis ? analysisBoard : (isTraining ? (trainingBoard || parseFen().board) : playAiBoard));
+    : (isAnalysis ? analysisBoard : parseFen().board);
 
   const isTrialMode = isStudy && (trialBoard !== null);
   const activeTurn = isStudy
     ? (isTrialMode ? trialTurn : ((currentMoveIndex % 2 === 0) ? 'red' : 'black'))
-    : (isAnalysis ? analysisTurn : (isTraining ? trainingTurn : playAiTurn));
+    : (isAnalysis ? analysisTurn : 'red');
 
   // Fast O(1) synchronous Material & Positional Eval score (Instant 0.01ms evaluation)
   const currentEvalScore = useMemo(() => {
@@ -895,72 +875,6 @@ export default function App() {
     sound.playSelect();
   }, []);
 
-  // AI Response Trigger in Play AI Mode
-  useEffect(() => {
-    if (appMode !== 'play_ai') return;
-    const aiColor = playAiPlayerColor === 'red' ? 'black' : 'red';
-
-    if (playAiTurn === aiColor && !playAiThinking) {
-      const legalMoves = getLegalMoves(playAiBoard, aiColor);
-      if (legalMoves.length === 0) {
-        sound.playNotify();
-        if (isKidMode) {
-          confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-        }
-        return;
-      }
-
-      setPlayAiThinking(true);
-
-      const computeAiMove = async () => {
-        try {
-          // 1. Opening Book for instant 0ms response
-          let aiRes = getOpeningBookMove(playAiBoard, aiColor);
-
-          // 2. High-speed In-Memory Engine Fallback
-          if (!aiRes) {
-            aiRes = await engineManager.getBestMove(playAiBoard, aiColor, Math.min(playAiDifficulty || 3, 4));
-          }
-          if (aiRes) {
-            const nextB = makeMove(playAiBoard, aiRes);
-            setPlayAiBoard(nextB);
-            setPlayAiTurn(playAiPlayerColor);
-            setPlayAiLastMove(aiRes);
-
-            if (aiRes.captured) sound.playCapture();
-            else sound.playMove();
-
-            if (isInCheck(nextB, playAiPlayerColor)) {
-              sound.playCheck();
-            }
-
-            const notationVi = moveToVietnameseFull(playAiBoard, aiRes, aiColor);
-            const notationCn = moveToChinese(playAiBoard, aiRes, aiColor);
-
-            setPlayAiHistory(prev => [
-              ...prev,
-              {
-                turn: aiColor,
-                move: aiRes,
-                notationVi,
-                notationCn,
-                captured: aiRes.captured,
-                uci: aiRes.uci || ''
-              }
-            ]);
-          }
-        } catch (e) {
-          console.error('AI move error:', e);
-        } finally {
-          setPlayAiThinking(false);
-        }
-      };
-
-      // Slight natural thinking delay
-      const timer = setTimeout(computeAiMove, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [appMode, playAiTurn, playAiPlayerColor, playAiBoard, playAiDifficulty, playAiThinking]);
 
   // Interactive Moves on Board (Analysis Mode, Study Mode & Play AI Mode)
   const handleSquareClick = async (r, c) => {
@@ -1106,119 +1020,8 @@ export default function App() {
     }
 
     // Hàm hỗ trợ thực thi nước đi
-    const executePlayAiMove = (move, capturedPiece, nextBoard, nextTurn) => {
-      setPlayAiBoard(nextBoard);
-      setPlayAiLastMove(move);
-      setPlayAiSelectedSquare(null);
-      setPlayAiLegalDests([]);
-      setBestMoveSuggestion(null);
-
-      const notationVi = moveToVietnameseFull(playAiBoard, move, playAiPlayerColor);
-      const notationCn = moveToChinese(playAiBoard, move, playAiPlayerColor);
-
-      setPlayAiHistory(prev => [
-        ...prev,
-        {
-          turn: playAiPlayerColor,
-          move,
-          notationVi,
-          notationCn,
-          captured: capturedPiece
-        }
-      ]);
-
-      setPlayAiTurn(nextTurn);
-      setPlayAiThinking(false);
-    };
-
+  
     // 2. PLAY AI MODE
-    if (appMode === 'play_ai') {
-      if (playAiThinking || playAiTurn !== playAiPlayerColor) return;
-
-      const clickedPiece = playAiBoard[r][c];
-
-      // If destination selected
-      if (playAiSelectedSquare) {
-        const isDest = playAiLegalDests.some(d => d.toR === r && d.toC === c);
-        if (isDest) {
-          const move = {
-            fromR: playAiSelectedSquare.r,
-            fromC: playAiSelectedSquare.c,
-            toR: r,
-            toC: c,
-            captured: clickedPiece
-          };
-
-          if (clickedPiece) sound.playCapture();
-          else sound.playMove();
-
-          if (isPlayAiCoachEnabled) {
-            setPlayAiThinking(true);
-            engineManager.analyzeStrategicOptions(playAiBoard, playAiPlayerColor, 12, 1).then(bestMoveCand => {
-              const scoreBefore = bestMoveCand.length > 0 ? bestMoveCand[0].score : 0;
-              const bestMoveObj = bestMoveCand.length > 0 ? bestMoveCand[0].move : null;
-              
-              const nextBoard = makeMove(playAiBoard, move);
-              const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
-              
-              engineManager.analyzeStrategicOptions(nextBoard, nextTurn, 12, 1).then(afterCand => {
-                const scoreAfter = afterCand.length > 0 ? afterCand[0].score : 0;
-                
-                const deltaRaw = scoreAfter - scoreBefore;
-                const playerAdvantageDelta = playAiPlayerColor === 'red' ? deltaRaw : -deltaRaw;
-                
-                if (playerAdvantageDelta <= -200) {
-                  // Sai lầm / Đại sai lầm
-                  setPlayAiThinking(false);
-                  const notationVi = moveToVietnameseFull(playAiBoard, move, playAiPlayerColor);
-                  setPlayAiCoachFeedback({
-                    type: playerAdvantageDelta <= -400 ? 'blunder' : 'mistake',
-                    title: playerAdvantageDelta <= -400 ? 'Đại Sai Lầm ❌' : 'Sai Lầm ⚠️',
-                    fenBefore: boardToFen(playAiBoard, playAiPlayerColor),
-                    playerMoveVi: notationVi,
-                    bestMoveVi: bestMoveObj ? moveToVietnameseFull(playAiBoard, bestMoveObj, playAiPlayerColor) : '',
-                    message: ''
-                  });
-                  return; // Chặn không đi tiếp
-                }
-                
-                // Không sai lầm, đi tiếp
-                executePlayAiMove(move, clickedPiece, nextBoard, nextTurn);
-              });
-            }).catch(err => {
-              console.error("Coach error:", err);
-              setPlayAiThinking(false);
-              const nextBoard = makeMove(playAiBoard, move);
-              const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
-              executePlayAiMove(move, clickedPiece, nextBoard, nextTurn);
-            });
-            return;
-          }
-
-          const nextBoard = makeMove(playAiBoard, move);
-          const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
-          executePlayAiMove(move, clickedPiece, nextBoard, nextTurn);
-        }
-      }
-
-      // Select piece
-      if (clickedPiece) {
-        const pieceIsRed = isRed(clickedPiece);
-        const isMyPiece = (playAiPlayerColor === 'red' && pieceIsRed) || (playAiPlayerColor === 'black' && !pieceIsRed);
-        if (isMyPiece) {
-          setPlayAiSelectedSquare({ r, c });
-          const allLegal = getLegalMoves(playAiBoard, playAiPlayerColor);
-          const pieceLegal = allLegal.filter(m => m.fromR === r && m.fromC === c);
-          setPlayAiLegalDests(pieceLegal);
-          sound.playSelect();
-          return;
-        }
-      }
-
-      setPlayAiSelectedSquare(null);
-      setPlayAiLegalDests([]);
-      return;
-    }
 
     // 3. STUDY MODE HANDLING
     const clickedPiece = activeBoard[r][c];
@@ -1399,56 +1202,6 @@ export default function App() {
   };
 
   // Play AI handlers
-  const handlePlayAiUndo = () => {
-    if (playAiHistory.length < 2) {
-      handlePlayAiReset();
-      return;
-    }
-    // Remove last 2 moves (AI move + Player move)
-    const newHistory = playAiHistory.slice(0, -2);
-    let b = parseFen().board;
-    for (let h of newHistory) {
-      b = makeMove(b, h.move);
-    }
-    setPlayAiBoard(b);
-    setPlayAiHistory(newHistory);
-    setPlayAiTurn(playAiPlayerColor);
-    setPlayAiSelectedSquare(null);
-    setPlayAiLegalDests([]);
-    setPlayAiLastMove(newHistory.length > 0 ? newHistory[newHistory.length - 1].move : null);
-    sound.playMove();
-  };
-
-  const handlePlayAiReset = () => {
-    const fresh = parseFen().board;
-    setPlayAiBoard(fresh);
-    setPlayAiTurn('red');
-    setPlayAiHistory([]);
-    setPlayAiSelectedSquare(null);
-    setPlayAiLegalDests([]);
-    setPlayAiLastMove(null);
-    sound.playSelect();
-  };
-
-  const handlePlayAiNewGame = () => {
-    handlePlayAiReset();
-  };
-
-  const handlePlayAiResign = () => {
-    sound.playCheck();
-    setCoachFeedback({
-      type: 'mistake',
-      message: '🏳️ Bạn đã xin thua ván này. Hãy bấm Ván Mới để bắt đầu lại!',
-      sub: ''
-    });
-  };
-
-  const handlePlayAiSwitchSides = () => {
-    const nextColor = playAiPlayerColor === 'red' ? 'black' : 'red';
-    setPlayAiPlayerColor(nextColor);
-    setFlipped(nextColor === 'black');
-    handlePlayAiReset();
-  };
 
   const handleToggleFavorite = (lessonId) => {
     setFavorites(prev =>
@@ -1461,26 +1214,26 @@ export default function App() {
   // Active board interactive props
   const currentSelectedSquare = isStudy
     ? selectedSquare
-    : (isAnalysis ? analysisSelectedSquare : playAiSelectedSquare);
+    : (isAnalysis ? analysisSelectedSquare : null);
 
   const currentLegalDestinations = isStudy
     ? legalDestinations
-    : (isAnalysis ? analysisLegalDests : playAiLegalDests);
+    : (isAnalysis ? analysisLegalDests : []);
 
   const currentLastMove = isStudy
     ? lastMove
-    : (isAnalysis ? (analysisPreviewMove || analysisLastMove) : playAiLastMove);
+    : (isAnalysis ? (analysisPreviewMove || analysisLastMove) : null);
 
   if (gameType === 'chess') {
     return (
-      <div className="flex flex-col h-screen bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
+      <div className="flex flex-col h-[100dvh] bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
         <ChessAppModule isKidMode={isKidMode} onSwitchGame={() => handleSwitchGameType('xiangqi')} />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-screen bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
+    <div className="flex flex-col h-[100dvh] bg-[#07090e] text-gray-100 overflow-hidden font-sans select-none">
       {/* Top Imperial App Header Bar (Clean, Minimalist Luxury) */}
       <header className={`px-4 md:px-6 bg-[#0c0f17]/95 backdrop-blur-xl border-b border-[#202636] flex items-center justify-between shadow-2xl z-30 no-print transition-all duration-300 ease-in-out ${
         isTopHeaderCollapsed ? '-translate-y-full h-0 p-0 overflow-hidden opacity-0 pointer-events-none' : 'h-14 opacity-100'
@@ -1563,39 +1316,11 @@ export default function App() {
             </button>
           )}
 
-          <button
-            onClick={() => setAppMode('play_ai')}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-              appMode === 'play_ai'
-                ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-sm'
-                : 'text-gray-400 hover:text-gray-200'
-            }`}
-          >
-            <Swords className="w-3.5 h-3.5" />
-            <span>Đấu AI</span>
-          </button>
         </div>
 
         {/* Right: Consolidated Tool Menu */}
         <div className="flex items-center gap-2 sm:gap-3 relative">
           
-          <button
-            onClick={() => setIsPdfModalOpen(true)}
-            className="p-1.5 px-2.5 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 text-purple-300 hover:from-purple-600/30 hover:to-indigo-600/30 rounded-lg transition-all text-xs font-bold flex items-center gap-1 border border-purple-500/30 shadow-sm"
-            title="In Sách Cờ Tướng A4 / Xuất PDF Đầy Đủ"
-          >
-            <Printer className="w-3.5 h-3.5 text-purple-400" />
-            <span className="hidden sm:inline">In Sách (PDF)</span>
-          </button>
-
-          <button
-            onClick={() => setIsAiTutorOpen(true)}
-            className="p-1.5 px-2.5 bg-gradient-to-r from-amber-500/20 to-red-500/20 text-amber-300 hover:from-amber-500/30 hover:to-red-500/30 rounded-lg transition-all text-xs font-bold flex items-center gap-1 border border-amber-500/30"
-            title="Sư Phụ AI Khẩu Quyết"
-          >
-            <Bot className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden sm:inline">Sư Phụ AI</span>
-          </button>
 
           <button
             onClick={() => setIsTopMenuOpen(!isTopMenuOpen)}
@@ -1703,14 +1428,14 @@ export default function App() {
                 </button>
                 
                 <button
-                  onClick={() => { setLang(prev => prev === 'vi' ? 'cn' : 'vi'); setIsTopMenuOpen(false); }}
+                  onClick={() => { setPieceLanguage(prev => prev === 'vi' ? 'cn' : 'vi'); setIsTopMenuOpen(false); }}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="text-base">{lang === 'vi' ? '🇻🇳' : '🇨🇳'}</span>
+                    <span className="text-base">{pieceLanguage === 'vi' ? '🇻🇳' : '🇨🇳'}</span>
                     <span className="text-sm font-medium text-gray-400">Ngôn ngữ ký hiệu</span>
                   </div>
-                  <span className="text-[10px] bg-gray-800 text-gray-300 px-1.5 py-0.5 rounded">{lang.toUpperCase()}</span>
+                  <span className="text-[10px] bg-gray-800 text-gray-300 px-1.5 py-0.5 rounded">{pieceLanguage.toUpperCase()}</span>
                 </button>
               </div>
             </div>
@@ -1865,10 +1590,10 @@ export default function App() {
         )}
 
         {/* Center & Right Research Workbench - 3 panel layout */}
-        <main className="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-stretch bg-transparent min-h-0">
+        <main className="flex-1 flex flex-col md:flex-row overflow-hidden p-2 sm:p-3 gap-3 items-center md:items-stretch bg-transparent min-h-0 w-full max-w-[100vw]">
 
           {/* ===== CENTER: Board Column ===== */}
-          <div className="flex-1 min-w-0 flex flex-col items-center justify-start min-h-0">
+          <div className="flex-none md:flex-1 shrink-0 min-w-0 flex flex-col items-center justify-start min-h-0">
 
             {/* AI Suggestion + Coach - FIXED HEIGHT so board never shifts */}
             <div className="w-full max-w-[600px] h-8 flex items-center justify-center mb-1 flex-shrink-0">
@@ -1900,7 +1625,7 @@ export default function App() {
             </div>
 
             {/* Board row: left toolbar + eval bar + board */}
-            <div className="flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,min(calc((100vh-160px)*9/10+55px),760px))] flex-shrink-0">
+            <div className="flex items-start justify-center gap-2 sm:gap-3 w-full max-w-[min(100%,calc((100dvh-320px)*9/10+55px))] md:max-w-[min(100%,min(calc((100dvh-160px)*9/10+55px),760px))] flex-shrink-0">
 
               {/* Toolbar Dọc bên TRÁI */}
               <div className="w-9 sm:w-10 flex flex-col items-center justify-start gap-2 shrink-0 pt-1">
@@ -1980,10 +1705,12 @@ export default function App() {
                 />
             </div>
           </div>
+          </div>{/* end center board flex-1 column */}
+
 
           {/* Right Panel: Study Panel, Analysis Panel, or Play AI Panel (Collapsible) */}
           {!isRightPanelCollapsed && (
-            <div className="w-full lg:w-[350px] xl:w-[380px] 2xl:w-[410px] flex-shrink-0 flex flex-col h-[590px] lg:h-full min-h-0">
+            <div className="w-full max-w-[450px] md:max-w-none md:w-[320px] lg:w-[350px] xl:w-[380px] 2xl:w-[410px] shrink md:shrink-0 flex flex-col flex-1 md:flex-none md:h-full min-h-0">
               {isStudy ? (
                 <StudyPanel
                   lesson={currentLesson}
@@ -2021,7 +1748,7 @@ export default function App() {
                   activeBoard={activeBoard}
                   activeTurn={activeTurn}
                   onOpenAnalysisWithPosition={handleOpenAnalysisWithPosition}
-                  onOpenSolver={() => setIsSolverModalOpen(true)}
+                  onOpenSolver={handleOpenSolver}
                 />
               ) : isAnalysis ? (
                 <AnalysisPanel
@@ -2064,38 +1791,11 @@ export default function App() {
                   }}
                   onOpenEngineSettings={() => setIsEngineModalOpen(true)}
                   onOpenEditor={() => setIsEditorOpen(true)}
-                  onOpenSolver={() => setIsSolverModalOpen(true)}
+                  onOpenSolver={handleOpenSolver}
                 />
-              ) : (
-                <PlayAIPanel
-                  board={playAiBoard}
-                  turn={playAiTurn}
-                  playerColor={playAiPlayerColor}
-                  onChangePlayerColor={setPlayAiPlayerColor}
-                  difficulty={playAiDifficulty}
-                  onChangeDifficulty={setPlayAiDifficulty}
-                  aiThinking={playAiThinking}
-                  moveHistory={playAiHistory}
-                  onResetGame={handlePlayAiReset}
-                  onUndoMove={handlePlayAiUndo}
-                  onSwitchSides={handlePlayAiSwitchSides}
-                  pieceLanguage={pieceLanguage}
-                  onChangePieceLanguage={setPieceLanguage}
-                  flipped={flipped}
-                  onToggleFlip={() => setFlipped(prev => !prev)}
-                  isMuted={isMuted}
-                  onToggleMute={() => {
-                    const m = sound.toggleMute();
-                    setIsMuted(m);
-                  }}
-                  onOpenEngineSettings={() => setIsEngineModalOpen(true)}
-                  isCoachEnabled={isPlayAiCoachEnabled}
-                  onToggleCoach={() => setIsPlayAiCoachEnabled(!isPlayAiCoachEnabled)}
-                />
-              )}
+              ) : null}
             </div>
           )}
-          </div>{/* end center board flex-1 column */}
         </main>
       </div>
 
@@ -2105,21 +1805,6 @@ export default function App() {
         onClose={() => setIsEngineModalOpen(false)}
       />
 
-      {/* Super Teacher Feedback Modal */}
-      <CoachFeedbackModal
-        isOpen={!!playAiCoachFeedback}
-        feedback={playAiCoachFeedback}
-        onUndo={() => {
-          handlePlayAiUndo();
-          setPlayAiCoachFeedback(null);
-        }}
-        onContinue={() => {
-          setPlayAiCoachFeedback(null);
-          // Resume AI Turn
-          const nextTurn = playAiPlayerColor === 'red' ? 'black' : 'red';
-          setPlayAiTurn(nextTurn);
-        }}
-      />
 
       {/* AI Grandmaster Socratic Pedagogy Tutor Modal */}
       <AiTutorModal
