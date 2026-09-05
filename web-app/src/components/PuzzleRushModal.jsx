@@ -9,6 +9,7 @@ import XiangqiBoard from './XiangqiBoard';
 import { parseFen, getLegalMoves, makeMove } from './XiangqiLogic';
 import { sound } from './AudioEngine';
 import { PUZZLE_RUSH_DATA } from '../data/puzzleRushData';
+import { srsService } from '../lib/srsService';
 
 const GAME_MODES = {
   TIMER_3M: { id: 'timer_3m', name: '3 Phút Tốc Biến', desc: 'Giải nhiều sát pháp nhất có thể trong 180 giây', initialTime: 180, maxLives: 3 },
@@ -196,6 +197,23 @@ export default function PuzzleRushModal({
             message: `CHƯA ĐÚNG! Nước chuẩn là: ${expectedUci}`
           });
           setSolvedList(prev => [...prev, { puzzle: currentPuzzle, isSuccess: false, userMove: moveUci }]);
+
+          // Tự động ghi vào Sổ Tay Phục Thù (Ebbinghaus SRS)
+          try {
+            srsService.recordMistake({
+              id: `pr_${currentPuzzle.id}`,
+              title: `Sát Pháp Tốc Độ: Thế ${currentPuzzle.id} (${currentPuzzle.mate} nước bí)`,
+              bookName: 'Sát Pháp Tốc Độ (Puzzle Rush)',
+              fen: currentPuzzle.fen,
+              turn: 'red',
+              bestMove: currentPuzzle.bestmove,
+              userWrongMove: moveUci,
+              explanation: `Nước cờ kết liễu tối ưu: ${expectedUci}`,
+              source: 'puzzle_rush'
+            });
+          } catch (e) {
+            console.error('Lỗi ghi SRS:', e);
+          }
 
           if (nextLives <= 0) {
             setTimeout(() => {

@@ -23,6 +23,7 @@ import CheckmateSolverModal from './components/CheckmateSolverModal';
 import OpeningStudyModal from './components/OpeningStudyModal';
 import PuzzleRushModal from './components/PuzzleRushModal';
 import GameReviewModal from './components/GameReviewModal';
+import RevengeNotebookModal from './components/RevengeNotebookModal';
 import TrainingPanel from './components/TrainingPanel';
 import ChessAppModule from './chess/ChessAppModule';
 import { PuzzlesData } from './data/PuzzlesData';
@@ -38,6 +39,7 @@ import { SatsucCache } from './lib/SatsucCache';
 import { sound } from './components/AudioEngine';
 import { storageGet, storageSet } from './lib/safeStorage.js';
 import { safeFetchJson } from './lib/dataLoader.js';
+import { srsService } from './lib/srsService.js';
 
 export default function App() {
 
@@ -101,6 +103,8 @@ export default function App() {
   const [isEngineModalOpen, setIsEngineModalOpen] = useState(false);
   const [isPuzzleRushOpen, setIsPuzzleRushOpen] = useState(false);
   const [isGameReviewOpen, setIsGameReviewOpen] = useState(false);
+  const [isRevengeModalOpen, setIsRevengeModalOpen] = useState(false);
+  const [srsDueCount, setSrsDueCount] = useState(() => srsService.getStats().dueCount);
   const [trainingBoard, setTrainingBoard] = useState(null);
   const [trainingTurn, setTrainingTurn] = useState('red');
   const [trainingSelectedSquare, setTrainingSelectedSquare] = useState(null);
@@ -479,6 +483,26 @@ export default function App() {
     setCurrentLessonId(lessonId);
     setIsSidebarOpen(false);
   }, []);
+
+  // Bookmark current position into Revenge Notebook (Ebbinghaus SRS)
+  const handleBookmarkToRevenge = useCallback(() => {
+    if (!currentLesson) return;
+    const currentBoardFen = boardToFen(activeBoard, activeTurn);
+    srsService.recordMistake({
+      id: `manual_${currentLesson.id}_${currentMoveIndex}`,
+      title: `${currentLesson.title} (Nước ${currentMoveIndex})`,
+      bookName: currentLesson.book || currentLesson.category || 'Kỳ Phổ Tự Luyện',
+      fen: currentBoardFen,
+      turn: activeTurn,
+      bestMove: nextLessonMove || currentLesson.moves?.[currentMoveIndex] || '',
+      userWrongMove: '',
+      explanation: `Hình cờ nghiên cứu tại nước ${currentMoveIndex} của ${currentLesson.title}`,
+      source: 'study'
+    });
+    sound.playNotify();
+    setSrsDueCount(srsService.getStats().dueCount);
+    setIsRevengeModalOpen(true);
+  }, [currentLesson, activeBoard, activeTurn, currentMoveIndex, nextLessonMove]);
 
   // Toggle mark completed
   const handleToggleComplete = useCallback((lessonId) => {
@@ -1357,6 +1381,23 @@ export default function App() {
             <span>🩺 Bác Sĩ Cờ Tướng</span>
           </button>
 
+          <button
+            onClick={() => {
+              setIsRevengeModalOpen(true);
+              setSrsDueCount(srsService.getStats().dueCount);
+            }}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-rose-300 hover:text-white bg-gradient-to-r from-rose-950/70 to-pink-950/50 hover:from-rose-900/80 hover:to-pink-900/70 border border-rose-500/50 transition-all shadow-sm active:scale-95"
+            title="Sổ Tay Phục Thù: Thuật toán Ebbinghaus nhắc ôn lại thế cờ sai sót"
+          >
+            <Swords className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
+            <span>🗡️ Sổ Phục Thù</span>
+            {srsDueCount > 0 && (
+              <span className="px-1.5 py-0.2 text-[10px] bg-rose-600 text-white rounded-full font-black animate-pulse">
+                {srsDueCount}
+              </span>
+            )}
+          </button>
+
         </div>
 
         {/* Right: Consolidated Tool Menu */}
@@ -1444,6 +1485,25 @@ export default function App() {
                 >
                   <Stethoscope className="w-4 h-4 text-cyan-400" />
                   <span className="text-sm font-semibold text-cyan-300">🩺 Bác Sĩ Cờ Tướng (Game Review)</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsRevengeModalOpen(true);
+                    setSrsDueCount(srsService.getStats().dueCount);
+                    setIsTopMenuOpen(false);
+                  }}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Swords className="w-4 h-4 text-rose-400" />
+                    <span className="text-sm font-semibold text-rose-300">🗡️ Sổ Tay Phục Thù (SRS)</span>
+                  </div>
+                  {srsDueCount > 0 && (
+                    <span className="px-2 py-0.5 text-[10px] bg-rose-600 text-white rounded-full font-bold">
+                      {srsDueCount}
+                    </span>
+                  )}
                 </button>
                 
                 <button
@@ -1802,6 +1862,7 @@ export default function App() {
                   activeTurn={activeTurn}
                   onOpenAnalysisWithPosition={handleOpenAnalysisWithPosition}
                   onOpenSolver={handleOpenSolver}
+                  onBookmarkToRevenge={handleBookmarkToRevenge}
                 />
               ) : isAnalysis ? (
                 <AnalysisPanel
@@ -1931,6 +1992,21 @@ export default function App() {
         onClose={() => setIsGameReviewOpen(false)}
         currentLesson={currentLesson}
         pieceLanguage={pieceLanguage}
+      />
+
+      {/* Revenge Notebook (Sổ Tay Phục Thù Ebbinghaus SRS) Modal */}
+      <RevengeNotebookModal
+        isOpen={isRevengeModalOpen}
+        onClose={() => {
+          setIsRevengeModalOpen(false);
+          setSrsDueCount(srsService.getStats().dueCount);
+        }}
+        pieceLanguage={pieceLanguage}
+        isMuted={isMuted}
+        onToggleMute={() => {
+          const m = sound.toggleMute();
+          setIsMuted(m);
+        }}
       />
     </div>
   );

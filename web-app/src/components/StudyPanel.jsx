@@ -46,7 +46,8 @@ export default function StudyPanel({
   activeBoard,
   activeTurn,
   onOpenAnalysisWithPosition,
-  onOpenSolver
+  onOpenSolver,
+  onBookmarkToRevenge
 }) {
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState('moves'); // 'moves', 'strategy', 'commentary', 'notes'
@@ -417,6 +418,17 @@ export default function StudyPanel({
               >
                 <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Phân Tích 2 Bên</span>
+              </button>
+            )}
+
+            {onBookmarkToRevenge && (
+              <button
+                onClick={onBookmarkToRevenge}
+                className="px-2.5 py-1 rounded-lg bg-rose-950/80 hover:bg-rose-900/90 text-rose-300 font-bold border border-rose-500/40 flex items-center gap-1 transition-all active:scale-95 shadow-sm"
+                title="Ghi nhận thế trận này vào Sổ Tay Phục Thù để thuật toán Ebbinghaus nhắc bạn ôn lại"
+              >
+                <Swords className="w-3.5 h-3.5 text-rose-400" />
+                <span>Lưu Phục Thù</span>
               </button>
             )}
 
