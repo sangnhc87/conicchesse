@@ -472,6 +472,14 @@ export default function App() {
     }
   }, [catalog, currentLessonId]);
 
+  // Handle Lesson Selection across components (Sidebar, Modals)
+  const handleSelectLesson = useCallback((lessonId) => {
+    if (!lessonId) return;
+    setAppMode('study');
+    setCurrentLessonId(lessonId);
+    setIsSidebarOpen(false);
+  }, []);
+
   // Toggle mark completed
   const handleToggleComplete = useCallback((lessonId) => {
     setCompletedLessons(prev => {
@@ -1596,11 +1604,7 @@ export default function App() {
         <Sidebar
           catalog={catalog}
           currentLessonId={currentLessonId}
-          onSelectLesson={(id) => {
-            setAppMode('study');
-            setCurrentLessonId(id);
-            setIsSidebarOpen(false);
-          }}
+          onSelectLesson={handleSelectLesson}
           favorites={favorites}
           onToggleFavorite={handleToggleFavorite}
           completedLessons={completedLessons}
@@ -1898,10 +1902,14 @@ export default function App() {
       <OpeningStudyModal
         isOpen={isOpeningModalOpen}
         onClose={() => setIsOpeningModalOpen(false)}
-        onSelectLesson={handleSelectLesson}
+        onSelectLesson={(id) => {
+          handleSelectLesson(id);
+          setIsOpeningModalOpen(false);
+        }}
         onOpenAnalysisWithFen={(fen) => {
           setAnalysisCustomFen(fen);
           setAppMode('analysis');
+          setIsOpeningModalOpen(false);
         }}
       />
 
