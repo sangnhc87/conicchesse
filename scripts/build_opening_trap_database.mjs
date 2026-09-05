@@ -716,8 +716,19 @@ export default OPENING_TRAP_MASTER_DATABASE;
         title: item.title,
         filename: item.filename || item.title
       });
+    function sortNodeRecursive(node) {
+      if (node.children && node.children.length > 0) {
+        node.children.sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }));
+        for (let ch of node.children) {
+          sortNodeRecursive(ch);
+        }
+      }
+      if (node.items && node.items.length > 0) {
+        node.items.sort((a, b) => (a.title || a.filename || '').localeCompare(b.title || b.filename || '', undefined, { numeric: true }));
+      }
     }
 
+    sortNodeRecursive(root);
     return root;
   }
 

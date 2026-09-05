@@ -135,14 +135,18 @@ export default function ChessSidebar({
         {/* Children Subfolders */}
         {isExpanded && hasChildren && (
           <div className="flex flex-col gap-0.5 mt-0.5">
-            {node.children.map(child => renderTreeNode(child, nodePath, depth + 1))}
+            {[...node.children]
+              .sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }))
+              .map(child => renderTreeNode(child, nodePath, depth + 1))}
           </div>
         )}
 
         {/* Leaf Items (Puzzles inside subfolder) */}
         {isExpanded && hasItems && !hasChildren && (
           <div className="flex flex-col gap-0.5 mt-0.5">
-            {node.items.map(item => {
+            {[...node.items]
+              .sort((a, b) => (a.title || a.name || '').localeCompare(b.title || b.name || '', undefined, { numeric: true }))
+              .map(item => {
               const isSelected = currentPuzzleId === item.id;
               const isDone = completedIds.includes(item.id);
               const isFav = favorites.includes(item.id);
@@ -313,7 +317,9 @@ export default function ChessSidebar({
           </div>
         ) : (
           // Tree View
-          treeRoot?.children?.map(child => renderTreeNode(child, treeRoot.name, 0))
+          treeRoot?.children && [...treeRoot.children]
+            .sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }))
+            .map(child => renderTreeNode(child, treeRoot.name, 0))
         )}
       </div>
     </div>

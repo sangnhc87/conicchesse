@@ -141,10 +141,14 @@ export default function Sidebar({
         {isExpanded && (
           <div className="space-y-0.5 mt-0.5">
             {hasChildren &&
-              node.children.map(child => renderTreeNode(child, nodePath, depth + 1))}
+              [...node.children]
+                .sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }))
+                .map(child => renderTreeNode(child, nodePath, depth + 1))}
 
             {hasItems &&
-              node.items.map(item => {
+              [...node.items]
+                .sort((a, b) => (a.title || a.filename || '').localeCompare(b.title || b.filename || '', undefined, { numeric: true }))
+                .map(item => {
                 const isSelected = currentLessonId === item.id;
                 const isFav = favorites.includes(item.id);
                 const isCompleted = completedLessons.includes(item.id);
@@ -406,7 +410,9 @@ export default function Sidebar({
             </div>
           ) : (
             /* Full Recursive Directory Tree */
-            treeRoot && treeRoot.children && treeRoot.children.map(child => renderTreeNode(child, treeRoot.name, 0))
+            treeRoot && treeRoot.children && [...treeRoot.children]
+              .sort((a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true }))
+              .map(child => renderTreeNode(child, treeRoot.name, 0))
           )}
         </div>
       </aside>
