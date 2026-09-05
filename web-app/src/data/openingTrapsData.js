@@ -144,7 +144,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_binh-phong-ma_2"
       }
     ],
-    "lessonCount": 20
+    "lessonCount": 586
   },
   {
     "id": "thuan-phao",
@@ -280,7 +280,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_thuan-phao_2"
       }
     ],
-    "lessonCount": 13
+    "lessonCount": 27
   },
   {
     "id": "nghich-phao",
@@ -353,7 +353,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_nghich-phao_1"
       }
     ],
-    "lessonCount": 7
+    "lessonCount": 66
   },
   {
     "id": "phan-cung-ma",
@@ -419,7 +419,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_phan-cung-ma_1"
       }
     ],
-    "lessonCount": 3
+    "lessonCount": 107
   },
   {
     "id": "don-de-ma",
@@ -484,7 +484,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_don-de-ma_1"
       }
     ],
-    "lessonCount": 5
+    "lessonCount": 63
   },
   {
     "id": "phi-tuong",
@@ -557,7 +557,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_phi-tuong_1"
       }
     ],
-    "lessonCount": 12
+    "lessonCount": 122
   },
   {
     "id": "tien-nhan",
@@ -630,7 +630,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_tien-nhan_1"
       }
     ],
-    "lessonCount": 6
+    "lessonCount": 67
   },
   {
     "id": "khoi-ma",
@@ -695,7 +695,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_khoi-ma_1"
       }
     ],
-    "lessonCount": 5
+    "lessonCount": 129
   },
   {
     "id": "qua-cung-si-giac",
@@ -760,7 +760,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_qua-cung-si-giac_1"
       }
     ],
-    "lessonCount": 2
+    "lessonCount": 74
   },
   {
     "id": "giang-ho-di-cuoc",
@@ -874,7 +874,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_giang-ho-di-cuoc_2"
       }
     ],
-    "lessonCount": 50
+    "lessonCount": 69
   },
   {
     "id": "phe-quan-dinh-cao",
@@ -1511,7 +1511,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_phe-quan-dinh-cao_8"
       }
     ],
-    "lessonCount": 84
+    "lessonCount": 283
   }
 ];
 
