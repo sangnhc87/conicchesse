@@ -630,7 +630,7 @@ export const OPENING_TRAP_MASTER_DATABASE = [
         "lessonId": "trap_tien-nhan_1"
       }
     ],
-    "lessonCount": 7
+    "lessonCount": 6
   },
   {
     "id": "khoi-ma",
@@ -875,6 +875,643 @@ export const OPENING_TRAP_MASTER_DATABASE = [
       }
     ],
     "lessonCount": 50
+  },
+  {
+    "id": "phe-quan-dinh-cao",
+    "folder": "11. Chuyên Đề Phế Quân Đỉnh Cao (Khí Tử Tranh Tiên)",
+    "name": "Khai Cục Phế Quân Đỉnh Cao (Khí Tử Tranh Tiên)",
+    "cn": "开局弃子争先局",
+    "overview": "Đỉnh cao nghệ thuật thí quân đoạt thế trong cờ tướng. Dám bỏ Mã, bỏ Pháo, thậm chí bỏ Xe ngay từ khai cuộc để đổi lấy tốc độ xuất quân thần tốc, phá tan sĩ tượng, đoạt quyền chủ động và dứt điểm đối phương trong chớp mắt.",
+    "maxim": "Khí mã tranh tiên tốc độ cao, phong xa hãm trận đoạt kỳ hào.\nPhế quân tất hữu liên hoàn kế, xuất kỳ bất ý sát cửu cung!\nDĩ thời đoạt thế, dĩ không gian chế nhân!",
+    "strategicKey": "Quy tắc hoàng kim phế quân: Bỏ trước đoạt sau, thời gian quý hơn lực lượng, mỗi nước đi sau khi phế quân phải là đòn ép buộc hoặc dọa sát liên hoàn.",
+    "subtypes": [
+      "Khí Mã Thập Tam Trứ (Quất Trung Bí)",
+      "Bình Phong Mã Phế Mã Đoạt Tiên (弃马争先)",
+      "Tiên Nhân Chỉ Lộ Phế Mã Phá Trận",
+      "Thiết Hoạt Xa Phế Xe Đoạt Tiên Thần Tốc",
+      "Trung Pháo Cấp Tiến Phế Quân",
+      "Thuận Pháo Khí Pháo Khai Lộ Xe",
+      "Quy Bối Pháo Khí Tử Nghịch Chuyển",
+      "Thí Quân Sát Cục Đại Sư (Hồ Vinh Hoa, Hứa Ngân Xuyên...)"
+    ],
+    "traps": [
+      {
+        "trapId": "khi-ma-thap-tam-tru",
+        "name": "Khí Mã Thập Tam Trứ (Quất Trung Bí Cổ Điển Bất Hủ)",
+        "movesSummary": "1. P2-5 P8-5 2. M2.3 M8.7 3. X1.1 X9.1 4. X1-6 M2.3 5. X6.7 P8.7 6. P5.4 S4.5 7. X6-7 M3/5 8. M8.7 P2.4 9. B7.1 P2-7 10. X7.1 T3.5 11. P8.7 P7/8 12. X7-5 T5/3 13. P8-5",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "炮８平５",
+            "black_vi": "Pháo 8 bình 5"
+          },
+          {
+            "num": 2,
+            "red": "马二进三",
+            "red_vi": "Mã 2 tiến 3",
+            "black": "马８进７",
+            "black_vi": "Mã 8 tiến 7"
+          },
+          {
+            "num": 3,
+            "red": "车一进一",
+            "red_vi": "Xe 1 tiến 1",
+            "black": "车９进１",
+            "black_vi": "Xe 9 tiến 1"
+          },
+          {
+            "num": 4,
+            "red": "车一平六",
+            "red_vi": "Xe 1 bình 6",
+            "black": "马２进３",
+            "black_vi": "Mã 2 tiến 3"
+          },
+          {
+            "num": 5,
+            "red": "车六进七",
+            "red_vi": "Xe 6 tiến 7 (Phế Mã!)",
+            "black": "炮８进７",
+            "black_vi": "Pháo 8 tiến 7"
+          },
+          {
+            "num": 6,
+            "red": "炮五进四",
+            "red_vi": "Pháo 5 tiến 4",
+            "black": "士４进５",
+            "black_vi": "Sĩ 4 tiến 5"
+          },
+          {
+            "num": 7,
+            "red": "车六平七",
+            "red_vi": "Xe 6 bình 7",
+            "black": "马３退５",
+            "black_vi": "Mã 3 thoái 5"
+          },
+          {
+            "num": 8,
+            "red": "马八进七",
+            "red_vi": "Mã 8 tiến 7",
+            "black": "炮２进４",
+            "black_vi": "Pháo 2 tiến 4"
+          },
+          {
+            "num": 9,
+            "red": "兵七进一",
+            "red_vi": "Binh 7 tiến 1",
+            "black": "炮２平７",
+            "black_vi": "Pháo 2 bình 7"
+          },
+          {
+            "num": 10,
+            "red": "车七进一",
+            "red_vi": "Xe 7 tiến 1",
+            "black": "象３进５",
+            "black_vi": "Tượng 3 tiến 5"
+          },
+          {
+            "num": 11,
+            "red": "炮八进七",
+            "red_vi": "Pháo 8 tiến 7",
+            "black": "炮７退８",
+            "black_vi": "Pháo 7 thoái 8"
+          },
+          {
+            "num": 12,
+            "red": "车七平五",
+            "red_vi": "Xe 7 bình 5",
+            "black": "象５退３",
+            "black_vi": "Tượng 5 thoái 3"
+          },
+          {
+            "num": 13,
+            "red": "炮八平五",
+            "red_vi": "Pháo 8 bình 5 (Sát Cuộc!)",
+            "black": "",
+            "black_vi": ""
+          }
+        ],
+        "bait": "Đỏ xuất Hoành Xe lộ 6, nước thứ 5 chủ động bỏ Mã lộ 3 ở tuần hà làm mồi nhử chết người.",
+        "blunder": "Đen hoa mắt thấy Mã không có căn, vội phóng Pháo 8 tiến 7 chém Mã mà không củng cố phòng ngự sườn và đáy cung.",
+        "punishment": "Đỏ cắm Xe 6 tiến 7 ép sát cửu cung, nổ Pháo ngũ đâm tâm, liên hoàn phế quân công sát tuyệt mỹ đúng 13 nước sát cục lừng danh thiên cổ!",
+        "refutation": "Đen tuyệt đối không tham ăn Mã (P8.7) mà phải xuất Trực Xe 9 bình 8 hoặc đi Sĩ 4 tiến 5 củng cố trung lộ vững chắc.",
+        "lessonId": "trap_phe-quan-dinh-cao_1"
+      },
+      {
+        "trapId": "bpm-phe-ma-doat-tien",
+        "name": "Bình Phong Mã Phế Mã Đoạt Tiên (Hiện Đại Khí Tử Cuộc)",
+        "movesSummary": "1. P2-5 M8.7 2. M2.3 X9-8 3. X1-2 B7.1 4. X2.6 M2.3 5. B7.1 T3.5 6. X2-3 M3/5 7. X3/2 P8/1 8. X3-4 P8-7 9. X4.2 P2.7",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "马８进７",
+            "black_vi": "Mã 8 tiến 7"
+          },
+          {
+            "num": 2,
+            "red": "马二进三",
+            "red_vi": "Mã 2 tiến 3",
+            "black": "车９平８",
+            "black_vi": "Xe 9 bình 8"
+          },
+          {
+            "num": 3,
+            "red": "车一平二",
+            "red_vi": "Xe 1 bình 2",
+            "black": "卒７进１",
+            "black_vi": "Tốt 7 tiến 1"
+          },
+          {
+            "num": 4,
+            "red": "车二进六",
+            "red_vi": "Xe 2 tiến 6",
+            "black": "马２进３",
+            "black_vi": "Mã 2 tiến 3"
+          },
+          {
+            "num": 5,
+            "red": "兵七进一",
+            "red_vi": "Binh 7 tiến 1",
+            "black": "象３进５",
+            "black_vi": "Tượng 3 tiến 5"
+          },
+          {
+            "num": 6,
+            "red": "车二平三",
+            "red_vi": "Xe 2 bình 3",
+            "black": "马３退５",
+            "black_vi": "Mã 3 thoái 5"
+          },
+          {
+            "num": 7,
+            "red": "车三退二",
+            "red_vi": "Xe 3 thoái 2",
+            "black": "炮８退１",
+            "black_vi": "Pháo 8 thoái 1"
+          },
+          {
+            "num": 8,
+            "red": "车三平四",
+            "red_vi": "Xe 3 bình 4",
+            "black": "炮８平７",
+            "black_vi": "Pháo 8 bình 7"
+          },
+          {
+            "num": 9,
+            "red": "车四进二",
+            "red_vi": "Xe 4 tiến 2",
+            "black": "炮２进７",
+            "black_vi": "Pháo 2 tiến 7"
+          }
+        ],
+        "bait": "Đen cố ý thoái Mã 3 về ngũ (M3/5), vờ để hở cánh cho Xe Đỏ ăn Binh đè Mã.",
+        "blunder": "Đỏ tưởng bở dấn Xe sâu vào trận địa bắt Mã, lọt vào trận đồ bát quái của Song Pháo Đen.",
+        "punishment": "Đen rút Pháo 8 thoái 1, chuyển Pháo 8 bình 7 phong tỏa Xe, rồi phóng Pháo 2 tiến 7 chém Tượng bắt sống Xe Đỏ ngay giữa bàn cờ!",
+        "refutation": "Đỏ không nên nôn nóng X2-3 đè Mã mà nên đi Mã 8 tiến 7 hoặc Binh 3 tiến 1 giữ thế tiên chủ động.",
+        "lessonId": "trap_phe-quan-dinh-cao_2"
+      },
+      {
+        "trapId": "tncl-phe-ma-pha-tran",
+        "name": "Tiên Nhân Chỉ Lộ Phế Mã Phá Trận Thần Tốc",
+        "movesSummary": "1. B7.1 P2-3 2. P2-5 T3.5 3. M2.3 B3.1 4. M8.7 B3.1 5. M7.6 B3.1 6. M6.4 T5/3 7. P8.5",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "兵七进一",
+            "red_vi": "Binh 7 tiến 1",
+            "black": "炮２平３",
+            "black_vi": "Pháo 2 bình 3"
+          },
+          {
+            "num": 2,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "象３进５",
+            "black_vi": "Tượng 3 tiến 5"
+          },
+          {
+            "num": 3,
+            "red": "马二进三",
+            "red_vi": "Mã 2 tiến 3",
+            "black": "卒３进１",
+            "black_vi": "Tốt 3 tiến 1"
+          },
+          {
+            "num": 4,
+            "red": "马八进七",
+            "red_vi": "Mã 8 tiến 7",
+            "black": "卒３进１",
+            "black_vi": "Tốt 3 tiến 1"
+          },
+          {
+            "num": 5,
+            "red": "马七进六",
+            "red_vi": "Mã 7 tiến 6",
+            "black": "卒３进１",
+            "black_vi": "Tốt 3 tiến 1"
+          },
+          {
+            "num": 6,
+            "red": "马六进四",
+            "red_vi": "Mã 6 tiến 4",
+            "black": "象５退３",
+            "black_vi": "Tượng 5 thoái 3"
+          },
+          {
+            "num": 7,
+            "red": "炮八进五",
+            "red_vi": "Pháo 8 tiến 5",
+            "black": "",
+            "black_vi": ""
+          }
+        ],
+        "bait": "Đỏ đưa Mã 7 nhảy hà rồi phi vào lộ 4 phế quân, nhử Tốt 3 Đen liên tục ăn sang.",
+        "blunder": "Đen ham ăn Mã, để Tốt ăn liên tục mà chậm xuất Xe và bỏ lỏng trục yết hầu.",
+        "punishment": "Đỏ phóng Pháo 8 tiến 5 quá hà oanh tạc thẳng vào yết hầu, song Xe song Pháo đồng loạt xuất kích tạo thế sát thần tốc!",
+        "refutation": "Đen không ăn Mã mà đi Sĩ 4 tiến 5 củng cố hoặc xuất Xe 1 bình 2 đối công giữ cân bằng.",
+        "lessonId": "trap_phe-quan-dinh-cao_3"
+      },
+      {
+        "trapId": "thiet-hoat-xa-phe-xe",
+        "name": "Thiết Hoạt Xa Phế Xe Đỉnh Cao (Giang Hồ Phi Đao)",
+        "movesSummary": "1. P2-5 M8.7 2. X1.1 P8-5 3. X1-6 P5.4 4. S4.5 P5/2 5. M8.7 M2.3 6. M7.6 X9-8 7. X6.7",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "马８进７",
+            "black_vi": "Mã 8 tiến 7"
+          },
+          {
+            "num": 2,
+            "red": "车一进一",
+            "red_vi": "Xe 1 tiến 1",
+            "black": "炮８平５",
+            "black_vi": "Pháo 8 bình 5"
+          },
+          {
+            "num": 3,
+            "red": "车一平六",
+            "red_vi": "Xe 1 bình 6",
+            "black": "炮５进４",
+            "black_vi": "Pháo 5 tiến 4"
+          },
+          {
+            "num": 4,
+            "red": "仕四进五",
+            "red_vi": "Sĩ 4 tiến 5",
+            "black": "炮５退２",
+            "black_vi": "Pháo 5 thoái 2"
+          },
+          {
+            "num": 5,
+            "red": "马八进七",
+            "red_vi": "Mã 8 tiến 7",
+            "black": "马２进３",
+            "black_vi": "Mã 2 tiến 3"
+          },
+          {
+            "num": 6,
+            "red": "马七进六",
+            "red_vi": "Mã 7 tiến 6",
+            "black": "车９平８",
+            "black_vi": "Xe 9 bình 8"
+          },
+          {
+            "num": 7,
+            "red": "车六进七",
+            "red_vi": "Xe 6 tiến 7",
+            "black": "",
+            "black_vi": ""
+          }
+        ],
+        "bait": "Đỏ dám xuất Xe hoành phế luôn Xe lộ 1 hoặc Mã lộ 2 ngay khai cuộc, tạo thế trống trải.",
+        "blunder": "Đen thấy hớ ham ăn quân lớn, dành 2-3 nước ăn Xe mà không phát triển bộ binh.",
+        "punishment": "Đỏ tung toàn bộ Xe Mã Pháo còn lại lao lên như vũ bão, tận dụng đối phương chưa mở đường Xe để chiếu bí chớp nhoáng!",
+        "refutation": "Bình tĩnh từ chối ăn quân, nhanh chóng củng cố Sĩ Tượng và xuất Xe chiếm lộ 4-6 nghênh chiến.",
+        "lessonId": "trap_phe-quan-dinh-cao_4"
+      },
+      {
+        "trapId": "trung-phao-cap-tien-khi-tu",
+        "name": "Trung Pháo Cấp Tiến Trung Binh Khí Mã Đoạt Công",
+        "movesSummary": "1. P2-5 M8.7 2. M2.3 X9-8 3. X1-2 B7.1 4. X2.6 M2.3 5. B7.1 T3.5 6. M8.7 P2.4 7. X9-8 P2-3 8. B5.1 X1-4 9. X8.3 P3.3 10. B5.1",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "马８进７",
+            "black_vi": "Mã 8 tiến 7"
+          },
+          {
+            "num": 2,
+            "red": "马二进三",
+            "red_vi": "Mã 2 tiến 3",
+            "black": "车９平８",
+            "black_vi": "Xe 9 bình 8"
+          },
+          {
+            "num": 3,
+            "red": "车一平二",
+            "red_vi": "Xe 1 bình 2",
+            "black": "卒７进１",
+            "black_vi": "Tốt 7 tiến 1"
+          },
+          {
+            "num": 4,
+            "red": "车二进六",
+            "red_vi": "Xe 2 tiến 6",
+            "black": "马２进３",
+            "black_vi": "Mã 2 tiến 3"
+          },
+          {
+            "num": 5,
+            "red": "兵七进一",
+            "red_vi": "Binh 7 tiến 1",
+            "black": "象３进５",
+            "black_vi": "Tượng 3 tiến 5"
+          },
+          {
+            "num": 6,
+            "red": "马八进七",
+            "red_vi": "Mã 8 tiến 7",
+            "black": "炮２进４",
+            "black_vi": "Pháo 2 tiến 4"
+          },
+          {
+            "num": 7,
+            "red": "车九平八",
+            "red_vi": "Xe 9 bình 8",
+            "black": "炮２平３",
+            "black_vi": "Pháo 2 bình 3"
+          },
+          {
+            "num": 8,
+            "red": "兵五进一",
+            "red_vi": "Binh 5 tiến 1",
+            "black": "车１平４",
+            "black_vi": "Xe 1 bình 4"
+          },
+          {
+            "num": 9,
+            "red": "车八进三",
+            "red_vi": "Xe 8 tiến 3",
+            "black": "炮３进３",
+            "black_vi": "Pháo 3 tiến 3"
+          },
+          {
+            "num": 10,
+            "red": "兵五进一",
+            "red_vi": "Binh 5 tiến 1 (Phế Mã Phá Cung!)",
+            "black": "",
+            "black_vi": ""
+          }
+        ],
+        "bait": "Đỏ xông Binh 5 qua hà, chấp nhận phế Mã 7 cho Pháo Đen bắt.",
+        "blunder": "Đen mải mê dùng Pháo ăn Mã Đỏ, bỏ lỏng đường trung lộ cho Binh 5 Đỏ đâm thẳng vào tim.",
+        "punishment": "Đỏ đâm Binh 5 tiến 1 chém Tốt đầu, phối hợp Pháo đầu nổ tung trung tâm, Song Xe tràn xuống chiếu bí không thể cản!",
+        "refutation": "Đen nên chuyển sang phương án Bình Pháo Đổi Xe hoặc nhảy Mã 7 tiến 6 nghênh chiến trực tiếp ở tuần hà.",
+        "lessonId": "trap_phe-quan-dinh-cao_5"
+      },
+      {
+        "trapId": "thuan-phao-khi-ma-nhap-cung",
+        "name": "Đại Thuận Pháo Khí Mã Nhập Cung Đoạt Sát",
+        "movesSummary": "1. P2-5 P8-5 2. M2.3 M8.7 3. X1-2 X9-8 4. B7.1 B7.1 5. M8.7 M2.3 6. M7.6 P2.4 7. M6.5 T7.5 8. X2.7",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "炮８平５",
+            "black_vi": "Pháo 8 bình 5"
+          },
+          {
+            "num": 2,
+            "red": "马二进三",
+            "red_vi": "Mã 2 tiến 3",
+            "black": "马８进７",
+            "black_vi": "Mã 8 tiến 7"
+          },
+          {
+            "num": 3,
+            "red": "车一平二",
+            "red_vi": "Xe 1 bình 2",
+            "black": "车９平８",
+            "black_vi": "Xe 9 bình 8"
+          },
+          {
+            "num": 4,
+            "red": "兵七进一",
+            "red_vi": "Binh 7 tiến 1",
+            "black": "卒７进１",
+            "black_vi": "Tốt 7 tiến 1"
+          },
+          {
+            "num": 5,
+            "red": "马八进七",
+            "red_vi": "Mã 8 tiến 7",
+            "black": "马２进３",
+            "black_vi": "Mã 2 tiến 3"
+          },
+          {
+            "num": 6,
+            "red": "马七进六",
+            "red_vi": "Mã 7 tiến 6",
+            "black": "炮２进４",
+            "black_vi": "Pháo 2 tiến 4"
+          },
+          {
+            "num": 7,
+            "red": "马六进五",
+            "red_vi": "Mã 6 tiến 5 (Phế Mã Nhập Cung!)",
+            "black": "象７进５",
+            "black_vi": "Tượng 7 tiến 5"
+          },
+          {
+            "num": 8,
+            "red": "车二进七",
+            "red_vi": "Xe 2 tiến 7",
+            "black": "",
+            "black_vi": ""
+          }
+        ],
+        "bait": "Đỏ phóng Mã 6 nhảy thẳng vào miệng Tượng ngũ (M6.5 phế Mã!).",
+        "blunder": "Đen tham ăn dùng Tượng 7 tiến 5 chém Mã Đỏ, làm hở sườn và rách toang trung lộ.",
+        "punishment": "Đỏ phóng Xe 2 tiến 7 đè bẹp sườn, nổ Pháo đầu xuyên tâm chiếu tướng phối hợp Xe Pháo kết liễu trận đấu!",
+        "refutation": "Đen không ăn Tượng lên Mã mà đi Sĩ 6 tiến 5 củng cố hoặc thoái Pháo 2 thoái 1 thủ chặt.",
+        "lessonId": "trap_phe-quan-dinh-cao_6"
+      },
+      {
+        "trapId": "tieu-liet-phao-khi-tuong",
+        "name": "Tiểu Liệt Pháo Khí Tượng Oanh Tạc Cửu Cung",
+        "movesSummary": "1. P2-5 P2-5 2. M2.3 M2.3 3. X1-2 M8.7 4. X2.6 B7.1 5. X2-3 T3.5 6. X3.2 P8.2",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "炮２平５",
+            "black_vi": "Pháo 2 bình 5"
+          },
+          {
+            "num": 2,
+            "red": "马二进三",
+            "red_vi": "Mã 2 tiến 3",
+            "black": "马２进３",
+            "black_vi": "Mã 2 tiến 3"
+          },
+          {
+            "num": 3,
+            "red": "车一平二",
+            "red_vi": "Xe 1 bình 2",
+            "black": "马８进７",
+            "black_vi": "Mã 8 tiến 7"
+          },
+          {
+            "num": 4,
+            "red": "车二进六",
+            "red_vi": "Xe 2 tiến 6",
+            "black": "卒７进１",
+            "black_vi": "Tốt 7 tiến 1"
+          },
+          {
+            "num": 5,
+            "red": "车二平三",
+            "red_vi": "Xe 2 bình 3",
+            "black": "象３进５",
+            "black_vi": "Tượng 3 tiến 5"
+          },
+          {
+            "num": 6,
+            "red": "车三进二",
+            "red_vi": "Xe 3 tiến 2",
+            "black": "炮８进２",
+            "black_vi": "Pháo 8 tiến 2"
+          }
+        ],
+        "bait": "Đen lên Tượng 3 tiến 5 chủ động bỏ Tượng biên 7 cho Xe Đỏ ăn.",
+        "blunder": "Đỏ tham lam phóng Xe 3 tiến 2 chém Tượng vào góc chết đáy.",
+        "punishment": "Đen dâng Pháo 8 tiến 2 khóa đường rút của Xe Đỏ, sau đó đè bẹp và bắt sống Xe đối phương.",
+        "refutation": "Đỏ tuyệt đối không ăn Tượng mà phải thoái Xe về tuần hà kiểm soát cự ly an toàn.",
+        "lessonId": "trap_phe-quan-dinh-cao_7"
+      },
+      {
+        "trapId": "thi-quan-sat-cuc-dai-su",
+        "name": "Thí Quân Sát Cục Đại Sư Thực Chiến (Hồ Vinh Hoa vs Dư Trọng Minh)",
+        "movesSummary": "1. P2-5 M8.7 2. M2.3 X9-8 3. X1-2 M2.3 4. B7.1 B7.1 5. X2.6 S4.5 6. M8.7 T3.5 7. P8-9 P2.4 8. X9-8 P2-3 9. B5.1 X1-4 10. X8.3 P3.3 11. S6.5 P3-1 12. M7.5 M7.6 13. B5.1",
+        "fen": "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w - - 0 1",
+        "moves": [
+          {
+            "num": 1,
+            "red": "炮二平五",
+            "red_vi": "Pháo 2 bình 5",
+            "black": "马８进７",
+            "black_vi": "Mã 8 tiến 7"
+          },
+          {
+            "num": 2,
+            "red": "马二进三",
+            "red_vi": "Mã 2 tiến 3",
+            "black": "车９平８",
+            "black_vi": "Xe 9 bình 8"
+          },
+          {
+            "num": 3,
+            "red": "车一平二",
+            "red_vi": "Xe 1 bình 2",
+            "black": "马２进３",
+            "black_vi": "Mã 2 tiến 3"
+          },
+          {
+            "num": 4,
+            "red": "兵七进一",
+            "red_vi": "Binh 7 tiến 1",
+            "black": "卒７进１",
+            "black_vi": "Tốt 7 tiến 1"
+          },
+          {
+            "num": 5,
+            "red": "车二进六",
+            "red_vi": "Xe 2 tiến 6",
+            "black": "士４进５",
+            "black_vi": "Sĩ 4 tiến 5"
+          },
+          {
+            "num": 6,
+            "red": "马八进七",
+            "red_vi": "Mã 8 tiến 7",
+            "black": "象３进５",
+            "black_vi": "Tượng 3 tiến 5"
+          },
+          {
+            "num": 7,
+            "red": "炮八平九",
+            "red_vi": "Pháo 8 bình 9",
+            "black": "炮２进４",
+            "black_vi": "Pháo 2 tiến 4"
+          },
+          {
+            "num": 8,
+            "red": "车九平八",
+            "red_vi": "Xe 9 bình 8",
+            "black": "炮２平３",
+            "black_vi": "Pháo 2 bình 3"
+          },
+          {
+            "num": 9,
+            "red": "兵五进一",
+            "red_vi": "Binh 5 tiến 1",
+            "black": "车１平４",
+            "black_vi": "Xe 1 bình 4"
+          },
+          {
+            "num": 10,
+            "red": "车八进三",
+            "red_vi": "Xe 8 tiến 3",
+            "black": "炮３进３",
+            "black_vi": "Pháo 3 tiến 3"
+          },
+          {
+            "num": 11,
+            "red": "仕六进五",
+            "red_vi": "Sĩ 6 tiến 5",
+            "black": "炮３平１",
+            "black_vi": "Pháo 3 bình 1"
+          },
+          {
+            "num": 12,
+            "red": "马七进五",
+            "red_vi": "Mã 7 tiến 5",
+            "black": "马７进６",
+            "black_vi": "Mã 7 tiến 6"
+          },
+          {
+            "num": 13,
+            "red": "兵五进一",
+            "red_vi": "Binh 5 tiến 1 (Phế Quân Đoạt Thế!)",
+            "black": "",
+            "black_vi": ""
+          }
+        ],
+        "bait": "Kỳ thánh Hồ Vinh Hoa chủ động bỏ Mã lộ 7 để mở toang trung lộ cho Binh 5 xông pha.",
+        "blunder": "Đen tập trung ăn quân ở cánh mà không lường trước sức tàn phá của Binh 5 và Pháo đầu.",
+        "punishment": "Hồ Vinh Hoa thúc Binh 5 xuyên phá, phối hợp Xe Pháo Mã tạo nên đòn thí quân sát cục kinh điển rạng danh kỳ đàn.",
+        "refutation": "Cần phong tỏa ngay đường tiến của Binh 5, dùng Xe 4 tiến sâu kiềm tỏa từ sớm.",
+        "lessonId": "trap_phe-quan-dinh-cao_8"
+      }
+    ],
+    "lessonCount": 84
   }
 ];
 

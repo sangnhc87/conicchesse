@@ -56,7 +56,7 @@ export default function OpeningStudyModal({
                 </span>
               </div>
               <p className="text-xs text-gray-400 hidden sm:block">
-                Khẩu quyết đối kháng • 10 Hệ thống thế trận lớn • Nhử mồi • Sập bẫy • Đòn trừng phạt & Hóa giải chuẩn xác
+                Khẩu quyết đối kháng • 11 Hệ thống thế trận & Chuyên đề Phế Quân Đỉnh Cao • Nhử mồi • Sập bẫy • Trừng phạt & Hóa giải
               </p>
             </div>
           </div>
