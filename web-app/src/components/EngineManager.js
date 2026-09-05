@@ -22,7 +22,8 @@ import {
   makeMove,
   isInCheck,
   parseFen,
-  getLegalMoves
+  getLegalMoves,
+  uciToMove
 } from './XiangqiLogic.js';
 
 import { invoke as tauriInvoke } from '@tauri-apps/api/core';
@@ -325,9 +326,13 @@ class EngineManagerService {
 
         if (data && data.candidates && data.candidates.length > 0) {
           return data.candidates.map(cand => {
-            const viFull = cand.move ? moveToVietnameseFull(board, cand.move, turn) : '';
-            const viShort = cand.move ? moveToVietnamese(board, cand.move, turn) : '';
-            const cnMove = cand.move ? moveToChinese(board, cand.move, turn) : '';
+            let parsedMove = cand.move;
+            if (typeof cand.move === 'string') {
+               parsedMove = uciToMove(cand.move, data.engineFamily || 'pikafish');
+            }
+            const viFull = parsedMove ? moveToVietnameseFull(board, parsedMove, turn) : '';
+            const viShort = parsedMove ? moveToVietnamese(board, parsedMove, turn) : '';
+            const cnMove = parsedMove ? moveToChinese(board, parsedMove, turn) : '';
             const normalizedScore = turn === 'black' ? -(cand.score || 0) : (cand.score || 0);
             return {
               ...cand,
@@ -441,7 +446,8 @@ class EngineManagerService {
           t = t === 'red' ? 'black' : 'red';
           // Trace PV line nếu có
           if (bestCand.pv && Array.isArray(bestCand.pv)) {
-            for (const pvMove of bestCand.pv) {
+            for (const pvItem of bestCand.pv) {
+              const pvMove = typeof pvItem === 'object' && pvItem.move ? pvItem.move : pvItem;
               if (!pvMove || getLegalMoves(b, t).length === 0) break;
               moves.push({
                 move: pvMove,

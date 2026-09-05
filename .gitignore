@@ -28,3 +28,4 @@ scripts/engines/
 *.nnue
 *.bin
 *.exe
+scripts/cache/

@@ -244,7 +244,7 @@ export default function StudyPanel({
               {lesson?.title || 'Đang tải thế cờ...'}
             </h2>
             <span className="text-[9px] px-2 py-0.5 rounded-full bg-gradient-to-r from-red-600/30 to-amber-600/30 text-amber-300 border border-amber-500/40 font-bold flex-shrink-0">
-              {tacticalBadge || (hasMoves ? `${moves.length} Hiệp` : 'Kỳ Phổ')}
+              {tacticalBadge || (lesson?.moveCount ? `⚡ ${lesson.moveCount} Nước Bí` : (hasMoves ? `${moves.length} Hiệp` : 'Kỳ Phổ'))}
             </span>
           </div>
         </div>

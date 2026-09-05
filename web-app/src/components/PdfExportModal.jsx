@@ -25,6 +25,7 @@ export default function PdfExportModal({
   const [namingStyle, setNamingStyle] = useState('topic_num'); // 'topic_num', 'topic_code', 'topic_only'
   const [bookTitle, setBookTitle] = useState('KỲ PHỔ CỜ TƯỚNG CONIC');
   const [bookSubtitle, setBookSubtitle] = useState('Tuyển Tập Nghiên Cứu & Luyện Tập Khai - Trung - Tàn Cuộc');
+  const [mateFilter, setMateFilter] = useState('all'); // 'all', '2', '3', '4', '5', '6', '7', '8', '9', '10', '2_4', '5_7', '8_10'
   
   // Smart Quantity & Custom Range
   const [quantityPreset, setQuantityPreset] = useState('all'); // 'all', '6', '12', '18', '24', '50', 'custom'
@@ -101,7 +102,7 @@ export default function PdfExportModal({
   }, [folderListWithCounts, selectedFolder, currentLesson]);
 
   // All items in the selected folder (handles both top-level category and subfolders)
-  const itemsInSelectedFolder = useMemo(() => {
+  const rawItemsInSelectedFolder = useMemo(() => {
     if (!selectedFolder) return catalogItems;
     if (selectedFolder.startsWith('ALL::')) {
       const parentName = selectedFolder.replace('ALL::', '');
@@ -110,7 +111,20 @@ export default function PdfExportModal({
     return catalogItems.filter(item => item.folderPath?.join(' / ') === selectedFolder);
   }, [catalogItems, selectedFolder]);
 
-  // Update default range and title when selected folder changes
+  // Filter items by Mate-in-N if active
+  const itemsInSelectedFolder = useMemo(() => {
+    if (mateFilter === 'all') return rawItemsInSelectedFolder;
+    if (mateFilter === '2_4') return rawItemsInSelectedFolder.filter(i => (i.moveCount >= 2 && i.moveCount <= 4));
+    if (mateFilter === '5_7') return rawItemsInSelectedFolder.filter(i => (i.moveCount >= 5 && i.moveCount <= 7));
+    if (mateFilter === '8_10') return rawItemsInSelectedFolder.filter(i => (i.moveCount >= 8 && i.moveCount <= 10));
+    const targetN = parseInt(mateFilter, 10);
+    if (!isNaN(targetN)) {
+      return rawItemsInSelectedFolder.filter(i => i.moveCount === targetN);
+    }
+    return rawItemsInSelectedFolder;
+  }, [rawItemsInSelectedFolder, mateFilter]);
+
+  // Update default range and title when selected folder or mate filter changes
   useEffect(() => {
     const total = itemsInSelectedFolder.length;
     setRangeStart(1);
@@ -118,11 +132,27 @@ export default function PdfExportModal({
 
     if (selectedFolder) {
       const cleanName = selectedFolder.replace(/^ALL::/, '').replace(/^\d+\.\s*/, '').trim();
-      if (cleanName) {
-        setBookTitle(`KỲ PHỔ CONIC • ${cleanName.toUpperCase()}`);
+      let title = `KỲ PHỔ CONIC • ${cleanName.toUpperCase()}`;
+      if (mateFilter !== 'all') {
+        const mateLabels = {
+          '2': '2 NƯỚC BÍ (LƯỠNG BỘ SÁT)',
+          '3': '3 NƯỚC BÍ (TAM BỘ SÁT)',
+          '4': '4 NƯỚC BÍ (TỨ BỘ SÁT)',
+          '5': '5 NƯỚC BÍ (NGŨ BỘ SÁT)',
+          '6': '6 NƯỚC BÍ (LỤC BỘ SÁT)',
+          '7': '7 NƯỚC BÍ (THẤT BỘ SÁT)',
+          '8': '8 NƯỚC BÍ (BÁT BỘ SÁT)',
+          '9': '9 NƯỚC BÍ (CỬU BỘ SÁT)',
+          '10': '10 NƯỚC BÍ (THẬP BỘ SÁT)',
+          '2_4': '2 - 4 NƯỚC BÍ (NHẬP MÔN & CĂN BẢN)',
+          '5_7': '5 - 7 NƯỚC BÍ (TRUNG CẤP)',
+          '8_10': '8 - 10 NƯỚC BÍ (ĐẠI SƯ LIÊN HOÀN SÁT)'
+        };
+        title = `KỲ PHỔ CONIC • CHUYÊN ĐỀ SÁT PHÁP ${mateLabels[mateFilter] || ''}`;
       }
+      setBookTitle(title);
     }
-  }, [selectedFolder, itemsInSelectedFolder.length]);
+  }, [selectedFolder, mateFilter, itemsInSelectedFolder.length]);
 
   const getExportFilename = () => {
     let cleanFolder = 'Co_Tuong';
@@ -570,6 +600,46 @@ export default function PdfExportModal({
                         </option>
                       ))}
                     </select>
+                  </div>
+
+                  {/* Mate Depth Filter (Lọc theo số nước bí) */}
+                  <div className="bg-[#151924] p-2.5 rounded-xl border border-amber-500/30">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="text-[11px] font-bold text-amber-300 flex items-center gap-1">
+                        <span>⚡ Lọc Sát Cục Theo Số Nước:</span>
+                      </label>
+                      {mateFilter !== 'all' && (
+                        <button
+                          onClick={() => setMateFilter('all')}
+                          className="text-[10px] text-gray-400 hover:text-amber-400 underline"
+                        >
+                          Xóa lọc
+                        </button>
+                      )}
+                    </div>
+                    <select
+                      value={mateFilter}
+                      onChange={(e) => setMateFilter(e.target.value)}
+                      className="w-full bg-[#0d1017] border border-amber-500/50 rounded-lg px-2 py-1.5 text-xs text-amber-200 font-bold focus:outline-none focus:border-amber-400"
+                    >
+                      <option value="all">⚡ Tất cả số nước (Không lọc)</option>
+                      <option value="2">🎯 2 Nước Bí (Lưỡng bộ sát)</option>
+                      <option value="3">🎯 3 Nước Bí (Tam bộ sát)</option>
+                      <option value="4">🎯 4 Nước Bí (Tứ bộ sát)</option>
+                      <option value="5">🎯 5 Nước Bí (Ngũ bộ sát)</option>
+                      <option value="6">🎯 6 Nước Bí (Lục bộ sát)</option>
+                      <option value="7">🎯 7 Nước Bí (Thất bộ sát)</option>
+                      <option value="8">🎯 8 Nước Bí (Bát bộ sát)</option>
+                      <option value="9">🎯 9 Nước Bí (Cửu bộ sát)</option>
+                      <option value="10">🎯 10 Nước Bí (Thập bộ sát)</option>
+                      <option value="2_4">📚 Dải 2 - 4 Nước Bí (Nhập Môn & Căn Bản)</option>
+                      <option value="5_7">📚 Dải 5 - 7 Nước Bí (Trung Cấp)</option>
+                      <option value="8_10">📚 Dải 8 - 10 Nước Bí (Đại Sư Liên Hoàn Sát)</option>
+                    </select>
+                    <div className="mt-1 text-[10px] text-gray-400 flex items-center justify-between">
+                      <span>Khớp bộ lọc: <strong className="text-amber-300">{itemsInSelectedFolder.length}</strong> bài</span>
+                      {mateFilter !== 'all' && <span className="text-emerald-400">Đang bật lọc</span>}
+                    </div>
                   </div>
 
                   {/* Quantity & Range Selector */}

@@ -333,6 +333,71 @@ export default function AnalysisPanel({
         </button>
       </div>
 
+      {/* Bottom Sandbox Navigation Toolbar */}
+      <div className="p-3 bg-[#171b26] border-t border-[#262c3b] space-y-2">
+        {/* Step Navigation Controls */}
+        <div className="flex items-center justify-between gap-1.5">
+          <button
+            onClick={onFirstMove}
+            disabled={historyIndex === 0}
+            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center"
+            title="Về nước đầu tiên"
+          >
+            <SkipBack className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            onClick={onUndoMove}
+            disabled={historyIndex === 0}
+            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center gap-1 text-xs font-bold"
+            title="Lùi 1 nước (Undo)"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Lùi</span>
+          </button>
+
+          <button
+            onClick={onRedoMove}
+            disabled={historyIndex >= moveHistory.length}
+            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center gap-1 text-xs font-bold"
+            title="Tiến 1 nước (Redo)"
+          >
+            <span className="hidden sm:inline">Tiến</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+
+          <button
+            onClick={onLastMove}
+            disabled={historyIndex >= moveHistory.length}
+            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center"
+            title="Đến nước cuối cùng"
+          >
+            <SkipForward className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Global Game Actions */}
+        <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#232a3d]">
+          {onOpenEditor && (
+            <button
+              onClick={onOpenEditor}
+              className="flex-1 py-1.5 px-2 rounded-xl bg-[#1c2233] hover:bg-[#273047] text-cyan-300 font-bold text-xs flex items-center justify-center gap-1 border border-cyan-500/30 transition-all"
+            >
+              <span>🧩 Xếp Cờ</span>
+            </button>
+          )}
+
+          <button
+            onClick={onResetGame}
+            className="flex-1 py-1.5 px-2 rounded-xl bg-[#1c2233] hover:bg-red-950/50 text-gray-300 hover:text-red-300 font-bold text-xs flex items-center justify-center gap-1 border border-gray-700 transition-all"
+          >
+            <RotateCcw className="w-3 h-3" />
+            <span>Ván Mới</span>
+          </button>
+        </div>
+      </div>
+    
+
       {/* Main Tab Content */}
       <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-[#0a0d14] custom-scrollbar">
         {/* ================= TAB 1: CANDIDATES (MULTI-PV) ================= */}
@@ -1027,69 +1092,6 @@ export default function AnalysisPanel({
         )}
       </div>
 
-      {/* Bottom Sandbox Navigation Toolbar */}
-      <div className="p-3 bg-[#171b26] border-t border-[#262c3b] space-y-2">
-        {/* Step Navigation Controls */}
-        <div className="flex items-center justify-between gap-1.5">
-          <button
-            onClick={onFirstMove}
-            disabled={historyIndex === 0}
-            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center"
-            title="Về nước đầu tiên"
-          >
-            <SkipBack className="w-3.5 h-3.5" />
-          </button>
-
-          <button
-            onClick={onUndoMove}
-            disabled={historyIndex === 0}
-            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center gap-1 text-xs font-bold"
-            title="Lùi 1 nước (Undo)"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Lùi</span>
-          </button>
-
-          <button
-            onClick={onRedoMove}
-            disabled={historyIndex >= moveHistory.length}
-            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center gap-1 text-xs font-bold"
-            title="Tiến 1 nước (Redo)"
-          >
-            <span className="hidden sm:inline">Tiến</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-
-          <button
-            onClick={onLastMove}
-            disabled={historyIndex >= moveHistory.length}
-            className="p-2 rounded-xl bg-[#222838] hover:bg-[#2d364a] text-gray-300 disabled:opacity-30 transition-colors flex-1 flex items-center justify-center"
-            title="Đến nước cuối cùng"
-          >
-            <SkipForward className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* Global Game Actions */}
-        <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#232a3d]">
-          {onOpenEditor && (
-            <button
-              onClick={onOpenEditor}
-              className="flex-1 py-1.5 px-2 rounded-xl bg-[#1c2233] hover:bg-[#273047] text-cyan-300 font-bold text-xs flex items-center justify-center gap-1 border border-cyan-500/30 transition-all"
-            >
-              <span>🧩 Xếp Cờ</span>
-            </button>
-          )}
-
-          <button
-            onClick={onResetGame}
-            className="flex-1 py-1.5 px-2 rounded-xl bg-[#1c2233] hover:bg-red-950/50 text-gray-300 hover:text-red-300 font-bold text-xs flex items-center justify-center gap-1 border border-gray-700 transition-all"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Ván Mới</span>
-          </button>
-        </div>
       </div>
-    </div>
   );
 }
