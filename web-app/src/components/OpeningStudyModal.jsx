@@ -214,16 +214,30 @@ export default function OpeningStudyModal({
 
                       <div className="flex items-center gap-2 flex-shrink-0">
                         {onSelectLesson && trap.lessonId && (
-                          <button
-                            onClick={() => {
-                              onSelectLesson(trap.lessonId);
-                              onClose();
-                            }}
-                            className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-950 font-black text-xs shadow-md flex items-center gap-1.5 transition-all active:scale-95"
-                          >
-                            <Target className="w-3.5 h-3.5" />
-                            <span>Vào Luyện Bài Này</span>
-                          </button>
+                          <>
+                            <button
+                              onClick={() => {
+                                onSelectLesson(trap.lessonId);
+                                onClose();
+                              }}
+                              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-bold text-xs shadow-md flex items-center gap-1.5 transition-all active:scale-95 shadow-red-950/40"
+                              title="Thực chiến sập bẫy và tung đòn trừng phạt"
+                            >
+                              <Flame className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                              <span>⚡ Luyện Sập Bẫy</span>
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                onSelectLesson(trap.lessonId);
+                                onClose();
+                              }}
+                              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-950 font-black text-xs shadow-md flex items-center gap-1.5 transition-all active:scale-95"
+                            >
+                              <Target className="w-3.5 h-3.5" />
+                              <span>Vào Luyện Bài Này</span>
+                            </button>
+                          </>
                         )}
 
                         {onOpenAnalysisWithFen && trap.fen && (

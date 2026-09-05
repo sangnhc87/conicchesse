@@ -6,7 +6,7 @@ import {
   Compass, ArrowLeft, Sparkles, Award, Swords, Bot, CheckCircle2,
   AlertTriangle, Undo2, Plus, Database, UploadCloud, Cpu, Zap, Flame, Settings2,
   FolderTree, Maximize2, Minimize2, PanelLeftClose, PanelLeftOpen, PanelRightClose, PanelRightOpen,
-  PanelTopClose, PanelTopOpen, ChevronDown, ChevronUp, Radar, Eye, Crosshair, ChevronsLeft, ChevronsRight
+  PanelTopClose, PanelTopOpen, ChevronDown, ChevronUp, Radar, Eye, Crosshair, ChevronsLeft, ChevronsRight, Stethoscope
 } from 'lucide-react';
 
 import XiangqiBoard from './components/XiangqiBoard';
@@ -21,6 +21,8 @@ import DatabaseImportModal from './components/DatabaseImportModal';
 import EngineSettingsModal from './components/EngineSettingsModal';
 import CheckmateSolverModal from './components/CheckmateSolverModal';
 import OpeningStudyModal from './components/OpeningStudyModal';
+import PuzzleRushModal from './components/PuzzleRushModal';
+import GameReviewModal from './components/GameReviewModal';
 import TrainingPanel from './components/TrainingPanel';
 import ChessAppModule from './chess/ChessAppModule';
 import { PuzzlesData } from './data/PuzzlesData';
@@ -97,6 +99,8 @@ export default function App() {
 
   // Modals & Panels
   const [isEngineModalOpen, setIsEngineModalOpen] = useState(false);
+  const [isPuzzleRushOpen, setIsPuzzleRushOpen] = useState(false);
+  const [isGameReviewOpen, setIsGameReviewOpen] = useState(false);
   const [trainingBoard, setTrainingBoard] = useState(null);
   const [trainingTurn, setTrainingTurn] = useState('red');
   const [trainingSelectedSquare, setTrainingSelectedSquare] = useState(null);
@@ -1323,9 +1327,27 @@ export default function App() {
               }`}
             >
               <Compass className="w-3.5 h-3.5" />
-              <span>Phân Tích 2 Bên & Pikafish</span>
+              <span>Phân Tích & Pikafish</span>
             </button>
           )}
+
+          <button
+            onClick={() => setIsPuzzleRushOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-red-300 hover:text-white bg-gradient-to-r from-red-950/70 to-orange-950/50 hover:from-red-900/80 hover:to-orange-900/70 border border-red-500/50 transition-all shadow-sm active:scale-95"
+            title="Đấu trường sát pháp tốc độ: 3 Phút Sinh Tử"
+          >
+            <Zap className="w-3.5 h-3.5 text-red-400 animate-pulse" />
+            <span>⚡ Sát Pháp Tốc Độ</span>
+          </button>
+
+          <button
+            onClick={() => setIsGameReviewOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-cyan-300 hover:text-white bg-gradient-to-r from-cyan-950/70 to-blue-950/50 hover:from-cyan-900/80 hover:to-blue-900/70 border border-cyan-500/50 transition-all shadow-sm active:scale-95"
+            title="Bác Sĩ Cờ Tướng: Khám bệnh ván cờ, chẩn đoán sai lầm & biểu đồ lợi thế"
+          >
+            <Stethoscope className="w-3.5 h-3.5 text-cyan-400" />
+            <span>🩺 Bác Sĩ Cờ Tướng</span>
+          </button>
 
         </div>
 
@@ -1399,6 +1421,22 @@ export default function App() {
               {/* Tools */}
               <div className="p-2 border-b border-[#262e42] space-y-1">
                 <div className="text-[10px] text-gray-500 uppercase font-bold mb-2 px-2 mt-1">CÔNG CỤ HỖ TRỢ</div>
+                
+                <button
+                  onClick={() => { setIsPuzzleRushOpen(true); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
+                >
+                  <Zap className="w-4 h-4 text-red-400 animate-pulse" />
+                  <span className="text-sm font-semibold text-red-300">⚡ Sát Pháp Tốc Độ (Puzzle Rush)</span>
+                </button>
+
+                <button
+                  onClick={() => { setIsGameReviewOpen(true); setIsTopMenuOpen(false); }}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#1c2233] transition-colors group"
+                >
+                  <Stethoscope className="w-4 h-4 text-cyan-400" />
+                  <span className="text-sm font-semibold text-cyan-300">🩺 Bác Sĩ Cờ Tướng (Game Review)</span>
+                </button>
                 
                 <button
                   onClick={() => { setIsEditorOpen(true); setIsTopMenuOpen(false); }}
@@ -1865,6 +1903,26 @@ export default function App() {
           setAnalysisCustomFen(fen);
           setAppMode('analysis');
         }}
+      />
+
+      {/* Puzzle Rush (3 Phút Sinh Tử) Modal */}
+      <PuzzleRushModal
+        isOpen={isPuzzleRushOpen}
+        onClose={() => setIsPuzzleRushOpen(false)}
+        pieceLanguage={pieceLanguage}
+        isMuted={isMuted}
+        onToggleMute={() => {
+          const m = sound.toggleMute();
+          setIsMuted(m);
+        }}
+      />
+
+      {/* Game Doctor (Bác Sĩ Cờ Tướng) Modal */}
+      <GameReviewModal
+        isOpen={isGameReviewOpen}
+        onClose={() => setIsGameReviewOpen(false)}
+        currentLesson={currentLesson}
+        pieceLanguage={pieceLanguage}
       />
     </div>
   );
