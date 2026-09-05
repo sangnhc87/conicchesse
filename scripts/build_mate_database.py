@@ -3,6 +3,7 @@
 """
 Build and integrate Mate-in-N (2 - 10 moves) Puzzles & World Xiangqi Databases
 into Kỳ Đài Conic (Conic Chess Platform).
+Enriched with exact Mate-in-N labels, Pikafish NNUE analysis, and deep classification.
 """
 
 import os
@@ -116,10 +117,18 @@ def build_recursive_tree(items):
     return root
 
 def main():
-    print("🚀 Bắt đầu khởi tạo Hệ Thống CSDL Sát Pháp 2 - 10 Nước Bí...")
+    print("🚀 Bắt đầu cập nhật Hệ Thống CSDL Sát Pháp 2 - 10 Nước Bí (Enriched)...")
     data_dir = os.path.abspath("web-app/public/data")
     cache_dir = os.path.abspath("scripts/cache")
     
+    # Load analysis cache from Pikafish NNUE
+    analysis_cache_path = os.path.join(cache_dir, "analyzed_mates_cache.json")
+    analysis_cache = {}
+    if os.path.exists(analysis_cache_path):
+        with open(analysis_cache_path, "r", encoding="utf-8") as f:
+            analysis_cache = json.load(f)
+        print(f"✓ Đã nạp {len(analysis_cache)} kết quả phân tích số nước bí từ Pikafish NNUE.")
+
     manifest_path = os.path.join(data_dir, "chunks_manifest.json")
     if not os.path.exists(manifest_path):
         print(f"❌ Không tìm thấy {manifest_path}. Cần chạy export_web_data.py trước.")
@@ -128,9 +137,8 @@ def main():
     with open(manifest_path, "r", encoding="utf-8") as f:
         existing_manifest = json.load(f)
         
-    # 1. Load all existing parsed items from chunks
-    print("📦 Đang tải các bài hiện có trong repo...")
-    loaded_chunks = {}
+    # 1. Load original 4230 parsed items from chunks
+    print("📦 Đang tải các bài gốc hiện có...")
     existing_items = []
     chunk_files = sorted(list(set(existing_manifest.values())))
     
@@ -139,9 +147,21 @@ def main():
         if os.path.exists(cpath):
             with open(cpath, "r", encoding="utf-8") as f:
                 cdata = json.load(f)
-                existing_items.extend(cdata)
+                # Only keep original items (filter out previously injected curated/world items to avoid duplication)
+                for it in cdata:
+                    it_id = it.get("id", "")
+                    if not it_id.startswith("curated_mate_") and not it_id.startswith("wukong_") and not it_id.startswith("sqyq_") and not it_id.startswith("mrsj_") and not it_id.startswith("jianghu_") and not it_id.startswith("basic_") and not it_id.startswith("adv_") and not it_id.startswith("ext_"):
+                        existing_items.append(it)
                 
-    print(f"✓ Đã tải {len(existing_items)} bài hiện có trong repo.")
+    # Deduplicate existing_items by id
+    seen_ids = set()
+    dedup_existing = []
+    for it in existing_items:
+        if it["id"] not in seen_ids:
+            seen_ids.add(it["id"])
+            dedup_existing.append(it)
+    existing_items = dedup_existing
+    print(f"✓ Đã lọc chuẩn xác {len(existing_items)} bài gốc ban đầu.")
     
     # 2. Extract curated 2-10 Move Checkmates from existing items
     print("🎯 Đang phân loại 2.022 bài 2 - 10 nước bí thành Giáo trình Luyện công...")
@@ -171,7 +191,7 @@ def main():
             ]
             curated_items.append(curated_item)
             
-    print(f"✓ Đã phân loại {len(curated_items)} bài tập từ 2 đến 10 nước bí theo từng cấp độ.")
+    print(f"✓ Đã phân loại {len(curated_items)} bài tập từ 2 đến 10 nước bí.")
 
     # 3. Load World Tournament Puzzles (Wukong Xiangqi Master Games)
     world_items = []
@@ -206,8 +226,9 @@ def main():
                 continue
                 
             p_id = f"wukong_mate_{mc}_{idx+1}"
-            first_line = desc.split("\n")[0] if desc else f"Thế cờ #{idx+1}"
-            clean_title = f"Thế cờ #{idx+1} ({first_line})"
+            first_line = desc.split("\n")[0] if desc else f"Thế #{idx+1}"
+            # Clear label in title so users know the moves immediately
+            clean_title = f"[{mc} Nước Bí] #{idx+1} ({first_line})"
             
             world_items.append({
                 "id": p_id,
@@ -231,29 +252,60 @@ def main():
                 "moves": [],
                 "moveCount": mc
             })
-        print(f"✓ Đã nạp thành công {len(world_items)} bài tập từ Giải Đấu Thế Giới.")
+        print(f"✓ Đã nạp thành công {len(world_items)} bài tập từ Giải Đấu Thế Giới có nhãn rõ ràng.")
+
+    # Helper function to get analyzed mate depth and format title
+    def format_analyzed_puzzle(raw_name, fen, default_mc, default_label="Liên Hoàn Sát"):
+        fen_norm = normalize_fen(fen)
+        cached = analysis_cache.get(fen_norm)
+        mate_n = cached.get("mate") if cached else None
+        
+        if mate_n and mate_n > 0:
+            tag = f"[{mate_n} Nước Bí]"
+            mc = mate_n
+        else:
+            tag = f"[{default_label}]"
+            mc = default_mc
+            
+        vi_base = translate_cn_title(raw_name)
+        full_title = f"{tag} {vi_base}"
+        return full_title, mc, mate_n
 
     # 4. Load Shi Qing Ya Qu (Thích Tình Nhã Thú - 550 thế liên hoàn sát)
     sqyq_path = os.path.join(cache_dir, "shi-qing-ya-qu.json")
     if os.path.exists(sqyq_path):
-        print("📜 Đang nạp Cổ Phổ Kinh Điển 《Thích Tình Nhã Thú》 (550 Cục Liên Hoàn Sát)...")
+        print("📜 Đang nạp Cổ Phổ Kinh Điển 《Thích Tình Nhã Thú》 và phân loại theo số nước bí...")
         with open(sqyq_path, "r", encoding="utf-8") as f:
             sqyq_raw = json.load(f)
             
         for idx, p in enumerate(sqyq_raw):
             raw_name = p.get("name", f"Cục {idx+1}")
-            vi_title = translate_cn_title(raw_name)
             fen = normalize_fen(p.get("fen", ""))
             p_id = f"sqyq_{idx+1}"
             
+            full_title, mc, mate_n = format_analyzed_puzzle(raw_name, fen, default_mc=8, default_label="Liên Hoàn Sát")
+            
+            # Subfolder organization by mate depth
+            if mate_n and mate_n <= 4:
+                sub_folder = "• Thích Tình Nhã Thú (2 - 4 Nước Bí)"
+            elif mate_n and 5 <= mate_n <= 6:
+                sub_folder = "• Thích Tình Nhã Thú (5 - 6 Nước Bí)"
+            elif mate_n and 7 <= mate_n <= 8:
+                sub_folder = "• Thích Tình Nhã Thú (7 - 8 Nước Bí)"
+            elif mate_n and 9 <= mate_n <= 10:
+                sub_folder = "• Thích Tình Nhã Thú (9 - 10 Nước Bí)"
+            else:
+                sub_folder = "• Thích Tình Nhã Thú (Liên Hoàn Sát Đỉnh Cao)"
+            
             world_items.append({
                 "id": p_id,
-                "title": vi_title,
+                "title": full_title,
                 "rawTitle": raw_name,
                 "filename": f"sqyq_{idx+1}",
                 "folderPath": [
                     "🌍 CSDL CỜ TƯỚNG THẾ GIỚI - SÁT PHÁP ĐỈNH CAO",
-                    "01. Cổ Phổ Kinh Điển - Thích Tình Nhã Thú (550 Thế Liên Hoàn Sát)"
+                    "01. Cổ Phổ Kinh Điển - Thích Tình Nhã Thú (550 Thế Liên Hoàn Sát)",
+                    sub_folder
                 ],
                 "sourceFile": "Cổ Phổ Thích Tình Nhã Thú (Xu Zhi, 1570)",
                 "fen": fen,
@@ -264,11 +316,11 @@ def main():
                 "date": "1570",
                 "site": "Trung Hoa Cổ Đại",
                 "result": "1-0",
-                "comment": f"Danh tác cổ phổ 《Thích Tình Nhã Thú》 - Thế cờ liên hoàn sát tuyệt đỉnh.\n{raw_name}",
+                "comment": f"Danh tác cổ phổ 《Thích Tình Nhã Thú》.\n{raw_name}",
                 "moves": [],
-                "moveCount": 5 # Default average depth for Shi Qing Ya Qu
+                "moveCount": mc
             })
-        print(f"✓ Đã nạp {len(sqyq_raw)} thế cờ Thích Tình Nhã Thú.")
+        print(f"✓ Đã phân loại {len(sqyq_raw)} thế cờ Thích Tình Nhã Thú theo từng dải nước bí.")
 
     # 5. Load Meng Ru Shen Ji (Mộng Nhập Thần Cơ)
     mrsj_path = os.path.join(cache_dir, "meng-ru-shen-ji.json")
@@ -279,13 +331,14 @@ def main():
             
         for idx, p in enumerate(mrsj_raw):
             raw_name = p.get("name", f"Cục {idx+1}")
-            vi_title = translate_cn_title(raw_name)
             fen = normalize_fen(p.get("fen", ""))
             p_id = f"mrsj_{idx+1}"
             
+            full_title, mc, mate_n = format_analyzed_puzzle(raw_name, fen, default_mc=7, default_label="Thần Kỳ Sát")
+            
             world_items.append({
                 "id": p_id,
-                "title": vi_title,
+                "title": full_title,
                 "rawTitle": raw_name,
                 "filename": f"mrsj_{idx+1}",
                 "folderPath": [
@@ -303,11 +356,11 @@ def main():
                 "result": "1-0",
                 "comment": f"Cổ phổ 《Mộng Nhập Thần Cơ》.\n{raw_name}",
                 "moves": [],
-                "moveCount": 6
+                "moveCount": mc
             })
-        print(f"✓ Đã nạp {len(mrsj_raw)} thế cờ Mộng Nhập Thần Cơ.")
+        print(f"✓ Đã nạp {len(mrsj_raw)} thế cờ Mộng Nhập Thần Cơ có nhãn nước bí.")
 
-    # 6. Load Jianghu Endgames (Giang Hồ Tàn Cuộc)
+    # 6. Load Jianghu Endgames & Extremely Challenging
     jh_path = os.path.join(cache_dir, "jianghu-endgames.json")
     if os.path.exists(jh_path):
         print("⚔️ Đang nạp Giang Hồ Tàn Cuộc Tuyệt Kỹ...")
@@ -316,13 +369,14 @@ def main():
             
         for idx, p in enumerate(jh_raw):
             raw_name = p.get("name", f"Cục {idx+1}")
-            vi_title = translate_cn_title(raw_name)
             fen = normalize_fen(p.get("fen", ""))
             p_id = f"jianghu_{idx+1}"
             
+            full_title, mc, mate_n = format_analyzed_puzzle(raw_name, fen, default_mc=6, default_label="Cạm Bẫy Giang Hồ")
+            
             world_items.append({
                 "id": p_id,
-                "title": vi_title,
+                "title": full_title,
                 "rawTitle": raw_name,
                 "filename": f"jianghu_{idx+1}",
                 "folderPath": [
@@ -340,9 +394,47 @@ def main():
                 "result": "1-0",
                 "comment": f"Giang Hồ Tàn Cuộc Tuyệt Kỹ Cạm Bẫy.\n{raw_name}",
                 "moves": [],
-                "moveCount": 6
+                "moveCount": mc
             })
-        print(f"✓ Đã nạp {len(jh_raw)} thế cờ Giang Hồ Tàn Cuộc.")
+
+    # Extremely Challenging Endgames
+    ext_path = os.path.join(cache_dir, "extremely-challenging-endgames.json")
+    if os.path.exists(ext_path):
+        print("⚡ Đang nạp Cực Phẩm Hiểm Cục Giang Hồ...")
+        with open(ext_path, "r", encoding="utf-8") as f:
+            ext_raw = json.load(f)
+            
+        for idx, p in enumerate(ext_raw):
+            raw_name = p.get("name", f"Hiểm Cục {idx+1}")
+            fen = normalize_fen(p.get("fen", ""))
+            p_id = f"ext_mate_{idx+1}"
+            
+            full_title, mc, mate_n = format_analyzed_puzzle(raw_name, fen, default_mc=8, default_label="Cực Hiểm Sát")
+            
+            world_items.append({
+                "id": p_id,
+                "title": full_title,
+                "rawTitle": raw_name,
+                "filename": f"ext_{idx+1}",
+                "folderPath": [
+                    "🌍 CSDL CỜ TƯỚNG THẾ GIỚI - SÁT PHÁP ĐỈNH CAO",
+                    "03. Giang Hồ Tàn Cuộc Sát Pháp Tuyệt Kỹ",
+                    "• Cực Phẩm Cạm Bẫy Giang Hồ"
+                ],
+                "sourceFile": "Cực Phẩm Cờ Thế Giang Hồ",
+                "fen": fen,
+                "red": "Tiên Thắng",
+                "redTeam": "",
+                "black": "",
+                "blackTeam": "",
+                "date": "",
+                "site": "",
+                "result": "1-0",
+                "comment": f"Thế cờ tàn giang hồ cực kỳ hiểm trở và biến hóa sâu sắc.\n{raw_name}",
+                "moves": [],
+                "moveCount": mc
+            })
+        print(f"✓ Đã nạp {len(ext_raw)} thế cờ Giang Hồ Cực Hiểm.")
 
     # 7. Load Basic 28 Checkmates
     bc_path = os.path.join(cache_dir, "basic-checkmates.json")
@@ -353,13 +445,14 @@ def main():
             
         for idx, p in enumerate(bc_raw):
             raw_name = p.get("name", f"Đòn #{idx+1}")
-            vi_title = translate_cn_title(raw_name)
             fen = normalize_fen(p.get("fen", ""))
             p_id = f"basic_mate_{idx+1}"
             
+            full_title, mc, mate_n = format_analyzed_puzzle(raw_name, fen, default_mc=4, default_label="Sát Căn Bản")
+            
             world_items.append({
                 "id": p_id,
-                "title": vi_title,
+                "title": full_title,
                 "rawTitle": raw_name,
                 "filename": f"basic_{idx+1}",
                 "folderPath": [
@@ -377,9 +470,9 @@ def main():
                 "result": "1-0",
                 "comment": f"28 Đòn Phối Hợp Sát Pháp Binh Chủng.\n{raw_name}",
                 "moves": [],
-                "moveCount": 3
+                "moveCount": mc
             })
-        print(f"✓ Đã nạp {len(bc_raw)} thế cờ Sát Pháp Căn Bản.")
+        print(f"✓ Đã nạp {len(bc_raw)} thế cờ Sát Pháp Căn Bản có nhãn nước bí.")
 
     # 8. Load Advanced Checkmates
     ac_path = os.path.join(cache_dir, "advanced-checkmates.json")
@@ -390,13 +483,14 @@ def main():
             
         for idx, p in enumerate(ac_raw):
             raw_name = p.get("name", f"Thế #{idx+1}")
-            vi_title = translate_cn_title(raw_name)
             fen = normalize_fen(p.get("fen", ""))
             p_id = f"adv_mate_{idx+1}"
             
+            full_title, mc, mate_n = format_analyzed_puzzle(raw_name, fen, default_mc=5, default_label="Sát Nâng Cao")
+            
             world_items.append({
                 "id": p_id,
-                "title": vi_title,
+                "title": full_title,
                 "rawTitle": raw_name,
                 "filename": f"adv_{idx+1}",
                 "folderPath": [
@@ -414,16 +508,16 @@ def main():
                 "result": "1-0",
                 "comment": f"Sát Pháp Thực Chiến Nâng Cao.\n{raw_name}",
                 "moves": [],
-                "moveCount": 5
+                "moveCount": mc
             })
-        print(f"✓ Đã nạp {len(ac_raw)} thế cờ Sát Pháp Nâng Cao.")
+        print(f"✓ Đã nạp {len(ac_raw)} thế cờ Sát Pháp Nâng Cao có nhãn nước bí.")
 
     # 9. Combine all items
     all_items = existing_items + curated_items + world_items
     print(f"\n🎉 TỔNG SỐ THẾ CỜ TOÀN HỆ THỐNG: {len(all_items):,} bài!")
     print(f"   - Bài gốc sẵn có: {len(existing_items):,}")
     print(f"   - Giáo trình 2-10 nước bí tuyển chọn: {len(curated_items):,}")
-    print(f"   - CSDL Cờ Tướng Thế Giới bổ sung: {len(world_items):,}")
+    print(f"   - CSDL Cờ Tướng Thế Giới (Enriched & Classified): {len(world_items):,}")
 
     # Build Tree
     print("🌲 Đang tái cấu trúc Cây Thư Mục & Catalog...")
