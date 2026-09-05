@@ -1505,3 +1505,105 @@ export function deriveEngineTacticalRadar(board, turn = 'red', candidates = [], 
   };
 }
 
+export function detectOpeningPattern(board, moves = []) {
+  if (!board || !Array.isArray(board) || board.length !== 10) return null;
+
+  // Check piece positions for opening classification
+  const rCannonCol = [];
+  const bCannonCol = [];
+  const rHorseCol = [];
+  const bHorseCol = [];
+
+  for (let r = 0; r < 10; r++) {
+    for (let c = 0; c < 9; c++) {
+      const p = board[r][c];
+      if (p === 'C') rCannonCol.push({ r, c });
+      if (p === 'c') bCannonCol.push({ r, c });
+      if (p === 'N') rHorseCol.push({ r, c });
+      if (p === 'n') bHorseCol.push({ r, c });
+    }
+  }
+
+  // 1. Pháo Đầu (Trung Pháo)
+  const isRedCentralCannon = rCannonCol.some(cp => cp.c === 4);
+  const isBlackCentralCannon = bCannonCol.some(cp => cp.c === 4);
+
+  // Black Horses for BPM or PCM or DDM
+  const isBlackScreenHorses = (
+    bHorseCol.some(hp => hp.r === 2 && (hp.c === 2 || hp.c === 6)) &&
+    bHorseCol.length >= 2
+  );
+
+  const isBlackHalfTuckedHorse = (
+    bHorseCol.some(hp => hp.c === 0 || hp.c === 8) &&
+    bHorseCol.some(hp => hp.c === 2 || hp.c === 6)
+  );
+
+  // Red Elephant opening
+  const isRedElephantOpening = board[7][4] === 'B' || board[5][4] === 'B';
+
+  // 1. Thuận Pháo
+  if (isRedCentralCannon && isBlackCentralCannon) {
+    return {
+      name: '🎯 THUẬN THỦ PHÁO (ĐẠI CHIẾN CÔNG CÔNG)',
+      maxim: 'Thuận Pháo hoành xa phá trực xa, tiên thủ đắc lợi chiếm hà pha.\nChớ tham đè mã lâm nguy hiểm, cẩn thận quá cung phục sát hoa!',
+      strategicKey: 'Xuất Xe thần tốc, Hoành Xe chiếm lộ sườn 4-6, Trực Xe tuần hà. Chú ý bẫy cấp tiến tốt lâm đè mã!',
+      trapWarning: '⚠️ CẢNH BÁO BẪY: Đừng vội vàng lao Xe đè Mã khi chưa xuất quân đồng đều, dễ bị Pháo đối phương tuần hà giăng lưới bắt chết Xe.'
+    };
+  }
+
+  // 2. Nghịch Pháo / Liệt Pháo
+  if ((isRedCentralCannon && !isBlackCentralCannon && bCannonCol.some(cp => cp.c === 4 || cp.c === 5 || cp.c === 3)) ||
+      (moves.some(m => (m.red_vi && m.red_vi.includes('Pháo 2 bình 5') && m.black_vi && m.black_vi.includes('Pháo 2 bình 5'))))) {
+    return {
+      name: '🎯 NGHỊCH THỦ PHÁO & LIỆT PHÁO (SÁT KHÍ NGHỊCH CHUYỂN)',
+      maxim: 'Liệt Pháo công tâm sát khí nồng, đôi bên quyết tử chẳng khoan nhượng.\nQuất Trung Bí truyền mưu khí tượng, hãm xe góc chết rạng kỳ phong!',
+      strategicKey: 'Tấn công trực diện vào cánh Tượng và trung cung của đối phương. Tốc độ xuất quân quyết định sinh tử.',
+      trapWarning: '⚠️ CẢNH BÁO BẪY: Cẩn thận đòn Tiểu Liệt Pháo Khí Tượng Hãm Xe từ Cổ Phổ Quất Trung Bí — tham ăn Tượng biên sẽ bị bắt sống Xe đáy!'
+    };
+  }
+
+  // 3. Trung Pháo Đối Bình Phong Mã
+  if (isRedCentralCannon && isBlackScreenHorses) {
+    return {
+      name: '🎯 TRUNG PHÁO ĐỐI BÌNH PHONG MÃ (ĐỈNH CAO ĐỐI KHÁNG)',
+      maxim: 'Pháo đầu quá hà xe tiến công, Bình Phong Mã nhảy giữ trung cung.\nTả pháo phong xe triệt lộ tiến, hữu mã bàn hà phục bão bùng!',
+      strategicKey: 'Bình Phong Mã dùng Nhu Thắng Cương, hai Mã giữ chặt trung lộ, dùng Tả Pháo phong xe và Hữu Mã bàn hà phản công.',
+      trapWarning: '⚠️ CẢNH BÁO BẪY: Cẩn thận bẫy Phế Mã Hãm Xe — khi Đen chủ động thoái Mã về cung là lúc cạm bẫy bắt chết Xe Đỏ đã mở ra!'
+    };
+  }
+
+  // 4. Trung Pháo Đối Phản Cung Mã
+  if (isRedCentralCannon && isBlackHalfTuckedHorse) {
+    return {
+      name: '🎯 TRUNG PHÁO ĐỐI PHẢN CUNG MÃ (NHU THẮNG CƯƠNG)',
+      maxim: 'Phản Cung Mã trận biến khôn lường, hai pháo kẹp sườn thủ bốn phương.\nSĩ tượng kiên cố chờ cơ hội, song pháo quá hà phá kỷ cương!',
+      strategicKey: 'Một Mã trung tâm, một Mã nhảy biên. Tận dụng Song Pháo vượt sông kiềm tỏa Xe Mã đối phương.',
+      trapWarning: '⚠️ CẢNH BÁO BẪY: Đỏ chớ nôn nóng xông Xe vào sâu sườn Phản Cung Mã kẻo bị Song Pháo quá hà phong tỏa phản sát.'
+    };
+  }
+
+  // 5. Phi Tượng Cuộc
+  if (isRedElephantOpening) {
+    return {
+      name: '🎯 PHI TƯỢNG CUỘC (VỮNG NHƯ THÁI SƠN)',
+      maxim: 'Phi Tượng khai đài thế vững vàng, dĩ nhu khắc cương trấn bốn bang.\nTrung tâm kiên cố phòng pháo kích, hai cánh linh hoạt đón xe sang!',
+      strategicKey: 'Xây chắc phòng tuyến trung lộ, che chắn cung Tướng rồi điều quân bao vây các mũi xâm nhập của địch.',
+      trapWarning: '⚠️ CẢNH BÁO BẪY: Đen chớ vội vàng phi Xe quá hà sâu, dễ rơi vào cạm bẫy Pháo tuần hà vây bắt chết Xe của Phi Tượng.'
+    };
+  }
+
+  // 6. Tiên Nhân Chỉ Lộ / Đối Binh Cuộc
+  if (board[6][2] === null && board[5][2] === 'P' || board[6][6] === null && board[5][6] === 'P') {
+    return {
+      name: '🎯 TIÊN NHÂN CHỈ LỘ (MỞ ĐƯỜNG DẪN LỐI)',
+      maxim: 'Tiên Nhân Chỉ Lộ biến vô cùng, thăm dò ý địch chuyển thần thông.\nThốt để pháo sang phòng phế mã, kim câu pháo quấy khó thành công!',
+      strategicKey: 'Linh hoạt biến hóa, quan sát hướng đi của đối phương để chuyển sang Trung Pháo, Phi Tượng hoặc Khởi Mã thích hợp.',
+      trapWarning: '⚠️ CẢNH BÁO BẪY: Gặp Thốt Để Pháo, Đỏ chuyển Trung Pháo phế Mã nhập cung cực kỳ hung hiểm, Đen chớ tham ăn quân!'
+    };
+  }
+
+  return null;
+}
+
+

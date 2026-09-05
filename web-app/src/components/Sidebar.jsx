@@ -230,7 +230,7 @@ export default function Sidebar({
               <h1 className="text-xs font-bold text-gray-100 uppercase tracking-wider">Cây Dữ Liệu Kỳ Phổ</h1>
               <div className="flex items-center gap-1.5 text-[10.5px]">
                 <span className="text-amber-400 font-medium">
-                  {items.length ? `${items.length.toLocaleString('vi-VN')} Bài` : '11.155 Bài'}
+                  {items.length ? `${items.length.toLocaleString('vi-VN')} Bài` : '11.462 Bài'}
                 </span>
                 <span className="text-gray-500">•</span>
                 <span className="text-emerald-400 font-semibold">Đã học: {completedLessons.length}</span>

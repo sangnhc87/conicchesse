@@ -10,7 +10,7 @@ import {
 import { sound } from './AudioEngine';
 import { solvePuzzleSequence, getBestMove, evaluateBoard, analyzeStrategicOptions } from './XiangqiAI';
 import { engineManager } from './EngineManager';
-import { analyzePositionProsCons, detectEndgamePattern } from './XiangqiLogic';
+import { analyzePositionProsCons, detectEndgamePattern, detectOpeningPattern } from './XiangqiLogic';
 import { storageGet, storageSet } from '../lib/safeStorage.js';
 
 export default function StudyPanel({
@@ -208,6 +208,12 @@ export default function StudyPanel({
   const hasMoves = moves.length > 0;
 
   const tacticalBadge = useMemo(() => {
+    if (lesson?.openingMeta || lesson?.folderPath?.some(p => p.includes('KHAI CỤC'))) {
+      if (lesson?.title?.includes('Cạm Bẫy') || lesson?.openingMeta?.trapName) {
+        return '⚠️ Cạm Bẫy Khai Cục';
+      }
+      return '🎯 Khai Cục Chuyên Sâu';
+    }
     if (puzzleAnalysis?.isCheckmateWin && puzzleAnalysis?.redMoveCount) {
       return `${puzzleAnalysis.redMoveCount} Nước Bí`;
     }
@@ -218,7 +224,7 @@ export default function StudyPanel({
       return `${puzzleAnalysis.redMoveCount} Nước Bí`;
     }
     return 'Thế Cờ Tàn';
-  }, [puzzleAnalysis, hasMoves, moves]);
+  }, [puzzleAnalysis, hasMoves, moves, lesson]);
 
   const handleMainPlayToggle = () => {
     if (!hasMoves && puzzleAnalysis?.formattedMoves?.length > 0) {
@@ -746,21 +752,96 @@ export default function StudyPanel({
                 </div>
               );
             })()}
+
+            {/* Master Opening Theory & Maxim Card */}
+            {(() => {
+              const op = detectOpeningPattern(activeBoard, moves);
+              if (!op) return null;
+              return (
+                <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#161c2b] to-[#111522] border border-cyan-500/40 shadow-lg text-[11px] space-y-2.5">
+                  <div className="flex items-center gap-2 text-cyan-300 font-black text-xs border-b border-cyan-500/20 pb-1.5">
+                    <Target className="w-4 h-4 text-cyan-400" />
+                    <span>{op.name}</span>
+                  </div>
+                  <div className="text-amber-200 leading-relaxed font-serif italic bg-amber-950/20 p-2.5 rounded-xl border border-amber-500/30 whitespace-pre-line">
+                    <span className="text-amber-400 font-bold not-italic">📜 Khẩu Quyết Đối Kháng: </span>
+                    {op.maxim}
+                  </div>
+                  <div className="text-gray-300 leading-relaxed">
+                    <span className="text-cyan-400 font-bold">💡 Chiến Lược Cốt Lõi: </span>
+                    {op.strategicKey}
+                  </div>
+                  <div className="text-red-300/90 leading-relaxed bg-red-950/20 p-2 rounded-xl border border-red-500/30 font-sans">
+                    {op.trapWarning}
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         )}
 
-        {/* Tab 3: Commentary */}
+        {/* Tab 3: Commentary & Opening Traps Breakdown */}
         {activeTab === 'commentary' && (
-          <div className="space-y-3 text-xs text-gray-300 leading-relaxed font-sans">
-            {lesson?.commentary ? (
-              <div className="p-4 rounded-2xl bg-[#121622] border border-[#262e40] whitespace-pre-wrap">
-                {lesson.commentary}
+          <div className="space-y-3.5 text-xs text-gray-300 leading-relaxed font-sans">
+            {/* Dedicated Opening Meta Card */}
+            {lesson?.openingMeta && (
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-[#151b2a] via-[#101420] to-[#151b2a] border border-amber-500/40 shadow-xl space-y-3">
+                <div className="flex items-center gap-2 border-b border-amber-500/20 pb-2">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <span className="text-sm font-black text-amber-300 font-serif">
+                    {lesson.openingMeta.trapName || lesson.title}
+                  </span>
+                </div>
+
+                {lesson.openingMeta.maxim && (
+                  <div className="p-3 rounded-xl bg-amber-950/30 border border-amber-500/30 text-amber-200 font-serif italic whitespace-pre-line">
+                    <span className="text-amber-400 font-bold not-italic">📜 Khẩu Quyết: </span>
+                    {lesson.openingMeta.maxim}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 gap-2.5 text-[11px]">
+                  {lesson.openingMeta.bait && (
+                    <div className="p-2.5 rounded-xl bg-amber-950/20 border border-amber-500/20">
+                      <span className="text-amber-300 font-bold">⚠️ Nước Dẫn Dụ & Giăng Bẫy: </span>
+                      <span className="text-gray-200">{lesson.openingMeta.bait}</span>
+                    </div>
+                  )}
+
+                  {lesson.openingMeta.blunder && (
+                    <div className="p-2.5 rounded-xl bg-red-950/20 border border-red-500/20">
+                      <span className="text-red-300 font-bold">❌ Sai Lầm Của Đối Phương: </span>
+                      <span className="text-gray-200">{lesson.openingMeta.blunder}</span>
+                    </div>
+                  )}
+
+                  {lesson.openingMeta.punishment && (
+                    <div className="p-2.5 rounded-xl bg-purple-950/20 border border-purple-500/20">
+                      <span className="text-purple-300 font-bold">⚡ Đòn Trừng Phạt Chí Mạng: </span>
+                      <span className="text-gray-200">{lesson.openingMeta.punishment}</span>
+                    </div>
+                  )}
+
+                  {lesson.openingMeta.refutation && (
+                    <div className="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20">
+                      <span className="text-emerald-300 font-bold">🛡️ Cách Đối Phó & Hóa Giải Chuẩn: </span>
+                      <span className="text-gray-200">{lesson.openingMeta.refutation}</span>
+                    </div>
+                  )}
+                </div>
               </div>
-            ) : (
+            )}
+
+            {/* Standard Commentary or Rich Comment */}
+            {(lesson?.commentary || lesson?.comment) ? (
+              <div className="p-4 rounded-2xl bg-[#121622] border border-[#262e40] whitespace-pre-wrap leading-relaxed">
+                {lesson.commentary || lesson.comment}
+              </div>
+            ) : (!lesson?.openingMeta && (
               <div className="text-center py-8 text-gray-500 italic">
                 Không có bình chú gốc cho bài này. Bấm nút "🧠 Khẩu Quyết & Sư Phụ AI" ở trên để Sư Phụ AI phân tích cặn kẽ!
               </div>
-            )}
+            ))}
           </div>
         )}
 

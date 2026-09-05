@@ -20,6 +20,7 @@ import BoardEditorModal from './components/BoardEditorModal';
 import DatabaseImportModal from './components/DatabaseImportModal';
 import EngineSettingsModal from './components/EngineSettingsModal';
 import CheckmateSolverModal from './components/CheckmateSolverModal';
+import OpeningStudyModal from './components/OpeningStudyModal';
 import TrainingPanel from './components/TrainingPanel';
 import ChessAppModule from './chess/ChessAppModule';
 import { PuzzlesData } from './data/PuzzlesData';
@@ -136,6 +137,7 @@ export default function App() {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
   const [isSolverModalOpen, setIsSolverModalOpen] = useState(false);
+  const [isOpeningModalOpen, setIsOpeningModalOpen] = useState(false);
 
   const handleOpenSolver = () => {
     if (!engineState.isNativeActive) {
@@ -1302,6 +1304,15 @@ export default function App() {
             <span>Nghiên Cứu Kỳ Phổ</span>
           </button>
 
+          <button
+            onClick={() => setIsOpeningModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-amber-300 hover:text-white bg-gradient-to-r from-amber-950/70 to-yellow-950/50 hover:from-amber-900/80 hover:to-yellow-900/70 border border-amber-500/50 transition-all shadow-sm active:scale-95"
+            title="Cẩm nang nghiên cứu khai cục, khẩu quyết đối kháng & cạm bẫy toàn tập"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+            <span>📖 Cẩm Nang Khai Cục & Cạm Bẫy</span>
+          </button>
+
           {!isKidMode && (
             <button
               onClick={() => setAppMode('analysis')}
@@ -1843,6 +1854,17 @@ export default function App() {
         onClose={() => setIsSolverModalOpen(false)}
         initialBoard={activeBoard}
         initialTurn={activeTurn}
+      />
+
+      {/* Opening Theory & Trap Master Modal */}
+      <OpeningStudyModal
+        isOpen={isOpeningModalOpen}
+        onClose={() => setIsOpeningModalOpen(false)}
+        onSelectLesson={handleSelectLesson}
+        onOpenAnalysisWithFen={(fen) => {
+          setAnalysisCustomFen(fen);
+          setAppMode('analysis');
+        }}
       />
     </div>
   );
